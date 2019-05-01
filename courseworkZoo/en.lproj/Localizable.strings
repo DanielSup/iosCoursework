@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  courseworkZoo
+
+  Created by Daniel Šup on 01/05/2019.
+  Copyright © 2019 Daniel Šup. All rights reserved.
+*/
+
+"welcome" = "Welcome in the application.";
+"here" = "You are here.";

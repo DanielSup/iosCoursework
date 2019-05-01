@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36842284AC7704A71EF232A0 /* Pods_courseworkZoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */; };
+		4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E10C6FC2279921900CB6821 /* Localizable.strings */; };
 		4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80CF2274E11900B5E194 /* AppDelegate.swift */; };
 		4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80D12274E11900B5E194 /* ViewController.swift */; };
 		4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D32274E11A00B5E194 /* Main.storyboard */; };
@@ -15,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.debug.xcconfig"; sourceTree = "<group>"; };
+		4E10C6FB2279921900CB6821 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4E10C6FD2279923E00CB6821 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E2D80CC2274E11900B5E194 /* courseworkZoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courseworkZoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E2D80CF2274E11900B5E194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E2D80D12274E11900B5E194 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,8 @@
 		4E2D80D62274E13A00B5E194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E2D80D92274E13A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2D80DB2274E13A00B5E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courseworkZoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.release.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +36,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36842284AC7704A71EF232A0 /* Pods_courseworkZoo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E10C6F322798A8F00CB6821 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E10C6F422798AB300CB6821 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4E10C6F522798ABF00CB6821 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4E2D80C32274E11800B5E194 = {
 			isa = PBXGroup;
 			children = (
 				4E2D80CE2274E11900B5E194 /* courseworkZoo */,
 				4E2D80CD2274E11900B5E194 /* Products */,
+				C014CA5AAB35D6DDA17D49CF /* Pods */,
+				76214DEAFEAD80C2F7F18AD0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +85,35 @@
 		4E2D80CE2274E11900B5E194 /* courseworkZoo */ = {
 			isa = PBXGroup;
 			children = (
+				4E10C6F522798ABF00CB6821 /* ViewModel */,
+				4E10C6F422798AB300CB6821 /* Service */,
+				4E10C6F322798A8F00CB6821 /* Model */,
 				4E2D80CF2274E11900B5E194 /* AppDelegate.swift */,
 				4E2D80D12274E11900B5E194 /* ViewController.swift */,
 				4E2D80D32274E11A00B5E194 /* Main.storyboard */,
 				4E2D80D62274E13A00B5E194 /* Assets.xcassets */,
 				4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */,
 				4E2D80DB2274E13A00B5E194 /* Info.plist */,
+				4E10C6FC2279921900CB6821 /* Localizable.strings */,
 			);
 			path = courseworkZoo;
+			sourceTree = "<group>";
+		};
+		76214DEAFEAD80C2F7F18AD0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C014CA5AAB35D6DDA17D49CF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */,
+				736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +123,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E2D80DE2274E13A00B5E194 /* Build configuration list for PBXNativeTarget "courseworkZoo" */;
 			buildPhases = (
+				4A8E673611D16B34240FAD42 /* [CP] Check Pods Manifest.lock */,
 				4E2D80C82274E11900B5E194 /* Sources */,
 				4E2D80C92274E11900B5E194 /* Frameworks */,
 				4E2D80CA2274E11900B5E194 /* Resources */,
+				7863148C818D57F84A802793 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -106,6 +160,7 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
 			);
 			mainGroup = 4E2D80C32274E11800B5E194;
 			productRefGroup = 4E2D80CD2274E11900B5E194 /* Products */;
@@ -123,12 +178,64 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */,
+				4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */,
 				4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */,
 				4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4A8E673611D16B34240FAD42 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-courseworkZoo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7863148C818D57F84A802793 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4E2D80C82274E11900B5E194 /* Sources */ = {
@@ -143,6 +250,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		4E10C6FC2279921900CB6821 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E10C6FB2279921900CB6821 /* en */,
+				4E10C6FD2279923E00CB6821 /* cs */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		4E2D80D32274E11A00B5E194 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -166,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -213,7 +330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -227,6 +344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -268,7 +386,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -280,6 +398,7 @@
 		};
 		4E2D80DF2274E13A00B5E194 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +417,7 @@
 		};
 		4E2D80E02274E13A00B5E194 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

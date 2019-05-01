@@ -1,0 +1,6 @@
+framework module Pods_courseworkZoo {
+  umbrella header "Pods-courseworkZoo-umbrella.h"
+
+  export *
+  module * { export * }
+}
