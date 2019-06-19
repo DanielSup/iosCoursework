@@ -8,3 +8,21 @@
 
 "welcome" = "Vitejte v aplikaci.";
 "here" = "Jste zde.";
+"europe" = "Evropa";
+"asia" = "Asie";
+"africa" = "Afrika";
+"southAmerica" = "Jižní Amerika";
+"northAmerica" = "Severní Amerika";
+"australia" = "Austrálie";
+"notInNature" = "V přírodě se nevyskytuje.";
+"actinopterygii" = "Actinopterygii";
+"chondrichthyes" = "Paryby";
+"amphibia" = "Pavoukovci";
+"arachnida" = "Arachnida";
+"diplopda" = "Diplopoda";
+"insecta" = "Hmyz";
+"mollusca" = "Mollusca";
+"mammalia" = "Savci";
+"otherInvertebrate" = "Other invertebrate";
+"reptilia" = "Plazi";
+"aves" = "Aves";

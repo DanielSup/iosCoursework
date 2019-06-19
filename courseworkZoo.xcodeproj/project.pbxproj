@@ -8,18 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		36842284AC7704A71EF232A0 /* Pods_courseworkZoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */; };
+		4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01D56822B930BE00CE4552 /* LoadError.swift */; };
+		4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */; };
+		4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */; };
+		4E09264A22B79876001BEAED /* Actuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264922B79876001BEAED /* Actuality.swift */; };
+		4E09264C22B79968001BEAED /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264B22B79968001BEAED /* SpeechService.swift */; };
+		4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */; };
+		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
+		4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69C22B37EB100831DDB /* Constants.swift */; };
+		4E0EB69F22B3870600831DDB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69E22B3870600831DDB /* String.swift */; };
+		4E0EBAF722B4E8FA003D9CD1 /* LocalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */; };
+		4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */; };
 		4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E10C6FC2279921900CB6821 /* Localizable.strings */; };
+		4E14844D22B7D19F0018A823 /* Coords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14844C22B7D19F0018A823 /* Coords.swift */; };
+		4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D2227DADD300D41EDA /* AnimalRepository.swift */; };
+		4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */; };
 		4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80CF2274E11900B5E194 /* AppDelegate.swift */; };
 		4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80D12274E11900B5E194 /* ViewController.swift */; };
 		4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D32274E11A00B5E194 /* Main.storyboard */; };
 		4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D62274E13A00B5E194 /* Assets.xcassets */; };
 		4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */; };
+		4E806576227CCAF6006A312A /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E806575227CCAF6006A312A /* Animal.swift */; };
+		4E86DAD1227D7ECE00F78027 /* AnimalKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */; };
+		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
+		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
+		4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD6227D99FD00F78027 /* Locality.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.debug.xcconfig"; sourceTree = "<group>"; };
+		4E01D56822B930BE00CE4552 /* LoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadError.swift; path = courseworkZoo/Model/LoadError.swift; sourceTree = SOURCE_ROOT; };
+		4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListViewController.swift; sourceTree = "<group>"; };
+		4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
+		4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info_preprocess_header.h; sourceTree = "<group>"; };
+		4E09264922B79876001BEAED /* Actuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuality.swift; sourceTree = "<group>"; };
+		4E09264B22B79968001BEAED /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechService.swift; path = courseworkZoo/Model/SpeechService.swift; sourceTree = SOURCE_ROOT; };
+		4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalViewModel.swift; path = courseworkZoo/Model/AnimalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0AA4B62288630E00398D53 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = SOURCE_ROOT; };
+		4E0EB69C22B37EB100831DDB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
+		4E0EB69E22B3870600831DDB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = SOURCE_ROOT; };
+		4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalityViewModel.swift; path = courseworkZoo/Model/LocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewModel.swift; path = courseworkZoo/Model/BaseViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E10C6FB2279921900CB6821 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E10C6FD2279923E00CB6821 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4E14844C22B7D19F0018A823 /* Coords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coords.swift; sourceTree = "<group>"; };
+		4E2609D2227DADD300D41EDA /* AnimalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRepository.swift; sourceTree = SOURCE_ROOT; };
+		4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityRepository.swift; sourceTree = SOURCE_ROOT; };
 		4E2D80CC2274E11900B5E194 /* courseworkZoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courseworkZoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E2D80CF2274E11900B5E194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E2D80D12274E11900B5E194 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +61,11 @@
 		4E2D80D62274E13A00B5E194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E2D80D92274E13A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2D80DB2274E13A00B5E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E806575227CCAF6006A312A /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = SOURCE_ROOT; };
+		4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKind.swift; sourceTree = SOURCE_ROOT; };
+		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
+		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
+		4E86DAD6227D99FD00F78027 /* Locality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locality.swift; sourceTree = SOURCE_ROOT; };
 		711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courseworkZoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.release.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +85,13 @@
 		4E10C6F322798A8F00CB6821 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E806575227CCAF6006A312A /* Animal.swift */,
+				4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */,
+				4E86DAD2227D7F2A00F78027 /* Continent.swift */,
+				4E86DAD4227D99E800F78027 /* LocalityType.swift */,
+				4E86DAD6227D99FD00F78027 /* Locality.swift */,
+				4E09264922B79876001BEAED /* Actuality.swift */,
+				4E14844C22B7D19F0018A823 /* Coords.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -53,6 +99,13 @@
 		4E10C6F422798AB300CB6821 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4E2609D2227DADD300D41EDA /* AnimalRepository.swift */,
+				4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */,
+				4E0AA4B62288630E00398D53 /* APIService.swift */,
+				4E0EB69C22B37EB100831DDB /* Constants.swift */,
+				4E0EB69E22B3870600831DDB /* String.swift */,
+				4E09264B22B79968001BEAED /* SpeechService.swift */,
+				4E01D56822B930BE00CE4552 /* LoadError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -60,6 +113,9 @@
 		4E10C6F522798ABF00CB6821 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */,
+				4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */,
+				4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -95,6 +151,9 @@
 				4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */,
 				4E2D80DB2274E13A00B5E194 /* Info.plist */,
 				4E10C6FC2279921900CB6821 /* Localizable.strings */,
+				4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */,
+				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
+				4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */,
 			);
 			path = courseworkZoo;
 			sourceTree = "<group>";
@@ -123,6 +182,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E2D80DE2274E13A00B5E194 /* Build configuration list for PBXNativeTarget "courseworkZoo" */;
 			buildPhases = (
+				4E04B7F022BA50DA00349FA0 /* Generate version number */,
 				4A8E673611D16B34240FAD42 /* [CP] Check Pods Manifest.lock */,
 				4E2D80C82274E11900B5E194 /* Sources */,
 				4E2D80C92274E11900B5E194 /* Frameworks */,
@@ -209,6 +269,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4E04B7F022BA50DA00349FA0 /* Generate version number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate version number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "BUILD_NUMBER=$(cat \"courseworkZoo/info_preprocess_header.h\" | tail -n 1 | cut -d' ' -f3)\nBUILD_NUMBER=$((BUILD_NUMBER + 1))\necho \"#define BUILD_NUMBER $BUILD_NUMBER\" > \"courseworkZoo/info_preprocess_header.h\"\ntouch $INFOPLIST_FILE\n";
+		};
 		7863148C818D57F84A802793 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,8 +320,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */,
+				4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */,
+				4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */,
 				4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */,
+				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
+				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
+				4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */,
+				4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */,
+				4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */,
+				4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */,
+				4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */,
+				4E09264C22B79968001BEAED /* SpeechService.swift in Sources */,
+				4E0EB69F22B3870600831DDB /* String.swift in Sources */,
+				4E0EBAF722B4E8FA003D9CD1 /* LocalityViewModel.swift in Sources */,
 				4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */,
+				4E09264A22B79876001BEAED /* Actuality.swift in Sources */,
+				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
+				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
+				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
+				4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */,
+				4E86DAD1227D7ECE00F78027 /* AnimalKind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +501,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 34792P2FZY;
 				INFOPLIST_FILE = courseworkZoo/Info.plist;
+				INFOPLIST_PREFIX_HEADER = courseworkZoo/info_preprocess_header.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -423,6 +522,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 34792P2FZY;
 				INFOPLIST_FILE = courseworkZoo/Info.plist;
+				INFOPLIST_PREFIX_HEADER = courseworkZoo/info_preprocess_header.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

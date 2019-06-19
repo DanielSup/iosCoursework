@@ -8,3 +8,22 @@
 
 "welcome" = "Welcome in the application.";
 "here" = "You are here.";
+"europe" = "Europe";
+"asia" = "Asia";
+"africa" = "Africa";
+"southAmerica" = "South America";
+"northAmerica" = "North America";
+"australia" = "Australia";
+"notInNature" = "This animal does not live in nature.";
+"actinopterygii" = "Actinopterygii";
+"chondrichthyes" = "Chondrichthyes";
+"amphibia" = "Amphibia";
+"arachnida" = "Arachnida";
+"diplopda" = "Diplopoda";
+"insecta" = "Insecta";
+"mollusca" = "Mollusca";
+"mammalia" = "Mammalia";
+"otherInvertebrate" = "Other invertebrate";
+"reptilia" = "Reptilia";
+"aves" = "Aves";
+
