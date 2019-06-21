@@ -11,9 +11,11 @@ import MapKit
 import SnapKit
 import ReactiveSwift
 
+
 class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    private var localityViewModel: LocalityViewModel
-    private var animalViewModel: AnimalViewModel
+    private var localityViewModel: LocalityViewModelling
+    private var animalViewModel: AnimalViewModelling
+    weak var flowDelegate: GoToAnimalListDelegate?
     
     private weak var zooPlanMapView: MKMapView!
     private weak var setVisibilityOfTextButton: UIButton!
@@ -23,15 +25,15 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     private var lastAnnotation: MKAnnotation = MKPointAnnotation()
     let locationManager = CLLocationManager()
     
-    init(localityViewModel: LocalityViewModel, animalViewModel: AnimalViewModel){
+    init(localityViewModel: LocalityViewModelling, animalViewModel: AnimalViewModelling){
         self.localityViewModel = localityViewModel
         self.animalViewModel = animalViewModel
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.localityViewModel = LocalityViewModel(localityRepository: LocalityRepository(), speechService: SpeechService(language: Locale.current.identifier))
-        self.animalViewModel = AnimalViewModel(animalRepository: AnimalRepository(), speechService: SpeechService(language: Locale.current.identifier))
+        self.localityViewModel = LocalityViewModel(dependencies: AppDependency.shared)
+        self.animalViewModel = AnimalViewModel(dependencies: AppDependency.shared)
         super.init()
     }
     
@@ -66,6 +68,18 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             (make) in
             make.left.equalTo(versionLabel.snp.right)
             make.bottom.equalTo(versionLabel.snp.bottom)
+            make.height.equalTo(50)
+        }
+        
+        let goToAnimalListButton = UIButton()
+        goToAnimalListButton.setTitle("Seznam zvirat", for: .normal)
+        goToAnimalListButton.setTitleColor(.black, for: .normal)
+        goToAnimalListButton.addTarget(self, action: #selector(goToAnimalListTapped(_:)), for: .touchUpInside)
+        view.addSubview(goToAnimalListButton)
+        goToAnimalListButton.snp.makeConstraints{
+            (make) in
+            make.right.equalTo(view)
+            make.bottom.equalTo(view)
             make.height.equalTo(50)
         }
         
@@ -132,7 +146,6 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             }
         }
     self.animalViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
-            print(animal)
             self.animalViewModel.sayInformationAboutAnimal(animal: animal)
             
         }
@@ -164,6 +177,12 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         }
     }
 
+    @objc
+    private func goToAnimalListTapped(_ sender: UIButton){
+        print("Go to animal list tapped")
+        print(flowDelegate)
+        flowDelegate?.goToAnimalListTapped(in: self)
+    }
 
 }
 

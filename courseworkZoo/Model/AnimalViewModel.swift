@@ -10,9 +10,17 @@ import UIKit
 import MapKit
 import ReactiveSwift
 
-class AnimalViewModel: BaseViewModel {
-    fileprivate var animalRepository: AnimalRepository
-    fileprivate var speechService: SpeechService
+protocol AnimalViewModelling{
+    var animalInClosenessAction: Action<(), Animal?, LoadError> { get }
+    var getAllAnimalsAction: Action<(), [Animal], LoadError> { get }
+    var getAnimalsAction: Action<(), [Animal], LoadError> { get }
+    func updateLocation(latitude: Double, longitude: Double)
+    func sayInformationAboutAnimal(animal: Animal?)
+}
+
+class AnimalViewModel: BaseViewModel, AnimalViewModelling {
+    typealias Dependencies = HasAnimalRepository & HasSpeechService
+    private var dependencies: Dependencies
     private var animals = MutableProperty<[Animal]>([])
     private var latitude = MutableProperty<Double>(-1)
     private var longitude = MutableProperty<Double>(-1)
@@ -20,7 +28,7 @@ class AnimalViewModel: BaseViewModel {
     lazy var animalInClosenessAction = Action<(), Animal?, LoadError> { [unowned self] in
         if let animals = self.animals.value as? [Animal]
         {
-            return self.animalRepository.findAnimalInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
+            return self.dependencies.animalRepository.findAnimalInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
         } else {
             return SignalProducer<Animal?, LoadError>(error: .noAnimals)
         }
@@ -28,8 +36,8 @@ class AnimalViewModel: BaseViewModel {
     
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
-        self.animalRepository.reload()
-        if let animals = self.animalRepository.animals.value as? [Animal]  {
+        self.dependencies.animalRepository.reload()
+        if let animals = self.dependencies.animalRepository.animals.value as? [Animal]  {
             return SignalProducer<[Animal], LoadError>(value: animals)
         } else {
             return SignalProducer<[Animal], LoadError>(error: .noAnimals)
@@ -38,9 +46,8 @@ class AnimalViewModel: BaseViewModel {
     
     lazy var getAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
-        print("Animal action")
-        self.animalRepository.reload()
-        if let animals = self.animalRepository.animals.value as? [Animal]  {
+        self.dependencies.animalRepository.reload()
+        if let animals = self.dependencies.animalRepository.animals.value as? [Animal]  {
             var newAnimals: [Animal] = []
             for animal in animals{
                 if(animal.latitude < 0){
@@ -54,10 +61,9 @@ class AnimalViewModel: BaseViewModel {
         }
     }
     
-    init(animalRepository: AnimalRepository, speechService: SpeechService){
-        self.animalRepository = animalRepository
-        self.speechService = speechService
-        if let animals = self.animalRepository.animals as? [Animal] {
+    init(dependencies: Dependencies){
+        self.dependencies = dependencies
+        if let animals = self.dependencies.animalRepository.animals as? [Animal] {
             self.animals.value = animals
         }
         super.init()
@@ -83,7 +89,7 @@ class AnimalViewModel: BaseViewModel {
                     text += actuality.textOfArticle
                 }
                 text += animalForSaying.description
-                speechService.sayText(text: text)
+                self.dependencies.speechService.sayText(text: text)
             }
         }
     }

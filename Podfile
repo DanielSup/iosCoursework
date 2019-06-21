@@ -11,3 +11,11 @@ target 'courseworkZoo' do
     pod 'ReactiveSwift'
     pod 'SnapKit', '~> 4.2' 
 end
+
+target 'courseworkZooTests' do
+    pod 'ReactiveSwift'
+end
+
+target 'courseworkZooUITests' do
+    pod 'ReactiveSwift'
+end

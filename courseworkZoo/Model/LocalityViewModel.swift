@@ -10,17 +10,27 @@ import UIKit
 import MapKit
 import ReactiveSwift
 
-class LocalityViewModel: BaseViewModel {
-    fileprivate var localityRepository: LocalityRepository
-    fileprivate var speechService: SpeechService
+protocol LocalityViewModelling{
+ 
+    var localityInClosenessAction: Action<(), Locality?, LoadError> { get }
+    var getAllLocalitiesAction: Action<(), [Locality], LoadError> { get }
+    var getLocalitiesAction: Action<(), [Locality], LoadError> { get }
+    func updateLocation(latitude: Double, longitude: Double)
+    func sayInformationAboutLocality(locality: Locality?)
+    
+}
+
+class LocalityViewModel: BaseViewModel, LocalityViewModelling {
     private var localityList = MutableProperty<[Locality]>([])
     private var latitude = MutableProperty<Double>(-1)
     private var longitude = MutableProperty<Double>(-1)
     
+    typealias Dependencies = HasLocalityRepository & HasSpeechService
+    private let dependencies: Dependencies
+    
     lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
-        print(self.latitude.value)
         if let localities = self.localityList.value as? [Locality] {
-            return self.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
+            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
         } else {
             return SignalProducer<Locality?, LoadError>(error: .noLocalities)
         }
@@ -28,8 +38,8 @@ class LocalityViewModel: BaseViewModel {
     
     lazy var getAllLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
-        self.localityRepository.reload()
-        if let localities = self.localityRepository.localities.value as? [Locality] {
+        self.dependencies.localityRepository.reload()
+        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
             return SignalProducer<[Locality], LoadError>(value: localities)
         } else {
             return SignalProducer<[Locality], LoadError>(error: .noLocalities)
@@ -38,9 +48,8 @@ class LocalityViewModel: BaseViewModel {
     
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
-        print("get localities action")
-        self.localityRepository.reload()
-        if let localities = self.localityRepository.localities.value as? [Locality] {
+        self.dependencies.localityRepository.reload()
+        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
             var newLocalities: [Locality] = []
             for locality in localities {
                 if(locality.latitude < 0){
@@ -59,10 +68,9 @@ class LocalityViewModel: BaseViewModel {
         self.longitude.value = longitude
     }
     
-    init(localityRepository: LocalityRepository, speechService: SpeechService){
-        self.localityRepository = localityRepository
-        self.speechService = speechService
-        if let localities = self.localityRepository.localities.value as? [Locality] {
+    init(dependencies: Dependencies){
+        self.dependencies = dependencies
+        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
             self.localityList.value = localities
         }
         super.init()
@@ -94,7 +102,7 @@ class LocalityViewModel: BaseViewModel {
             if(!existsPosition){
                 BaseViewModel.visited.append(coords)
                 let title = localityForSaying.title.replacingOccurrences(of: "Pavilon", with: "Pavilonu")
-                speechService.sayText(text: "Vítejte v "+title)
+                self.dependencies.speechService.sayText(text: "Vítejte v "+title)
             }
         }
     }

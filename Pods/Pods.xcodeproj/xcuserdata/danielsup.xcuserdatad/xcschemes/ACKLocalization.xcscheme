@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4F0E9902570B4FC992B86B7ADFCE84F8"
+               BlueprintIdentifier = "4A634C58117A79A80C4A39944AD23BEF"
+               BuildableName = "ACKLocalization"
                BlueprintName = "ACKLocalization"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "ACKLocalization">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

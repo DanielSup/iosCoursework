@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8FAA7C6CC52AF3A37677D97C07A02056"
-               BlueprintName = "ReactiveSwift"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "ReactiveSwift.framework">
+               BlueprintIdentifier = "3D69DD0F33363F4C96373FFEC19A3152"
+               BuildableName = "libPods-courseworkZooUITests.a"
+               BlueprintName = "Pods-courseworkZooUITests"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

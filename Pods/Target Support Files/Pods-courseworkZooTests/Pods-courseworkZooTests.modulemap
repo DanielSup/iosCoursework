@@ -1,0 +1,6 @@
+module Pods_courseworkZooTests {
+  umbrella header "Pods-courseworkZooTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

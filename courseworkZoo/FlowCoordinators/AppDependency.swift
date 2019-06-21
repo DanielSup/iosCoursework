@@ -8,6 +8,20 @@
 
 import UIKit
 
-class AppDependency: NSObject {
-
+protocol HasNoDependency {
+    
 }
+
+class AppDependency: HasNoDependency {
+    private init() {}
+    static let shared = AppDependency()
+    
+    lazy var animalRepository:AnimalRepositoring =  AnimalRepository()
+    lazy var localityRepository:LocalityRepositoring =  LocalityRepository()
+    lazy var speechService: SpeechServicing = SpeechService(language: Locale.current.identifier)
+}
+
+extension AppDependency: HasAnimalRepository{}
+extension AppDependency: HasLocalityRepository{}
+extension AppDependency: HasSpeechService{}
+

@@ -9,7 +9,15 @@
 import UIKit
 import AVFoundation
 
-class SpeechService: NSObject {
+protocol HasSpeechService{
+    var speechService: SpeechServicing { get }
+}
+
+protocol SpeechServicing{
+    func sayText(text: String)
+}
+
+class SpeechService: SpeechServicing {
     let language: String
     init(language: String){
         self.language = language

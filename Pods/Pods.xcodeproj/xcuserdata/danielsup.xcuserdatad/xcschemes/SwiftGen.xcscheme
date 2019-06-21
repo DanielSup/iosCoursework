@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB8D6B9AB4C5543F35A61D60EDADDE19"
+               BlueprintIdentifier = "1E798429DCFA7906F6625CCFC1088744"
+               BuildableName = "SwiftGen"
                BlueprintName = "SwiftGen"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "SwiftGen">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

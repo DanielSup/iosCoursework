@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,9 @@
 		4E09264A22B79876001BEAED /* Actuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264922B79876001BEAED /* Actuality.swift */; };
 		4E09264C22B79968001BEAED /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264B22B79968001BEAED /* SpeechService.swift */; };
 		4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */; };
+		4E0A669222BBF78800545C00 /* courseworkZooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */; };
+		4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */; };
+		4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66B522BC0FC900545C00 /* TestDependency.swift */; };
 		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
 		4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69C22B37EB100831DDB /* Constants.swift */; };
 		4E0EB69F22B3870600831DDB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69E22B3870600831DDB /* String.swift */; };
@@ -33,10 +36,36 @@
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
 		4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD6227D99FD00F78027 /* Locality.swift */; };
+		4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6ADB822BA9F84006D9648 /* AppFlowCoordinator.swift */; };
+		4EF6ADBB22BAA097006D9648 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6ADBA22BAA097006D9648 /* AppDependency.swift */; };
+		4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6ADBC22BAD0BC006D9648 /* BaseFlowCoordinator.swift */; };
+		8F0EFDF3F0016C8DC8ABE89D /* libPods-courseworkZooTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E00E160D0C206D7C5A9302E /* libPods-courseworkZooTests.a */; };
+		9990289E6DAC8B557F5B345E /* libPods-courseworkZooUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B904B758B97CAF84E3167B5F /* libPods-courseworkZooUITests.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4E0A669422BBF78800545C00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E2D80C42274E11900B5E194 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E2D80CB2274E11900B5E194;
+			remoteInfo = courseworkZoo;
+		};
+		4E0A66B022BBF98B00545C00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E2D80C42274E11900B5E194 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E2D80CB2274E11900B5E194;
+			remoteInfo = courseworkZoo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0065C0B0CF7EE03AF505E78F /* Pods-courseworkZooTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooTests.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZooTests/Pods-courseworkZooTests.debug.xcconfig"; sourceTree = "<group>"; };
+		15055743658EC55C1708E79F /* Pods-courseworkZooUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooUITests.release.xcconfig"; path = "Target Support Files/Pods-courseworkZooUITests/Pods-courseworkZooUITests.release.xcconfig"; sourceTree = "<group>"; };
+		21DAF67788D63D012A2C0282 /* Pods-courseworkZooUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooUITests.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZooUITests/Pods-courseworkZooUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.debug.xcconfig"; sourceTree = "<group>"; };
+		4C800E6386323D85CE879763 /* Pods-courseworkZooTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooTests.release.xcconfig"; path = "Target Support Files/Pods-courseworkZooTests/Pods-courseworkZooTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E01D56822B930BE00CE4552 /* LoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadError.swift; path = courseworkZoo/Model/LoadError.swift; sourceTree = SOURCE_ROOT; };
 		4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListViewController.swift; sourceTree = "<group>"; };
 		4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +73,13 @@
 		4E09264922B79876001BEAED /* Actuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuality.swift; sourceTree = "<group>"; };
 		4E09264B22B79968001BEAED /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechService.swift; path = courseworkZoo/Model/SpeechService.swift; sourceTree = SOURCE_ROOT; };
 		4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalViewModel.swift; path = courseworkZoo/Model/AnimalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0A668F22BBF78800545C00 /* courseworkZooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = courseworkZooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseworkZooUITests.swift; sourceTree = "<group>"; };
+		4E0A669322BBF78800545C00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E0A66AB22BBF98B00545C00 /* courseworkZooTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = courseworkZooTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseworkZooTests.swift; sourceTree = "<group>"; };
+		4E0A66AF22BBF98B00545C00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E0A66B522BC0FC900545C00 /* TestDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependency.swift; sourceTree = "<group>"; };
 		4E0AA4B62288630E00398D53 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69C22B37EB100831DDB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69E22B3870600831DDB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = SOURCE_ROOT; };
@@ -66,11 +102,32 @@
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD6227D99FD00F78027 /* Locality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locality.swift; sourceTree = SOURCE_ROOT; };
+		4EF6ADB822BA9F84006D9648 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
+		4EF6ADBA22BAA097006D9648 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDependency.swift; path = courseworkZoo/FlowCoordinators/AppDependency.swift; sourceTree = SOURCE_ROOT; };
+		4EF6ADBC22BAD0BC006D9648 /* BaseFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlowCoordinator.swift; sourceTree = "<group>"; };
 		711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_courseworkZoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.release.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.release.xcconfig"; sourceTree = "<group>"; };
+		9E00E160D0C206D7C5A9302E /* libPods-courseworkZooTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-courseworkZooTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B904B758B97CAF84E3167B5F /* libPods-courseworkZooUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-courseworkZooUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4E0A668C22BBF78800545C00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9990289E6DAC8B557F5B345E /* libPods-courseworkZooUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E0A66A822BBF98B00545C00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F0EFDF3F0016C8DC8ABE89D /* libPods-courseworkZooTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E2D80C92274E11900B5E194 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,6 +139,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E04B7F522BA9E1700349FA0 /* FlowCoordinators */ = {
+			isa = PBXGroup;
+			children = (
+				4EF6ADB822BA9F84006D9648 /* AppFlowCoordinator.swift */,
+				4EF6ADBC22BAD0BC006D9648 /* BaseFlowCoordinator.swift */,
+			);
+			path = FlowCoordinators;
+			sourceTree = "<group>";
+		};
+		4E0A669022BBF78800545C00 /* courseworkZooUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */,
+				4E0A669322BBF78800545C00 /* Info.plist */,
+			);
+			path = courseworkZooUITests;
+			sourceTree = "<group>";
+		};
+		4E0A66AC22BBF98B00545C00 /* courseworkZooTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */,
+				4E0A66AF22BBF98B00545C00 /* Info.plist */,
+				4E0A66B522BC0FC900545C00 /* TestDependency.swift */,
+			);
+			path = courseworkZooTests;
+			sourceTree = "<group>";
+		};
 		4E10C6F322798A8F00CB6821 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +191,7 @@
 				4E0EB69E22B3870600831DDB /* String.swift */,
 				4E09264B22B79968001BEAED /* SpeechService.swift */,
 				4E01D56822B930BE00CE4552 /* LoadError.swift */,
+				4EF6ADBA22BAA097006D9648 /* AppDependency.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -124,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				4E2D80CE2274E11900B5E194 /* courseworkZoo */,
+				4E0A669022BBF78800545C00 /* courseworkZooUITests */,
+				4E0A66AC22BBF98B00545C00 /* courseworkZooTests */,
 				4E2D80CD2274E11900B5E194 /* Products */,
 				C014CA5AAB35D6DDA17D49CF /* Pods */,
 				76214DEAFEAD80C2F7F18AD0 /* Frameworks */,
@@ -134,6 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				4E2D80CC2274E11900B5E194 /* courseworkZoo.app */,
+				4E0A668F22BBF78800545C00 /* courseworkZooUITests.xctest */,
+				4E0A66AB22BBF98B00545C00 /* courseworkZooTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,6 +231,7 @@
 		4E2D80CE2274E11900B5E194 /* courseworkZoo */ = {
 			isa = PBXGroup;
 			children = (
+				4E04B7F522BA9E1700349FA0 /* FlowCoordinators */,
 				4E10C6F522798ABF00CB6821 /* ViewModel */,
 				4E10C6F422798AB300CB6821 /* Service */,
 				4E10C6F322798A8F00CB6821 /* Model */,
@@ -162,6 +253,8 @@
 			isa = PBXGroup;
 			children = (
 				711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */,
+				9E00E160D0C206D7C5A9302E /* libPods-courseworkZooTests.a */,
+				B904B758B97CAF84E3167B5F /* libPods-courseworkZooUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,6 +264,10 @@
 			children = (
 				2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */,
 				736DA627B3ED9290F288642A /* Pods-courseworkZoo.release.xcconfig */,
+				0065C0B0CF7EE03AF505E78F /* Pods-courseworkZooTests.debug.xcconfig */,
+				4C800E6386323D85CE879763 /* Pods-courseworkZooTests.release.xcconfig */,
+				21DAF67788D63D012A2C0282 /* Pods-courseworkZooUITests.debug.xcconfig */,
+				15055743658EC55C1708E79F /* Pods-courseworkZooUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -178,12 +275,50 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E0A668E22BBF78800545C00 /* courseworkZooUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E0A669622BBF78800545C00 /* Build configuration list for PBXNativeTarget "courseworkZooUITests" */;
+			buildPhases = (
+				3EA62B6F20F428651B8FE8CB /* [CP] Check Pods Manifest.lock */,
+				4E0A668B22BBF78800545C00 /* Sources */,
+				4E0A668C22BBF78800545C00 /* Frameworks */,
+				4E0A668D22BBF78800545C00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E0A669522BBF78800545C00 /* PBXTargetDependency */,
+			);
+			name = courseworkZooUITests;
+			productName = courseworkZooUITests;
+			productReference = 4E0A668F22BBF78800545C00 /* courseworkZooUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		4E0A66AA22BBF98B00545C00 /* courseworkZooTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E0A66B222BBF98B00545C00 /* Build configuration list for PBXNativeTarget "courseworkZooTests" */;
+			buildPhases = (
+				B4FCFC71A33F075290A4E4DF /* [CP] Check Pods Manifest.lock */,
+				4E0A66A722BBF98B00545C00 /* Sources */,
+				4E0A66A822BBF98B00545C00 /* Frameworks */,
+				4E0A66A922BBF98B00545C00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E0A66B122BBF98B00545C00 /* PBXTargetDependency */,
+			);
+			name = courseworkZooTests;
+			productName = courseworkZooTests;
+			productReference = 4E0A66AB22BBF98B00545C00 /* courseworkZooTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4E2D80CB2274E11900B5E194 /* courseworkZoo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E2D80DE2274E13A00B5E194 /* Build configuration list for PBXNativeTarget "courseworkZoo" */;
 			buildPhases = (
-				4E04B7F022BA50DA00349FA0 /* Generate version number */,
 				4A8E673611D16B34240FAD42 /* [CP] Check Pods Manifest.lock */,
+				4E04B7F022BA50DA00349FA0 /* Generate version number */,
 				4E2D80C82274E11900B5E194 /* Sources */,
 				4E2D80C92274E11900B5E194 /* Frameworks */,
 				4E2D80CA2274E11900B5E194 /* Resources */,
@@ -204,10 +339,18 @@
 		4E2D80C42274E11900B5E194 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Daniel Šup";
 				TargetAttributes = {
+					4E0A668E22BBF78800545C00 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 4E2D80CB2274E11900B5E194;
+					};
+					4E0A66AA22BBF98B00545C00 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 4E2D80CB2274E11900B5E194;
+					};
 					4E2D80CB2274E11900B5E194 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -228,11 +371,27 @@
 			projectRoot = "";
 			targets = (
 				4E2D80CB2274E11900B5E194 /* courseworkZoo */,
+				4E0A668E22BBF78800545C00 /* courseworkZooUITests */,
+				4E0A66AA22BBF98B00545C00 /* courseworkZooTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4E0A668D22BBF78800545C00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E0A66A922BBF98B00545C00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E2D80CA2274E11900B5E194 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,6 +406,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3EA62B6F20F428651B8FE8CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-courseworkZooUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4A8E673611D16B34240FAD42 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,34 +474,65 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B4FCFC71A33F075290A4E4DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-courseworkZooTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E0A668B22BBF78800545C00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E0A669222BBF78800545C00 /* courseworkZooUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E0A66A722BBF98B00545C00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */,
+				4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E2D80C82274E11900B5E194 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */,
+				4EF6ADBB22BAA097006D9648 /* AppDependency.swift in Sources */,
 				4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */,
 				4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */,
 				4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */,
@@ -338,13 +550,28 @@
 				4E09264A22B79876001BEAED /* Actuality.swift in Sources */,
 				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
+				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
 				4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */,
+				4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */,
 				4E86DAD1227D7ECE00F78027 /* AnimalKind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E0A669522BBF78800545C00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E2D80CB2274E11900B5E194 /* courseworkZoo */;
+			targetProxy = 4E0A669422BBF78800545C00 /* PBXContainerItemProxy */;
+		};
+		4E0A66B122BBF98B00545C00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E2D80CB2274E11900B5E194 /* courseworkZoo */;
+			targetProxy = 4E0A66B022BBF98B00545C00 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4E10C6FC2279921900CB6821 /* Localizable.strings */ = {
@@ -375,6 +602,88 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E0A669722BBF78800545C00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21DAF67788D63D012A2C0282 /* Pods-courseworkZooUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				INFOPLIST_FILE = courseworkZooUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.supdnie.courseworkZooUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = courseworkZoo;
+			};
+			name = Debug;
+		};
+		4E0A669822BBF78800545C00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15055743658EC55C1708E79F /* Pods-courseworkZooUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				INFOPLIST_FILE = courseworkZooUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.supdnie.courseworkZooUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = courseworkZoo;
+			};
+			name = Release;
+		};
+		4E0A66B322BBF98B00545C00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0065C0B0CF7EE03AF505E78F /* Pods-courseworkZooTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/courseworkZoo.app/courseworkZoo";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				INFOPLIST_FILE = courseworkZooTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.supdnie.courseworkZooTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/courseworkZoo.app/courseworkZoo";
+			};
+			name = Debug;
+		};
+		4E0A66B422BBF98B00545C00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C800E6386323D85CE879763 /* Pods-courseworkZooTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/courseworkZoo.app/courseworkZoo";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				INFOPLIST_FILE = courseworkZooTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.supdnie.courseworkZooTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/courseworkZoo.app/courseworkZoo";
+			};
+			name = Release;
+		};
 		4E2D80DC2274E13A00B5E194 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -538,6 +847,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E0A669622BBF78800545C00 /* Build configuration list for PBXNativeTarget "courseworkZooUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E0A669722BBF78800545C00 /* Debug */,
+				4E0A669822BBF78800545C00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E0A66B222BBF98B00545C00 /* Build configuration list for PBXNativeTarget "courseworkZooTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E0A66B322BBF98B00545C00 /* Debug */,
+				4E0A66B422BBF98B00545C00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4E2D80C72274E11900B5E194 /* Build configuration list for PBXProject "courseworkZoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

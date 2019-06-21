@@ -8,6 +8,16 @@
 
 import UIKit
 
-class TestDependency: NSObject {
-
+@testable import courseworkZoo
+class TestDependency {
+    private init() {}
+    static let shared = TestDependency()
+    
+    lazy var animalRepository:AnimalRepositoring =  AnimalRepository()
+    lazy var localityRepository:LocalityRepositoring =  LocalityRepository()
+    lazy var speechService: SpeechServicing = SpeechService(language: Locale.current.identifier)
 }
+
+extension TestDependency: HasAnimalRepository{}
+extension TestDependency: HasLocalityRepository{}
+extension TestDependency: HasSpeechService{}
