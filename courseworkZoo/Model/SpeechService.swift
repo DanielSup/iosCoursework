@@ -23,6 +23,7 @@ class SpeechService: SpeechServicing {
         self.language = language
     }
     func sayText(text: String){
+        print(text)
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: self.language)
         let synth = AVSpeechSynthesizer()

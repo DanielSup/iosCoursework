@@ -28,11 +28,33 @@ class AppFlowCoordinator: BaseFlowCoordinator {
 }
 
 extension AppFlowCoordinator: GoToAnimalListDelegate{
-    func goToAnimalListTapped(in viewController: ViewController){
+    func goToAnimalListTapped(in viewController: BaseViewController){
         let vm = AnimalViewModel(dependencies: AppDependency.shared)
         let vc = AnimalListViewController(viewModel: vm)
         vc.flowDelegate = self
+        vc.animalDetailFlowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    func goForSelectionOfLocality(in viewController: BaseViewController){
+        let vm = SelectLocalityViewModel(dependencies: AppDependency.shared)
+        let vc = SelectLocalityViewController(selectLocalityViewModel: vm)
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    func goToSettings(in viewController: BaseViewController){
+        let vc = SettingInformationViewController()
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension AppFlowCoordinator: GoToAnimalDetailDelegate{
+    func goToAnimalDetail(in viewController: BaseViewController, to animal: Animal){
+        let vm = AnimalDetailViewModel(animal: animal, dependencies: AppDependency.shared)
+        let vc = AnimalDetailViewController(animal: animal, animalDetailViewModel: vm)
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
 }
 

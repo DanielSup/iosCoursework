@@ -9,14 +9,20 @@
 import UIKit
 
 class Locality: Codable{
+    let id: Int
     let title: String
     let alias: String
     let localityType: LocalityType
     let latitude: Double
     let longitude: Double
     enum CodingKeys: String, CodingKey{
-        case title, alias, localityType = "type", latitude = "gps_x", longitude = "gps_y"
+        case id, title, alias, localityType = "type", latitude = "gps_x", longitude = "gps_y"
     }
+    
+    static func getUrl() -> String{
+        return Constants.localities
+    }
+    
 }
 
 

@@ -18,9 +18,13 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     weak var flowDelegate: GoToAnimalListDelegate?
     
     private weak var zooPlanMapView: MKMapView!
+    private weak var zooPlanMapViewSmall: MKMapView!
     private weak var setVisibilityOfTextButton: UIButton!
     private weak var versionLabel: UILabel!
     private weak var buildNumberLabel: UILabel!
+    private var selectedAnnotation: MKAnnotation? = nil
+    
+    private var selectedLocality: CLLocationCoordinate2D? = nil
     
     private var lastAnnotation: MKAnnotation = MKPointAnnotation()
     let locationManager = CLLocationManager()
@@ -72,7 +76,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         }
         
         let goToAnimalListButton = UIButton()
-        goToAnimalListButton.setTitle("Seznam zvirat", for: .normal)
+        goToAnimalListButton.setTitle(NSLocalizedString("goToAnimalList", comment: ""), for: .normal)
         goToAnimalListButton.setTitleColor(.black, for: .normal)
         goToAnimalListButton.addTarget(self, action: #selector(goToAnimalListTapped(_:)), for: .touchUpInside)
         view.addSubview(goToAnimalListButton)
@@ -83,6 +87,30 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             make.height.equalTo(50)
         }
         
+        let goToLocalityListButton = UIButton()
+        goToLocalityListButton.setTitle(NSLocalizedString("goForSelectionOfLocality", comment: ""), for: .normal)
+        goToLocalityListButton.setTitleColor(.black, for: .normal)
+        goToLocalityListButton.addTarget(self, action: #selector(goForSelectionOfLocalityTapped(_:)), for: .touchUpInside)
+        view.addSubview(goToLocalityListButton)
+        goToLocalityListButton.snp.makeConstraints{
+            (make) in
+            make.right.equalTo(goToAnimalListButton.snp.left)
+            make.bottom.equalTo(view)
+            make.height.equalTo(50)
+        }
+        
+        
+        let goToSettingsButton = UIButton()
+        goToSettingsButton.setTitle(NSLocalizedString("goToSettings", comment: ""), for: .normal)
+        goToSettingsButton.setTitleColor(.black, for: .normal)
+        goToSettingsButton.addTarget(self, action: #selector(goToSettingsTapped(_:)), for: .touchUpInside)
+        view.addSubview(goToSettingsButton)
+        goToSettingsButton.snp.makeConstraints{
+            (make) in
+            make.right.equalTo(goToLocalityListButton.snp.left)
+            make.bottom.equalTo(view)
+            make.height.equalTo(50)
+        }
         
         self.versionLabel = versionLabel
         self.buildNumberLabel = buildNumberLabel
@@ -93,35 +121,92 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         if let coor = zooPlanMapView.userLocation.location?.coordinate {
             center = coor
         }
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.0005, longitudeDelta: 0.0005))
         
+        let regionOfSmallMap = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
         let annotation = MKPointAnnotation()
         annotation.coordinate = center
         annotation.title = NSLocalizedString("here", comment: "")
-        zooPlanMapView.isZoomEnabled = true
-        zooPlanMapView.isScrollEnabled = true
-        zooPlanMapView.isPitchEnabled = true
         zooPlanMapView.setRegion(region, animated: true)
         zooPlanMapView.addAnnotation(annotation)
         self.lastAnnotation = annotation
         zooPlanMapView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
         zooPlanMapView.snp.makeConstraints { (make) in
-            make.centerY.centerX.equalTo(self.view)
-            make.width.equalTo(view.bounds.width * 4 / 5)
-            make.height.equalTo(view.bounds.height * 4 / 5)
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(self.view)
+            make.width.equalTo(view.bounds.width)
+            make.height.equalTo(view.bounds.height * 3 / 5)
         }
-        self.zooPlanMapView = zooPlanMapView       //self.animalViewModel.readInformationAboutAnimals()
+        self.zooPlanMapView = zooPlanMapView
+        let zooPlanMapViewSmall = MKMapView()
+        self.view.addSubview(zooPlanMapViewSmall)
+        zooPlanMapViewSmall.setRegion(regionOfSmallMap, animated: true)
+        zooPlanMapViewSmall.addAnnotation(annotation)
+        zooPlanMapViewSmall.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.top.equalTo(zooPlanMapView.snp.bottom)
+            make.width.equalTo(view.bounds.width)
+            make.height.equalTo(view.bounds.height * 1 / 5)
+        }
+        self.zooPlanMapViewSmall = zooPlanMapViewSmall
+        self.zooPlanMapView.delegate = self
+        self.zooPlanMapViewSmall.delegate = self
         self.addLoadedLocalitiesToMap()
     }
     
+    func drawRouteToFirstLocality(){
+        if(self.selectedLocality != nil){
+            let sourcePlacemark = MKPlacemark(coordinate: self.lastAnnotation.coordinate)
+            let destinationPlacemark = MKPlacemark(coordinate: self.selectedLocality!)
+            let directionRequest = MKDirections.Request()
+            directionRequest.source = MKMapItem(placemark: sourcePlacemark)
+            directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
+            directionRequest.transportType = .walking
+            let directions = MKDirections(request: directionRequest)
+            directions.calculate{ (response, error) in
+                guard let directionResponse = response else {
+                    self.view.backgroundColor = .red
+                    return
+                }
+                self.view.backgroundColor = .white
+                let routes = directionResponse.routes
+                var shortestRoute = routes[0]
+                var shortestDistance = shortestRoute.distance
+                for route in routes{
+                    if(route.distance < shortestDistance){
+                        shortestRoute = route
+                        shortestDistance = route.distance
+                    }
+                }
+                self.zooPlanMapView.removeOverlays(self.zooPlanMapView.overlays)
+                self.zooPlanMapView.addOverlay(shortestRoute.polyline, level: .aboveRoads)
+                self.zooPlanMapViewSmall.removeOverlays(self.zooPlanMapViewSmall.overlays)
+                self.zooPlanMapViewSmall.addOverlay(shortestRoute.polyline, level: .aboveRoads)
+            }
+        } else {
+            self.zooPlanMapView.removeOverlays(self.zooPlanMapView.overlays)
+            self.zooPlanMapViewSmall.removeOverlays(self.zooPlanMapViewSmall.overlays)
+        }
+    }
+    
+    func addActuallySelectedDestinationToSmallPlan(){
+        if (self.selectedAnnotation != nil){
+            self.zooPlanMapViewSmall.removeAnnotation(self.selectedAnnotation!)
+        }
+        if (SelectLocalityViewModel.selectedLocality != nil){
+            let annotation = MKPointAnnotation()
+            let locality = SelectLocalityViewModel.selectedLocality!
+            annotation.title = locality.title
+            let coordination = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
+            annotation.coordinate = coordination
+            self.zooPlanMapViewSmall.addAnnotation(annotation)
+            self.selectedAnnotation = annotation
+        }
+    }
+    
     func addLoadedLocalitiesToMap(){
-
-        print("Adding localities")
-    self.localityViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
-            print("Locality values")
-            print(localitiesList)
-            for locality in localitiesList{
+        self.localityViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in           for locality in localitiesList{
                 let annotation: MKPointAnnotation = MKPointAnnotation()
                 let coordinate = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
                 annotation.coordinate = coordinate
@@ -129,14 +214,8 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
                 self.zooPlanMapView.addAnnotation(annotation)
             }
         }
-        
-    self.animalViewModel.getAnimalsAction.errors.producer.startWithValues {
-            (errors) in
-            print("Error")
-            print(errors)
-        }
-    self.animalViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
-            print("Animal values")
+
+        self.animalViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
             for animal in animalList{
                 let annotation: MKPointAnnotation = MKPointAnnotation()
                 let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
@@ -145,11 +224,11 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
                 self.zooPlanMapView.addAnnotation(annotation)
             }
         }
-    self.animalViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
+        self.animalViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
             self.animalViewModel.sayInformationAboutAnimal(animal: animal)
             
         }
-    self.localityViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
+        self.localityViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
             self.localityViewModel.sayInformationAboutLocality(locality: locality)
         }
         
@@ -158,9 +237,14 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        if(SelectLocalityViewModel.selectedLocality != nil){
+            let actualLocality = SelectLocalityViewModel.selectedLocality!
+            self.selectedLocality = CLLocationCoordinate2D(latitude: actualLocality.latitude, longitude: actualLocality.longitude)
+        } else {
+            self.selectedLocality = nil
+        }
         if let location = locations.last {
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
             self.animalViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             self.localityViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         self.localityViewModel.localityInClosenessAction.apply().start()
@@ -168,21 +252,52 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             self.animalViewModel.animalInClosenessAction.apply().start()
             
             self.zooPlanMapView.removeAnnotation(self.lastAnnotation)
-            self.zooPlanMapView.setRegion(region, animated: true)
+            self.zooPlanMapViewSmall.removeAnnotation(self.lastAnnotation)
+            self.zooPlanMapView.setCenter(center, animated: true)
+            if (SelectLocalityViewModel.selectedLocality == nil){
+                self.zooPlanMapViewSmall.setCenter(center, animated: true)
+            } else {
+                let selectedLocality = SelectLocalityViewModel.selectedLocality!
+                let middleLatitude = (location.coordinate.latitude + selectedLocality.latitude)/2.0
+                let middleLongitude = (location.coordinate.longitude + selectedLocality.longitude)/2.0
+                let center = CLLocationCoordinate2D(latitude: middleLatitude, longitude: middleLongitude)
+                let latitudeDelta = abs(location.coordinate.latitude - middleLatitude) * 3.0
+                let longitudeDelta = abs(location.coordinate.longitude - middleLongitude) * 3.0
+                let regionOfSmallMap = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta))
+                self.zooPlanMapViewSmall.setRegion(regionOfSmallMap, animated: true)
+            }
             let annotation = MKPointAnnotation()
             annotation.coordinate = center
             annotation.title = NSLocalizedString("here", comment: "")
             self.zooPlanMapView.addAnnotation(annotation)
+            self.zooPlanMapViewSmall.addAnnotation(annotation)
             self.lastAnnotation = annotation
+            self.drawRouteToFirstLocality()
+            self.addActuallySelectedDestinationToSmallPlan()
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.blue
+        renderer.lineWidth = 4.0
+        return renderer
     }
 
     @objc
     private func goToAnimalListTapped(_ sender: UIButton){
-        print("Go to animal list tapped")
-        print(flowDelegate)
         flowDelegate?.goToAnimalListTapped(in: self)
     }
 
+    @objc
+    private func goForSelectionOfLocalityTapped(_ sennder: UIButton){
+        flowDelegate?.goForSelectionOfLocality(in: self)
+    }
+    
+    @objc
+    private func goToSettingsTapped(_ sennder: UIButton){
+        flowDelegate?.goToSettings(in: self)
+    }
+    
 }
 

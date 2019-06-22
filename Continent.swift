@@ -38,6 +38,27 @@ enum Continent: String, Codable {
                 return ""
         }
     }
+    
+    static func continentWithId(id: Int) -> Continent{
+        switch id{
+            case 1:
+                return .africa
+            case 2:
+                return .asia
+            case 3:
+                return .southAmerica
+            case 4:
+                return .northAmerica
+            case 5:
+                return .australia
+            case 6:
+                return .notInNature
+            case 7:
+                return .europe
+            default:
+                return .none
+        }
+    }
 }
 
 extension Continent: Equatable{

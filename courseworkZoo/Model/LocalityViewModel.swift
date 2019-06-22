@@ -39,7 +39,7 @@ class LocalityViewModel: BaseViewModel, LocalityViewModelling {
     lazy var getAllLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.reload()
-        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
+        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             return SignalProducer<[Locality], LoadError>(value: localities)
         } else {
             return SignalProducer<[Locality], LoadError>(error: .noLocalities)
@@ -49,7 +49,7 @@ class LocalityViewModel: BaseViewModel, LocalityViewModelling {
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.reload()
-        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
+        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             var newLocalities: [Locality] = []
             for locality in localities {
                 if(locality.latitude < 0){
@@ -70,30 +70,16 @@ class LocalityViewModel: BaseViewModel, LocalityViewModelling {
     
     init(dependencies: Dependencies){
         self.dependencies = dependencies
-        if let localities = self.dependencies.localityRepository.localities.value as? [Locality] {
+        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             self.localityList.value = localities
         }
         super.init()
     }
     
-    func getAnnotationsForMap() -> [MKPointAnnotation] {
-        var annotationsForMap: [MKPointAnnotation] = []
-        let localitiesList = self.getLocalitiesAction.values.producer.startWithValues{ (localitiesList) in
-            for locality in localitiesList{
-                if(locality.latitude < 0){
-                    continue
-                }
-                let annotation: MKPointAnnotation = MKPointAnnotation()
-                let coordinate = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
-                annotation.coordinate = coordinate
-                annotation.title = locality.title
-                annotationsForMap.append(annotation)
-            }
-        }
-        return annotationsForMap
-    }
-    
     func sayInformationAboutLocality(locality: Locality?){
+        if (SettingsInformationViewModel.getActualSettings() == SaidInformationSettings.none){
+            return
+        }
         if let localityForSaying = locality as? Locality {
             let latitude = localityForSaying.latitude
             let longitude = localityForSaying.longitude

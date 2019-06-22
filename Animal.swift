@@ -9,6 +9,7 @@
 import UIKit
 
 struct Animal: Codable{
+    let id: Int
     let title: String
     let latinTitle: String
     let classOfAnimal: String
@@ -21,6 +22,8 @@ struct Animal: Codable{
     let food: String
     let foodNote: String
     let biotope: String
+    let proportions: String
+    let reproduction: String
     let attractions: String
     let breeding: String
     let localities: String
@@ -28,7 +31,11 @@ struct Animal: Codable{
     let latitude: Double
     let longitude: Double
     enum CodingKeys: String, CodingKey{
-        case title, latinTitle = "latin_title", classOfAnimal="classes", order, description, image="image_src", imageAlt="image_alt", continent="continents", spread="spread_note", food, foodNote="food_note", biotope="biotop", attractions, breeding, localities="localities_title", actualities, latitude="gps_x",longitude="gps_y"
+        case id, title, latinTitle = "latin_title", classOfAnimal="classes", order, description, image="image_src", imageAlt="image_alt", continent="continents", spread="spread_note", food, foodNote="food_note", biotope="biotop", attractions, breeding, localities="localities_title", actualities, latitude="gps_x",longitude="gps_y", proportions, reproduction
+    }
+    
+    static func getUrl() -> String{
+        return Constants.animals
     }
     
 }

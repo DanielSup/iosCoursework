@@ -24,6 +24,20 @@
 		4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */; };
 		4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E10C6FC2279921900CB6821 /* Localizable.strings */; };
 		4E14844D22B7D19F0018A823 /* Coords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14844C22B7D19F0018A823 /* Coords.swift */; };
+		4E175CF022BE78BF00690F79 /* AnimalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */; };
+		4E175CF222BE7A7000690F79 /* BiotopeBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */; };
+		4E175CF422BE7A8200690F79 /* FoodBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF322BE7A8200690F79 /* FoodBinding.swift */; };
+		4E175CF622BE7D1400690F79 /* ContinentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF522BE7D1400690F79 /* ContinentBinding.swift */; };
+		4E175CF822BE800700690F79 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF722BE800700690F79 /* Binding.swift */; };
+		4E175CFA22BE818C00690F79 /* BindingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF922BE818C00690F79 /* BindingRepository.swift */; };
+		4E175CFC22BE99C000690F79 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CFB22BE99C000690F79 /* Food.swift */; };
+		4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CFD22BE99D500690F79 /* Biotope.swift */; };
+		4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */; };
+		4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */; };
+		4E19306722BD4AC800716BAD /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306622BD4AC800716BAD /* Repository.swift */; };
+		4E19306B22BD59B200716BAD /* SaidInformationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */; };
+		4E19306D22BD781500716BAD /* SettingInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306C22BD781500716BAD /* SettingInformationViewController.swift */; };
+		4E19306F22BD7C4400716BAD /* SettingsInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */; };
 		4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D2227DADD300D41EDA /* AnimalRepository.swift */; };
 		4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */; };
 		4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80CF2274E11900B5E194 /* AppDelegate.swift */; };
@@ -32,7 +46,6 @@
 		4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D62274E13A00B5E194 /* Assets.xcassets */; };
 		4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */; };
 		4E806576227CCAF6006A312A /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E806575227CCAF6006A312A /* Animal.swift */; };
-		4E86DAD1227D7ECE00F78027 /* AnimalKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */; };
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
 		4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD6227D99FD00F78027 /* Locality.swift */; };
@@ -88,6 +101,20 @@
 		4E10C6FB2279921900CB6821 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E10C6FD2279923E00CB6821 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E14844C22B7D19F0018A823 /* Coords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coords.swift; sourceTree = "<group>"; };
+		4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalDetailViewModel.swift; path = courseworkZoo/AnimalDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiotopeBinding.swift; sourceTree = "<group>"; };
+		4E175CF322BE7A8200690F79 /* FoodBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBinding.swift; sourceTree = "<group>"; };
+		4E175CF522BE7D1400690F79 /* ContinentBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentBinding.swift; sourceTree = "<group>"; };
+		4E175CF722BE800700690F79 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		4E175CF922BE818C00690F79 /* BindingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BindingRepository.swift; path = courseworkZoo/Model/BindingRepository.swift; sourceTree = SOURCE_ROOT; };
+		4E175CFB22BE99C000690F79 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		4E175CFD22BE99D500690F79 /* Biotope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biotope.swift; sourceTree = "<group>"; };
+		4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocalityViewController.swift; sourceTree = "<group>"; };
+		4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLocalityViewModel.swift; path = courseworkZoo/SelectLocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E19306622BD4AC800716BAD /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = courseworkZoo/Repository.swift; sourceTree = SOURCE_ROOT; };
+		4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaidInformationSettings.swift; sourceTree = "<group>"; };
+		4E19306C22BD781500716BAD /* SettingInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInformationViewController.swift; sourceTree = "<group>"; };
+		4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsInformationViewModel.swift; path = courseworkZoo/SettingsInformationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E2609D2227DADD300D41EDA /* AnimalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRepository.swift; sourceTree = SOURCE_ROOT; };
 		4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityRepository.swift; sourceTree = SOURCE_ROOT; };
 		4E2D80CC2274E11900B5E194 /* courseworkZoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courseworkZoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +125,6 @@
 		4E2D80D92274E13A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2D80DB2274E13A00B5E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E806575227CCAF6006A312A /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = SOURCE_ROOT; };
-		4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKind.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD6227D99FD00F78027 /* Locality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locality.swift; sourceTree = SOURCE_ROOT; };
@@ -171,12 +197,18 @@
 			isa = PBXGroup;
 			children = (
 				4E806575227CCAF6006A312A /* Animal.swift */,
-				4E86DAD0227D7ECE00F78027 /* AnimalKind.swift */,
 				4E86DAD2227D7F2A00F78027 /* Continent.swift */,
 				4E86DAD4227D99E800F78027 /* LocalityType.swift */,
 				4E86DAD6227D99FD00F78027 /* Locality.swift */,
 				4E09264922B79876001BEAED /* Actuality.swift */,
 				4E14844C22B7D19F0018A823 /* Coords.swift */,
+				4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */,
+				4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */,
+				4E175CF322BE7A8200690F79 /* FoodBinding.swift */,
+				4E175CF522BE7D1400690F79 /* ContinentBinding.swift */,
+				4E175CF722BE800700690F79 /* Binding.swift */,
+				4E175CFB22BE99C000690F79 /* Food.swift */,
+				4E175CFD22BE99D500690F79 /* Biotope.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +224,8 @@
 				4E09264B22B79968001BEAED /* SpeechService.swift */,
 				4E01D56822B930BE00CE4552 /* LoadError.swift */,
 				4EF6ADBA22BAA097006D9648 /* AppDependency.swift */,
+				4E19306622BD4AC800716BAD /* Repository.swift */,
+				4E175CF922BE818C00690F79 /* BindingRepository.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -202,6 +236,9 @@
 				4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */,
 				4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */,
 				4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */,
+				4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */,
+				4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */,
+				4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -245,6 +282,8 @@
 				4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */,
 				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
 				4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */,
+				4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */,
+				4E19306C22BD781500716BAD /* SettingInformationViewController.swift */,
 			);
 			path = courseworkZoo;
 			sourceTree = "<group>";
@@ -531,22 +570,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E175CF222BE7A7000690F79 /* BiotopeBinding.swift in Sources */,
 				4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */,
 				4EF6ADBB22BAA097006D9648 /* AppDependency.swift in Sources */,
+				4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */,
 				4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */,
+				4E19306722BD4AC800716BAD /* Repository.swift in Sources */,
+				4E175CFC22BE99C000690F79 /* Food.swift in Sources */,
 				4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */,
 				4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
 				4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */,
 				4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */,
+				4E175CF822BE800700690F79 /* Binding.swift in Sources */,
 				4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */,
 				4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */,
 				4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */,
+				4E19306B22BD59B200716BAD /* SaidInformationSettings.swift in Sources */,
+				4E175CF422BE7A8200690F79 /* FoodBinding.swift in Sources */,
+				4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */,
+				4E175CF622BE7D1400690F79 /* ContinentBinding.swift in Sources */,
+				4E175CF022BE78BF00690F79 /* AnimalDetailViewModel.swift in Sources */,
 				4E09264C22B79968001BEAED /* SpeechService.swift in Sources */,
+				4E19306D22BD781500716BAD /* SettingInformationViewController.swift in Sources */,
 				4E0EB69F22B3870600831DDB /* String.swift in Sources */,
+				4E19306F22BD7C4400716BAD /* SettingsInformationViewModel.swift in Sources */,
 				4E0EBAF722B4E8FA003D9CD1 /* LocalityViewModel.swift in Sources */,
 				4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */,
+				4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */,
 				4E09264A22B79876001BEAED /* Actuality.swift in Sources */,
 				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
@@ -554,7 +606,7 @@
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
 				4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */,
 				4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */,
-				4E86DAD1227D7ECE00F78027 /* AnimalKind.swift in Sources */,
+				4E175CFA22BE818C00690F79 /* BindingRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

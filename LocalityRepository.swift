@@ -14,12 +14,35 @@ protocol HasLocalityRepository{
 }
 
 protocol LocalityRepositoring{
-    var localities: MutableProperty<[Locality]?>{ get }
+    var entities: MutableProperty<[Locality]?>{ get }
     func reload()
     func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError>
 }
 
-class LocalityRepository: LocalityRepositoring {
+class LocalityRepository: Repository<Locality>, LocalityRepositoring{
+    
+    init(){
+        super.init(url: Constants.localities)
+    }
+    
+    func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError> {
+        if let localities = self.entities.value as? [Locality]{
+            for locality in localities{
+                if(abs(locality.latitude - latitude) < BaseViewModel.closeDistance && abs(locality.longitude - longitude) < BaseViewModel.closeDistance){
+                    return SignalProducer(value: locality)
+                }
+            }
+            return SignalProducer(value: nil)
+            
+        } else {
+            return SignalProducer(error: .noLocalities)
+        }
+    }
+    
+    
+}
+
+/* class LocalityRepository: LocalityRepositoring {
     
     lazy var localities = MutableProperty<[Locality]?>([])
     private var lastEdited: Date = Date()
@@ -83,4 +106,4 @@ class LocalityRepository: LocalityRepositoring {
         }
     }
     
-}
+} */

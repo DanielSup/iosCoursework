@@ -9,5 +9,5 @@
 import UIKit
 
 enum LoadError: Error {
-    case noLocalities, noAnimals
+    case noLocalities, noAnimals, noBindings
 }
