@@ -9,12 +9,12 @@
 import UIKit
 import MapKit
 import SnapKit
+import SwiftyGif
 import ReactiveSwift
 
 
 class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    private var localityViewModel: LocalityViewModelling
-    private var animalViewModel: AnimalViewModelling
+    private var viewModel: ViewModelling
     weak var flowDelegate: GoToAnimalListDelegate?
     
     private weak var zooPlanMapView: MKMapView!
@@ -29,18 +29,16 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     private var lastAnnotation: MKAnnotation = MKPointAnnotation()
     let locationManager = CLLocationManager()
     
-    init(localityViewModel: LocalityViewModelling, animalViewModel: AnimalViewModelling){
-        self.localityViewModel = localityViewModel
-        self.animalViewModel = animalViewModel
+    init(viewModel: ViewModelling){
+        self.viewModel = viewModel
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.localityViewModel = LocalityViewModel(dependencies: AppDependency.shared)
-        self.animalViewModel = AnimalViewModel(dependencies: AppDependency.shared)
+        self.viewModel = ViewModel(dependencies: AppDependency.shared)
         super.init()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -152,6 +150,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         self.zooPlanMapViewSmall = zooPlanMapViewSmall
         self.zooPlanMapView.delegate = self
         self.zooPlanMapViewSmall.delegate = self
+        
         self.addLoadedLocalitiesToMap()
     }
     
@@ -206,7 +205,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     }
     
     func addLoadedLocalitiesToMap(){
-        self.localityViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in           for locality in localitiesList{
+        self.viewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in           for locality in localitiesList{
                 let annotation: MKPointAnnotation = MKPointAnnotation()
                 let coordinate = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
                 annotation.coordinate = coordinate
@@ -215,7 +214,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             }
         }
 
-        self.animalViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
+        self.viewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
             for animal in animalList{
                 let annotation: MKPointAnnotation = MKPointAnnotation()
                 let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
@@ -224,16 +223,16 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
                 self.zooPlanMapView.addAnnotation(annotation)
             }
         }
-        self.animalViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
-            self.animalViewModel.sayInformationAboutAnimal(animal: animal)
+        self.viewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
+            self.viewModel.sayInformationAboutAnimal(animal: animal)
             
         }
-        self.localityViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
-            self.localityViewModel.sayInformationAboutLocality(locality: locality)
+        self.viewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
+            self.viewModel.sayInformationAboutLocality(locality: locality)
         }
         
-        self.localityViewModel.getLocalitiesAction.apply().start()
-        self.animalViewModel.getAnimalsAction.apply().start()
+        self.viewModel.getLocalitiesAction.apply().start()
+        self.viewModel.getAnimalsAction.apply().start()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
@@ -245,11 +244,11 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         }
         if let location = locations.last {
             let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            self.animalViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            self.localityViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        self.localityViewModel.localityInClosenessAction.apply().start()
+            self.viewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            self.viewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        self.viewModel.localityInClosenessAction.apply().start()
         
-            self.animalViewModel.animalInClosenessAction.apply().start()
+            self.viewModel.animalInClosenessAction.apply().start()
             
             self.zooPlanMapView.removeAnnotation(self.lastAnnotation)
             self.zooPlanMapViewSmall.removeAnnotation(self.lastAnnotation)

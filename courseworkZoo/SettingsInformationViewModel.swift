@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class SettingsInformationViewModel: BaseViewModel {
     private static let key="SettingsInformationAboutAnimals"
     private static var actualSettings: SaidInformationSettings = SaidInformationSettings.elementary(ElementaryInformationOptions.titleNewsAndDescription)

@@ -24,27 +24,29 @@ protocol GoToAnimalDetailDelegate: class{
 
 class AnimalListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private var animalViewModel: AnimalViewModelling
+    private var animalListViewModel: AnimalListViewModelling
     weak var flowDelegate: GoBackDelegate?
     weak var animalDetailFlowDelegate: GoToAnimalDetailDelegate?
     private var animalTableView: UITableView!
     var animalList:[Animal] = []
     
     func loadAnimals(){
-        self.animalViewModel.getAllAnimalsAction.values.producer.startWithValues{
+        self.animalListViewModel.getAllAnimalsAction.values.producer.startWithValues{
             (animals) in
             self.animalList = animals
         }
-        self.animalViewModel.getAllAnimalsAction.apply().start()    }
+        self.animalListViewModel.getAllAnimalsAction.apply().start()
+        
+    }
     
-    init(viewModel: AnimalViewModelling){
-        self.animalViewModel = viewModel
+    init(viewModel: AnimalListViewModelling){
+        self.animalListViewModel = viewModel
         super.init()
         self.loadAnimals()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.animalViewModel = AnimalViewModel(dependencies: AppDependency.shared)
+        self.animalListViewModel = AnimalListViewModel(dependencies: AppDependency.shared)
         super.init()
         self.loadAnimals()
     }

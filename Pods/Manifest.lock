@@ -5,12 +5,14 @@ PODS:
   - Result (4.1.0)
   - SnapKit (4.2.0)
   - SwiftGen (6.1.0)
+  - SwiftyGif (5.1.1)
 
 DEPENDENCIES:
   - ACKLocalization (~> 0.1)
   - ReactiveSwift
   - SnapKit (~> 4.2)
   - SwiftGen (~> 6.0)
+  - SwiftyGif
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -19,6 +21,7 @@ SPEC REPOS:
     - Result
     - SnapKit
     - SwiftGen
+    - SwiftyGif
 
 SPEC CHECKSUMS:
   ACKLocalization: 0f0bfec2c25feed1803ca06a3737b67673c196d9
@@ -26,7 +29,8 @@ SPEC CHECKSUMS:
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftGen: f872ca75cbd17bf7103c17f13dcfa0d9a15667b0
+  SwiftyGif: f7702483db93586a41f04f4927cd682852a2fa10
 
-PODFILE CHECKSUM: caf22d16019b9b4ecfc875c78d39a6e352c99d63
+PODFILE CHECKSUM: d7bb8bd2b5de775ec2af7e560d562796c89020d0
 
 COCOAPODS: 1.7.2

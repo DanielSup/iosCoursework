@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo-framewor
 ${BUILT_PRODUCTS_DIR}/ReactiveSwift-framework/ReactiveSwift.framework
 ${BUILT_PRODUCTS_DIR}/Result-framework/Result.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework

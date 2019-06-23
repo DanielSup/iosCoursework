@@ -6,21 +6,39 @@
 	objectVersion = 51;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4E029B7022BEF5EC00CAE074 /* Localization */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4E029B7322BEF5EE00CAE074 /* Build configuration list for PBXAggregateTarget "Localization" */;
+			buildPhases = (
+				4E029B7622BEF60200CAE074 /* ACKLocalization */,
+			);
+			dependencies = (
+			);
+			name = Localization;
+			productName = Localization;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		36842284AC7704A71EF232A0 /* Pods_courseworkZoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */; };
 		4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01D56822B930BE00CE4552 /* LoadError.swift */; };
+		4E0386B322BFF84100250011 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B222BFF84000250011 /* ViewModel.swift */; };
+		4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */; };
+		4E0386B722C0098700250011 /* TestAnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */; };
+		4E0386B922C009CC00250011 /* TestEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B822C009CC00250011 /* TestEnums.swift */; };
+		4E0386BB22C009FF00250011 /* TestAnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */; };
+		4E0386BD22C00A1F00250011 /* TestSettingsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */; };
 		4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */; };
 		4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */; };
 		4E09264A22B79876001BEAED /* Actuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264922B79876001BEAED /* Actuality.swift */; };
 		4E09264C22B79968001BEAED /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264B22B79968001BEAED /* SpeechService.swift */; };
-		4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */; };
 		4E0A669222BBF78800545C00 /* courseworkZooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */; };
 		4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */; };
 		4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66B522BC0FC900545C00 /* TestDependency.swift */; };
 		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
 		4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69C22B37EB100831DDB /* Constants.swift */; };
 		4E0EB69F22B3870600831DDB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69E22B3870600831DDB /* String.swift */; };
-		4E0EBAF722B4E8FA003D9CD1 /* LocalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */; };
 		4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */; };
 		4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E10C6FC2279921900CB6821 /* Localizable.strings */; };
 		4E14844D22B7D19F0018A823 /* Coords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14844C22B7D19F0018A823 /* Coords.swift */; };
@@ -45,6 +63,7 @@
 		4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D32274E11A00B5E194 /* Main.storyboard */; };
 		4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D62274E13A00B5E194 /* Assets.xcassets */; };
 		4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */; };
+		4E33E91222BFB25B001EB907 /* monkeys.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4E33E91122BFB25B001EB907 /* monkeys.gif */; };
 		4E806576227CCAF6006A312A /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E806575227CCAF6006A312A /* Animal.swift */; };
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
@@ -57,6 +76,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4E029B7422BEF5F900CAE074 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E2D80C42274E11900B5E194 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E029B7022BEF5EC00CAE074;
+			remoteInfo = Localization;
+		};
 		4E0A669422BBF78800545C00 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4E2D80C42274E11900B5E194 /* Project object */;
@@ -80,12 +106,17 @@
 		2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.debug.xcconfig"; sourceTree = "<group>"; };
 		4C800E6386323D85CE879763 /* Pods-courseworkZooTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooTests.release.xcconfig"; path = "Target Support Files/Pods-courseworkZooTests/Pods-courseworkZooTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E01D56822B930BE00CE4552 /* LoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadError.swift; path = courseworkZoo/Model/LoadError.swift; sourceTree = SOURCE_ROOT; };
+		4E0386B222BFF84000250011 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = courseworkZoo/ViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalListViewModel.swift; path = courseworkZoo/AnimalListViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalDetailViewController.swift; sourceTree = "<group>"; };
+		4E0386B822C009CC00250011 /* TestEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnums.swift; sourceTree = "<group>"; };
+		4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalListViewController.swift; sourceTree = "<group>"; };
+		4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsInformation.swift; sourceTree = "<group>"; };
 		4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListViewController.swift; sourceTree = "<group>"; };
 		4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info_preprocess_header.h; sourceTree = "<group>"; };
 		4E09264922B79876001BEAED /* Actuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuality.swift; sourceTree = "<group>"; };
 		4E09264B22B79968001BEAED /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechService.swift; path = courseworkZoo/Model/SpeechService.swift; sourceTree = SOURCE_ROOT; };
-		4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalViewModel.swift; path = courseworkZoo/Model/AnimalViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E0A668F22BBF78800545C00 /* courseworkZooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = courseworkZooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = courseworkZooUITests.swift; sourceTree = "<group>"; };
 		4E0A669322BBF78800545C00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,7 +127,6 @@
 		4E0AA4B62288630E00398D53 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69C22B37EB100831DDB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69E22B3870600831DDB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = SOURCE_ROOT; };
-		4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalityViewModel.swift; path = courseworkZoo/Model/LocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewModel.swift; path = courseworkZoo/Model/BaseViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E10C6FB2279921900CB6821 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E10C6FD2279923E00CB6821 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -124,6 +154,7 @@
 		4E2D80D62274E13A00B5E194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E2D80D92274E13A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2D80DB2274E13A00B5E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E33E91122BFB25B001EB907 /* monkeys.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = monkeys.gif; sourceTree = "<group>"; };
 		4E806575227CCAF6006A312A /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
@@ -189,6 +220,10 @@
 				4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */,
 				4E0A66AF22BBF98B00545C00 /* Info.plist */,
 				4E0A66B522BC0FC900545C00 /* TestDependency.swift */,
+				4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */,
+				4E0386B822C009CC00250011 /* TestEnums.swift */,
+				4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */,
+				4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */,
 			);
 			path = courseworkZooTests;
 			sourceTree = "<group>";
@@ -233,12 +268,12 @@
 		4E10C6F522798ABF00CB6821 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4E0EBAF622B4E8FA003D9CD1 /* LocalityViewModel.swift */,
 				4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */,
-				4E09264D22B79A5B001BEAED /* AnimalViewModel.swift */,
 				4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */,
 				4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */,
 				4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */,
+				4E0386B222BFF84000250011 /* ViewModel.swift */,
+				4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -246,6 +281,7 @@
 		4E2D80C32274E11800B5E194 = {
 			isa = PBXGroup;
 			children = (
+				4E33E91122BFB25B001EB907 /* monkeys.gif */,
 				4E2D80CE2274E11900B5E194 /* courseworkZoo */,
 				4E0A669022BBF78800545C00 /* courseworkZooUITests */,
 				4E0A66AC22BBF98B00545C00 /* courseworkZooTests */,
@@ -268,6 +304,7 @@
 		4E2D80CE2274E11900B5E194 /* courseworkZoo */ = {
 			isa = PBXGroup;
 			children = (
+				4E33E91022BFB173001EB907 /* imagesAndAnimations */,
 				4E04B7F522BA9E1700349FA0 /* FlowCoordinators */,
 				4E10C6F522798ABF00CB6821 /* ViewModel */,
 				4E10C6F422798AB300CB6821 /* Service */,
@@ -286,6 +323,13 @@
 				4E19306C22BD781500716BAD /* SettingInformationViewController.swift */,
 			);
 			path = courseworkZoo;
+			sourceTree = "<group>";
+		};
+		4E33E91022BFB173001EB907 /* imagesAndAnimations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = imagesAndAnimations;
 			sourceTree = "<group>";
 		};
 		76214DEAFEAD80C2F7F18AD0 /* Frameworks */ = {
@@ -366,6 +410,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4E029B7522BEF5F900CAE074 /* PBXTargetDependency */,
 			);
 			name = courseworkZoo;
 			productName = courseworkZoo;
@@ -382,6 +427,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Daniel Šup";
 				TargetAttributes = {
+					4E029B7022BEF5EC00CAE074 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					4E0A668E22BBF78800545C00 = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 4E2D80CB2274E11900B5E194;
@@ -412,6 +460,7 @@
 				4E2D80CB2274E11900B5E194 /* courseworkZoo */,
 				4E0A668E22BBF78800545C00 /* courseworkZooUITests */,
 				4E0A66AA22BBF98B00545C00 /* courseworkZooTests */,
+				4E029B7022BEF5EC00CAE074 /* Localization */,
 			);
 		};
 /* End PBXProject section */
@@ -435,6 +484,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E33E91222BFB25B001EB907 /* monkeys.gif in Resources */,
 				4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */,
 				4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */,
 				4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */,
@@ -488,6 +538,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4E029B7622BEF60200CAE074 /* ACKLocalization */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = ACKLocalization;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vRhBukoXFtdmitg6dzE1tM-Z2gBVBRpCmSLCCqNwfzImWLev-5IY85jJrfRTXy_TdsWoqPBkITC-R_w\" \"key_ios\" '{\"EN\":\"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/courseworkZoo\" \"Localizable.strings\"\n";
 		};
 		4E04B7F022BA50DA00349FA0 /* Generate version number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -562,6 +630,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */,
+				4E0386B722C0098700250011 /* TestAnimalDetailViewController.swift in Sources */,
+				4E0386BB22C009FF00250011 /* TestAnimalListViewController.swift in Sources */,
+				4E0386BD22C00A1F00250011 /* TestSettingsInformation.swift in Sources */,
+				4E0386B922C009CC00250011 /* TestEnums.swift in Sources */,
 				4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,10 +653,10 @@
 				4E2D80D22274E11900B5E194 /* ViewController.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
+				4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */,
 				4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */,
 				4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */,
 				4E175CF822BE800700690F79 /* Binding.swift in Sources */,
-				4E09264E22B79A5B001BEAED /* AnimalViewModel.swift in Sources */,
 				4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */,
 				4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */,
 				4E19306B22BD59B200716BAD /* SaidInformationSettings.swift in Sources */,
@@ -596,10 +668,10 @@
 				4E19306D22BD781500716BAD /* SettingInformationViewController.swift in Sources */,
 				4E0EB69F22B3870600831DDB /* String.swift in Sources */,
 				4E19306F22BD7C4400716BAD /* SettingsInformationViewModel.swift in Sources */,
-				4E0EBAF722B4E8FA003D9CD1 /* LocalityViewModel.swift in Sources */,
 				4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */,
 				4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */,
 				4E09264A22B79876001BEAED /* Actuality.swift in Sources */,
+				4E0386B322BFF84100250011 /* ViewModel.swift in Sources */,
 				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
 				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
@@ -613,6 +685,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4E029B7522BEF5F900CAE074 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E029B7022BEF5EC00CAE074 /* Localization */;
+			targetProxy = 4E029B7422BEF5F900CAE074 /* PBXContainerItemProxy */;
+		};
 		4E0A669522BBF78800545C00 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4E2D80CB2274E11900B5E194 /* courseworkZoo */;
@@ -654,6 +731,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E029B7122BEF5EE00CAE074 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4E029B7222BEF5EE00CAE074 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 34792P2FZY;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		4E0A669722BBF78800545C00 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21DAF67788D63D012A2C0282 /* Pods-courseworkZooUITests.debug.xcconfig */;
@@ -899,6 +994,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E029B7322BEF5EE00CAE074 /* Build configuration list for PBXAggregateTarget "Localization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E029B7122BEF5EE00CAE074 /* Debug */,
+				4E029B7222BEF5EE00CAE074 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4E0A669622BBF78800545C00 /* Build configuration list for PBXNativeTarget "courseworkZooUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

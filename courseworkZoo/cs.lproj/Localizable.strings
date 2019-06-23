@@ -1,13 +1,5 @@
-/* 
-  Localizable.strings
-  courseworkZoo
-
-  Created by Daniel Šup on 01/05/2019.
-  Copyright © 2019 Daniel Šup. All rights reserved.
-*/
-
-"welcome" = "Vitejte v aplikaci.";
-"here" = "Jste zde.";
+"welcome" = "Vítejte v aplikaci.";
+"here" = "Jste zde";
 "europe" = "Evropa";
 "asia" = "Asie";
 "africa" = "Afrika";
@@ -27,7 +19,7 @@
 "reptilia" = "Plazi";
 "aves" = "Aves";
 "none" = "Zadne informace nebudou mluveny";
-"elementary" = "Jen zakladni informace";
+"elementary" = "Jen základní informace";
 "advanced" = "Detailni informace";
 "onlyTitleAndNews" = "Pouze nazev zvirete a novinky";
 "titleNewsAndDescription" = "Nazev, novinky a popis zvirete";
@@ -36,9 +28,9 @@
 "withoutAttractions" = "Vsechny informace krome zajimavosti";
 "withoutBreeding" = "Vsechny informace krome informaci o chovu";
 "allInformation" = "Vsechny informace";
-"goToAnimalList" = "Seznam zvirat";
+"goToAnimalList" = "Seznam zvířat";
 "goToSettings" = "Nastaveni mluvenych informaci o zviratech";
-"goForSelectionOfLocality" = "Vyber lokalitu, kam chces jit";
+"goForSelectionOfLocality" = "Vyber lokalitu, kam chceš jít";
 "goBackToMap" = "Zpet na mapu";
 "cancelSelection" = "Zrusit vyber";
 "sea" = "Moře";

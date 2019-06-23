@@ -12,6 +12,7 @@ class BaseViewController: UIViewController{
     init(){
         super.init(nibName: nil, bundle: nil)
         NSLog("Created ViewController \(self)")
+        
     }
     deinit{
         NSLog("Removing ViewController \(self)")

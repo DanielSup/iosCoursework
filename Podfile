@@ -9,6 +9,7 @@ target 'courseworkZoo' do
     pod 'ACKLocalization', '~> 0.1'
     pod 'SwiftGen', '~> 6.0'
     pod 'ReactiveSwift'
+    pod 'SwiftyGif'
     pod 'SnapKit', '~> 4.2' 
 end
 

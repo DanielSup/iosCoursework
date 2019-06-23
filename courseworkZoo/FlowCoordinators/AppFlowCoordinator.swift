@@ -17,19 +17,16 @@ class AppFlowCoordinator: BaseFlowCoordinator {
         let navigationController = UINavigationController()
         window.rootViewController = navigationController
         self.navigationController = navigationController
-        let animalVM: AnimalViewModel = AnimalViewModel(dependencies: AppDependency.shared)
-        let localityVM: LocalityViewModel = LocalityViewModel(dependencies: AppDependency.shared)
-        let vc1 = ViewController(localityViewModel: localityVM, animalViewModel: animalVM)
-        let vc2 = AnimalListViewController(viewModel: animalVM)
+        let vm = ViewModel(dependencies: AppDependency.shared)
+        let vc1 = ViewController(viewModel: vm)
         vc1.flowDelegate = self
-        vc2.flowDelegate = self
         navigationController.setViewControllers([vc1], animated: true)
     }
 }
 
 extension AppFlowCoordinator: GoToAnimalListDelegate{
     func goToAnimalListTapped(in viewController: BaseViewController){
-        let vm = AnimalViewModel(dependencies: AppDependency.shared)
+        let vm = AnimalListViewModel(dependencies: AppDependency.shared)
         let vc = AnimalListViewController(viewModel: vm)
         vc.flowDelegate = self
         vc.animalDetailFlowDelegate = self
