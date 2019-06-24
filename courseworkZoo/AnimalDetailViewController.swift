@@ -64,7 +64,7 @@ class AnimalDetailViewController: BaseViewController {
     }
     
     func stringForContinentsLabel() -> String{
-        var continentString: String = ""
+        var continentString: String = "Kontinenty, kde se vyskytuje: "
         var first: Bool = true
         for continent in self.continents{
             if (first){
@@ -74,11 +74,14 @@ class AnimalDetailViewController: BaseViewController {
             }
             first = false
         }
+        if (first){
+            continentString += Continent.notInNature.title
+        }
         return continentString
     }
     
     func stringForBiotopesLabel() -> String {
-        var biotopeString: String = ""
+        var biotopeString: String = "Biotopy, kde se vyskytuje: "
         var first: Bool = true
         for biotope in self.biotopes{
             if (first){
@@ -92,7 +95,7 @@ class AnimalDetailViewController: BaseViewController {
     }
     
     func stringForFoodsLabel() -> String {
-        var foodString: String = ""
+        var foodString: String = "Potrava: "
         var first: Bool = true
         for food in self.foods{
             if (first){
@@ -128,7 +131,7 @@ class AnimalDetailViewController: BaseViewController {
                 self.contentView.addSubview(image)
                 image.translatesAutoresizingMaskIntoConstraints = false
                 image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-                image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+                image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
                 image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/3).isActive = true
                 success = true
             }
@@ -143,44 +146,48 @@ class AnimalDetailViewController: BaseViewController {
         descriptionLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
         self.contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        descriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         if(success){
-            descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
+            descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
         } else {
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         }
         let continentsLabel = UILabel()
         continentsLabel.text = self.stringForContinentsLabel()
         continentsLabel.textColor = .black
         self.contentView.addSubview(continentsLabel)
         continentsLabel.translatesAutoresizingMaskIntoConstraints = false
-        continentsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        continentsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor).isActive = true
+        continentsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        continentsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
         
         let biotopesLabel = UILabel()
         biotopesLabel.text = self.stringForBiotopesLabel()
         biotopesLabel.textColor = .black
         self.contentView.addSubview(biotopesLabel)
         biotopesLabel.translatesAutoresizingMaskIntoConstraints = false
-        biotopesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        biotopesLabel.topAnchor.constraint(equalTo: continentsLabel.bottomAnchor).isActive = true
+        biotopesLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        biotopesLabel.topAnchor.constraint(equalTo: continentsLabel.bottomAnchor, constant: 10).isActive = true
         
         let foodsLabel = UILabel()
         foodsLabel.text = self.stringForFoodsLabel()
         foodsLabel.textColor = .black
         self.contentView.addSubview(foodsLabel)
         foodsLabel.translatesAutoresizingMaskIntoConstraints = false
-        foodsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        foodsLabel.topAnchor.constraint(equalTo: biotopesLabel.bottomAnchor).isActive = true
+        foodsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        foodsLabel.topAnchor.constraint(equalTo: biotopesLabel.bottomAnchor, constant: 10).isActive = true
         
         let proportionsLabel = UILabel()
-        proportionsLabel.text = self.animal.proportions
+        proportionsLabel.numberOfLines = 0
+        proportionsLabel.lineBreakMode = .byWordWrapping
+        proportionsLabel.text = "Proporce: "+self.animal.proportions
         proportionsLabel.textColor = .black
         proportionsLabel.textAlignment = .justified
+        proportionsLabel.sizeToFit()
+        proportionsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
         self.contentView.addSubview(proportionsLabel)
         proportionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        proportionsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        proportionsLabel.topAnchor.constraint(equalTo: foodsLabel.bottomAnchor).isActive = true
+        proportionsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        proportionsLabel.topAnchor.constraint(equalTo: foodsLabel.bottomAnchor, constant: 10).isActive = true
         
         let reproductionLabel = UILabel()
         reproductionLabel.text = self.animal.reproduction
@@ -188,8 +195,8 @@ class AnimalDetailViewController: BaseViewController {
         reproductionLabel.textAlignment = .justified
         self.contentView.addSubview(reproductionLabel)
         reproductionLabel.translatesAutoresizingMaskIntoConstraints = false
-        reproductionLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        reproductionLabel.topAnchor.constraint(equalTo: proportionsLabel.bottomAnchor).isActive = true
+        reproductionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        reproductionLabel.topAnchor.constraint(equalTo: proportionsLabel.bottomAnchor, constant: 10).isActive = true
         
         let attractionsLabel = UILabel()
         attractionsLabel.numberOfLines = 0
@@ -201,8 +208,8 @@ class AnimalDetailViewController: BaseViewController {
         attractionsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
         self.contentView.addSubview(attractionsLabel)
         attractionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        attractionsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        attractionsLabel.topAnchor.constraint(equalTo: reproductionLabel.bottomAnchor).isActive = true
+        attractionsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        attractionsLabel.topAnchor.constraint(equalTo: reproductionLabel.bottomAnchor, constant: 10).isActive = true
         
         let breedingsLabel = UILabel()
         breedingsLabel.numberOfLines = 0
@@ -214,9 +221,10 @@ class AnimalDetailViewController: BaseViewController {
         breedingsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
         self.contentView.addSubview(breedingsLabel)
         breedingsLabel.translatesAutoresizingMaskIntoConstraints = false
-        breedingsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        breedingsLabel.topAnchor.constraint(equalTo: attractionsLabel.bottomAnchor).isActive = true
-        breedingsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true        /* let goToAnimalListButton = UIButton()
+        breedingsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
+        breedingsLabel.topAnchor.constraint(equalTo: attractionsLabel.bottomAnchor, constant: 10).isActive = true
+        breedingsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        /* let goToAnimalListButton = UIButton()
         goToAnimalListButton.setTitle(NSLocalizedString("goToAnimalList", comment: ""), for: .normal)
         goToAnimalListButton.setTitleColor(.black, for: .normal)
         goToAnimalListButton.addTarget(self, action: #selector(goBackTapped(_:)), for: .touchUpInside)
