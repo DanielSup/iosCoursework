@@ -49,7 +49,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
-        let versionLabel = UILabel()
+        /* let versionLabel = UILabel()
         let buildNumberLabel = UILabel()
         print(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion"))
         versionLabel.text = (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "a"
@@ -111,7 +111,7 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         }
         
         self.versionLabel = versionLabel
-        self.buildNumberLabel = buildNumberLabel
+        self.buildNumberLabel = buildNumberLabel */
         
         let zooPlanMapView = MKMapView()
         self.view.addSubview(zooPlanMapView)
@@ -151,6 +151,13 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
         self.zooPlanMapView.delegate = self
         self.zooPlanMapViewSmall.delegate = self
         
+        self.navigationController?.isToolbarHidden = false
+        let goToSettingsButton = UIBarButtonItem(title:NSLocalizedString("goToSettings", comment: ""), style: .plain, target: self, action: #selector(goToSettingsTapped(_:)))
+        let goToSettingsOfLocalityButton = UIBarButtonItem(title:NSLocalizedString("goForSelectionOfLocality", comment: ""), style: .plain, target: self, action: #selector(goForSelectionOfLocalityTapped(_:)))
+        let goToAnimalListButton = UIBarButtonItem(title: NSLocalizedString("goToAnimalList", comment:""), style: .plain, target: self, action: #selector(goToAnimalListTapped(_:)))
+        
+        let arr: [Any] = [goToSettingsButton, goToSettingsOfLocalityButton, goToAnimalListButton]
+        setToolbarItems(arr as? [UIBarButtonItem], animated: true)
         self.addLoadedLocalitiesToMap()
     }
     
@@ -284,17 +291,17 @@ class ViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDe
     }
 
     @objc
-    private func goToAnimalListTapped(_ sender: UIButton){
+    private func goToAnimalListTapped(_ sender: UIBarButtonItem){
         flowDelegate?.goToAnimalListTapped(in: self)
     }
 
     @objc
-    private func goForSelectionOfLocalityTapped(_ sennder: UIButton){
+    private func goForSelectionOfLocalityTapped(_ sennder: UIBarButtonItem){
         flowDelegate?.goForSelectionOfLocality(in: self)
     }
     
     @objc
-    private func goToSettingsTapped(_ sennder: UIButton){
+    private func goToSettingsTapped(_ sennder: UIBarButtonItem){
         flowDelegate?.goToSettings(in: self)
     }
     
