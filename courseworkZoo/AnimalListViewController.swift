@@ -30,7 +30,7 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
     self.animalListViewModel.getAllAnimalsAction.values.producer.startWithValues{
             (animalList) in
             for animal in animalList{
-                if(animal.title.contains(text) || animal.title.contains(capitalizedText)){
+                if(animal.title.contains(text) || animal.title.contains(capitalizedText) || text == ""){
                     animalsInResult.append(animal)
                 }
             }
