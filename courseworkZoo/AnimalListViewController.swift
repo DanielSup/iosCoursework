@@ -22,7 +22,24 @@ protocol GoToAnimalDetailDelegate: class{
     func goToAnimalDetail(in viewController: BaseViewController, to animal: Animal)
 }
 
-class AnimalListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class AnimalListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        var animalsInResult: [Animal] = []
+        guard let text = searchController.searchBar.text else { return }
+        let capitalizedText = text.capitalized
+    self.animalListViewModel.getAllAnimalsAction.values.producer.startWithValues{
+            (animalList) in
+            for animal in animalList{
+                if(animal.title.contains(text) || animal.title.contains(capitalizedText)){
+                    animalsInResult.append(animal)
+                }
+            }
+        }
+        self.animalListViewModel.getAllAnimalsAction.apply().start()
+        animalList = animalsInResult
+        self.animalTableView.reloadData()
+    }
+    
     
     private var animalListViewModel: AnimalListViewModelling
     weak var flowDelegate: GoBackDelegate?
@@ -53,6 +70,11 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
