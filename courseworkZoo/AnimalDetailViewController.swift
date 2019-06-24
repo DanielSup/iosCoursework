@@ -120,14 +120,19 @@ class AnimalDetailViewController: BaseViewController {
         
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.width))
         let url = URL(string: self.animal.image.replacingOccurrences(of: "https:", with: "http:"))
-        let data = try? Data(contentsOf: url!)
-        image.image = UIImage(data: data!)
-        self.contentView.addSubview(image)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/3).isActive = true
-        
+        var success = false
+        if(url != nil){
+            let data = try? Data(contentsOf: url!)
+            if (data != nil){
+                image.image = UIImage(data: data!)
+                self.contentView.addSubview(image)
+                image.translatesAutoresizingMaskIntoConstraints = false
+                image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+                image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+                image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/3).isActive = true
+                success = true
+            }
+        }
         let descriptionLabel = UILabel()
         descriptionLabel.numberOfLines = 0
         descriptionLabel.lineBreakMode = .byWordWrapping
@@ -139,8 +144,11 @@ class AnimalDetailViewController: BaseViewController {
         self.contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
-        
+        if(success){
+            descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
+        } else {
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        }
         let continentsLabel = UILabel()
         continentsLabel.text = self.stringForContinentsLabel()
         continentsLabel.textColor = .black
