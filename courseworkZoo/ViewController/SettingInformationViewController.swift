@@ -72,18 +72,7 @@ class SettingInformationViewController: BaseViewController, UITableViewDataSourc
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingsCell")
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.view.addSubview(self.tableView)        // Do any additional setup after loading the view.
+        self.view.addSubview(self.tableView)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

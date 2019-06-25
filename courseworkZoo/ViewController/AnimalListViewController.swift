@@ -87,7 +87,6 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
         self.view.addSubview(self.animalTableView)
         
         self.view.backgroundColor = .white
-        // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

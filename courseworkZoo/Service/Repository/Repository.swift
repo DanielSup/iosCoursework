@@ -33,20 +33,32 @@ class Repository<T: Codable> {
         }
         return entities
     }
-    
+    /**
+     This function ensures loading data from server and
+     */
     func reload(){
+        // if data were loaded unsuccessfully after the starting of the application
         if (entities.value == nil){
+            // updating of result in case that data could not be loaded previously
             let result = self.getEntities()
             if (result != nil){
                 entities.value = result
                 self.lastEdited = Date()
             }
+            
+        // after the starting of the application
         } else if (entities.value!.count == 0){
+            // loading of the data in the beginning
             let result = self.getEntities()
             entities.value = result
             self.lastEdited = Date()
+            
+        // in other cases - data were loaded successfully last time
         } else {
+            // updating of loaded data each 3 hours
             let threeHoursAgo:Date = Date(timeIntervalSinceNow: -3*60*60)
+            
+            // updating of loaded data when data was loaded more than 3 hours ago
             if (self.lastEdited < threeHoursAgo){
                 let result = self.getEntities()
                 if (result != nil){

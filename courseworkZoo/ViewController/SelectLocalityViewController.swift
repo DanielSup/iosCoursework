@@ -13,6 +13,8 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     var flowDelegate: GoBackDelegate?
     private var localityList: [Locality] = []
     private var localityTableView: UITableView!
+    
+    
     init(selectLocalityViewModel: SelectLocalityViewModel){
         self.selectLocalityViewModel = selectLocalityViewModel
         super.init()
@@ -39,18 +41,21 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
         self.localityTableView.delegate = self
         self.view.addSubview(self.localityTableView)
         
-        self.view.backgroundColor = .white        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .white
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return localityList.count + 1
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.localityTableView.dequeueReusableCell(withIdentifier: "localityCell", for: indexPath as IndexPath)
         cell.textLabel!.text = indexPath.row == 0 ? NSLocalizedString("cancelSelection", comment: ""): self.localityList[indexPath.row - 1].title
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0){
@@ -61,14 +66,5 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
         flowDelegate?.goBackTapped(in: self)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
