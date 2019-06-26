@@ -9,38 +9,34 @@
 import UIKit
 import SnapKit
 
+/**
+ This class represents a screen with detailed information about an animal. This view controller is usually called from the list of animals.
+ */
 class AnimalDetailViewController: BaseViewController {
+    /// Object representing the selected animal.
     private let animal: Animal
+    /// The view model for getting information about the selected animal such as food, biotopes and continents
     private let animalDetailViewModel: AnimalDetailViewModel
+    /// Array of continents in which the animal lives
     private var continents: [Continent] = []
+    /// Array of biotopes in which the animal lives
     private var biotopes: [Biotope] = []
+    /// Array of kinds of foods which the animal eats
     private var foods: [Food] = []
-    
+    /// The scroll view for scrolling the content about the animal on the screen
     private let scrollView: UIScrollView = UIScrollView()
+    /// The view with all information about the animal and a picture of the animal
     private let contentView: UIView = UIView()
-    
+    /// Delegate ensuring going to the list of animals
     weak var flowDelegate: GoBackDelegate?
-    
-    func setupScrollView(){
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        // adding scroll view to main view and content view to the scroll view
-        view.addSubview(scrollView)
-        self.scrollView.addSubview(contentView)
-        
-        //adding constraints to scroll view
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        //adding constraints to content view
-        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-    }
 
+    
+    /**
+     In the constructor there are registered and started action of the view model for getting continents where the animal lives, biotopes where the animal lives and food which the animal eats.
+     - Parameters:
+        - animal: The object with basic information and some further information about the animal. This object represents the animal.
+        - animalDetailViewModel: The view model object for getting data about the animal for the screen
+    */
     init(animal: Animal, animalDetailViewModel: AnimalDetailViewModel){
         self.animal = animal
         self.animalDetailViewModel = animalDetailViewModel
@@ -71,6 +67,10 @@ class AnimalDetailViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    /**
+     - Returns: String with continents where tha animal lives.
+    */
     func stringForContinentsLabel() -> String{
         var continentString: String = "Kontinenty, kde se vyskytuje: "
         var first: Bool = true
@@ -88,6 +88,9 @@ class AnimalDetailViewController: BaseViewController {
         return continentString
     }
     
+    
+    /**
+     */
     func stringForBiotopesLabel() -> String {
         var biotopeString: String = "Biotopy, kde se vyskytuje: "
         var first: Bool = true
@@ -102,6 +105,9 @@ class AnimalDetailViewController: BaseViewController {
         return biotopeString
     }
     
+    
+    /**
+    */
     func stringForFoodsLabel() -> String {
         var foodString: String = "Potrava: "
         var first: Bool = true
@@ -116,6 +122,32 @@ class AnimalDetailViewController: BaseViewController {
         return foodString
     }
     
+    
+    /**
+     */
+    func setupScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        // adding scroll view to main view and content view to the scroll view
+        view.addSubview(scrollView)
+        self.scrollView.addSubview(contentView)
+        
+        //adding constraints to scroll view
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        //adding constraints to content view
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+    }
+    
+    
+    /**
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupScrollView()

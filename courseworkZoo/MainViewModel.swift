@@ -9,17 +9,7 @@
 import UIKit
 import ReactiveSwift
 
-protocol ViewModelling{
-    var animalInClosenessAction: Action<(), Animal?, LoadError> { get }
-    var getAnimalsAction: Action<(), [Animal], LoadError> { get }
-    func sayInformationAboutAnimal(animal: Animal?)
-    var localityInClosenessAction: Action<(), Locality?, LoadError> { get }
-    var getLocalitiesAction: Action<(), [Locality], LoadError> { get }
-    func updateLocation(latitude: Double, longitude: Double)
-    func sayInformationAboutLocality(locality: Locality?)
-}
-
-class ViewModel: BaseViewModel, ViewModelling {
+class MainViewModel: BaseViewModel{
     typealias Dependencies = HasLocalityRepository & HasAnimalRepository & HasSpeechService
     private var dependencies: Dependencies
     private var animals = MutableProperty<[Animal]>([])

@@ -18,6 +18,7 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     init(selectLocalityViewModel: SelectLocalityViewModel){
         self.selectLocalityViewModel = selectLocalityViewModel
         super.init()
+        
         self.selectLocalityViewModel.getLocalitiesAction.values.producer.startWithValues {
             (localityList) in
             self.localityList = localityList
@@ -31,6 +32,7 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
