@@ -21,10 +21,6 @@ class Locality: LoadedEntity{
         case id, title, alias, localityType = "type", latitude = "gps_x", longitude = "gps_y"
     }
     
-    static func getUrl() -> String{
-        return Constants.localitiesRelativeUrl
-    }
-    
 }
 
 
