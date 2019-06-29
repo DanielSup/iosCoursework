@@ -8,20 +8,21 @@
 
 import UIKit
 
-protocol HasNoDependency {
-    
-}
 
-class AppDependency: HasNoDependency {
+/**
+ This class is used for injection of some dependencies (especially repositories and services) to other code (especially ViewModels and ViewControllers)
+ */
+class AppDependency {
     private init() {}
+    /// instance of AppDependency class used for dependency injection
     static let shared = AppDependency()
     
     lazy var animalRepository:AnimalRepositoring =  AnimalRepository()
     lazy var localityRepository:LocalityRepositoring =  LocalityRepository()
     lazy var speechService: SpeechServicing = SpeechService(language: Locale.current.identifier)
-    lazy var biotopeBindingRepository: BindingRepository<BiotopeBinding> = BindingRepository<BiotopeBinding>(url: Constants.biotopesBindings)
-    lazy var foodBindingRepository: BindingRepository<FoodBinding> = BindingRepository<FoodBinding>(url: Constants.foodBindings)
-    lazy var continentBindingRepository: BindingRepository<ContinentBinding> = BindingRepository<ContinentBinding>(url: Constants.continentsBindings)
+    lazy var biotopeBindingRepository: BiotopeBindingRepositoring = BiotopeBindingRepository()
+    lazy var foodBindingRepository: FoodBindingRepositoring = FoodBindingRepository()
+    lazy var continentBindingRepository: ContinentBindingRepositoring = ContinentBindingRepository()
 }
 
 extension AppDependency: HasAnimalRepository{}

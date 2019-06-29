@@ -8,17 +8,30 @@
 
 import UIKit
 
-class APIService: NSObject {
-    static func getResultsOfAPICall(url: String) -> String{
-        if let url = URL(string: url){
+class APIService {
+    private static let serverUrl = Constants.serverUrl
+    
+    static func getEntitiesGotByAPICall<T: Codable> (relativeUrl: String) -> [T]?{
+        if let url = URL(string: serverUrl + relativeUrl){
             do {    
-                let contents = try String(contentsOf: url)
-                return contents
+                let content = try String(contentsOf: url)
+                
+                var entitiesFromAPICall: [T] = []
+                let entitiesInJson =  content.parseJSONString
+                let decoder = JSONDecoder()
+                for entityInJson in entitiesInJson{
+                    let entityObject = try? decoder.decode(T.self, from: entityInJson)
+                    if let entity = entityObject as? T {
+                        entitiesFromAPICall.append(entity)
+                    }
+                }
+                return entitiesFromAPICall
+                
             } catch {
-                return "content could not be loaded"
+                return nil
             }
         } else {
-            return "error"
+            return nil
         }
     }
 }

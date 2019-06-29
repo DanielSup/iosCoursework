@@ -90,6 +90,7 @@ class AnimalDetailViewController: BaseViewController {
     
     
     /**
+     - Returns: String with biotopes in which the animal lives.
      */
     func stringForBiotopesLabel() -> String {
         var biotopeString: String = "Biotopy, kde se vyskytuje: "
@@ -107,6 +108,7 @@ class AnimalDetailViewController: BaseViewController {
     
     
     /**
+     - Returns: String with kinds of foods which the animal eats.
     */
     func stringForFoodsLabel() -> String {
         var foodString: String = "Potrava: "
@@ -124,6 +126,7 @@ class AnimalDetailViewController: BaseViewController {
     
     
     /**
+     This function ensures setting up the scroll view for elements with informaiton about the animal. This function sets up the scroll view and the content view which is added to the scroll view.
      */
     func setupScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -146,8 +149,7 @@ class AnimalDetailViewController: BaseViewController {
     }
     
     
-    /**
-     */
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupScrollView()
@@ -165,10 +167,12 @@ class AnimalDetailViewController: BaseViewController {
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         
         
+        // indicating whether image is successfully loaded
+        var imageSuccessfullyLoaded = false
+        
         //adding an image of the animal
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.width))
         let url = URL(string: self.animal.image.replacingOccurrences(of: "https:", with: "http:"))
-        var success = false
         // we add image to the screen only if the data from the url can be loaded
         if(url != nil){
             let data = try? Data(contentsOf: url!)
@@ -176,29 +180,39 @@ class AnimalDetailViewController: BaseViewController {
                 // adding an image of the animal when data can be loaded
                 image.image = UIImage(data: data!)
                 self.contentView.addSubview(image)
+                
+                // finding out correct dimensions (especially the correct height of the image so that the image would be correctly loaded and shown)
+                let imageWidth = image.image?.size.width
+                let imageHeight = image.image?.size.height
+                let heightWidthRatio = Float(imageHeight!) / Float(imageWidth!)
+                let widthOfContentView = self.view.bounds.width
+                let correctWidth = 2.0 / 3.0 * Float(widthOfContentView) * heightWidthRatio
+                
+                // setting constraints of the image view
                 image.translatesAutoresizingMaskIntoConstraints = false
                 image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
                 image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
                 image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/3).isActive = true
-                success = true
+                image.heightAnchor.constraint(equalToConstant: CGFloat(correctWidth)).isActive = true
+                
+                imageSuccessfullyLoaded = true
             }
         }
         
         // adding a multiline text label with description of the animal
         let descriptionLabel = UILabel()
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.text = self.animal.description
         descriptionLabel.textAlignment = .justified
         descriptionLabel.textColor = .black
-        descriptionLabel.sizeToFit()
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
-        
+        descriptionLabel.sizeToFit()
         self.contentView.addSubview(descriptionLabel)
+         // setting constraints dependent on whether the image of the animal could be loaded
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        // setting constraints dependent on whether the image of the animal could be loaded
         descriptionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
-        if(success){
+        if(imageSuccessfullyLoaded){
             descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
         } else {
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
@@ -240,17 +254,16 @@ class AnimalDetailViewController: BaseViewController {
         
         // adding of a multiline text label with the information about proportions of the animal
         let proportionsLabel = UILabel()
-        proportionsLabel.numberOfLines = 0
-        proportionsLabel.lineBreakMode = .byWordWrapping
         proportionsLabel.text = "Proporce: "+self.animal.proportions
         proportionsLabel.textColor = .black
         proportionsLabel.textAlignment = .justified
-        proportionsLabel.sizeToFit()
+        proportionsLabel.numberOfLines = 0
+        proportionsLabel.lineBreakMode = .byWordWrapping
         proportionsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
-        
+        proportionsLabel.sizeToFit()
         self.contentView.addSubview(proportionsLabel)
+         // setting constraints
         proportionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        // setting constraints
         proportionsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         proportionsLabel.topAnchor.constraint(equalTo: foodsLabel.bottomAnchor, constant: 10).isActive = true
         
@@ -269,38 +282,39 @@ class AnimalDetailViewController: BaseViewController {
         
         // adding a multiline text label with attractions about the animal
         let attractionsLabel = UILabel()
-        attractionsLabel.numberOfLines = 0
-        attractionsLabel.lineBreakMode = .byWordWrapping
         attractionsLabel.text = self.animal.attractions
         attractionsLabel.textColor = .black
         attractionsLabel.textAlignment = .justified
-        attractionsLabel.sizeToFit()
+        attractionsLabel.numberOfLines = 0
+        attractionsLabel.lineBreakMode = .byWordWrapping
         attractionsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
-        
+        attractionsLabel.sizeToFit()
         self.contentView.addSubview(attractionsLabel)
-        attractionsLabel.translatesAutoresizingMaskIntoConstraints = false
         // setting constraints
+        attractionsLabel.translatesAutoresizingMaskIntoConstraints = false
         attractionsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         attractionsLabel.topAnchor.constraint(equalTo: reproductionLabel.bottomAnchor, constant: 10).isActive = true
         
         
         // adding a multiline text label with information about the breeding of the animal
         let breedingsLabel = UILabel()
-        breedingsLabel.numberOfLines = 0
-        breedingsLabel.lineBreakMode = .byWordWrapping
         breedingsLabel.text = self.animal.breeding
         breedingsLabel.textColor = .black
         breedingsLabel.textAlignment = .justified
-        breedingsLabel.sizeToFit()
+        breedingsLabel.numberOfLines = 0
+        breedingsLabel.lineBreakMode = .byWordWrapping
         breedingsLabel.preferredMaxLayoutWidth = self.view.bounds.width * 10 / 11
-        
+        breedingsLabel.sizeToFit()
         self.contentView.addSubview(breedingsLabel)
-        breedingsLabel.translatesAutoresizingMaskIntoConstraints = false
         // setting constraints
+        breedingsLabel.translatesAutoresizingMaskIntoConstraints = false
         breedingsLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         breedingsLabel.topAnchor.constraint(equalTo: attractionsLabel.bottomAnchor, constant: 10).isActive = true
         breedingsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
+    
+    
+    // MARK - Actions
     
     @objc
     func goBackTapped(_ sender: UIButton){

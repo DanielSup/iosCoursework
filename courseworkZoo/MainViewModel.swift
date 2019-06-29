@@ -18,7 +18,7 @@ class MainViewModel: BaseViewModel{
     private var longitude = MutableProperty<Double>(-1)
     
     lazy var animalInClosenessAction = Action<(), Animal?, LoadError> { [unowned self] in
-        self.dependencies.animalRepository.reload()
+        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.animals.value as? [Animal]
         {
             return self.dependencies.animalRepository.findAnimalInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
@@ -29,7 +29,7 @@ class MainViewModel: BaseViewModel{
     
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
-        self.dependencies.animalRepository.reload()
+        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
             return SignalProducer<[Animal], LoadError>(value: animals)
         } else {
@@ -39,7 +39,7 @@ class MainViewModel: BaseViewModel{
     
     lazy var getAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
-        self.dependencies.animalRepository.reload()
+        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
             var newAnimals: [Animal] = []
             for animal in animals{
@@ -156,7 +156,7 @@ class MainViewModel: BaseViewModel{
     }
     
     lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
-        self.dependencies.localityRepository.reload()
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.localityList.value as? [Locality] {
             return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
         } else {
@@ -166,7 +166,7 @@ class MainViewModel: BaseViewModel{
     
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
-        self.dependencies.localityRepository.reload()
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             var newLocalities: [Locality] = []
             for locality in localities {

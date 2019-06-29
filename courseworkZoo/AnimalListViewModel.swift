@@ -28,7 +28,7 @@ class AnimalListViewModel: BaseViewModel, AnimalListViewModelling {
     
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
-        self.dependencies.animalRepository.reload()
+        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
             return SignalProducer<[Animal], LoadError>(value: animals)
         } else {

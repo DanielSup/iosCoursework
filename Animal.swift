@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct Animal: Codable{
+struct Animal: LoadedEntity{
+    static var relativeUrl: String = Constants.animalsRelativeUrl
+    
     let id: Int
     let title: String
     let latinTitle: String
@@ -35,7 +37,7 @@ struct Animal: Codable{
     }
     
     static func getUrl() -> String{
-        return Constants.animals
+        return Constants.animalsRelativeUrl
     }
     
 }

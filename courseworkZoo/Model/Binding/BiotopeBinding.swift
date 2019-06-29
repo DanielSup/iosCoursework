@@ -1,5 +1,5 @@
 //
-//  FoodBinding.swift
+//  BiotopeBinding.swift
 //  courseworkZoo
 //
 //  Created by Daniel Šup on 22/06/2019.
@@ -8,11 +8,13 @@
 
 import UIKit
 
-class FoodBinding: Bindable {
+struct BiotopeBinding: Bindable {
+    static var relativeUrl: String = Constants.biotopesBindingsRelativeUrl
+    
     let animal: String
-    let food: String
+    let biotope: String
     enum CodingKeys: String, CodingKey{
-        case animal="id", food="id_f"
+        case animal="id", biotope="id_b"
     }
     
     func getAnimalId() -> Int {

@@ -9,27 +9,38 @@
 import UIKit
 import AVFoundation
 
-protocol HasSpeechService{
-    var speechService: SpeechServicing { get }
-}
 
+/**
+ Protocol used for speech service.
+ */
 protocol SpeechServicing{
     func sayText(text: String)
 }
 
+/**
+ This class is concrete implementation of speech service. This class ensures machine speaking of text with informations about animals or localities.
+ */
 class SpeechService: SpeechServicing {
+    /// The language used for machine speaking
     let language: String
+    
+    /**
+     - Parameters:
+        - language: The language which is used for machine speaking
+     */
     init(language: String){
         self.language = language
     }
+    
+    /**
+     This function ensures the machine speaking of the given text. The text is usually about an animal or a locality.
+     - Parameters:
+        - text: The text which will be read by machine
+     */
     func sayText(text: String){
-        print(text)
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: self.language)
         let synth = AVSpeechSynthesizer()
         synth.speak(utterance)
-        while(synth.isSpeaking){
-            synth.continueSpeaking()
-        }
     }
 }

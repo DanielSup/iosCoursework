@@ -1,5 +1,5 @@
 //
-//  ContinentBinding.swift
+//  FoodBinding.swift
 //  courseworkZoo
 //
 //  Created by Daniel Šup on 22/06/2019.
@@ -8,14 +8,17 @@
 
 import UIKit
 
-struct ContinentBinding: Bindable{
+class FoodBinding: Bindable {
+    static var relativeUrl: String = Constants.foodBindingsRelativeUrl
+    
     let animal: String
-    let continent: String
+    let food: String
     enum CodingKeys: String, CodingKey{
-        case animal="id", continent="id_c"
+        case animal="id", food="id_f"
     }
     
     func getAnimalId() -> Int {
         return Int(animal) ?? -1
     }
+    
 }

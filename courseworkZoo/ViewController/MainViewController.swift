@@ -18,7 +18,7 @@ import ReactiveSwift
 class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     /// The view model which ensures getting data for the screen
-    private var viewModel: MainViewModel
+    private var mainViewModel: MainViewModel
     /// The delegate which ensures taking user to different screens
     weak var flowDelegate: MainDelegate?
     /// The map of the zoo
@@ -30,13 +30,13 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - viewModel: instance of the view model for getting data for the screen implemented by this view controller
      */
-    init(viewModel: MainViewModel){
-        self.viewModel = viewModel
+    init(mainViewModel: MainViewModel){
+        self.mainViewModel = mainViewModel
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = MainViewModel(dependencies: AppDependency.shared)
+        self.mainViewModel = MainViewModel(dependencies: AppDependency.shared)
         super.init()
     }
     
@@ -74,7 +74,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         let goToSettingsButton = UIBarButtonItem(title:NSLocalizedString("goToSettings", comment: ""), style: .plain, target: self, action: #selector(goToSettingsTapped(_:)))
         let goToSettingsOfLocalityButton = UIBarButtonItem(title:NSLocalizedString("goForSelectionOfLocality", comment: ""), style: .plain, target: self, action: #selector(goForSelectionOfLocalityTapped(_:)))
         let goToAnimalListButton = UIBarButtonItem(title: NSLocalizedString("goToAnimalList", comment:""), style: .plain, target: self, action: #selector(goToAnimalListTapped(_:)))
-        
         let arr: [Any] = [goToSettingsButton, goToSettingsOfLocalityButton, goToAnimalListButton]
         setToolbarItems(arr as? [UIBarButtonItem], animated: true)
         
@@ -84,12 +83,12 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         
         // registration of the actions for saying information about localities and animals in the closeness of the actual location
-        self.viewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
-            self.viewModel.sayInformationAboutAnimal(animal: animal)
+        self.mainViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
+            self.mainViewModel.sayInformationAboutAnimal(animal: animal)
         }
         
-        self.viewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
-            self.viewModel.sayInformationAboutLocality(locality: locality)
+        self.mainViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
+            self.mainViewModel.sayInformationAboutLocality(locality: locality)
         }
         
     }
@@ -141,12 +140,13 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
+    
     /**
         This function ensures adding markers of localities and animals with coordintates to the map of the ZOO. In this method there are registered actions to add markers of localities and animals. Actions to get the list of localities with given coordinates and the list of animals with given coordinates are started here.
      */
     func addLoadedLocalitiesToMap(){
         // adding annotations of localities (especially pavilions) with known coordinates to the map
-        self.viewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
+        self.mainViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
             for locality in localitiesList{
                 // making and adding an annotation of the actual locality to the map
                 let annotation: MKPointAnnotation = MKPointAnnotation()
@@ -158,7 +158,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         // registration of the action which ensures adding annotations of animals with known coordinates to the map after getting the list of animals with given coordinates
-        self.viewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
+        self.mainViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
             for animal in animalList{
                 // making and adding an annotation of the actual animal to the map
                 let annotation: MKPointAnnotation = MKPointAnnotation()
@@ -170,8 +170,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         //running actions - getting localities and animals from the view model
-        self.viewModel.getLocalitiesAction.apply().start()
-        self.viewModel.getAnimalsAction.apply().start()
+        self.mainViewModel.getLocalitiesAction.apply().start()
+        self.mainViewModel.getAnimalsAction.apply().start()
     }
     
     /**
@@ -183,12 +183,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         if let location = locations.last {
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            self.viewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            self.viewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            
-            self.viewModel.localityInClosenessAction.apply().start()
-            self.viewModel.animalInClosenessAction.apply().start()
+            self.mainViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            self.mainViewModel.localityInClosenessAction.apply().start()
+            self.mainViewModel.animalInClosenessAction.apply().start()
             
             self.drawRouteToTheSelectedTargetLocality()
         }

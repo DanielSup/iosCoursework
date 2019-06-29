@@ -1,5 +1,5 @@
 //
-//  BiotopeBinding.swift
+//  ContinentBinding.swift
 //  courseworkZoo
 //
 //  Created by Daniel Šup on 22/06/2019.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-struct BiotopeBinding: Bindable {
+struct ContinentBinding: Bindable{
+    static var relativeUrl: String = Constants.continentsBindingsRelativeUrl
     
     let animal: String
-    let biotope: String
+    let continent: String
     enum CodingKeys: String, CodingKey{
-        case animal="id", biotope="id_b"
+        case animal="id", continent="id_c"
     }
     
     func getAnimalId() -> Int {
         return Int(animal) ?? -1
     }
-    
 }

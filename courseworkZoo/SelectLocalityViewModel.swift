@@ -15,7 +15,7 @@ class SelectLocalityViewModel: BaseViewModel {
     static var selectedLocality: Locality? = nil
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
-        self.dependencies.localityRepository.reload()
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             var newLocalities: [Locality] = []
             for locality in localities {

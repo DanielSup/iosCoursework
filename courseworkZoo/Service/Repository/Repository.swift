@@ -9,38 +9,22 @@
 import UIKit
 import ReactiveSwift
 
-class Repository<T: Codable> {
+
+class Repository<T: LoadedEntity>{
+    /// array of entities which is used for storing information loaded from the NodeJS server
     lazy var entities = MutableProperty<[T]?>([])
+    /// date of last editation or loading of array of entities
     private var lastEdited: Date = Date()
-    private let url: String
-    init(url: String){
-        self.url = url
-    }
     
-    func getEntities() -> [T]? {
-        let result: String = APIService.getResultsOfAPICall(url: Constants.server + url)
-        if(result == "error" || result == "content could not be loaded"){
-            return nil
-        }
-        var entities: [T] = []
-        let entitiesInJson = result.parseJSONString
-        let decoder = JSONDecoder()
-        for entityInJson in entitiesInJson{
-            let entityObject = try? decoder.decode(T.self, from: entityInJson)
-            if let entity = entityObject as? T {
-                entities.append(entity)
-            }
-        }
-        return entities
-    }
+    
     /**
      This function ensures loading data from server and
      */
-    func reload(){
+    func loadAndSaveDataIfNeeded(){
         // if data were loaded unsuccessfully after the starting of the application
         if (entities.value == nil){
             // updating of result in case that data could not be loaded previously
-            let result = self.getEntities()
+            let result: [T]? = APIService.getEntitiesGotByAPICall(relativeUrl: T.relativeUrl)
             if (result != nil){
                 entities.value = result
                 self.lastEdited = Date()
@@ -49,7 +33,7 @@ class Repository<T: Codable> {
         // after the starting of the application
         } else if (entities.value!.count == 0){
             // loading of the data in the beginning
-            let result = self.getEntities()
+            let result: [T]? = APIService.getEntitiesGotByAPICall(relativeUrl: T.relativeUrl)
             entities.value = result
             self.lastEdited = Date()
             
@@ -60,7 +44,7 @@ class Repository<T: Codable> {
             
             // updating of loaded data when data was loaded more than 3 hours ago
             if (self.lastEdited < threeHoursAgo){
-                let result = self.getEntities()
+                let result: [T]? = APIService.getEntitiesGotByAPICall(relativeUrl: T.relativeUrl)
                 if (result != nil){
                     entities.value = result
                     self.lastEdited = Date()

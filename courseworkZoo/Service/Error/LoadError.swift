@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum represents an error which describes which entities could not be loaded from the server
+ */
 enum LoadError: Error {
     case noLocalities, noAnimals, noBindings
 }

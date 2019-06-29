@@ -8,7 +8,9 @@
 
 import UIKit
 
-class Locality: Codable{
+class Locality: LoadedEntity{
+    static var relativeUrl: String = Constants.localitiesRelativeUrl
+    
     let id: Int
     let title: String
     let alias: String
@@ -20,7 +22,7 @@ class Locality: Codable{
     }
     
     static func getUrl() -> String{
-        return Constants.localities
+        return Constants.localitiesRelativeUrl
     }
     
 }

@@ -9,10 +9,10 @@
 import UIKit
 
 class Constants: NSObject {
-    static let server: String = "https://test-3565.rostiapp.cz/"
-    static let animals: String = "animals"
-    static let localities: String = "localities"
-    static let biotopesBindings: String = "biotopes/bindings"
-    static let foodBindings: String = "food/bindings"
-    static let continentsBindings: String = "continents/bindings"
+    static let serverUrl: String = "https://test-3565.rostiapp.cz/"
+    static let animalsRelativeUrl: String = "animals"
+    static let localitiesRelativeUrl: String = "localities"
+    static let biotopesBindingsRelativeUrl: String = "biotopes/bindings"
+    static let foodBindingsRelativeUrl: String = "food/bindings"
+    static let continentsBindingsRelativeUrl: String = "continents/bindings"
 }

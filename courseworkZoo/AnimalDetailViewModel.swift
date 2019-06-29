@@ -9,20 +9,8 @@
 import UIKit
 import ReactiveSwift
 
-protocol HasContinentBindingsRepository{
-    var continentBindingRepository: BindingRepository<ContinentBinding> { get }
-}
-
-protocol HasBiotopeBindingsRepository {
-    var biotopeBindingRepository: BindingRepository<BiotopeBinding> {  get }
-}
-
-protocol HasFoodBindingsRepository {
-    var foodBindingRepository: BindingRepository<FoodBinding> { get }
-}
-
 class AnimalDetailViewModel: BaseViewModel {
-    typealias Dependencies = HasContinentBindingsRepository & HasBiotopeBindingsRepository & HasFoodBindingsRepository
+    typealias Dependencies = HasContinentBindingsRepository & HasBiotopeBindingsRepository & HasFoodBindingsRepository 
     private let animal: Animal
     private let dependencies: Dependencies
     init(animal: Animal, dependencies: Dependencies){
@@ -33,7 +21,7 @@ class AnimalDetailViewModel: BaseViewModel {
     
     lazy var getContinentsOfAnimal = Action<(), [Continent], LoadError> {
         [unowned self] in
-        self.dependencies.continentBindingRepository.reload()
+        self.dependencies.continentBindingRepository.loadAndSaveDataIfNeeded()
         let bindingsArray = self.dependencies.continentBindingRepository.entities.value
         if let allBindings = bindingsArray as? [ContinentBinding] {
             let bindings = self.dependencies.continentBindingRepository.findBindingsWithAnimal(animal: self.animal.id)
@@ -55,7 +43,7 @@ class AnimalDetailViewModel: BaseViewModel {
     
     lazy var getBiotopesOfAnimal = Action<(), [Biotope], LoadError> {
         [unowned self] in
-        self.dependencies.biotopeBindingRepository.reload()
+        self.dependencies.biotopeBindingRepository.loadAndSaveDataIfNeeded()
         let bindingsArray = self.dependencies.biotopeBindingRepository.entities.value
         if let allBindings = bindingsArray as? [BiotopeBinding] {
             let bindings = self.dependencies.biotopeBindingRepository.findBindingsWithAnimal(animal: self.animal.id)
@@ -77,7 +65,7 @@ class AnimalDetailViewModel: BaseViewModel {
     
     lazy var getFoodsOfAnimal = Action<(), [Food], LoadError> {
         [unowned self] in
-        self.dependencies.foodBindingRepository.reload()
+        self.dependencies.foodBindingRepository.loadAndSaveDataIfNeeded()
         let bindingsArray = self.dependencies.foodBindingRepository.entities.value
         if let allBindings = bindingsArray as? [FoodBinding] {
             let bindings = self.dependencies.foodBindingRepository.findBindingsWithAnimal(animal: self.animal.id)

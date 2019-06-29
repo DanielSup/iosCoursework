@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol Bindable: Codable{
+protocol Bindable: LoadedEntity{
     func getAnimalId() -> Int
 }

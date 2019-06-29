@@ -31,8 +31,8 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
      - Parameters:
         - viewModel: The view model for getting the list of animals
      */
-    init(viewModel: AnimalListViewModelling){
-        self.animalListViewModel = viewModel
+    init(animalListViewModel: AnimalListViewModelling){
+        self.animalListViewModel = animalListViewModel
         super.init()
         self.loadAnimals()
     }
