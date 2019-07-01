@@ -11,11 +11,14 @@ import ReactiveSwift
 
 class MainViewModel: BaseViewModel{
     typealias Dependencies = HasLocalityRepository & HasAnimalRepository & HasSpeechService
+    
     private var dependencies: Dependencies
     private var animals = MutableProperty<[Animal]>([])
     private var localityList = MutableProperty<[Locality]>([])
     private var latitude = MutableProperty<Double>(-1)
     private var longitude = MutableProperty<Double>(-1)
+    
+    // Mark - Actions
     
     lazy var animalInClosenessAction = Action<(), Animal?, LoadError> { [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
@@ -27,6 +30,7 @@ class MainViewModel: BaseViewModel{
         }
     }
     
+    
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
@@ -36,6 +40,7 @@ class MainViewModel: BaseViewModel{
             return SignalProducer<[Animal], LoadError>(error: .noAnimals)
         }
     }
+    
     
     lazy var getAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
@@ -53,6 +58,36 @@ class MainViewModel: BaseViewModel{
             return SignalProducer<[Animal], LoadError>(error: .noAnimals)
         }
     }
+    
+    lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
+        if let localities = self.localityList.value as? [Locality] {
+            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
+        } else {
+            return SignalProducer<Locality?, LoadError>(error: .noLocalities)
+        }
+    }
+    
+    
+    lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
+        [unowned self] in
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
+        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
+            var newLocalities: [Locality] = []
+            for locality in localities {
+                if(locality.latitude < 0){
+                    continue
+                }
+                newLocalities.append(locality)
+            }
+            return SignalProducer<[Locality], LoadError>(value: newLocalities)
+        } else {
+            return SignalProducer<[Locality], LoadError>(error: .noLocalities)
+        }
+    }
+    
+    
+    // MARK - Constructor and other functions
     
     init(dependencies: Dependencies){
         self.dependencies = dependencies
@@ -152,32 +187,6 @@ class MainViewModel: BaseViewModel{
                 let title = localityForSaying.title.replacingOccurrences(of: "Pavilon", with: "Pavilonu")
                 self.dependencies.speechService.sayText(text: "Vítejte v "+title)
             }
-        }
-    }
-    
-    lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
-        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        if let localities = self.localityList.value as? [Locality] {
-            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
-        } else {
-            return SignalProducer<Locality?, LoadError>(error: .noLocalities)
-        }
-    }
-    
-    lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
-        [unowned self] in
-        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
-            var newLocalities: [Locality] = []
-            for locality in localities {
-                if(locality.latitude < 0){
-                    continue
-                }
-                newLocalities.append(locality)
-            }
-            return SignalProducer<[Locality], LoadError>(value: newLocalities)
-        } else {
-            return SignalProducer<[Locality], LoadError>(error: .noLocalities)
         }
     }
     

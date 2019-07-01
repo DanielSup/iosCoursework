@@ -18,13 +18,7 @@ class AnimalListViewModel: BaseViewModel, AnimalListViewModelling {
     private var dependencies: Dependencies
     private var animals = MutableProperty<[Animal]>([])
     
-    init(dependencies: Dependencies){
-        self.dependencies = dependencies
-        if let animals = self.dependencies.animalRepository.entities as? [Animal] {
-            self.animals.value = animals
-        }
-        super.init()
-    }
+    // MARK - Actions
     
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
@@ -35,4 +29,15 @@ class AnimalListViewModel: BaseViewModel, AnimalListViewModelling {
             return SignalProducer<[Animal], LoadError>(error: .noAnimals)
         }
     }
+    
+    // MARK - Constructor
+    
+    init(dependencies: Dependencies){
+        self.dependencies = dependencies
+        if let animals = self.dependencies.animalRepository.entities as? [Animal] {
+            self.animals.value = animals
+        }
+        super.init()
+    }
+    
 }

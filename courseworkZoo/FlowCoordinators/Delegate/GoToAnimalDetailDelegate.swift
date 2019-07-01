@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This protocol ensures going to a screen with detailed information about the given animal (for example selected animal from the list of all animals). 
+ */
 protocol GoToAnimalDetailDelegate: class{
     func goToAnimalDetail(in viewController: BaseViewController, to animal: Animal)
 }

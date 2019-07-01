@@ -19,6 +19,7 @@ enum Food{
     case seeds
     case fruits
     
+    
     var title: String {
         switch self {
             case .partsOfPlants:
@@ -41,6 +42,7 @@ enum Food{
                 return NSLocalizedString("fruits", comment: "")
         }
     }
+    
     
     static func getFoodWithId(id: Int) -> Food{
         switch id {

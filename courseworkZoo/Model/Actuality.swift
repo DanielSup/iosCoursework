@@ -12,6 +12,8 @@ class Actuality: Codable {
     let title: String
     let perex: String
     let textOfArticle: String
+    
+    
     enum CodingKeys: String, CodingKey{
         case title, perex, textOfArticle
     }

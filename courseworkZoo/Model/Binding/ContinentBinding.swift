@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This class represents a binding of animal with a biotope in which the animal lives.
+ */
 struct ContinentBinding: Bindable{
     static var relativeUrl: String = Constants.continentsBindingsRelativeUrl
     

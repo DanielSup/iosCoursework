@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This protocol ensures going back to the previous screen.
+ */
 protocol GoBackDelegate: class{
     func goBackTapped(in viewController: BaseViewController)
 }

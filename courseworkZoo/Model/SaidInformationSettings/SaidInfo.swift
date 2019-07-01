@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum is used for selection of information about close animal which are machinely said. It determines what will be machinely read when we are close to an animal.
+ */
 enum SaidInfo{
     case title
     case news

@@ -39,6 +39,7 @@ enum Continent: String, Codable {
         }
     }
     
+    
     static func continentWithId(id: Int) -> Continent{
         switch id{
             case 1:
@@ -60,6 +61,8 @@ enum Continent: String, Codable {
         }
     }
 }
+
+
 
 extension Continent: Equatable{
     static func==(lhs: Continent, rhs: Continent) -> Bool{

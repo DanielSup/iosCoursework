@@ -42,20 +42,7 @@ class AnimalDetailViewController: BaseViewController {
         self.animalDetailViewModel = animalDetailViewModel
         
         super.init()
-        
-        // registering of actions to get continents, biotopes and foods from the view model
-        self.animalDetailViewModel.getContinentsOfAnimal.values.producer.startWithValues{
-            (continents) in
-            self.continents = continents
-        }
-        self.animalDetailViewModel.getBiotopesOfAnimal.values.producer.startWithValues {
-            (biotopes) in
-            self.biotopes = biotopes
-        }
-        self.animalDetailViewModel.getFoodsOfAnimal.values.producer.startWithValues {
-            (foods) in
-            self.foods = foods
-        }
+        self.registerViewModelActions()
         
         // starting of action to get continents, biotopes and food
         self.animalDetailViewModel.getContinentsOfAnimal.apply().start()
@@ -69,92 +56,29 @@ class AnimalDetailViewController: BaseViewController {
     
     
     /**
-     - Returns: String with continents where tha animal lives.
+     This function registers action for getting biotopes and continents where the animal lives and kinds of food which the animal eats.
     */
-    func stringForContinentsLabel() -> String{
-        var continentString: String = "Kontinenty, kde se vyskytuje: "
-        var first: Bool = true
-        for continent in self.continents{
-            if (first){
-                continentString += continent.title
-            } else {
-                continentString += ", "+continent.title
-            }
-            first = false
+    override func registerViewModelActions() {
+        self.animalDetailViewModel.getContinentsOfAnimal.values.producer.startWithValues{
+            (continents) in
+            self.continents = continents
         }
-        if (first){
-            continentString += Continent.notInNature.title
+        self.animalDetailViewModel.getBiotopesOfAnimal.values.producer.startWithValues {
+            (biotopes) in
+            self.biotopes = biotopes
         }
-        return continentString
-    }
-    
-    
-    /**
-     - Returns: String with biotopes in which the animal lives.
-     */
-    func stringForBiotopesLabel() -> String {
-        var biotopeString: String = "Biotopy, kde se vyskytuje: "
-        var first: Bool = true
-        for biotope in self.biotopes{
-            if (first){
-                biotopeString += biotope.title
-            } else {
-                biotopeString += ", "+biotope.title
-            }
-            first = false
+        self.animalDetailViewModel.getFoodsOfAnimal.values.producer.startWithValues {
+            (foods) in
+            self.foods = foods
         }
-        return biotopeString
     }
-    
-    
-    /**
-     - Returns: String with kinds of foods which the animal eats.
-    */
-    func stringForFoodsLabel() -> String {
-        var foodString: String = "Potrava: "
-        var first: Bool = true
-        for food in self.foods{
-            if (first){
-                foodString += food.title
-            } else {
-                foodString += ", "+food.title
-            }
-            first = true
-        }
-        return foodString
-    }
-    
-    
-    /**
-     This function ensures setting up the scroll view for elements with informaiton about the animal. This function sets up the scroll view and the content view which is added to the scroll view.
-     */
-    func setupScrollView(){
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        // adding scroll view to main view and content view to the scroll view
-        view.addSubview(scrollView)
-        self.scrollView.addSubview(contentView)
-        
-        //adding constraints to scroll view
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        //adding constraints to content view
-        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
-    }
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         self.setupScrollView()
         
-        view.backgroundColor = .white
         //adding a label with the name of the animal
         let titleLabel = UILabel()
         titleLabel.text = self.animal.title
@@ -314,8 +238,96 @@ class AnimalDetailViewController: BaseViewController {
     }
     
     
+    /**
+     This function ensures setting up the scroll view for elements with informaiton about the animal. This function sets up the scroll view and the content view which is added to the scroll view.
+     */
+    func setupScrollView(){
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        // adding scroll view to main view and content view to the scroll view
+        view.addSubview(scrollView)
+        self.scrollView.addSubview(contentView)
+        //adding constraints to scroll view
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        //adding constraints to content view
+        contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+    }
+    
+    
+    /**
+    This function returns a string with continents where the animal lives. This string is determined for showing it in a label.
+     - Returns: String with continents where tha animal lives.
+     */
+    func stringForContinentsLabel() -> String{
+        var continentString: String = "Kontinenty, kde se vyskytuje: "
+        var first: Bool = true
+        for continent in self.continents{
+            if (first){
+                continentString += continent.title
+            } else {
+                continentString += ", "+continent.title
+            }
+            first = false
+        }
+        if (first){
+            continentString += Continent.notInNature.title
+        }
+        return continentString
+    }
+    
+    
+    /**
+     This function returns a string with biotopes where the animal lives. This string is determined for showing it in a label.
+     - Returns: String with biotopes in which the animal lives.
+     */
+    func stringForBiotopesLabel() -> String {
+        var biotopeString: String = "Biotopy, kde se vyskytuje: "
+        var first: Bool = true
+        for biotope in self.biotopes{
+            if (first){
+                biotopeString += biotope.title
+            } else {
+                biotopeString += ", "+biotope.title
+            }
+            first = false
+        }
+        return biotopeString
+    }
+    
+    
+    /**
+     This function returns a string with kinds of food which the animal eats. This string is determined for showing it in a label.
+     - Returns: String with kinds of foods which the animal eats.
+     */
+    func stringForFoodsLabel() -> String {
+        var foodString: String = "Potrava: "
+        var first: Bool = true
+        for food in self.foods{
+            if (first){
+                foodString += food.title
+            } else {
+                foodString += ", "+food.title
+            }
+            first = true
+        }
+        return foodString
+    }
+    
+    
     // MARK - Actions
     
+    /**
+     This function handles going back to the previous screen.
+     - Parameters:
+        - sender: The button on which the user clicks.
+    */
     @objc
     func goBackTapped(_ sender: UIButton){
         flowDelegate?.goBackTapped(in: self)

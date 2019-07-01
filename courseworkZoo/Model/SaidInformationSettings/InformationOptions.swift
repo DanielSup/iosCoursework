@@ -8,11 +8,18 @@
 
 import UIKit
 
-
+/**
+ This enum is used for setting of elementary information about close animals which will be machinely spokenß.
+ */
 enum ElementaryInformationOptions: String, CaseIterable{
     case onlyTitleAndNews = "onlyTitleAndNews"
     case titleNewsAndDescription = "titleNewsAndDescription"
     case allElementaryInformation = "allElementaryInformation"
+    
+    
+    /**
+     - Returns: An array of information about the close animal which will be said. Information are represented by the SaidInfo enum.
+    */
     var saidInfo: [SaidInfo]{
         switch self{
         case .onlyTitleAndNews:
@@ -25,11 +32,20 @@ enum ElementaryInformationOptions: String, CaseIterable{
     }
 }
 
+
+/**
+ This enum is used for setting of information including advanced information about close animals which will be machinely spoken.
+ */
 enum AdvancedInformationOptions: String, CaseIterable{
     case withoutAttractionsAndBreeding = "withoutAttractionsAndBreeding"
     case withoutAttractions = "withoutAttractions"
     case withoutBreeding = "withoutBreeding"
     case allInformation = "allInformation"
+    
+    
+    /**
+     - Returns: An array of information about the close animal which will be said. Information are represented by the SaidInfo enum.
+     */
     var saidInfo: [SaidInfo]{
         switch self {
         case .withoutAttractionsAndBreeding:

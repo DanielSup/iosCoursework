@@ -16,6 +16,9 @@ precedencegroup AlmostEqualPrecedence{
 infix operator =+-=: AlmostEqualPrecedence
 infix operator !=+-=: AlmostEqualPrecedence
 
+/**
+ This protocol is used for implementing an almost equality operator. The almost equality operator is used for checking whether items from an enums belong to same group (or section].
+ */
 protocol AlmostEquatable{
     static func =+-=(lhs: Self, rhs: Self) -> Bool
 }

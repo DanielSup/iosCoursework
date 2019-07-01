@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This class represents a binding of animal with the given identificator with a kind of food which the animal eats.
+ */
 class FoodBinding: Bindable {
     static var relativeUrl: String = Constants.foodBindingsRelativeUrl
     

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This class is the parent class of any flow coordinator. It ensures printing when was a flow coordinator created or removed.
+ */
 class BaseFlowCoordinator{
     init(){
         NSLog("Flow coordinator created: \(self)")

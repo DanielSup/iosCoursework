@@ -8,11 +8,18 @@
 
 import UIKit
 
-
+/**
+ This enum is used for settings of information about the close animal which will be machinely spoken.
+ */
 enum SaidInformationSettings: CaseIterable{
     case none
     case elementary(ElementaryInformationOptions)
     case advanced(AdvancedInformationOptions)
+    
+    
+    /**
+     - Returns: An array of information about the close animal which will be machinely spoken.
+    */
     var saidInfo: [SaidInfo]{
         switch self{
             case .none:
@@ -23,15 +30,26 @@ enum SaidInformationSettings: CaseIterable{
                 return m1.saidInfo
         }
     }
+    
+    
     static var allCases: [SaidInformationSettings]{
         let elementary = ElementaryInformationOptions.allCases.map { SaidInformationSettings.elementary($0) }
         let advanced = AdvancedInformationOptions.allCases.map { SaidInformationSettings.advanced($0) }
         return [.none] + elementary + advanced
     }
     
+    
+    /**
+     - Returns: An array of sections of setting options (no information, elementary information and advanced information).
+    */
     static var sections: [SaidInformationSettings]{
         return [.none, .elementary(ElementaryInformationOptions.allElementaryInformation), .advanced(AdvancedInformationOptions.allInformation)]
     }
+    
+    
+    /**
+     - Returns: A title of the actual case which is used as a key for localization. It returns the title of the section (no information, elementary information, advanced information).
+    */
     var title: String{
         switch self{
         case .none:
@@ -43,6 +61,10 @@ enum SaidInformationSettings: CaseIterable{
         }
     }
     
+    
+    /**
+     - Returns: A title of the actual case with set parameter which is used as a key for localization. The string is dependent on the selected case as an argument of elementary or advanced case.
+    */
     var subtitle: String{
         switch self{
         case .none:
@@ -53,6 +75,7 @@ enum SaidInformationSettings: CaseIterable{
             return m.rawValue
         }
     }
+    
     
     var rawValue: String{
         switch self{
@@ -66,6 +89,8 @@ enum SaidInformationSettings: CaseIterable{
     }
     
 }
+
+
 
 extension SaidInformationSettings: AlmostEquatable{
     static func =+-= (lhs: SaidInformationSettings, rhs: SaidInformationSettings) -> Bool {
@@ -82,6 +107,8 @@ extension SaidInformationSettings: AlmostEquatable{
     }
     
 }
+
+
 
 extension SaidInformationSettings: Equatable{
     static func == (lhs: SaidInformationSettings, rhs: SaidInformationSettings) -> Bool {

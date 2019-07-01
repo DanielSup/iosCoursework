@@ -12,11 +12,15 @@ import UIKit
 class SettingsInformationViewModel: BaseViewModel {
     private static let key="SettingsInformationAboutAnimals"
     private static var actualSettings: SaidInformationSettings = SaidInformationSettings.elementary(ElementaryInformationOptions.titleNewsAndDescription)
+    
+    
     static func setActualSettings(_ newSettings: SaidInformationSettings){
         actualSettings = newSettings
         UserDefaults.standard.set(newSettings.rawValue, forKey: key)
         UserDefaults.standard.synchronize()
     }
+    
+    
     static func getActualSettings() -> SaidInformationSettings{
         if let settings = UserDefaults.standard.string(forKey: key){
             for actualCase in SaidInformationSettings.allCases{

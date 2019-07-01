@@ -11,8 +11,13 @@ import ReactiveSwift
 
 class SelectLocalityViewModel: BaseViewModel {
     typealias Dependencies = HasLocalityRepository
+    
     private let dependencies: Dependencies
     static var selectedLocality: Locality? = nil
+    
+    
+    // MARK - Actions
+    
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
@@ -30,6 +35,8 @@ class SelectLocalityViewModel: BaseViewModel {
         }
     }
 
+    // MARK - Constructor
+    
     init(dependencies: Dependencies){
         self.dependencies = dependencies
         super.init()

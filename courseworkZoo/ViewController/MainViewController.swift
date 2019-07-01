@@ -33,11 +33,51 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     init(mainViewModel: MainViewModel){
         self.mainViewModel = mainViewModel
         super.init()
+        self.registerViewModelActions()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.mainViewModel = MainViewModel(dependencies: AppDependency.shared)
         super.init()
+        self.registerViewModelActions()
+    }
+    
+    /**
+     This function ensures registering actions for getting localities and animals with known coordinates and actions ensuring machine-reading of information about a close animal or a close locality (it is given by maximum distance).
+    */
+    override func registerViewModelActions() {
+        // adding annotations of localities (especially pavilions) with known coordinates to the map
+        self.mainViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
+            for locality in localitiesList{
+                // making and adding an annotation of the actual locality to the map
+                let annotation: MKPointAnnotation = MKPointAnnotation()
+                let coordinate = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
+                annotation.coordinate = coordinate
+                annotation.title = locality.title
+                self.zooPlanMapView.addAnnotation(annotation)
+            }
+        }
+        
+        // registration of the action which ensures adding annotations of animals with known coordinates to the map after getting the list of animals with given coordinates
+        self.mainViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
+            for animal in animalList{
+                // making and adding an annotation of the actual animal to the map
+                let annotation: MKPointAnnotation = MKPointAnnotation()
+                let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
+                annotation.coordinate = coordinate
+                annotation.title = animal.title
+                self.zooPlanMapView.addAnnotation(annotation)
+            }
+        }
+        
+        // registration of the actions for saying information about localities and animals in the closeness of the actual location
+        self.mainViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
+            self.mainViewModel.sayInformationAboutAnimal(animal: animal)
+        }
+        
+        self.mainViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
+            self.mainViewModel.sayInformationAboutLocality(locality: locality)
+        }
     }
     
     /**
@@ -46,14 +86,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
-        // settings of the location manager
-        self.locationManager.requestAlwaysAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
         
         //adding the main map view
         let zooPlanMapView = MKMapView()
@@ -77,20 +109,16 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         let arr: [Any] = [goToSettingsButton, goToSettingsOfLocalityButton, goToAnimalListButton]
         setToolbarItems(arr as? [UIBarButtonItem], animated: true)
         
-        
+        // settings of the location manager
+        self.locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+
         // adding loaded localities to map
         self.addLoadedLocalitiesToMap()
-        
-        
-        // registration of the actions for saying information about localities and animals in the closeness of the actual location
-        self.mainViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
-            self.mainViewModel.sayInformationAboutAnimal(animal: animal)
-        }
-        
-        self.mainViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
-            self.mainViewModel.sayInformationAboutLocality(locality: locality)
-        }
-        
     }
     
     
@@ -142,33 +170,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     
     
     /**
-        This function ensures adding markers of localities and animals with coordintates to the map of the ZOO. In this method there are registered actions to add markers of localities and animals. Actions to get the list of localities with given coordinates and the list of animals with given coordinates are started here.
+        This function ensures adding markers of localities and animals with coordintates to the map of the ZOO by running of registered actions for getting the list of localities and animals with known coordinates.
      */
     func addLoadedLocalitiesToMap(){
-        // adding annotations of localities (especially pavilions) with known coordinates to the map
-        self.mainViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
-            for locality in localitiesList{
-                // making and adding an annotation of the actual locality to the map
-                let annotation: MKPointAnnotation = MKPointAnnotation()
-                let coordinate = CLLocationCoordinate2D(latitude: locality.latitude, longitude: locality.longitude)
-                annotation.coordinate = coordinate
-                annotation.title = locality.title
-                self.zooPlanMapView.addAnnotation(annotation)
-            }
-        }
-        
-        // registration of the action which ensures adding annotations of animals with known coordinates to the map after getting the list of animals with given coordinates
-        self.mainViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
-            for animal in animalList{
-                // making and adding an annotation of the actual animal to the map
-                let annotation: MKPointAnnotation = MKPointAnnotation()
-                let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
-                annotation.coordinate = coordinate
-                annotation.title = animal.title
-                self.zooPlanMapView.addAnnotation(annotation)
-            }
-        }
-        
         //running actions - getting localities and animals from the view model
         self.mainViewModel.getLocalitiesAction.apply().start()
         self.mainViewModel.getAnimalsAction.apply().start()
@@ -207,6 +211,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         renderer.lineWidth = 4.0
         return renderer
     }
+    
+    
+    // MARK - Actions
     
     
     /**

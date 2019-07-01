@@ -8,11 +8,16 @@
 
 import UIKit
 
+/**
+ This class represent binding of animal with the given identificator with a biotope in which the animal lives.
+ */
 struct BiotopeBinding: Bindable {
     static var relativeUrl: String = Constants.biotopesBindingsRelativeUrl
     
     let animal: String
     let biotope: String
+    
+    
     enum CodingKeys: String, CodingKey{
         case animal="id", biotope="id_b"
     }

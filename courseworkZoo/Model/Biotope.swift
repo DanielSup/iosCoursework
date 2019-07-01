@@ -21,6 +21,7 @@ enum Biotope {
     case polarRegions
     case stonyStepsAndSemiDeserts
     
+    
     var title: String{
         switch self {
             case .sea:
@@ -48,6 +49,7 @@ enum Biotope {
             
         }
     }
+    
     
     static func getBiotopeWithId(id: Int) -> Biotope{
         switch id{

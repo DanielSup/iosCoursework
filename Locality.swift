@@ -17,6 +17,8 @@ class Locality: LoadedEntity{
     let localityType: LocalityType
     let latitude: Double
     let longitude: Double
+    
+    
     enum CodingKeys: String, CodingKey{
         case id, title, alias, localityType = "type", latitude = "gps_x", longitude = "gps_y"
     }

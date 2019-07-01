@@ -10,14 +10,12 @@ import UIKit
 import ReactiveSwift
 
 class AnimalDetailViewModel: BaseViewModel {
-    typealias Dependencies = HasContinentBindingsRepository & HasBiotopeBindingsRepository & HasFoodBindingsRepository 
+    typealias Dependencies = HasContinentBindingsRepository & HasBiotopeBindingsRepository & HasFoodBindingsRepository
+    
     private let animal: Animal
     private let dependencies: Dependencies
-    init(animal: Animal, dependencies: Dependencies){
-        self.animal = animal
-        self.dependencies = dependencies
-        super.init()
-    }
+    
+    // MARK - Actions
     
     lazy var getContinentsOfAnimal = Action<(), [Continent], LoadError> {
         [unowned self] in
@@ -41,6 +39,7 @@ class AnimalDetailViewModel: BaseViewModel {
         }
     }
     
+    
     lazy var getBiotopesOfAnimal = Action<(), [Biotope], LoadError> {
         [unowned self] in
         self.dependencies.biotopeBindingRepository.loadAndSaveDataIfNeeded()
@@ -63,6 +62,7 @@ class AnimalDetailViewModel: BaseViewModel {
         }
     }
     
+    
     lazy var getFoodsOfAnimal = Action<(), [Food], LoadError> {
         [unowned self] in
         self.dependencies.foodBindingRepository.loadAndSaveDataIfNeeded()
@@ -83,5 +83,13 @@ class AnimalDetailViewModel: BaseViewModel {
         } else {
             return SignalProducer(error: .noBindings)
         }
+    }
+    
+    // MARK - Constructor
+    
+    init(animal: Animal, dependencies: Dependencies){
+        self.animal = animal
+        self.dependencies = dependencies
+        super.init()
     }
 }

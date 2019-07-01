@@ -8,6 +8,12 @@
 
 import UIKit
 
+/**
+ This protocol indicates that classes implementing it are some kind of binding with an animal with the given identificator. It is used for getting the identificator of enimal of the binding.
+ */
 protocol Bindable: LoadedEntity{
+    /**
+     - Returns: The identificator of the animal in the given binding.
+    */
     func getAnimalId() -> Int
 }

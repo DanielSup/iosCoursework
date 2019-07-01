@@ -16,11 +16,17 @@ class BaseViewController: UIViewController{
     init(){
         super.init(nibName: nil, bundle: nil)
         NSLog("Created ViewController \(self)")
-        
     }
+    
     
     required init?(coder aDecoder: NSCoder){
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    /**
+     This function registers all important actions of the view model.
+    */
+    func registerViewModelActions(){
     }
     
     deinit{

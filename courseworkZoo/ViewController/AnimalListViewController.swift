@@ -15,8 +15,6 @@ import UIKit
 class AnimalListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     /// The view model for getting the list of animals.
     private var animalListViewModel: AnimalListViewModelling
-    /// The delegate for ensuring going back to the main screen.
-    weak var flowDelegate: GoBackDelegate?
     /// The delegate for going to the screen with the detailed information about an animal.
     weak var animalDetailFlowDelegate: GoToAnimalDetailDelegate?
     /// The table view with the animals according to the search or all animals (before any search).
@@ -34,25 +32,26 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
     init(animalListViewModel: AnimalListViewModelling){
         self.animalListViewModel = animalListViewModel
         super.init()
-        self.loadAnimals()
+        self.registerViewModelActions()
+        self.animalListViewModel.getAllAnimalsAction.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.animalListViewModel = AnimalListViewModel(dependencies: AppDependency.shared)
         super.init()
-        self.loadAnimals()
+        self.registerViewModelActions()
+        self.animalListViewModel.getAllAnimalsAction.apply().start()
     }
-
+    
     
     /**
-     This function ensures loading the list of all animals from the view model. There is registered an action for getting the list of all animals. This action is also started here.
+     This function registers the action of the view model for getting all animals.
     */
-    func loadAnimals(){
+    override func registerViewModelActions() {
         self.animalListViewModel.getAllAnimalsAction.values.producer.startWithValues{
             (animals) in
             self.animalList = animals
         }
-        self.animalListViewModel.getAllAnimalsAction.apply().start()
     }
     
     
@@ -61,6 +60,8 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
+
         // creating and settings of the search bar above the list of animal
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -77,8 +78,6 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
         self.animalTableView.dataSource = self
         self.animalTableView.delegate = self
         self.view.addSubview(self.animalTableView)
-        
-        self.view.backgroundColor = .white
     }
     
     
