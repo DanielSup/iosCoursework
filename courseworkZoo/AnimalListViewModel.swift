@@ -9,17 +9,22 @@
 import UIKit
 import ReactiveSwift
 
-protocol AnimalListViewModelling{
-    var getAllAnimalsAction: Action<(), [Animal], LoadError> { get }
-}
 
-class AnimalListViewModel: BaseViewModel, AnimalListViewModelling {
+/**
+ This class is a view model for the screen with the list of all animals. It ensures getting the list of all animals.
+ */
+class AnimalListViewModel: BaseViewModel{
     typealias Dependencies = HasAnimalRepository & HasSpeechService
+   
+    /// The object with dependencies important for the action for getting the list of animals in this view models.
     private var dependencies: Dependencies
-    private var animals = MutableProperty<[Animal]>([])
     
     // MARK - Actions
     
+    
+    /**
+     This actions tries to return a list of all animals. It returns a list of all animals or an error indicating that animals could not be loaded.
+    */
     lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
@@ -32,11 +37,12 @@ class AnimalListViewModel: BaseViewModel, AnimalListViewModelling {
     
     // MARK - Constructor
     
+    /**
+     - Parameters:
+        - dependencies: The object with dependencies important for the action for getting the list of all animals in this view model.
+    */
     init(dependencies: Dependencies){
         self.dependencies = dependencies
-        if let animals = self.dependencies.animalRepository.entities as? [Animal] {
-            self.animals.value = animals
-        }
         super.init()
     }
     

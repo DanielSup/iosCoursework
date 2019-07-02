@@ -67,8 +67,8 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     
     /**
      - Parameters:
-     - tableView: The table view in which the localities are shown.
-     - section: The numeric index of the given section.
+        - tableView: The table view in which the localities are shown.
+        - section: The numeric index of the given section.
      - Returns: The number of localities + 1, because we want to enable to cancel selection.
     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

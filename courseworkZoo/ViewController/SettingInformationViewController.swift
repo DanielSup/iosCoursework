@@ -10,7 +10,7 @@ import UIKit
 
 
 /**
- This class represents the screen on which the user can set the information about the close animal which will be machine-read. This class shows the options for setting of the information as a list with three sections (no information, elementary information and advanced information).
+ This class represents the screen on which the user can set the information about the close animal which will be machine-read. This class ensures showing the options for setting of the information in a table with three sections (no information, elementary information and advanced information).
  */
 class SettingInformationViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     /// The table view used for showing the options for setting the machine-read information.
@@ -76,7 +76,7 @@ class SettingInformationViewController: BaseViewController, UITableViewDataSourc
     
     
     /**
-     This functions handles the selecting the given option.
+     This function handles the selecting the given option.
      - Parameters:
         - tableView: The table with sections and options for setting the machine-read information
         - indexPath: The object representing the index of the selected cell (index of section and index of row in the given section)
@@ -91,7 +91,7 @@ class SettingInformationViewController: BaseViewController, UITableViewDataSourc
     /**
      - Parameters:
         - tableView: The table view with sections for setting the machine-read information.
-     - Returns: The number of sections for setting the machine-read information. In this case this function returns 3.
+     - Returns: The number of sections for setting the machine-read information. In this case this function returns 3, but this number can change with modifies of the items of the SaidInformationSettings enum.
     */
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count
@@ -113,6 +113,7 @@ class SettingInformationViewController: BaseViewController, UITableViewDataSourc
      - Parameters:
         - tableView: The table view with sections and cells for setting the machine-read information about the close animal
         - indexPath: The obect representing the index of the given cell with number of section and number of the cell within the given section.
+     - Returns: The cell which will be shown in the table view at the given index
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath as IndexPath)

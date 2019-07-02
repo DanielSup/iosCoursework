@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum represent a biotope in which animals can live.
+ */
 enum Biotope {
     case sea
     case freshWater
@@ -22,6 +25,7 @@ enum Biotope {
     case stonyStepsAndSemiDeserts
     
     
+    /// The localized title of the biotope in which animals can live.
     var title: String{
         switch self {
             case .sea:
@@ -50,7 +54,12 @@ enum Biotope {
         }
     }
     
-    
+    /**
+     This function returns the biotope with the given identificator.
+     - Parameters:
+        - id: The identificator of the given biotope
+     - Returns: The biotope with the given identificator.
+    */
     static func getBiotopeWithId(id: Int) -> Biotope{
         switch id{
             case 1:

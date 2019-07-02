@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- This enum is used for setting of elementary information about close animals which will be machinely spokenß.
+ This enum is used for setting of elementary information about close animals which will be machinely spoken.
  */
 enum ElementaryInformationOptions: String, CaseIterable{
     case onlyTitleAndNews = "onlyTitleAndNews"

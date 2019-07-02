@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum represents a possible type of a locality (pavilion, exposure, refreshment or other localities).
+ */
 enum LocalityType: Int, Codable {
     case pavilion = 1
     case exposure = 2

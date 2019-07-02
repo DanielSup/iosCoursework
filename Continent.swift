@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum represents in which continent the animal can live. It also can represent that an animal doesn't live in nature.
+ */
 enum Continent: String, Codable {
     case europe = "Evropa"
     case asia = "Asie"
@@ -18,6 +21,7 @@ enum Continent: String, Codable {
     case notInNature = "V přírodě nežije"
     case none = ""
     
+    /// The localized title of the continent or string representing an information that an animal doesn't live in nature
     var title: String{
         switch self {
             case .europe:
@@ -39,7 +43,12 @@ enum Continent: String, Codable {
         }
     }
     
-    
+    /**
+     This function returns the continent with the given identificator.
+     - Parameters:
+        - id: The identificator of the continent
+     - Returns: The continent with the given identificator.
+    */
     static func continentWithId(id: Int) -> Continent{
         switch id{
             case 1:

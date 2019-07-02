@@ -71,11 +71,20 @@ class BindingRepository<B: Bindable> : Repository<B>{
 
 // These classes created for simpler dependency injection. These classes are childs of parent class BindingRepository for finding bindings between biotopes, kinds of food and continents and animals.
 
+/**
+ This class is a child of BindingRepository class for working with bindings with a biotope and an animal.
+ */
 class BiotopeBindingRepository: BindingRepository<BiotopeBinding>, BiotopeBindingRepositoring{
 }
 
+/**
+ This class is a child of BindingRepository class for working with bindings with a kind of food and an animal.
+ */
 class FoodBindingRepository: BindingRepository<FoodBinding>, FoodBindingRepositoring{
 }
 
+/**
+ This class is a child of BindingRepository class for working with bindings with a continent and an animal.
+ */
 class ContinentBindingRepository: BindingRepository<ContinentBinding>, ContinentBindingRepositoring{
 }

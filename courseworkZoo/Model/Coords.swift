@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This class represents the visited location of a locality or an animal. It is used for saving already visited localities or animals.
+ */
 class Coords{
     let latitude: Double
     let longitude: Double

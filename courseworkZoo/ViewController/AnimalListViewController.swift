@@ -14,7 +14,7 @@ import UIKit
  */
 class AnimalListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     /// The view model for getting the list of animals.
-    private var animalListViewModel: AnimalListViewModelling
+    private var animalListViewModel: AnimalListViewModel
     /// The delegate for going to the screen with the detailed information about an animal.
     weak var animalDetailFlowDelegate: GoToAnimalDetailDelegate?
     /// The table view with the animals according to the search or all animals (before any search).
@@ -29,7 +29,7 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
      - Parameters:
         - viewModel: The view model for getting the list of animals
      */
-    init(animalListViewModel: AnimalListViewModelling){
+    init(animalListViewModel: AnimalListViewModel){
         self.animalListViewModel = animalListViewModel
         super.init()
         self.registerViewModelActions()

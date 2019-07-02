@@ -9,20 +9,29 @@
 import UIKit
 import ReactiveSwift
 
+
+/**
+This class is a view model for the main screen. This class ensures getting a list of animals and list of localities with known coordinates and machine-reading information about animals and localities.
+ */
 class MainViewModel: BaseViewModel{
     typealias Dependencies = HasLocalityRepository & HasAnimalRepository & HasSpeechService
     
+    /// The object with target dependencies
     private var dependencies: Dependencies
-    private var animals = MutableProperty<[Animal]>([])
-    private var localityList = MutableProperty<[Locality]>([])
+    /// The mutable object with the actual latitude
     private var latitude = MutableProperty<Double>(-1)
+    /// The mutable object with the actual longitude
     private var longitude = MutableProperty<Double>(-1)
     
     // Mark - Actions
     
+    
+    /**
+     This action tries to find and return an animal which is enough close (animal whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns an animal in closeness or nil if there is no enough close animal or an error indicating animals could not be loaded.
+    */
     lazy var animalInClosenessAction = Action<(), Animal?, LoadError> { [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        if let animals = self.animals.value as? [Animal]
+        if let animals = self.dependencies.animalRepository.entities.value as? [Animal]
         {
             return self.dependencies.animalRepository.findAnimalInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
         } else {
@@ -31,17 +40,22 @@ class MainViewModel: BaseViewModel{
     }
     
     
-    lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
-        [unowned self] in
-        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
-            return SignalProducer<[Animal], LoadError>(value: animals)
+    /**
+     This action tries to find and return a locality which is enough close (locality whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns a locality in closeness or nil if there is no enough close locality or an error indicating localities could not be loaded.
+     */
+    lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
+        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
+        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
+            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
         } else {
-            return SignalProducer<[Animal], LoadError>(error: .noAnimals)
+            return SignalProducer<Locality?, LoadError>(error: .noLocalities)
         }
     }
+
     
-    
+    /**
+     This action tries to return a list of animal with known coordinates. It returns a list of animals with known coordinates or an error indicating that animals could not be loaded.
+    */
     lazy var getAnimalsAction = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
@@ -59,16 +73,10 @@ class MainViewModel: BaseViewModel{
         }
     }
     
-    lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
-        self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        if let localities = self.localityList.value as? [Locality] {
-            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
-        } else {
-            return SignalProducer<Locality?, LoadError>(error: .noLocalities)
-        }
-    }
     
-    
+    /**
+     This action tries to return a list of localities with known coordinates. It returns a list of localities with known coordinates or an error indicating that localities could not be loaded.
+    */
     lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
@@ -89,22 +97,33 @@ class MainViewModel: BaseViewModel{
     
     // MARK - Constructor and other functions
     
+    /**
+     - Parameters:
+        - dependencies: The object with dependencies important for actions in this view model.
+    */
     init(dependencies: Dependencies){
         self.dependencies = dependencies
-        if let animals = self.dependencies.animalRepository.entities as? [Animal] {
-            self.animals.value = animals
-        }
-        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
-            self.localityList.value = localities
-        }
         super.init()
     }
     
+    
+    /**
+     This function updated mutable properties which save the actual coordinates.
+     - Parameters:
+        - latitude: The actual latitude (the first coordinate of the actual location)
+        - longitude: The actual longitude (the second coordinate of the actual location)
+    */
     func updateLocation(latitude: Double, longitude: Double){
         self.latitude.value = latitude
         self.longitude.value = longitude
     }
     
+    
+    /**
+     This function ensures machine-reading information about the given animal (or nil if no animals are enough close). This function chooses information for machine-reading according to the actual user setting and calls the service for machine-reading of the given text.
+     - Parameters:
+        - animal: The animal in closeness or nil (if there is no enough close animal)
+    */
     func sayInformationAboutAnimal(animal: Animal?){
         if (SettingsInformationViewModel.getActualSettings() == SaidInformationSettings.none){
             return
@@ -173,6 +192,12 @@ class MainViewModel: BaseViewModel{
         }
     }
     
+    
+    /**
+     This function ensures machine-reading information about the close locality if there is any enough close locality.
+     - Parameters:
+        - locality: The close locality or nil (if there is no enough close locality)
+    */
     func sayInformationAboutLocality(locality: Locality?){
         if (SettingsInformationViewModel.getActualSettings() == SaidInformationSettings.none){
             return

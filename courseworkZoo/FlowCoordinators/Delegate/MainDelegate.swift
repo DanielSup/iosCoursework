@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- This protocol ensures going to different screens (list of animals, selection of the target locality and settings of machinely-read information) from the main screen.
+ This protocol ensures going to different screens (list of animals, selection of the target locality and settings the machine-read information) from the main screen.
  */
 protocol MainDelegate: class {
     func goToAnimalListTapped(in viewController: BaseViewController)

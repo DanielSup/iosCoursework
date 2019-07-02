@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This struct represents a locality which can be loaded from the NodeJS server. This struct is a child of LoadedEntity which is a child of Codable.
+ */
 class Locality: LoadedEntity{
     static var relativeUrl: String = Constants.localitiesRelativeUrl
     

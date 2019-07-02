@@ -12,7 +12,7 @@ import UIKit
  This class represents a base view model. It is used for checking possible memory leaks and finding out whether localities and animals were visited or not.
  */
 class BaseViewModel {
-    /// The distance in degrees in which must be an animal or a locality for machine-reading of information about the locality or the animal.
+    /// The maximal distance in degrees at which must be an animal or a locality for machine-reading the information about the locality or the animal.
     static let closeDistance = 0.000045
     /// The array of visited locations saved as an array of coordinates of visited locations.
     static var visited:[Coords] = []

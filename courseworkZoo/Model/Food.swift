@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This enum represent a possible kind of food which animals can eat.
+ */
 enum Food{
     case partsOfPlants
     case livePrey
@@ -19,7 +22,7 @@ enum Food{
     case seeds
     case fruits
     
-    
+    /// The localized title of the kind of food which animals can eat.
     var title: String {
         switch self {
             case .partsOfPlants:
@@ -43,7 +46,12 @@ enum Food{
         }
     }
     
-    
+    /**
+     This function returns a kind of food with the given identificator.
+     - Parameters:
+        - id: Identificator of the kind of food
+     - Returns: The kind of food with the given identificator.
+    */
     static func getFoodWithId(id: Int) -> Food{
         switch id {
             case 1:

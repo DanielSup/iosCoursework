@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This struct represents an animal which can be loaded from the NodeJS server. This struct is a child of LoadedEntity which is a child of Codable.
+ */
 struct Animal: LoadedEntity{
     static var relativeUrl: String = Constants.animalsRelativeUrl
     

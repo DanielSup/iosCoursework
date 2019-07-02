@@ -93,6 +93,13 @@ enum SaidInformationSettings: CaseIterable{
 
 
 extension SaidInformationSettings: AlmostEquatable{
+    /**
+     This operator returns whether the given two settings are in the same section or not.
+     - Parameters:
+        - lhs: The first setting
+        - rhs: The second setting
+     - Returns: A boolean representing whether the two given settings are in the same section or not.
+     */
     static func =+-= (lhs: SaidInformationSettings, rhs: SaidInformationSettings) -> Bool {
         switch (lhs, rhs){
         case (.none, .none):

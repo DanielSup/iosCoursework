@@ -20,6 +20,10 @@ class FoodBinding: Bindable {
         case animal="id", food="id_f"
     }
     
+    /**
+     It returns the identificator of the animal in the binding as an integer.
+     - Returns: The identificator of the animal in the given binding.
+     */
     func getAnimalId() -> Int {
         return Int(animal) ?? -1
     }

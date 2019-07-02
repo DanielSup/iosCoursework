@@ -61,7 +61,7 @@ extension AppFlowCoordinator: MainDelegate{
     
     
     /**
-     This function ensures the transition to the screen for setting machinely-read information about close animals
+     This function ensures the transition to the screen for setting the machine-read information about close animals
      - Parameters:
         - viewController: The ViewController which created the actual screen.
      */

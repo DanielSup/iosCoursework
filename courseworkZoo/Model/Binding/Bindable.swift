@@ -13,6 +13,7 @@ import UIKit
  */
 protocol Bindable: LoadedEntity{
     /**
+     It returns the identificator of the animal in the binding as an integer.
      - Returns: The identificator of the animal in the given binding.
     */
     func getAnimalId() -> Int

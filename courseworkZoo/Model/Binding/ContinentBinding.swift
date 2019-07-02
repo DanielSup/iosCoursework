@@ -20,6 +20,10 @@ struct ContinentBinding: Bindable{
         case animal="id", continent="id_c"
     }
     
+    /**
+     It returns the identificator of the animal in the binding as an integer.
+     - Returns: The identificator of the animal in the given binding.
+     */
     func getAnimalId() -> Int {
         return Int(animal) ?? -1
     }

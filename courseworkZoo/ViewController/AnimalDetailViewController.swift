@@ -267,16 +267,16 @@ class AnimalDetailViewController: BaseViewController {
      */
     func stringForContinentsLabel() -> String{
         var continentString: String = "Kontinenty, kde se vyskytuje: "
-        var first: Bool = true
+        var noVisitedElement: Bool = true
         for continent in self.continents{
-            if (first){
+            if (noVisitedElement){
                 continentString += continent.title
             } else {
                 continentString += ", "+continent.title
             }
-            first = false
+            noVisitedElement = false
         }
-        if (first){
+        if (noVisitedElement){
             continentString += Continent.notInNature.title
         }
         return continentString
@@ -289,14 +289,14 @@ class AnimalDetailViewController: BaseViewController {
      */
     func stringForBiotopesLabel() -> String {
         var biotopeString: String = "Biotopy, kde se vyskytuje: "
-        var first: Bool = true
+        var firstElement: Bool = true
         for biotope in self.biotopes{
-            if (first){
+            if (firstElement){
                 biotopeString += biotope.title
             } else {
                 biotopeString += ", "+biotope.title
             }
-            first = false
+            firstElement = false
         }
         return biotopeString
     }
@@ -308,14 +308,14 @@ class AnimalDetailViewController: BaseViewController {
      */
     func stringForFoodsLabel() -> String {
         var foodString: String = "Potrava: "
-        var first: Bool = true
+        var firstElement: Bool = true
         for food in self.foods{
-            if (first){
+            if (firstElement){
                 foodString += food.title
             } else {
                 foodString += ", "+food.title
             }
-            first = true
+            firstElement = true
         }
         return foodString
     }

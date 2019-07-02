@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This struct represents an actuality saved at an animal which is the actuality about. This struct is a child of LoadedEntity which is a child of Codable.
+ */
 class Actuality: Codable {
     let title: String
     let perex: String
