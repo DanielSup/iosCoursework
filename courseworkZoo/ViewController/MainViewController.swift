@@ -33,19 +33,19 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     init(mainViewModel: MainViewModel){
         self.mainViewModel = mainViewModel
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.mainViewModel = MainViewModel(dependencies: AppDependency.shared)
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
     }
     
     /**
-     This function ensures registering actions for getting localities and animals with known coordinates and actions ensuring machine-reading of information about a close animal or a close locality (it is given by maximum distance).
+     This function ensures binding this view controller with actions of the view model for getting localities and animals with known coordinates and actions ensuring machine-reading of information about a close animal or a close locality (it is given by maximum distance).
     */
-    override func registerViewModelActions() {
+    override func setupBindingsWithViewModelActions(){
         // adding annotations of localities (especially pavilions) with known coordinates to the map
         self.mainViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
             for locality in localitiesList{

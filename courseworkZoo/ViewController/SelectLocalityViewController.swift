@@ -29,7 +29,7 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     init(selectLocalityViewModel: SelectLocalityViewModel){
         self.selectLocalityViewModel = selectLocalityViewModel
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
         self.selectLocalityViewModel.getLocalitiesAction.apply().start()
     }
     
@@ -38,9 +38,9 @@ class SelectLocalityViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     /**
-     There is registered an action for getting of all locations with known coordinates from the view model.
+     There is binds the view controller with the action of the view model for getting of all locations with known coordinates from the view model.
     */
-    override func registerViewModelActions() {
+    override func setupBindingsWithViewModelActions() {
         self.selectLocalityViewModel.getLocalitiesAction.values.producer.startWithValues {
             (localityList) in
             self.localityList = localityList

@@ -32,22 +32,22 @@ class AnimalListViewController: BaseViewController, UITableViewDelegate, UITable
     init(animalListViewModel: AnimalListViewModel){
         self.animalListViewModel = animalListViewModel
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
         self.animalListViewModel.getAllAnimalsAction.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.animalListViewModel = AnimalListViewModel(dependencies: AppDependency.shared)
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
         self.animalListViewModel.getAllAnimalsAction.apply().start()
     }
     
     
     /**
-     This function registers the action of the view model for getting all animals.
+     This function ensures binding the view controller with the action of the view model for getting all animals.
     */
-    override func registerViewModelActions() {
+    override func setupBindingsWithViewModelActions() {
         self.animalListViewModel.getAllAnimalsAction.values.producer.startWithValues{
             (animals) in
             self.animalList = animals

@@ -42,7 +42,7 @@ class AnimalDetailViewController: BaseViewController {
         self.animalDetailViewModel = animalDetailViewModel
         
         super.init()
-        self.registerViewModelActions()
+        self.setupBindingsWithViewModelActions()
         
         // starting of action to get continents, biotopes and food
         self.animalDetailViewModel.getContinentsOfAnimal.apply().start()
@@ -56,9 +56,9 @@ class AnimalDetailViewController: BaseViewController {
     
     
     /**
-     This function registers action for getting biotopes and continents where the animal lives and kinds of food which the animal eats.
+     This function binds the view controller with the action of the view model for getting biotopes and continents where the animal lives and kinds of food which the animal eats.
     */
-    override func registerViewModelActions() {
+    override func setupBindingsWithViewModelActions() {
         self.animalDetailViewModel.getContinentsOfAnimal.values.producer.startWithValues{
             (continents) in
             self.continents = continents

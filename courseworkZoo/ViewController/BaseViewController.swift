@@ -24,9 +24,9 @@ class BaseViewController: UIViewController{
     }
     
     /**
-     This function registers all important actions of the view model.
+     This function binds the view controller with all important actions of the view model.
     */
-    func registerViewModelActions(){
+    func setupBindingsWithViewModelActions(){
     }
     
     deinit{
