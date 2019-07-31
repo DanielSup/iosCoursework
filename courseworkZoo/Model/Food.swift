@@ -11,7 +11,7 @@ import UIKit
 /**
  This enum represent a possible kind of food which animals can eat.
  */
-enum Food{
+enum Food: Int{
     case partsOfPlants
     case livePrey
     case corpses

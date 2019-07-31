@@ -17,7 +17,10 @@ protocol AnimalRepositoring{
     var entities: MutableProperty<[Animal]?> { get }
     func loadAndSaveDataIfNeeded()
     func findAnimalById(id: Int) -> SignalProducer<Animal?, LoadError>
+    func findAnimalBy_Id(id: Int) -> SignalProducer<Animal?, LoadError>
     func findAnimalInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Animal?, LoadError>
+    func findAnimalsInOrder(_ order: Class) -> SignalProducer<[Animal], LoadError>
+    func findAnimalsInLocality(_ locality: Locality) -> SignalProducer<[Animal], LoadError>
 }
 
 
@@ -28,7 +31,7 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
     
     
     /**
-    This function returns an animal with the given identificator.
+    This function returns an animal with the given identificator (the second identificator in the dataset from the opendata.praha.eu server).
      - Parameters:
         - id: The given identificator
      - Returns: The signal producer with an animal with the given identificator or nil (if no animal with the given identificator found) or an error representing that animals couldn't be loaded.
@@ -46,6 +49,24 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
         }
     }
     
+    /**
+     This function returns an animal with the given identificator (the first identificator in the dataset from the opendata.praha.eu server).
+     - Parameters:
+     - id: The given identificator
+     - Returns: The signal producer with an animal with the given identificator or nil (if no animal with the given identificator found) or an error representing that animals couldn't be loaded.
+     */
+    func findAnimalBy_Id(id: Int) -> SignalProducer<Animal?, LoadError> {
+        if let animalList = self.entities.value as? [Animal] {
+            for animal in animalList{
+                if(animal._id == id){
+                    return SignalProducer(value: animal)
+                }
+            }
+            return SignalProducer(value: nil)
+        } else {
+            return SignalProducer(error: .noAnimals)
+        }
+    }
     
     /**
      This function finds an animal whose coordinates differ not more than 0,000045 from the given coordinates.
@@ -57,7 +78,7 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
     func findAnimalInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Animal?, LoadError> {
         if let animalList = self.entities.value as? [Animal] {
             for animal in animalList{
-                if(abs(animal.latitude - latitude) < BaseViewModel.closeDistance && abs(animal.longitude - longitude) < BaseViewModel.closeDistance){
+                if(abs(animal.latitude - latitude) < BaseViewModel.closeDistance + 10 && abs(animal.longitude - longitude) < BaseViewModel.closeDistance + 10){
                     return SignalProducer(value: animal)
                 }
             }
@@ -67,5 +88,45 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
         }
     }
     
+    /**
+     This function finds and returns the list of animals in the given order. If animals could not be loaded, it returns an error
+     - Parameters:
+        - order: The order for which we find the list of animals.
+     - Returns: A signal producer with the list of animals in the given order or an error representing that animals could not be loaded.
+     */
+    func findAnimalsInOrder(_ order: Class) -> SignalProducer<[Animal], LoadError>{
+        if let animalList = self.entities.value as? [Animal] {
+            var animalsInOrder: [Animal] = []
+            for animal in animalList {
+                if (animal.order == order.title){
+                    animalsInOrder.append(animal)
+                }
+            }
+            return SignalProducer(value: animalsInOrder)
+        } else {
+            return SignalProducer(error: .noAnimals)
+        }
+    }
+    
+    
+    /**
+     This function finds and returns the list of animals in the given locality (pavilion). If animals couldn't be loaded, it returns an error.
+     - Parameters:
+        - locality: The given locality in which we find animals.
+     - Returns: A signal producer with the list of animals in the locality or an error representing that animals could not be loaded.
+    */
+    func findAnimalsInLocality(_ locality: Locality) -> SignalProducer<[Animal], LoadError>{
+        if let animalList = self.entities.value as? [Animal] {
+            var animalsInLocality: [Animal] = []
+            for animal in animalList {
+                if (animal.localities.trimmingCharacters(in: .whitespacesAndNewlines) == locality.title.trimmingCharacters(in: .whitespacesAndNewlines)){
+                    animalsInLocality.append(animal)
+                }
+            }
+            return SignalProducer(value: animalsInLocality)
+        } else {
+            return SignalProducer(error: .noAnimals)
+        }
+    }
     
 }

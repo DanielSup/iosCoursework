@@ -34,7 +34,6 @@ class APIService {
                         entitiesFromAPICall.append(entity)
                     }
                 }
-                
                 return entitiesFromAPICall
                 
             } catch {

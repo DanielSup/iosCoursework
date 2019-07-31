@@ -16,6 +16,7 @@ protocol BiotopeBindingRepositoring{
     var entities: MutableProperty<[BiotopeBinding]?> { get }
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [BiotopeBinding]?
+    func findBindingsWithBindableObject(objectId: Int) -> [BiotopeBinding]?
 }
 
 /**
@@ -25,7 +26,7 @@ protocol FoodBindingRepositoring{
     var entities: MutableProperty<[FoodBinding]?> { get }
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [FoodBinding]?
-    
+    func findBindingsWithBindableObject(objectId: Int) -> [FoodBinding]?
 }
 
 /**
@@ -35,6 +36,7 @@ protocol ContinentBindingRepositoring{
     var entities: MutableProperty<[ContinentBinding]?> { get }
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [ContinentBinding]?
+    func findBindingsWithBindableObject(objectId: Int) -> [ContinentBinding]?
     
 }
 
@@ -56,6 +58,26 @@ class BindingRepository<B: Bindable> : Repository<B>{
             var bindingEntities: [B] = []
             for binding in bindings{
                 if(binding.getAnimalId() == animal){
+                    bindingEntities.append(binding)
+                }
+            }
+            return bindingEntities
+        } else {
+            return nil
+        }
+    }
+    
+    /**
+     This function finds and returns bindings with the binded object (kind of food, continent or biotope).
+     - Parameters:
+        - objectId: The identificator of the binded object (kind of food, continent or biotope).
+     - Returns: The array of bindings with the binded object (kind of food, continent or biotope).
+    */
+    func findBindingsWithBindableObject(objectId: Int) -> [B]? {
+        if let bindings = self.entities.value as? [B] {
+            var bindingEntities: [B] = []
+            for binding in bindings {
+                if (binding.getBindedObjectId() == objectId){
                     bindingEntities.append(binding)
                 }
             }

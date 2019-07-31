@@ -11,7 +11,7 @@ import UIKit
 /**
  This enum represent a biotope in which animals can live.
  */
-enum Biotope {
+enum Biotope: Int {
     case sea
     case freshWater
     case desertAndSemiDesert
@@ -50,6 +50,35 @@ enum Biotope {
                 return NSLocalizedString("polarRegions", comment: "")
             case .stonyStepsAndSemiDeserts:
                 return NSLocalizedString("stonyStepsAndSemiDeserts", comment: "")
+            
+        }
+    }
+    
+    /// The locative with a preposition of the biotope in which animals can live. The locative with a preposition is used in the title of the screen with the list of animals living in the given biotope.
+    var locativeWithPreposition: String {
+        switch self {
+            case .sea:
+                return NSLocalizedString("inSea", comment: "")
+            case .freshWater:
+                return NSLocalizedString("inFreshWater", comment: "")
+            case .desertAndSemiDesert:
+                return NSLocalizedString("inDesertAndSemiDesert", comment: "")
+            case .grassyTerritory:
+                return NSLocalizedString("inGrassyTerritory", comment: "")
+            case .mountains:
+                return NSLocalizedString("inMountains", comment: "")
+            case .tropicalForest:
+                return NSLocalizedString("inTropicalForest", comment: "")
+            case .deciduousAndMixedForest:
+                return NSLocalizedString("inDeciduousAndMixedForest", comment: "")
+            case .coniferousForest:
+                return NSLocalizedString("inConiferousForest", comment: "")
+            case .tundra:
+                return NSLocalizedString("inTundra", comment: "")
+            case .polarRegions:
+                return NSLocalizedString("inPolarRegions", comment: "")
+            case .stonyStepsAndSemiDeserts:
+                return NSLocalizedString("inStonyStepsAndSemiDeserts", comment: "")
             
         }
     }

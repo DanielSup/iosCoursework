@@ -11,15 +11,15 @@ import UIKit
 /**
  This enum represents in which continent the animal can live. It also can represent that an animal doesn't live in nature.
  */
-enum Continent: String, Codable {
-    case europe = "Evropa"
-    case asia = "Asie"
-    case africa = "Afrika"
-    case southAmerica = "Jižní Amerika"
-    case northAmerica = "Severní Amerika"
-    case australia = "Austrálie"
-    case notInNature = "V přírodě nežije"
-    case none = ""
+enum Continent: Int {
+    case africa
+    case asia
+    case southAmerica
+    case northAmerica
+    case australia
+    case notInNature
+    case europe
+    case none
     
     /// The localized title of the continent or string representing an information that an animal doesn't live in nature
     var title: String{
@@ -43,13 +43,36 @@ enum Continent: String, Codable {
         }
     }
     
+    
+    /// The locative with prepositions (and other words) of the continent in which animals can live. The locative with a preposition is used in the title of the screen with the list of animals living in the given continent or list of animals which don't live anywhere in nature.
+    var locativeWithPreposition: String {
+        switch self {
+            case .europe:
+                return NSLocalizedString("inEurope", comment: "")
+            case .asia:
+                return NSLocalizedString("inAsia", comment: "")
+            case .africa:
+                return NSLocalizedString("inAfrica", comment: "")
+            case .southAmerica:
+                return NSLocalizedString("inSouthAmerica", comment: "")
+            case .northAmerica:
+                return NSLocalizedString("inNorthAmerica", comment: "")
+            case .australia:
+                return NSLocalizedString("inAustralia", comment: "")
+            case .notInNature:
+                return NSLocalizedString("notAnywhere", comment: "")
+            case .none:
+                return NSLocalizedString("notAnywhere", comment: "")
+        }
+    }
+    
     /**
      This function returns the continent with the given identificator.
      - Parameters:
         - id: The identificator of the continent
      - Returns: The continent with the given identificator.
     */
-    static func continentWithId(id: Int) -> Continent{
+    static func getContinentWithId(id: Int) -> Continent{
         switch id{
             case 1:
                 return .africa

@@ -17,4 +17,10 @@ protocol Bindable: LoadedEntity{
      - Returns: The identificator of the animal in the given binding.
     */
     func getAnimalId() -> Int
+    
+    /**
+     It returns the identificator of the binded object as an integer.
+     - Returns: The identificator of the binded object with an animal.
+    */
+    func getBindedObjectId() -> Int
 }

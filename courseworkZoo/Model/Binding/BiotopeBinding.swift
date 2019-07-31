@@ -30,4 +30,11 @@ struct BiotopeBinding: Bindable {
         return Int(animal) ?? -1
     }
     
+    /**
+     It returns the identificator of the biotope where the binded animal lives.
+     - Returns: The identificator of the biotope where the animal lives.
+    */
+    func getBindedObjectId() -> Int {
+        return Int(biotope) ?? -1
+    }
 }

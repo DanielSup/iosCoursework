@@ -14,6 +14,7 @@ import UIKit
 struct Animal: LoadedEntity{
     static var relativeUrl: String = Constants.animalsRelativeUrl
     
+    let _id: Int
     let id: Int
     let title: String
     let latinTitle: String
@@ -22,7 +23,7 @@ struct Animal: LoadedEntity{
     let description: String
     let image: String
     let imageAlt: String
-    let continent: Continent
+    let continent: String
     let spread: String
     let food: String
     let foodNote: String
@@ -38,7 +39,7 @@ struct Animal: LoadedEntity{
     
     
     enum CodingKeys: String, CodingKey{
-        case id, title, latinTitle = "latin_title", classOfAnimal="classes", order, description, image="image_src", imageAlt="image_alt", continent="continents", spread="spread_note", food, foodNote="food_note", biotope="biotop", attractions, breeding, localities="localities_title", actualities, latitude="gps_x",longitude="gps_y", proportions, reproduction
+        case _id, id, title, latinTitle = "latin_title", classOfAnimal="classes", order, description, image="image_src", imageAlt="image_alt", continent="continents", spread="spread_note", food, foodNote="food_note", biotope="biotop", attractions, breeding, localities="localities_title", actualities, latitude="gps_x",longitude="gps_y", proportions, reproduction
     }
     
 }

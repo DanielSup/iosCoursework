@@ -23,6 +23,12 @@ class AppDependency {
     lazy var biotopeBindingRepository: BiotopeBindingRepositoring = BiotopeBindingRepository()
     lazy var foodBindingRepository: FoodBindingRepositoring = FoodBindingRepository()
     lazy var continentBindingRepository: ContinentBindingRepositoring = ContinentBindingRepository()
+    lazy var voiceSettingsRepository: VoiceSettingsRepositoring = VoiceSettingsRepository()
+    lazy var pathRepository: PathRepositoring =  PathRepository(animalRepository: animalRepository)
+    lazy var parametersOfVisitRepository: ParametersOfVisitRepositoring = ParametersOfVisitRepository()
+    lazy var processAnimalInformationService: ProcessAnimalInformationServicing = ProcessAnimalInformationService(biotopeBindingRepository: biotopeBindingRepository, foodBindingRepository: foodBindingRepository, continentBindingRepository: continentBindingRepository)
+    lazy var classRepository: ClassRepositoring = ClassRepository()
+    lazy var routeWithAnimalsService: RouteWithAnimalsServicing = RouteWithAnimalsService()
 }
 
 extension AppDependency: HasAnimalRepository{}
@@ -31,4 +37,9 @@ extension AppDependency: HasSpeechService{}
 extension AppDependency: HasContinentBindingsRepository{}
 extension AppDependency: HasBiotopeBindingsRepository{}
 extension AppDependency: HasFoodBindingsRepository{}
-
+extension AppDependency: HasVoiceSettingsRepository{}
+extension AppDependency: HasPathRepository{}
+extension AppDependency: HasParametersOfVisitRepository{}
+extension AppDependency: HasProcessAnimalInformationService {}
+extension AppDependency: HasClassRepository{}
+extension AppDependency: HasRouteWithAnimalsService{}

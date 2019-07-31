@@ -23,20 +23,47 @@
 /* Begin PBXBuildFile section */
 		36842284AC7704A71EF232A0 /* Pods_courseworkZoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711782C2015ED379B8884DBE /* Pods_courseworkZoo.framework */; };
 		4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01D56822B930BE00CE4552 /* LoadError.swift */; };
+		4E01E18522D461F80016B533 /* UITitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01E18422D461F80016B533 /* UITitleHeader.swift */; };
+		4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */; };
+		4E01E18B22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01E18A22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift */; };
 		4E0386B322BFF84100250011 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B222BFF84000250011 /* MainViewModel.swift */; };
 		4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */; };
 		4E0386B722C0098700250011 /* TestAnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */; };
 		4E0386B922C009CC00250011 /* TestEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B822C009CC00250011 /* TestEnums.swift */; };
 		4E0386BB22C009FF00250011 /* TestAnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */; };
 		4E0386BD22C00A1F00250011 /* TestSettingsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */; };
+		4E0434FA22DB1CD600C5D912 /* SelectInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0434F922DB1CD600C5D912 /* SelectInformationViewModel.swift */; };
+		4E0434FC22DB5CB300C5D912 /* SelectInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0434FB22DB5CB300C5D912 /* SelectInformationViewController.swift */; };
 		4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */; };
 		4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */; };
+		4E05C92922ECA4BB00A8CA01 /* RouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */; };
+		4E05C92F22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */; };
+		4E08028422DC96620085B226 /* ProcessAnimalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08028322DC96620085B226 /* ProcessAnimalInformationService.swift */; };
+		4E08028622DCC2690085B226 /* HasProcessAnimalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08028522DCC2690085B226 /* HasProcessAnimalInformationService.swift */; };
+		4E082E3422F03045002F0475 /* ContinentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E082E3322F03045002F0475 /* ContinentsViewModel.swift */; };
+		4E082E3622F0318F002F0475 /* ContinentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E082E3522F0318F002F0475 /* ContinentsViewController.swift */; };
+		4E082E3822F05E97002F0475 /* AnimalsInContinentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E082E3722F05E97002F0475 /* AnimalsInContinentViewModel.swift */; };
+		4E082E3A22F0959B002F0475 /* AnimalsInContinentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E082E3922F0959B002F0475 /* AnimalsInContinentViewController.swift */; };
 		4E09264A22B79876001BEAED /* Actuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264922B79876001BEAED /* Actuality.swift */; };
 		4E09264C22B79968001BEAED /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09264B22B79968001BEAED /* SpeechService.swift */; };
 		4E0A669222BBF78800545C00 /* courseworkZooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A669122BBF78800545C00 /* courseworkZooUITests.swift */; };
 		4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */; };
 		4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66B522BC0FC900545C00 /* TestDependency.swift */; };
 		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
+		4E0CBFF722D35300008E076A /* UIVerticalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF622D35300008E076A /* UIVerticalMenu.swift */; };
+		4E0CBFF922D3531C008E076A /* UIVerticalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF822D3531C008E076A /* UIVerticalMenuItem.swift */; };
+		4E0CBFFB22D36A5F008E076A /* MainLexiconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */; };
+		4E0CBFFD22D36B01008E076A /* MainLexiconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFFC22D36B01008E076A /* MainLexiconViewModel.swift */; };
+		4E0E9DC422D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */; };
+		4E0E9DC822D5D08F00528AC0 /* PathRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC722D5D08F00528AC0 /* PathRepository.swift */; };
+		4E0E9DCA22D5DC1100528AC0 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC922D5DC1100528AC0 /* Path.swift */; };
+		4E0E9DCC22D5E3D000528AC0 /* HasPathRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DCB22D5E3D000528AC0 /* HasPathRepository.swift */; };
+		4E0E9DCE22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DCD22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift */; };
+		4E0E9DD022D5F5BA00528AC0 /* GoToLexiconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DCF22D5F5BA00528AC0 /* GoToLexiconDelegate.swift */; };
+		4E0E9DD222D5FBC500528AC0 /* UIAnimalWithActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DD122D5FBC500528AC0 /* UIAnimalWithActionCell.swift */; };
+		4E0E9DD622D62C5500528AC0 /* ChooseSavedPathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DD522D62C5500528AC0 /* ChooseSavedPathViewModel.swift */; };
+		4E0E9DD822D62CA200528AC0 /* ChooseSavedPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DD722D62CA200528AC0 /* ChooseSavedPathViewController.swift */; };
+		4E0E9DDA22D6414300528AC0 /* ParametersOfVisitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DD922D6414300528AC0 /* ParametersOfVisitRepository.swift */; };
 		4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69C22B37EB100831DDB /* Constants.swift */; };
 		4E0EB69F22B3870600831DDB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69E22B3870600831DDB /* String.swift */; };
 		4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */; };
@@ -45,8 +72,13 @@
 		4E106BA722C380A100D236A9 /* GoToAnimalDetailDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106BA622C380A100D236A9 /* GoToAnimalDetailDelegate.swift */; };
 		4E106BA922C3812500D236A9 /* MainDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106BA822C3812500D236A9 /* MainDelegate.swift */; };
 		4E106BAB22C39DDB00D236A9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106BAA22C39DDB00D236A9 /* BaseViewController.swift */; };
+		4E10C4D822D080D30028EBBC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10C4D722D080D30028EBBC /* Colors.swift */; };
 		4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E10C6FC2279921900CB6821 /* Localizable.strings */; };
+		4E1311DA22E3B0F600F6CD1A /* AnimalsInBiotopeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1311D922E3B0F600F6CD1A /* AnimalsInBiotopeViewModel.swift */; };
 		4E14844D22B7D19F0018A823 /* Coords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14844C22B7D19F0018A823 /* Coords.swift */; };
+		4E161B6922DEFF970078C372 /* AnimalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E161B6822DEFF970078C372 /* AnimalAnnotation.swift */; };
+		4E163E7822D724200090176F /* SavePathPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E163E7722D724200090176F /* SavePathPopoverViewController.swift */; };
+		4E163E7A22D73FBF0090176F /* SavePathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E163E7922D73FBF0090176F /* SavePathViewModel.swift */; };
 		4E175CF022BE78BF00690F79 /* AnimalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */; };
 		4E175CF222BE7A7000690F79 /* BiotopeBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */; };
 		4E175CF422BE7A8200690F79 /* FoodBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF322BE7A8200690F79 /* FoodBinding.swift */; };
@@ -55,27 +87,48 @@
 		4E175CFA22BE818C00690F79 /* BindingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CF922BE818C00690F79 /* BindingRepository.swift */; };
 		4E175CFC22BE99C000690F79 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CFB22BE99C000690F79 /* Food.swift */; };
 		4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CFD22BE99D500690F79 /* Biotope.swift */; };
+		4E18BABF22E88061003B0FEA /* BaseLexiconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18BABE22E88061003B0FEA /* BaseLexiconViewModel.swift */; };
+		4E18BAC122E88B53003B0FEA /* SearchResultsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */; };
 		4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */; };
 		4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */; };
 		4E19306722BD4AC800716BAD /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306622BD4AC800716BAD /* Repository.swift */; };
-		4E19306B22BD59B200716BAD /* SaidInformationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */; };
-		4E19306D22BD781500716BAD /* SettingInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306C22BD781500716BAD /* SettingInformationViewController.swift */; };
-		4E19306F22BD7C4400716BAD /* SettingsInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */; };
+		4E19737322D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19737222D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift */; };
+		4E19737522D9035200BB41D1 /* HasParametersOfVisitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19737422D9035200BB41D1 /* HasParametersOfVisitRepository.swift */; };
+		4E19737722D906A000BB41D1 /* SettingParametersOfVisitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19737622D906A000BB41D1 /* SettingParametersOfVisitViewController.swift */; };
+		4E1AA7B722E0A40B00B9CE77 /* ClassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7B622E0A40B00B9CE77 /* ClassViewModel.swift */; };
+		4E1AA7B922E0B42300B9CE77 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7B822E0B42300B9CE77 /* Class.swift */; };
+		4E1AA7BB22E0B4D100B9CE77 /* ClassRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7BA22E0B4D100B9CE77 /* ClassRepository.swift */; };
+		4E1AA7BD22E0B8A600B9CE77 /* HasClassRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7BC22E0B8A600B9CE77 /* HasClassRepository.swift */; };
+		4E1AA7BF22E0BA9400B9CE77 /* ClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7BE22E0BA9400B9CE77 /* ClassViewController.swift */; };
+		4E1AA7C122E0FE7F00B9CE77 /* OrdersInClassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7C022E0FE7F00B9CE77 /* OrdersInClassViewModel.swift */; };
+		4E1AA7C322E1011B00B9CE77 /* OrdersInClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AA7C222E1011B00B9CE77 /* OrdersInClassViewController.swift */; };
+		4E1AF93922E9B5600064BF74 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1AF93822E9B5600064BF74 /* Screen.swift */; };
+		4E1F228922E2590C0026CCDF /* BiotopesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F228822E2590C0026CCDF /* BiotopesViewModel.swift */; };
+		4E1F228B22E25A760026CCDF /* BiotopesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F228A22E25A760026CCDF /* BiotopesViewController.swift */; };
+		4E1F46A422E5D6E300B9B757 /* PavilionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F46A322E5D6E300B9B757 /* PavilionsViewModel.swift */; };
+		4E1F46A622E5D82C00B9B757 /* PavilionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F46A522E5D82C00B9B757 /* PavilionsViewController.swift */; };
+		4E1F46A822E5E61400B9B757 /* AnimalsInPavilionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F46A722E5E61400B9B757 /* AnimalsInPavilionViewModel.swift */; };
+		4E1F46AA22E5E78700B9B757 /* AnimalsInPavilionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F46A922E5E78700B9B757 /* AnimalsInPavilionViewController.swift */; };
+		4E1F781D22E452A600436437 /* AnimalsInBiotopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F781C22E452A600436437 /* AnimalsInBiotopeViewController.swift */; };
+		4E1F782122E48DAF00436437 /* BaseLexiconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F782022E48DAF00436437 /* BaseLexiconViewController.swift */; };
 		4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D2227DADD300D41EDA /* AnimalRepository.swift */; };
 		4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */; };
+		4E261EED22D21C6400E30C4A /* speakingCharacter.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4E261EEC22D21C6400E30C4A /* speakingCharacter.gif */; };
 		4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D80CF2274E11900B5E194 /* AppDelegate.swift */; };
 		4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D32274E11A00B5E194 /* Main.storyboard */; };
 		4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D62274E13A00B5E194 /* Assets.xcassets */; };
 		4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E2D80D82274E13A00B5E194 /* LaunchScreen.storyboard */; };
 		4E33E91222BFB25B001EB907 /* monkeys.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4E33E91122BFB25B001EB907 /* monkeys.gif */; };
+		4E3F483722E21A1A00585CCB /* AnimalsInOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F483622E21A1A00585CCB /* AnimalsInOrderViewModel.swift */; };
+		4E3F483922E21C4E00585CCB /* AnimalsInOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F483822E21C4E00585CCB /* AnimalsInOrderViewController.swift */; };
 		4E734AA222C7740D000A74B1 /* AlmostEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA122C7740D000A74B1 /* AlmostEquatable.swift */; };
 		4E734AA522C774DC000A74B1 /* SaidInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA422C774DC000A74B1 /* SaidInfo.swift */; };
-		4E734AA722C774F3000A74B1 /* InformationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA622C774F3000A74B1 /* InformationOptions.swift */; };
 		4E734AAA22C7797D000A74B1 /* LoadedEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA922C7797D000A74B1 /* LoadedEntity.swift */; };
 		4E806576227CCAF6006A312A /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E806575227CCAF6006A312A /* Animal.swift */; };
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
 		4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD6227D99FD00F78027 /* Locality.swift */; };
+		4EA6015922EB7E6600B29185 /* LexiconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA6015822EB7E6600B29185 /* LexiconDelegate.swift */; };
 		4EAE636E22C4EC2400624328 /* HasAnimalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE636D22C4EC2400624328 /* HasAnimalRepository.swift */; };
 		4EAE637022C4EC3700624328 /* HasLocalityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE636F22C4EC3700624328 /* HasLocalityRepository.swift */; };
 		4EAE637222C4EC5000624328 /* HasSpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE637122C4EC5000624328 /* HasSpeechService.swift */; };
@@ -133,15 +186,28 @@
 		2F038A22DAA03BC1D0A75CD2 /* Pods-courseworkZoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZoo.debug.xcconfig"; path = "Target Support Files/Pods-courseworkZoo/Pods-courseworkZoo.debug.xcconfig"; sourceTree = "<group>"; };
 		4C800E6386323D85CE879763 /* Pods-courseworkZooTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-courseworkZooTests.release.xcconfig"; path = "Target Support Files/Pods-courseworkZooTests/Pods-courseworkZooTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E01D56822B930BE00CE4552 /* LoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadError.swift; path = courseworkZoo/Service/Error/LoadError.swift; sourceTree = SOURCE_ROOT; };
-		4E0386B222BFF84000250011 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = courseworkZoo/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
-		4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalListViewModel.swift; path = courseworkZoo/AnimalListViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E01E18422D461F80016B533 /* UITitleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITitleHeader.swift; sourceTree = "<group>"; };
+		4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSettingsRepository.swift; sourceTree = "<group>"; };
+		4E01E18A22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasVoiceSettingsRepository.swift; sourceTree = "<group>"; };
+		4E0386B222BFF84000250011 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = courseworkZoo/ViewModel/Guide/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalListViewModel.swift; path = courseworkZoo/ViewModel/Guide/AnimalListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalDetailViewController.swift; sourceTree = "<group>"; };
 		4E0386B822C009CC00250011 /* TestEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnums.swift; sourceTree = "<group>"; };
 		4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalListViewController.swift; sourceTree = "<group>"; };
 		4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsInformation.swift; sourceTree = "<group>"; };
+		4E0434F922DB1CD600C5D912 /* SelectInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectInformationViewModel.swift; path = courseworkZoo/ViewModel/Guide/SelectInformationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0434FB22DB5CB300C5D912 /* SelectInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInformationViewController.swift; sourceTree = "<group>"; };
 		4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListViewController.swift; sourceTree = "<group>"; };
 		4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info_preprocess_header.h; sourceTree = "<group>"; };
+		4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWithAnimalsService.swift; sourceTree = "<group>"; };
+		4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasRouteWithAnimalsService.swift; sourceTree = "<group>"; };
+		4E08028322DC96620085B226 /* ProcessAnimalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessAnimalInformationService.swift; sourceTree = "<group>"; };
+		4E08028522DCC2690085B226 /* HasProcessAnimalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasProcessAnimalInformationService.swift; sourceTree = "<group>"; };
+		4E082E3322F03045002F0475 /* ContinentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentsViewModel.swift; sourceTree = "<group>"; };
+		4E082E3522F0318F002F0475 /* ContinentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentsViewController.swift; sourceTree = "<group>"; };
+		4E082E3722F05E97002F0475 /* AnimalsInContinentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsInContinentViewModel.swift; sourceTree = "<group>"; };
+		4E082E3922F0959B002F0475 /* AnimalsInContinentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsInContinentViewController.swift; sourceTree = "<group>"; };
 		4E09264922B79876001BEAED /* Actuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuality.swift; sourceTree = "<group>"; };
 		4E09264B22B79968001BEAED /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechService.swift; path = courseworkZoo/Service/Service/SpeechService.swift; sourceTree = SOURCE_ROOT; };
 		4E0A668F22BBF78800545C00 /* courseworkZooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = courseworkZooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +220,20 @@
 		4E0AA4B62288630E00398D53 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIService.swift; path = courseworkZoo/Service/Service/APIService.swift; sourceTree = SOURCE_ROOT; };
 		4E0B485322C0C1F8000BCD19 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		4E0B485522C0C1F8000BCD19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E0CBFF622D35300008E076A /* UIVerticalMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVerticalMenu.swift; sourceTree = "<group>"; };
+		4E0CBFF822D3531C008E076A /* UIVerticalMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVerticalMenuItem.swift; sourceTree = "<group>"; };
+		4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLexiconViewController.swift; sourceTree = "<group>"; };
+		4E0CBFFC22D36B01008E076A /* MainLexiconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainLexiconViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/MainLexiconViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAnimalsToPathViewController.swift; sourceTree = "<group>"; };
+		4E0E9DC722D5D08F00528AC0 /* PathRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathRepository.swift; sourceTree = "<group>"; };
+		4E0E9DC922D5DC1100528AC0 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		4E0E9DCB22D5E3D000528AC0 /* HasPathRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPathRepository.swift; sourceTree = "<group>"; };
+		4E0E9DCD22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectAnimalsToPathViewModel.swift; path = courseworkZoo/ViewModel/Guide/SelectAnimalsToPathViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0E9DCF22D5F5BA00528AC0 /* GoToLexiconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToLexiconDelegate.swift; sourceTree = "<group>"; };
+		4E0E9DD122D5FBC500528AC0 /* UIAnimalWithActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnimalWithActionCell.swift; sourceTree = "<group>"; };
+		4E0E9DD522D62C5500528AC0 /* ChooseSavedPathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChooseSavedPathViewModel.swift; path = courseworkZoo/ViewModel/Guide/ChooseSavedPathViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0E9DD722D62CA200528AC0 /* ChooseSavedPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSavedPathViewController.swift; sourceTree = "<group>"; };
+		4E0E9DD922D6414300528AC0 /* ParametersOfVisitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersOfVisitRepository.swift; sourceTree = "<group>"; };
 		4E0EB69C22B37EB100831DDB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69E22B3870600831DDB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "courseworkZoo/Service/String extensions/String.swift"; sourceTree = SOURCE_ROOT; };
 		4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewModel.swift; path = courseworkZoo/Model/BaseViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -162,10 +242,15 @@
 		4E106BA622C380A100D236A9 /* GoToAnimalDetailDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToAnimalDetailDelegate.swift; sourceTree = "<group>"; };
 		4E106BA822C3812500D236A9 /* MainDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDelegate.swift; sourceTree = "<group>"; };
 		4E106BAA22C39DDB00D236A9 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		4E10C4D722D080D30028EBBC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4E10C6FB2279921900CB6821 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E10C6FD2279923E00CB6821 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4E1311D922E3B0F600F6CD1A /* AnimalsInBiotopeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalsInBiotopeViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/AnimalsInBiotopeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E14844C22B7D19F0018A823 /* Coords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coords.swift; sourceTree = "<group>"; };
-		4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalDetailViewModel.swift; path = courseworkZoo/AnimalDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E161B6822DEFF970078C372 /* AnimalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalAnnotation.swift; sourceTree = "<group>"; };
+		4E163E7722D724200090176F /* SavePathPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePathPopoverViewController.swift; sourceTree = "<group>"; };
+		4E163E7922D73FBF0090176F /* SavePathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SavePathViewModel.swift; path = courseworkZoo/ViewModel/Guide/SavePathViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalDetailViewModel.swift; path = courseworkZoo/ViewModel/Guide/AnimalDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiotopeBinding.swift; sourceTree = "<group>"; };
 		4E175CF322BE7A8200690F79 /* FoodBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBinding.swift; sourceTree = "<group>"; };
 		4E175CF522BE7D1400690F79 /* ContinentBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentBinding.swift; sourceTree = "<group>"; };
@@ -173,14 +258,33 @@
 		4E175CF922BE818C00690F79 /* BindingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BindingRepository.swift; path = courseworkZoo/Service/Repository/BindingRepository.swift; sourceTree = SOURCE_ROOT; };
 		4E175CFB22BE99C000690F79 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		4E175CFD22BE99D500690F79 /* Biotope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biotope.swift; sourceTree = "<group>"; };
+		4E18BABE22E88061003B0FEA /* BaseLexiconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLexiconViewModel.swift; sourceTree = "<group>"; };
+		4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsPopoverViewController.swift; sourceTree = "<group>"; };
 		4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocalityViewController.swift; sourceTree = "<group>"; };
-		4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLocalityViewModel.swift; path = courseworkZoo/SelectLocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLocalityViewModel.swift; path = courseworkZoo/ViewModel/Guide/SelectLocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E19306622BD4AC800716BAD /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = courseworkZoo/Service/Repository/Repository.swift; sourceTree = SOURCE_ROOT; };
-		4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaidInformationSettings.swift; sourceTree = "<group>"; };
-		4E19306C22BD781500716BAD /* SettingInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInformationViewController.swift; sourceTree = "<group>"; };
-		4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsInformationViewModel.swift; path = courseworkZoo/SettingsInformationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E19737222D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingParametersOfVisitViewModel.swift; path = courseworkZoo/ViewModel/Guide/SettingParametersOfVisitViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E19737422D9035200BB41D1 /* HasParametersOfVisitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasParametersOfVisitRepository.swift; sourceTree = "<group>"; };
+		4E19737622D906A000BB41D1 /* SettingParametersOfVisitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingParametersOfVisitViewController.swift; sourceTree = "<group>"; };
+		4E1AA7B622E0A40B00B9CE77 /* ClassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/ClassViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E1AA7B822E0B42300B9CE77 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		4E1AA7BA22E0B4D100B9CE77 /* ClassRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassRepository.swift; sourceTree = "<group>"; };
+		4E1AA7BC22E0B8A600B9CE77 /* HasClassRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasClassRepository.swift; sourceTree = "<group>"; };
+		4E1AA7BE22E0BA9400B9CE77 /* ClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassViewController.swift; sourceTree = "<group>"; };
+		4E1AA7C022E0FE7F00B9CE77 /* OrdersInClassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrdersInClassViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/OrdersInClassViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E1AA7C222E1011B00B9CE77 /* OrdersInClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersInClassViewController.swift; sourceTree = "<group>"; };
+		4E1AF93822E9B5600064BF74 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		4E1F228822E2590C0026CCDF /* BiotopesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BiotopesViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/BiotopesViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E1F228A22E25A760026CCDF /* BiotopesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiotopesViewController.swift; sourceTree = "<group>"; };
+		4E1F46A322E5D6E300B9B757 /* PavilionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PavilionsViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/PavilionsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E1F46A522E5D82C00B9B757 /* PavilionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PavilionsViewController.swift; sourceTree = "<group>"; };
+		4E1F46A722E5E61400B9B757 /* AnimalsInPavilionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalsInPavilionViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/AnimalsInPavilionViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E1F46A922E5E78700B9B757 /* AnimalsInPavilionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsInPavilionViewController.swift; sourceTree = "<group>"; };
+		4E1F781C22E452A600436437 /* AnimalsInBiotopeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsInBiotopeViewController.swift; sourceTree = "<group>"; };
+		4E1F782022E48DAF00436437 /* BaseLexiconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLexiconViewController.swift; sourceTree = "<group>"; };
 		4E2609D2227DADD300D41EDA /* AnimalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalRepository.swift; path = courseworkZoo/Service/Repository/AnimalRepository.swift; sourceTree = SOURCE_ROOT; };
 		4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocalityRepository.swift; path = courseworkZoo/Service/Repository/LocalityRepository.swift; sourceTree = SOURCE_ROOT; };
+		4E261EEC22D21C6400E30C4A /* speakingCharacter.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = speakingCharacter.gif; sourceTree = "<group>"; };
 		4E2D80CC2274E11900B5E194 /* courseworkZoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = courseworkZoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E2D80CF2274E11900B5E194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E2D80D42274E11A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -188,14 +292,16 @@
 		4E2D80D92274E13A00B5E194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E2D80DB2274E13A00B5E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E33E91122BFB25B001EB907 /* monkeys.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = monkeys.gif; sourceTree = "<group>"; };
+		4E3F483622E21A1A00585CCB /* AnimalsInOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalsInOrderViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/AnimalsInOrderViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E3F483822E21C4E00585CCB /* AnimalsInOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsInOrderViewController.swift; sourceTree = "<group>"; };
 		4E734AA122C7740D000A74B1 /* AlmostEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlmostEquatable.swift; sourceTree = "<group>"; };
 		4E734AA422C774DC000A74B1 /* SaidInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaidInfo.swift; sourceTree = "<group>"; };
-		4E734AA622C774F3000A74B1 /* InformationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationOptions.swift; sourceTree = "<group>"; };
 		4E734AA922C7797D000A74B1 /* LoadedEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedEntity.swift; sourceTree = "<group>"; };
 		4E806575227CCAF6006A312A /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD6227D99FD00F78027 /* Locality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locality.swift; sourceTree = SOURCE_ROOT; };
+		4EA6015822EB7E6600B29185 /* LexiconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconDelegate.swift; sourceTree = "<group>"; };
 		4EAE636D22C4EC2400624328 /* HasAnimalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimalRepository.swift; sourceTree = "<group>"; };
 		4EAE636F22C4EC3700624328 /* HasLocalityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocalityRepository.swift; sourceTree = "<group>"; };
 		4EAE637122C4EC5000624328 /* HasSpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasSpeechService.swift; sourceTree = "<group>"; };
@@ -256,6 +362,10 @@
 				4E175CF922BE818C00690F79 /* BindingRepository.swift */,
 				4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */,
 				4E2609D2227DADD300D41EDA /* AnimalRepository.swift */,
+				4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */,
+				4E0E9DC722D5D08F00528AC0 /* PathRepository.swift */,
+				4E0E9DD922D6414300528AC0 /* ParametersOfVisitRepository.swift */,
+				4E1AA7BA22E0B4D100B9CE77 /* ClassRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -265,6 +375,8 @@
 			children = (
 				4E09264B22B79968001BEAED /* SpeechService.swift */,
 				4E0AA4B62288630E00398D53 /* APIService.swift */,
+				4E08028322DC96620085B226 /* ProcessAnimalInformationService.swift */,
+				4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -272,12 +384,10 @@
 		4E05CEB522C2358C00BCBA99 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4E19306C22BD781500716BAD /* SettingInformationViewController.swift */,
-				4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */,
-				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
-				4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */,
-				4E106B9E22C3605600D236A9 /* MainViewController.swift */,
 				4E106BAA22C39DDB00D236A9 /* BaseViewController.swift */,
+				4E1F782322E4957600436437 /* Lexicon */,
+				4E1F782222E4956800436437 /* Guide */,
+				4E0CBFF522D35283008E076A /* CustomUIComponents */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -314,6 +424,18 @@
 			path = MyKeyboardForSearch;
 			sourceTree = "<group>";
 		};
+		4E0CBFF522D35283008E076A /* CustomUIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				4E0CBFF622D35300008E076A /* UIVerticalMenu.swift */,
+				4E0CBFF822D3531C008E076A /* UIVerticalMenuItem.swift */,
+				4E01E18422D461F80016B533 /* UITitleHeader.swift */,
+				4E0E9DD122D5FBC500528AC0 /* UIAnimalWithActionCell.swift */,
+				4E161B6822DEFF970078C372 /* AnimalAnnotation.swift */,
+			);
+			path = CustomUIComponents;
+			sourceTree = "<group>";
+		};
 		4E106BA022C3641800D236A9 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +451,8 @@
 				4E106BA222C3806800D236A9 /* GoBackDelegate.swift */,
 				4E106BA622C380A100D236A9 /* GoToAnimalDetailDelegate.swift */,
 				4E106BA822C3812500D236A9 /* MainDelegate.swift */,
+				4E0E9DCF22D5F5BA00528AC0 /* GoToLexiconDelegate.swift */,
+				4EA6015822EB7E6600B29185 /* LexiconDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -347,6 +471,9 @@
 				4E175CFB22BE99C000690F79 /* Food.swift */,
 				4E175CFD22BE99D500690F79 /* Biotope.swift */,
 				4E734AA922C7797D000A74B1 /* LoadedEntity.swift */,
+				4E0E9DC922D5DC1100528AC0 /* Path.swift */,
+				4E1AA7B822E0B42300B9CE77 /* Class.swift */,
+				4E1AF93822E9B5600064BF74 /* Screen.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +487,7 @@
 				4E05CEB422C20F9200BCBA99 /* Service */,
 				4E05CEB322C20F6600BCBA99 /* Repository */,
 				4E0EB69C22B37EB100831DDB /* Constants.swift */,
+				4E10C4D722D080D30028EBBC /* Colors.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -368,19 +496,51 @@
 			isa = PBXGroup;
 			children = (
 				4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */,
-				4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */,
-				4E19306E22BD7C4400716BAD /* SettingsInformationViewModel.swift */,
-				4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */,
-				4E0386B222BFF84000250011 /* MainViewModel.swift */,
-				4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */,
+				4EA5825222E79ACC004045E3 /* Guide */,
+				4EA5825122E79AAF004045E3 /* Lexicon */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4E1F782222E4956800436437 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				4E106B9E22C3605600D236A9 /* MainViewController.swift */,
+				4E0434FB22DB5CB300C5D912 /* SelectInformationViewController.swift */,
+				4E19737622D906A000BB41D1 /* SettingParametersOfVisitViewController.swift */,
+				4E163E7722D724200090176F /* SavePathPopoverViewController.swift */,
+				4E0E9DD722D62CA200528AC0 /* ChooseSavedPathViewController.swift */,
+				4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */,
+				4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
+		4E1F782322E4957600436437 /* Lexicon */ = {
+			isa = PBXGroup;
+			children = (
+				4E1F782022E48DAF00436437 /* BaseLexiconViewController.swift */,
+				4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */,
+				4E1F228A22E25A760026CCDF /* BiotopesViewController.swift */,
+				4E1F781C22E452A600436437 /* AnimalsInBiotopeViewController.swift */,
+				4E3F483822E21C4E00585CCB /* AnimalsInOrderViewController.swift */,
+				4E1AA7C222E1011B00B9CE77 /* OrdersInClassViewController.swift */,
+				4E1AA7BE22E0BA9400B9CE77 /* ClassViewController.swift */,
+				4E1F46A522E5D82C00B9B757 /* PavilionsViewController.swift */,
+				4E1F46A922E5E78700B9B757 /* AnimalsInPavilionViewController.swift */,
+				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
+				4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */,
+				4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */,
+				4E082E3522F0318F002F0475 /* ContinentsViewController.swift */,
+				4E082E3922F0959B002F0475 /* AnimalsInContinentViewController.swift */,
+			);
+			path = Lexicon;
 			sourceTree = "<group>";
 		};
 		4E2D80C32274E11800B5E194 = {
 			isa = PBXGroup;
 			children = (
-				4E33E91122BFB25B001EB907 /* monkeys.gif */,
+				4E33E91022BFB173001EB907 /* imagesAndAnimations */,
 				4E2D80CE2274E11900B5E194 /* courseworkZoo */,
 				4E0A669022BBF78800545C00 /* courseworkZooUITests */,
 				4E0A66AC22BBF98B00545C00 /* courseworkZooTests */,
@@ -405,7 +565,6 @@
 			isa = PBXGroup;
 			children = (
 				4E05CEB522C2358C00BCBA99 /* ViewController */,
-				4E33E91022BFB173001EB907 /* imagesAndAnimations */,
 				4E04B7F522BA9E1700349FA0 /* FlowCoordinators */,
 				4E10C6F522798ABF00CB6821 /* ViewModel */,
 				4E10C6F422798AB300CB6821 /* Service */,
@@ -425,6 +584,8 @@
 		4E33E91022BFB173001EB907 /* imagesAndAnimations */ = {
 			isa = PBXGroup;
 			children = (
+				4E261EEC22D21C6400E30C4A /* speakingCharacter.gif */,
+				4E33E91122BFB25B001EB907 /* monkeys.gif */,
 			);
 			path = imagesAndAnimations;
 			sourceTree = "<group>";
@@ -448,9 +609,7 @@
 		4E734AA322C774C3000A74B1 /* SaidInformationSettings */ = {
 			isa = PBXGroup;
 			children = (
-				4E19306A22BD59B200716BAD /* SaidInformationSettings.swift */,
 				4E734AA422C774DC000A74B1 /* SaidInfo.swift */,
-				4E734AA622C774F3000A74B1 /* InformationOptions.swift */,
 			);
 			path = SaidInformationSettings;
 			sourceTree = "<group>";
@@ -466,6 +625,40 @@
 			path = Binding;
 			sourceTree = "<group>";
 		};
+		4EA5825122E79AAF004045E3 /* Lexicon */ = {
+			isa = PBXGroup;
+			children = (
+				4E18BABE22E88061003B0FEA /* BaseLexiconViewModel.swift */,
+				4E0CBFFC22D36B01008E076A /* MainLexiconViewModel.swift */,
+				4E175CEF22BE78BF00690F79 /* AnimalDetailViewModel.swift */,
+				4E1AA7B622E0A40B00B9CE77 /* ClassViewModel.swift */,
+				4E1AA7C022E0FE7F00B9CE77 /* OrdersInClassViewModel.swift */,
+				4E3F483622E21A1A00585CCB /* AnimalsInOrderViewModel.swift */,
+				4E1F228822E2590C0026CCDF /* BiotopesViewModel.swift */,
+				4E1311D922E3B0F600F6CD1A /* AnimalsInBiotopeViewModel.swift */,
+				4E1F46A322E5D6E300B9B757 /* PavilionsViewModel.swift */,
+				4E1F46A722E5E61400B9B757 /* AnimalsInPavilionViewModel.swift */,
+				4E082E3322F03045002F0475 /* ContinentsViewModel.swift */,
+				4E082E3722F05E97002F0475 /* AnimalsInContinentViewModel.swift */,
+			);
+			path = Lexicon;
+			sourceTree = "<group>";
+		};
+		4EA5825222E79ACC004045E3 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				4E0386B222BFF84000250011 /* MainViewModel.swift */,
+				4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */,
+				4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */,
+				4E0E9DCD22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift */,
+				4E0E9DD522D62C5500528AC0 /* ChooseSavedPathViewModel.swift */,
+				4E163E7922D73FBF0090176F /* SavePathViewModel.swift */,
+				4E19737222D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift */,
+				4E0434F922DB1CD600C5D912 /* SelectInformationViewModel.swift */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
 		4EAE636C22C4EBED00624328 /* HasRepository */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +668,12 @@
 				4EAE637522C4EC8400624328 /* HasBiotopeBindingsRepository.swift */,
 				4EAE637722C4EC9700624328 /* HasFoodBindingsRepository.swift */,
 				4EAE637922C4ECAF00624328 /* HasContinentBindingsRepository.swift */,
+				4E01E18A22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift */,
+				4E0E9DCB22D5E3D000528AC0 /* HasPathRepository.swift */,
+				4E19737422D9035200BB41D1 /* HasParametersOfVisitRepository.swift */,
+				4E08028522DCC2690085B226 /* HasProcessAnimalInformationService.swift */,
+				4E1AA7BC22E0B8A600B9CE77 /* HasClassRepository.swift */,
+				4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */,
 			);
 			path = HasRepository;
 			sourceTree = "<group>";
@@ -636,6 +835,7 @@
 				4E2D80DA2274E13A00B5E194 /* LaunchScreen.storyboard in Resources */,
 				4E10C6FA2279921900CB6821 /* Localizable.strings in Resources */,
 				4E2D80D72274E13A00B5E194 /* Assets.xcassets in Resources */,
+				4E261EED22D21C6400E30C4A /* speakingCharacter.gif in Resources */,
 				4E2D80D52274E11A00B5E194 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -791,55 +991,107 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E175CF222BE7A7000690F79 /* BiotopeBinding.swift in Sources */,
+				4E0E9DD622D62C5500528AC0 /* ChooseSavedPathViewModel.swift in Sources */,
+				4E1AA7B722E0A40B00B9CE77 /* ClassViewModel.swift in Sources */,
+				4E01E18522D461F80016B533 /* UITitleHeader.swift in Sources */,
+				4E1F46A622E5D82C00B9B757 /* PavilionsViewController.swift in Sources */,
+				4E18BAC122E88B53003B0FEA /* SearchResultsPopoverViewController.swift in Sources */,
+				4E082E3A22F0959B002F0475 /* AnimalsInContinentViewController.swift in Sources */,
 				4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */,
+				4E0E9DD222D5FBC500528AC0 /* UIAnimalWithActionCell.swift in Sources */,
+				4E0E9DC422D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift in Sources */,
 				4EF6ADBB22BAA097006D9648 /* AppDependency.swift in Sources */,
 				4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */,
+				4E163E7822D724200090176F /* SavePathPopoverViewController.swift in Sources */,
 				4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */,
+				4E0434FA22DB1CD600C5D912 /* SelectInformationViewModel.swift in Sources */,
 				4E106BA322C3806800D236A9 /* GoBackDelegate.swift in Sources */,
+				4E0CBFFB22D36A5F008E076A /* MainLexiconViewController.swift in Sources */,
 				4E106B9F22C3605600D236A9 /* MainViewController.swift in Sources */,
 				4E19306722BD4AC800716BAD /* Repository.swift in Sources */,
 				4E175CFC22BE99C000690F79 /* Food.swift in Sources */,
+				4E08028422DC96620085B226 /* ProcessAnimalInformationService.swift in Sources */,
 				4E106BAB22C39DDB00D236A9 /* BaseViewController.swift in Sources */,
+				4E1AF93922E9B5600064BF74 /* Screen.swift in Sources */,
+				4E1F46AA22E5E78700B9B757 /* AnimalsInPavilionViewController.swift in Sources */,
+				4E01E18B22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift in Sources */,
 				4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */,
+				4E0E9DC822D5D08F00528AC0 /* PathRepository.swift in Sources */,
+				4E1F781D22E452A600436437 /* AnimalsInBiotopeViewController.swift in Sources */,
+				4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
 				4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */,
 				4EAE637822C4EC9800624328 /* HasFoodBindingsRepository.swift in Sources */,
+				4E19737722D906A000BB41D1 /* SettingParametersOfVisitViewController.swift in Sources */,
+				4E0CBFFD22D36B01008E076A /* MainLexiconViewModel.swift in Sources */,
 				4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */,
 				4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */,
+				4E082E3822F05E97002F0475 /* AnimalsInContinentViewModel.swift in Sources */,
 				4EAE636E22C4EC2400624328 /* HasAnimalRepository.swift in Sources */,
 				4E175CF822BE800700690F79 /* Bindable.swift in Sources */,
+				4E0E9DD822D62CA200528AC0 /* ChooseSavedPathViewController.swift in Sources */,
 				4E734AAA22C7797D000A74B1 /* LoadedEntity.swift in Sources */,
 				4EAE637222C4EC5000624328 /* HasSpeechService.swift in Sources */,
+				4E1F782122E48DAF00436437 /* BaseLexiconViewController.swift in Sources */,
+				4E0E9DCC22D5E3D000528AC0 /* HasPathRepository.swift in Sources */,
+				4E1F46A822E5E61400B9B757 /* AnimalsInPavilionViewModel.swift in Sources */,
+				4E1AA7BD22E0B8A600B9CE77 /* HasClassRepository.swift in Sources */,
+				4E10C4D822D080D30028EBBC /* Colors.swift in Sources */,
+				4E1AA7C122E0FE7F00B9CE77 /* OrdersInClassViewModel.swift in Sources */,
 				4E734AA222C7740D000A74B1 /* AlmostEquatable.swift in Sources */,
 				4E106BA922C3812500D236A9 /* MainDelegate.swift in Sources */,
 				4E01D56922B930BE00CE4552 /* LoadError.swift in Sources */,
+				4E1311DA22E3B0F600F6CD1A /* AnimalsInBiotopeViewModel.swift in Sources */,
 				4EAE637022C4EC3700624328 /* HasLocalityRepository.swift in Sources */,
 				4E2609D3227DADD300D41EDA /* AnimalRepository.swift in Sources */,
-				4E734AA722C774F3000A74B1 /* InformationOptions.swift in Sources */,
+				4E161B6922DEFF970078C372 /* AnimalAnnotation.swift in Sources */,
 				4E106BA722C380A100D236A9 /* GoToAnimalDetailDelegate.swift in Sources */,
-				4E19306B22BD59B200716BAD /* SaidInformationSettings.swift in Sources */,
 				4EAE637A22C4ECAF00624328 /* HasContinentBindingsRepository.swift in Sources */,
+				4E18BABF22E88061003B0FEA /* BaseLexiconViewModel.swift in Sources */,
 				4E175CF422BE7A8200690F79 /* FoodBinding.swift in Sources */,
 				4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */,
+				4E1AA7B922E0B42300B9CE77 /* Class.swift in Sources */,
 				4E175CF622BE7D1400690F79 /* ContinentBinding.swift in Sources */,
+				4E1F228B22E25A760026CCDF /* BiotopesViewController.swift in Sources */,
+				4E1AA7BF22E0BA9400B9CE77 /* ClassViewController.swift in Sources */,
+				4E19737322D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift in Sources */,
 				4E175CF022BE78BF00690F79 /* AnimalDetailViewModel.swift in Sources */,
+				4E0E9DCE22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift in Sources */,
+				4E3F483922E21C4E00585CCB /* AnimalsInOrderViewController.swift in Sources */,
+				4E05C92922ECA4BB00A8CA01 /* RouteWithAnimalsService.swift in Sources */,
 				4E09264C22B79968001BEAED /* SpeechService.swift in Sources */,
-				4E19306D22BD781500716BAD /* SettingInformationViewController.swift in Sources */,
 				4E0EB69F22B3870600831DDB /* String.swift in Sources */,
-				4E19306F22BD7C4400716BAD /* SettingsInformationViewModel.swift in Sources */,
 				4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */,
 				4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */,
+				4E0CBFF722D35300008E076A /* UIVerticalMenu.swift in Sources */,
+				4E0E9DCA22D5DC1100528AC0 /* Path.swift in Sources */,
+				4E1F46A422E5D6E300B9B757 /* PavilionsViewModel.swift in Sources */,
 				4E09264A22B79876001BEAED /* Actuality.swift in Sources */,
+				4E3F483722E21A1A00585CCB /* AnimalsInOrderViewModel.swift in Sources */,
+				4E0E9DD022D5F5BA00528AC0 /* GoToLexiconDelegate.swift in Sources */,
+				4E0CBFF922D3531C008E076A /* UIVerticalMenuItem.swift in Sources */,
 				4E734AA522C774DC000A74B1 /* SaidInfo.swift in Sources */,
+				4EA6015922EB7E6600B29185 /* LexiconDelegate.swift in Sources */,
 				4E0386B322BFF84100250011 /* MainViewModel.swift in Sources */,
+				4E082E3622F0318F002F0475 /* ContinentsViewController.swift in Sources */,
 				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
 				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
+				4E1F228922E2590C0026CCDF /* BiotopesViewModel.swift in Sources */,
+				4E1AA7BB22E0B4D100B9CE77 /* ClassRepository.swift in Sources */,
+				4E163E7A22D73FBF0090176F /* SavePathViewModel.swift in Sources */,
+				4E082E3422F03045002F0475 /* ContinentsViewModel.swift in Sources */,
 				4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */,
+				4E19737522D9035200BB41D1 /* HasParametersOfVisitRepository.swift in Sources */,
+				4E1AA7C322E1011B00B9CE77 /* OrdersInClassViewController.swift in Sources */,
 				4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */,
+				4E08028622DCC2690085B226 /* HasProcessAnimalInformationService.swift in Sources */,
+				4E0434FC22DB5CB300C5D912 /* SelectInformationViewController.swift in Sources */,
 				4EAE637622C4EC8400624328 /* HasBiotopeBindingsRepository.swift in Sources */,
+				4E0E9DDA22D6414300528AC0 /* ParametersOfVisitRepository.swift in Sources */,
+				4E05C92F22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift in Sources */,
 				4E175CFA22BE818C00690F79 /* BindingRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1029,6 +1281,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 34792P2FZY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1091,6 +1344,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 34792P2FZY;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

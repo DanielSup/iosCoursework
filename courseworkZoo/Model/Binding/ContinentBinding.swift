@@ -27,4 +27,12 @@ struct ContinentBinding: Bindable{
     func getAnimalId() -> Int {
         return Int(animal) ?? -1
     }
+    
+    /**
+     It returns the identificator of the continent where the binded animal lives.
+     - Returns: The identificator of the continent where the animal lives.
+    */
+    func getBindedObjectId() -> Int {
+        return Int(continent) ?? -1
+    }
 }

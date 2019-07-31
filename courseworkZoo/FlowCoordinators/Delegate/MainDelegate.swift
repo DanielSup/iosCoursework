@@ -12,7 +12,9 @@ import UIKit
  This protocol ensures going to different screens (list of animals, selection of the target locality and settings the machine-read information) from the main screen.
  */
 protocol MainDelegate: class {
-    func goToAnimalListTapped(in viewController: BaseViewController)
-    func goForSelectionOfLocality(in viewController: BaseViewController)
-    func goToSettings(in viewController: BaseViewController)
+    func goToLexicon(in viewController: BaseViewController)
+    func goToSelectAnimalsToPath(in viewController: BaseViewController)
+    func goToChooseSavedPath(in viewController: BaseViewController)
+    func goToSettingParametersOfVisit(in viewController: BaseViewController)
+    func goToSelectInformation(in viewController: BaseViewController)
 }

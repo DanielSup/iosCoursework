@@ -13,7 +13,7 @@ import UIKit
  */
 class Constants: NSObject {
     /// This constant determines where data are loaded from.
-    static let serverUrl: String = "https://test-3565.rostiapp.cz/"
+    static let serverUrl: String = "https://lexikonprozoo-3601.rostiapp.cz/"
     /// The relative URL for getting the list of animals with detailed information
     static let animalsRelativeUrl: String = "animals"
     /// The relative URL for getting the list of localities
@@ -24,4 +24,6 @@ class Constants: NSObject {
     static let foodBindingsRelativeUrl: String = "food/bindings"
     /// The relative URL for getting the list of bindings with a continent and an animal
     static let continentsBindingsRelativeUrl: String = "continents/bindings"
+    /// The relative URL for getting the list of classes and orders.
+    static let classes = "classes"
 }

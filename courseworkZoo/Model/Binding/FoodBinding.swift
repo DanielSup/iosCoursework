@@ -28,4 +28,12 @@ class FoodBinding: Bindable {
         return Int(animal) ?? -1
     }
     
+    /**
+     It returns the identificator of the food which the binded animal eats.
+     - Returns: The identificator of the food which the animal eats.
+    */
+    func getBindedObjectId() -> Int {
+        return Int(food) ?? -1
+    }
+    
 }
