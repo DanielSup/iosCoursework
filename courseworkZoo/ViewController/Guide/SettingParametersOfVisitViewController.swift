@@ -35,16 +35,16 @@ class SettingParametersOfVisitViewController: BaseViewController {
         self.settingParametersOfVisitViewModel = settingParametersOfVisitViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.settingParametersOfVisitViewModel.getWalkSpeedAction.apply().start()
-        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimalAction.apply().start()
+        self.settingParametersOfVisitViewModel.getWalkSpeed.apply().start()
+        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.settingParametersOfVisitViewModel = SettingParametersOfVisitViewModel(dependencies: AppDependency.shared)
         super.init(coder: aDecoder)
         self.setupBindingsWithViewModelActions()
-        self.settingParametersOfVisitViewModel.getWalkSpeedAction.apply().start()
-        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimalAction.apply().start()
+        self.settingParametersOfVisitViewModel.getWalkSpeed.apply().start()
+        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.apply().start()
     }
     
     
@@ -52,12 +52,12 @@ class SettingParametersOfVisitViewController: BaseViewController {
      This function binds the view controller with important actions for getting the parameters of the visit of the ZOO of the view model.
      */
     override func setupBindingsWithViewModelActions() {
-        self.settingParametersOfVisitViewModel.getWalkSpeedAction.values.producer.startWithValues{
+        self.settingParametersOfVisitViewModel.getWalkSpeed.values.producer.startWithValues{
             (walkSpeed) in
             self.walkSpeed = walkSpeed
         }
         
-        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimalAction.values.producer.startWithValues{
+        self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.values.producer.startWithValues{
             (timeSpentAtOneAnimal) in
             self.timeSpentAtOneAnimal = timeSpentAtOneAnimal
         }

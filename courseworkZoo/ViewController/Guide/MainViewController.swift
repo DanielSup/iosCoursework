@@ -64,7 +64,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     */
     override func setupBindingsWithViewModelActions(){
         // adding annotations of localities (especially pavilions) with known coordinates to the map
-        self.mainViewModel.getLocalitiesAction.values.producer.startWithValues {(localitiesList) in
+        self.mainViewModel.getLocalities.values.producer.startWithValues {(localitiesList) in
             for locality in localitiesList{
                 // making and adding an annotation of the actual locality to the map
                 let annotation: MKPointAnnotation = MKPointAnnotation()
@@ -76,7 +76,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         // registration of the action which ensures adding annotations of animals with known coordinates to the map after getting the list of animals with given coordinates
-        self.mainViewModel.getAnimalsAction.values.producer.startWithValues { (animalList) in
+        self.mainViewModel.getAnimals.values.producer.startWithValues { (animalList) in
             for animal in animalList{
                 // making and adding an annotation of the actual animal to the map
                 let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
@@ -87,7 +87,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         
         // registration of the actions for saying information about localities and animals in the closeness of the actual location
-        self.mainViewModel.animalInClosenessAction.values.producer.startWithValues{ (animal) in
+        self.mainViewModel.getAnimalInCloseness.values.producer.startWithValues{ (animal) in
             self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
                 self.speakingCharacterImageView?.startAnimatingGif()
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(animal: animal)
@@ -98,7 +98,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.mainViewModel.sayInformationAbout(animal: animal)
         }
         
-        self.mainViewModel.localityInClosenessAction.values.producer.startWithValues{ locality in
+        self.mainViewModel.getLocalityInCloseness.values.producer.startWithValues{ locality in
             self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
                 self.speakingCharacterImageView?.startAnimatingGif()
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(locality: locality)
@@ -111,7 +111,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         
         // action for turning on or off the voice
-        self.mainViewModel.isVoiceOnAction.values.producer.startWithValues{ voiceOn in
+        self.mainViewModel.isVoiceOn.values.producer.startWithValues{ voiceOn in
             if (voiceOn){
                 self.verticalMenu.getItemAt(index: 4)?.changeActionString(actionString: "turnOffVoice")
             } else {
@@ -132,8 +132,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     
     override func viewDidAppear(_ animated: Bool) {
         self.zooPlanMapView.removeAnnotations(self.zooPlanMapView.annotations)
-        self.mainViewModel.getAnimalsAction.apply().start()
-        self.mainViewModel.getLocalitiesAction.apply().start()
+        self.mainViewModel.getAnimals.apply().start()
+        self.mainViewModel.getLocalities.apply().start()
         
         self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
         self.mainViewModel.getAnimalsInPath.values.producer.startWithValues {
@@ -397,8 +397,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      */
     func addLoadedLocalitiesToMap(){
         //running actions - getting localities and animals from the view model
-        self.mainViewModel.getLocalitiesAction.apply().start()
-        self.mainViewModel.getAnimalsAction.apply().start()
+        self.mainViewModel.getLocalities.apply().start()
+        self.mainViewModel.getAnimals.apply().start()
     }
     
     
@@ -439,8 +439,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         if let location = locations.last {
             self.mainViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            self.mainViewModel.localityInClosenessAction.apply().start()
-            self.mainViewModel.animalInClosenessAction.apply().start()
+            self.mainViewModel.getLocalityInCloseness.apply().start()
+            self.mainViewModel.getAnimalInCloseness.apply().start()
             self.mainViewModel.getPlacemarksForTheActualPath.apply(false).start()
         }
     }
@@ -544,7 +544,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      */
     @objc func turnOnOrOffVoiceItemTapped(_ sender: UIVerticalMenuItem){
         self.mainViewModel.turnVoiceOnOrOff()
-        self.mainViewModel.isVoiceOnAction.apply().start()
+        self.mainViewModel.isVoiceOn.apply().start()
     }
     
     

@@ -23,7 +23,7 @@ class SettingParametersOfVisitViewModel: BaseViewModel {
     /**
      This action returns the walk speed during the visit of the ZOO.
     */
-    lazy var getWalkSpeedAction = Action<(), Float, Error>{
+    lazy var getWalkSpeed = Action<(), Float, Error>{
         [unowned self] in
         return self.dependencies.parametersOfVisitRepository.getWalkSpeed()
     }
@@ -31,7 +31,7 @@ class SettingParametersOfVisitViewModel: BaseViewModel {
     /**
      This action returns the time spent at one animal during the visit of the ZOO.
     */
-    lazy var getTimeSpentAtOneAnimalAction = Action<(), Float, Error>{
+    lazy var getTimeSpentAtOneAnimal = Action<(), Float, Error>{
         [unowned self] in
         return self.dependencies.parametersOfVisitRepository.getTimeSpentAtOneAnimal()
     }

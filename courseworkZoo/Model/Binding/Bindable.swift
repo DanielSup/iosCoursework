@@ -23,4 +23,15 @@ protocol Bindable: LoadedEntity{
      - Returns: The identificator of the binded object with an animal.
     */
     func getBindedObjectId() -> Int
+    
+    /**
+     It returns the czech original title of the binded entity from the dataset from opendata.praha.eu server.
+     - Returns: The czech original title of the binded entity.
+    */
+    func getCzechTitleOfBindedEntity() -> String
+    
+    /**
+     The property of the animal (biotope, continent or food) which is compared with the czech original title during finding the correct bindings.
+    */
+    func getComparedPropertyOfAnimal(_ animal: Animal) -> String
 }

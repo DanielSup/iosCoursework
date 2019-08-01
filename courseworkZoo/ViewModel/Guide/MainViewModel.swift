@@ -34,7 +34,7 @@ class MainViewModel: BaseViewModel{
     /**
      This action tries to find and return an animal which is enough close (animal whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns an animal in closeness or nil if there is no enough close animal or an error indicating animals could not be loaded.
     */
-    lazy var animalInClosenessAction = Action<(), Animal?, LoadError> { [unowned self] in
+    lazy var getAnimalInCloseness = Action<(), Animal?, LoadError> { [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]
         {
@@ -48,7 +48,7 @@ class MainViewModel: BaseViewModel{
     /**
      This action tries to find and return a locality which is enough close (locality whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns a locality in closeness or nil if there is no enough close locality or an error indicating localities could not be loaded.
      */
-    lazy var localityInClosenessAction = Action<(), Locality?, LoadError> { [unowned self] in
+    lazy var getLocalityInCloseness = Action<(), Locality?, LoadError> { [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
@@ -61,7 +61,7 @@ class MainViewModel: BaseViewModel{
     /**
      This action tries to return a list of animal with known coordinates. It returns a list of animals with known coordinates or an error indicating that animals could not be loaded.
     */
-    lazy var getAnimalsAction = Action<(), [Animal], LoadError>{
+    lazy var getAnimals = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
@@ -82,7 +82,7 @@ class MainViewModel: BaseViewModel{
     /**
      This action tries to return a list of localities with known coordinates. It returns a list of localities with known coordinates or an error indicating that localities could not be loaded.
     */
-    lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
+    lazy var getLocalities = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
@@ -103,7 +103,7 @@ class MainViewModel: BaseViewModel{
     /**
      This action returns a signal producer with value whether the voice is on or off.
     */
-    lazy var isVoiceOnAction = Action<(), Bool, Error>{
+    lazy var isVoiceOn = Action<(), Bool, Error>{
         [unowned self] in
         return self.dependencies.voiceSettingsRepository.isVoiceOn()
     }

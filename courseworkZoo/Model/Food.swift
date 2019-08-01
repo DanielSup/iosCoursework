@@ -46,6 +46,57 @@ enum Food: Int{
         }
     }
     
+    /// The original name of the continent in the Czech language.
+    var czechOriginalTitle: String {
+        switch self {
+            case .partsOfPlants:
+                return "části rostlin"
+            case .livePrey:
+                return "živá kořist"
+            case .corpses:
+                return "zdechliny"
+            case .plankton:
+                return "plankton"
+            case .plantsAndAnimals:
+                return "rostliny i živočichové"
+            case .invertebrates:
+                return "bezobratlí"
+            case .fish:
+                return "ryby"
+            case .seeds:
+                return "semena"
+            case .fruits:
+                return "plody"
+        }
+    }
+    
+    
+    /**
+    This property returns the instrumental of the title of the kind of food.
+     */
+    var instrumentalOfTitle: String {
+        switch self {
+            case .partsOfPlants:
+                return NSLocalizedString("byPartsOfPlants", comment: "")
+            case .livePrey:
+                return NSLocalizedString("byLivePrey", comment: "")
+            case .corpses:
+                return NSLocalizedString("byCorpses", comment: "")
+            case .plankton:
+                return NSLocalizedString("byPlankton", comment: "")
+            case .plantsAndAnimals:
+                return NSLocalizedString("byPlantsAndAnimals", comment: "")
+            case .invertebrates:
+                return NSLocalizedString("byInvertebrates", comment: "")
+            case .fish:
+                return NSLocalizedString("byFish", comment: "")
+            case .seeds:
+                return NSLocalizedString("bySeeds", comment: "")
+            case .fruits:
+                return NSLocalizedString("byFruits", comment: "")
+        }
+    }
+    
     /**
      This function returns a kind of food with the given identificator.
      - Parameters:

@@ -28,7 +28,7 @@ class AnimalsInOrderViewController: BaseLexiconViewController, UITableViewDelega
         self.animalsInOrderViewModel = animalsInOrderViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.animalsInOrderViewModel.getAnimalsInOrderAction.apply().start()
+        self.animalsInOrderViewModel.getAnimalsInOrder.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class AnimalsInOrderViewController: BaseLexiconViewController, UITableViewDelega
     This function binds the view controller with the action for getting the list of animals from the view model.
      */
     override func setupBindingsWithViewModelActions() {
-        self.animalsInOrderViewModel.getAnimalsInOrderAction.values.producer.startWithValues { (animalsInOrder) in
+        self.animalsInOrderViewModel.getAnimalsInOrder.values.producer.startWithValues { (animalsInOrder) in
             self.animalsInOrder = animalsInOrder
         }
     }

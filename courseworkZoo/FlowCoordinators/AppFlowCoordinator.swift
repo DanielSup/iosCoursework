@@ -243,4 +243,31 @@ extension AppFlowCoordinator: LexiconDelegate{
         vc.flowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
+    /**
+     This function ensures going to the screen with the list of kinds of food which animals can eat.
+     - Parameters:
+        - viewController: The ViewController which created the actual screen.
+    */
+    func goToKindsOfFood(in viewController: BaseViewController) {
+        let vm = KindsOfFoodViewModel()
+        let vc = KindsOfFoodViewController(kindsOfFoodViewModel: vm)
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    /**
+     This function ensures going to the screen with the list of animals eating the given kind of food.
+     - Parameters:
+     - viewController: The ViewController which created the actual screen.
+     - continent: The choosed kind of food which animals can eat..
+     */
+    func goToAnimalsEatingKindOfFood(in viewController: BaseViewController, kindOfFood: Food) {
+        let vm = AnimalsEatingKindOfFoodViewModel(dependencies: AppDependency.shared, kindOfFood: kindOfFood)
+        let vc = AnimalsEatingKindOfFoodViewController(animalsEatingKindOfFoodViewModel: vm)
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

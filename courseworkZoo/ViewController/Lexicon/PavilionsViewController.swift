@@ -27,7 +27,7 @@ class PavilionsViewController: BaseLexiconViewController, UITableViewDelegate, U
         self.pavilionsViewModel = pavilionsViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.pavilionsViewModel.getLocalitiesAction.apply().start()
+        self.pavilionsViewModel.getLocalities.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,7 @@ class PavilionsViewController: BaseLexiconViewController, UITableViewDelegate, U
     This function binds the view model with the view model action for getting the list of localities in th e ZOO.
      */
     override func setupBindingsWithViewModelActions() {
-        self.pavilionsViewModel.getLocalitiesAction.values.producer.startWithValues{ (pavilions) in
+        self.pavilionsViewModel.getLocalities.values.producer.startWithValues{ (pavilions) in
             self.pavilions = pavilions
         }
     }

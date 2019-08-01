@@ -22,7 +22,7 @@ class BaseLexiconViewModel: BaseViewModel {
     /**
      This action finds all animals, biotopes, classes and orders of animals. The list of all screens in the lexicon consists of all animals, lists of animals in orders, lists of orders in classes, list of animals in pavilions, lists of animals in biotopes, list of biotopes, list of classes and list of pavilions. It returns the list of all possible screens in the lexicon part of the application where the user can go.
     */
-    lazy var getAllScreensAction = Action<(), [Screen], LoadError>{
+    lazy var getAllScreens = Action<(), [Screen], LoadError>{
         var screens: [Screen] = []
         
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()

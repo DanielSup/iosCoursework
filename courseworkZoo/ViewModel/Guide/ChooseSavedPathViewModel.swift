@@ -18,7 +18,7 @@ class ChooseSavedPathViewModel: BaseViewModel {
     
     private let dependencies: Dependencies
     
-    lazy var getAllPathsAction = Action<(), [Path], Error>{
+    lazy var getAllPaths = Action<(), [Path], Error>{
         [unowned self] in
         return self.dependencies.pathRepository.getAllPaths()
     }

@@ -31,8 +31,8 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         self.selectAnimalsToPathViewModel = selectAnimalsToPathViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.selectAnimalsToPathViewModel.getAnimalsForSelectingAction.apply().start()
-        self.selectAnimalsToPathViewModel.getAnimalsInPathAction.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,11 +43,11 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
     This function ensures binding the view controller with important actions of the view model.
      */
     override func setupBindingsWithViewModelActions() {
-        self.selectAnimalsToPathViewModel.getAnimalsForSelectingAction.values.producer.startWithValues{ (animalsForSelecting) in
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.values.producer.startWithValues{ (animalsForSelecting) in
             self.animalsForSelecting = animalsForSelecting
         }
         
-        self.selectAnimalsToPathViewModel.getAnimalsInPathAction.values.producer.startWithValues { (animalsInPath) in
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.values.producer.startWithValues { (animalsInPath) in
             self.animalsInPath = animalsInPath
             print(self.animalsInPath.count)
         }
@@ -132,8 +132,8 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
      */
     @objc func actionButtonForAddingTapped(_ sender: UIButtonWithAnimalProperty){
         self.selectAnimalsToPathViewModel.addAnimalToPath(animal: sender.animal!)
-        self.selectAnimalsToPathViewModel.getAnimalsForSelectingAction.apply().start()
-        self.selectAnimalsToPathViewModel.getAnimalsInPathAction.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
         self.animalTableView.reloadData()
     }
     
@@ -145,8 +145,8 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
      */
     @objc func actionButtonForRemovingTapped(_ sender: UIButtonWithAnimalProperty){
         self.selectAnimalsToPathViewModel.removeAnimalFromPath(animal: sender.animal!)
-        self.selectAnimalsToPathViewModel.getAnimalsForSelectingAction.apply().start()
-        self.selectAnimalsToPathViewModel.getAnimalsInPathAction.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
         self.animalTableView.reloadData()
     }
 }

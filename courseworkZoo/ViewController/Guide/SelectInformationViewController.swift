@@ -22,7 +22,7 @@ class SelectInformationViewController: BaseViewController {
         self.selectInformationViewModel = selectInformationViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.selectInformationViewModel.getInformationSettingAction.apply().start()
+        self.selectInformationViewModel.getInformationSetting.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +33,7 @@ class SelectInformationViewController: BaseViewController {
      This function ensures binding the view controller with the view model action for getting the actual setting of machine-read information.
     */
     override func setupBindingsWithViewModelActions() {
-        self.selectInformationViewModel.getInformationSettingAction.values.producer.startWithValues{
+        self.selectInformationViewModel.getInformationSetting.values.producer.startWithValues{
             (actualSetting) in
             self.actualSetting = actualSetting
         }

@@ -24,31 +24,26 @@ class AnimalsInContinentViewModel: BaseViewModel {
     
     
     /**
-     This action finds bindings with the given continent for finding the list of animals. It returns a signal producer the list of animals living in the given continent (or animals not living in nature if the option was choosed). If bindings can't be loaded, it returns a signal producer with this error.
+     This action finds bindings with the given continent for finding the list of animals. It returns a signal producer the list of animals living in the given continent (or animals not living in nature if the option was choosed). If bindings can't be loaded, it returns a signal producer with this error. If animals couldn't be loaded, it returns a signal producer with an error representing it.
     */
-    lazy var getAnimalsInContinentAction = Action<(), [Animal], LoadError>  {
+    lazy var getAnimalsInContinent = Action<(), [Animal], LoadError>  {
         self.dependencies.continentBindingRepository.loadAndSaveDataIfNeeded()
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         
-        if let continentBindings = self.dependencies.continentBindingRepository.findBindingsWithBindableObject(objectId: self.continent.rawValue + 1) {
-            
+        if let animals = self.dependencies.animalRepository.entities.value as? [Animal] {
             var animalsInContinent: [Animal] = []
-            for continentBinding in continentBindings {
-                let animalId = continentBinding.getAnimalId()
-                var animalWasFound = false
-        
-                if (!animalWasFound) {
-                    self.dependencies.animalRepository.findAnimalBy_Id(id: animalId).producer.startWithResult {
-                        (animalResult) in
-                        if (animalResult.value! != nil) {
-                            animalsInContinent.append(animalResult.value!!)
-                        }
-                    }
+            for animal in animals {
+                var isAnimalInContinent = self.isAnimalInContinent(animal: animal)
+                if (isAnimalInContinent == nil) {
+                    return SignalProducer(error: .noBindings)
+                }
+                if (isAnimalInContinent!) {
+                    animalsInContinent.append(animal)
                 }
             }
             return SignalProducer(value: animalsInContinent)
         } else {
-            return SignalProducer(error: LoadError.noBindings)
+            return SignalProducer(error: .noAnimals)
         }
     }
     
@@ -75,4 +70,36 @@ class AnimalsInContinentViewModel: BaseViewModel {
     func getLocativeOfContinentWithPreposition() -> String {
         return self.continent.locativeWithPreposition
     }
+    
+    /**
+     This function returns whether the animal lives in the continent (or whether it is an animal which doesn't live anywhere in nature) or not. If bindings couldn't be loaded, it returns nil.
+     - Parameters:
+     -   animal: The given animal for which we find whether the animal lives in the given continent or it is an animal which doesn't live anywhere in nature.
+     - Returns: A boolean representing whether the given animal lives in the biotope or not. If bindings couldn't be loaded, it returns nil.
+     */
+    func isAnimalInContinent(animal: Animal) -> Bool? {
+        if let continents = self.dependencies.continentBindingRepository.getContinentsWithAnimal(animal: animal) as? [Continent] {
+            var continentFound = false
+            for continent in continents {
+                if (continent == self.continent) {
+                    continentFound = true
+                    break
+                }
+            }
+            
+            if (!continentFound) {
+                return false
+            }
+            
+            for continent in continents {
+                if (continent.czechOriginalTitle == animal.continent){
+                    return true
+                }
+            }
+            return false
+        } else {
+            return nil
+        }
+    }
+    
 }

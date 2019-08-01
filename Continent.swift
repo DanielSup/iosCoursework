@@ -24,12 +24,11 @@ enum Continent: Int {
     /// The localized title of the continent or string representing an information that an animal doesn't live in nature
     var title: String{
         switch self {
-            case .europe:
-                return NSLocalizedString("europe", comment: "")
-            case .asia:
-                return NSLocalizedString("asia", comment: "")
+
             case .africa:
                 return NSLocalizedString("africa", comment: "")
+            case .asia:
+                return NSLocalizedString("asia", comment: "")
             case .southAmerica:
                 return NSLocalizedString("southAmerica", comment: "")
             case .northAmerica:
@@ -38,21 +37,42 @@ enum Continent: Int {
                 return NSLocalizedString("australia", comment: "")
             case .notInNature:
                 return NSLocalizedString("notInNature", comment: "")
+            case .europe:
+                return NSLocalizedString("europe", comment: "")
             case .none:
                 return ""
         }
     }
     
+    /// The original name of the continent in the Czech language.
+    var czechOriginalTitle: String {
+        switch self {
+            case .africa:
+                return "Afrika"
+            case .asia:
+                return "Asie"
+            case .southAmerica:
+                return "Jižní Amerika"
+            case .northAmerica:
+                return "Severní Amerika"
+            case .australia:
+                return "Austrálie"
+            case .notInNature:
+                return "v přírodě nežije"
+            case .europe:
+                return "Evropa"
+            case .none:
+                return ""
+        }
+    }
     
     /// The locative with prepositions (and other words) of the continent in which animals can live. The locative with a preposition is used in the title of the screen with the list of animals living in the given continent or list of animals which don't live anywhere in nature.
     var locativeWithPreposition: String {
         switch self {
-            case .europe:
-                return NSLocalizedString("inEurope", comment: "")
-            case .asia:
-                return NSLocalizedString("inAsia", comment: "")
             case .africa:
                 return NSLocalizedString("inAfrica", comment: "")
+            case .asia:
+                return NSLocalizedString("inAsia", comment: "")
             case .southAmerica:
                 return NSLocalizedString("inSouthAmerica", comment: "")
             case .northAmerica:
@@ -61,6 +81,8 @@ enum Continent: Int {
                 return NSLocalizedString("inAustralia", comment: "")
             case .notInNature:
                 return NSLocalizedString("notAnywhere", comment: "")
+            case .europe:
+                return NSLocalizedString("inEurope", comment: "")
             case .none:
                 return NSLocalizedString("notAnywhere", comment: "")
         }

@@ -36,4 +36,21 @@ class FoodBinding: Bindable {
         return Int(food) ?? -1
     }
     
+    /**
+     This function returns the czech title of the kind of food binded with the animal by this binding.
+     - Returns: The title of the kind of food binded with the animal by this binding.
+     */
+    func getCzechTitleOfBindedEntity() -> String {
+        let food = Food.getFoodWithId(id: self.getBindedObjectId())
+        return food.czechOriginalTitle
+    }
+    
+    /**
+     This function returns the kind of food which the animal eats.
+     - Returns: The kind of food which the animal eats.
+     */
+    func getComparedPropertyOfAnimal(_ animal: Animal) -> String {
+        return animal.food
+    }
+    
 }

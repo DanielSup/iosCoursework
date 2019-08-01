@@ -22,39 +22,25 @@ class AnimalsInBiotopeViewModel: BaseViewModel {
     // MARK - Actions
     
     /**
-     This action finds bindings with the given biotope. The action ensures getting the animals from the bindings with the animal repository for getting an animal by an identificator. This action return s the found list of animals in the given biotope.
-    */
-    lazy var getAnimalsInBiotopeAction = Action<(), [Animal], LoadError>{
+     This action finds bindings with the given biotope. The action ensures getting the animals from the bindings with the animal repository for getting an animal by an identificator. This action return s the found list of animals in the given biotope. If animals couldn't be loaded, it returns a signal producer with an error representing it.
+     */
+    lazy var getAnimalsInBiotope = Action<(), [Animal], LoadError>{
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         self.dependencies.biotopeBindingRepository.loadAndSaveDataIfNeeded()
-        if let bindings = self.dependencies.biotopeBindingRepository.findBindingsWithBindableObject(objectId: self.biotope.rawValue + 1) as?
-            [BiotopeBinding] {
-            
+        if let animals = self.dependencies.animalRepository.entities.value as? [Animal] {
             var animalsInBiotope: [Animal] = []
-            
-            for binding in bindings {
-                let animalId = binding.getAnimalId()
-                var animalWasFound = false
-                self.dependencies.animalRepository.findAnimalBy_Id(id: animalId).producer.startWithResult{
-                     (animalResult) in
-                    if (animalResult.value! != nil){
-                        animalWasFound = true
-                        animalsInBiotope.append(animalResult.value!!)
-                    }
+            for animal in animals {
+                var isAnimalInBiotope = self.isAnimalInBiotope(animal: animal)
+                if (isAnimalInBiotope == nil) {
+                    return SignalProducer(error: .noBindings)
                 }
-                
-                if(!animalWasFound){
-                    self.dependencies.animalRepository.findAnimalById(id: animalId).producer.startWithResult { (animalResult) in
-                        if(animalResult.value! != nil){
-                            animalsInBiotope.append(animalResult.value!!)
-                        }
-                    }
+                if(isAnimalInBiotope! == true) {
+                    animalsInBiotope.append(animal)
                 }
-                
             }
             return SignalProducer(value: animalsInBiotope)
         } else {
-            return SignalProducer(error: LoadError.noBindings)
+            return SignalProducer(error: .noAnimals)
         }
     }
     
@@ -79,4 +65,37 @@ class AnimalsInBiotopeViewModel: BaseViewModel {
     func getLocativeOfBiotopeTitleWithPreposition() -> String {
         return self.biotope.locativeWithPreposition
     }
+    
+    
+    /**
+     This function returns whether the animal is in biotope or not. If bindings couldn't be loaded, it returns nil.
+     - Parameters:
+        - animal: The given animal for which we find whether the animal is in the given biotope.
+     - Returns: A boolean representing whether the given animal lives in the biotope or not. If bindings couldn't be loaded, it returns nil.
+    */
+    func isAnimalInBiotope(animal: Animal) -> Bool? {
+        if let biotopes = self.dependencies.biotopeBindingRepository.getBiotopesWithAnimal(animal: animal) as? [Biotope] {
+            var biotopeFound = false
+            for biotope in biotopes {
+                if (biotope == self.biotope) {
+                    biotopeFound = true
+                    break
+                }
+            }
+            
+            if (!biotopeFound) {
+                return false
+            }
+            
+            for biotope in biotopes {
+                if (biotope.czechOriginalTitle == animal.biotope){
+                    return true
+                }
+            }
+            return false
+        } else {
+            return nil
+        }
+    }
+    
 }

@@ -27,7 +27,7 @@ class AnimalsInBiotopeViewController: BaseLexiconViewController, UITableViewDele
         self.animalsInBiotopeViewModel = animalsInBiotopeViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.animalsInBiotopeViewModel.getAnimalsInBiotopeAction.apply().start()
+        self.animalsInBiotopeViewModel.getAnimalsInBiotope.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +38,7 @@ class AnimalsInBiotopeViewController: BaseLexiconViewController, UITableViewDele
      This function binds the view controller with the action for getting the list of animals living in the given biotope from the view model.
     */
     override func setupBindingsWithViewModelActions() {
-        self.animalsInBiotopeViewModel.getAnimalsInBiotopeAction.values.producer.startWithValues {
+        self.animalsInBiotopeViewModel.getAnimalsInBiotope.values.producer.startWithValues {
             (animalsInBiotope) in
             self.animalsInBiotope = animalsInBiotope
         }

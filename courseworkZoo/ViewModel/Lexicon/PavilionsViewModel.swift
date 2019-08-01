@@ -22,7 +22,7 @@ class PavilionsViewModel: BaseViewModel {
     /**
      This action returns a signal producer with the list of all localities in the ZOO or an error representing that localities couldn't be loaded.
     */
-    lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
+    lazy var getLocalities = Action<(), [Locality], LoadError>{
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             return SignalProducer(value: localities)

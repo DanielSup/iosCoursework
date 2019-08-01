@@ -30,7 +30,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
         self.chooseSavedPathViewModel = chooseSavedPathViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.chooseSavedPathViewModel.getAllPathsAction.apply().start()
+        self.chooseSavedPathViewModel.getAllPaths.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +41,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
      This function ensures binding this view controller with important view model action for getting the list of all paths for choosing.
     */
     override func setupBindingsWithViewModelActions() {
-        self.chooseSavedPathViewModel.getAllPathsAction.values.producer.startWithValues { (allPaths) in
+        self.chooseSavedPathViewModel.getAllPaths.values.producer.startWithValues { (allPaths) in
             self.allPaths = allPaths
         }
     }

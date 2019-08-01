@@ -20,7 +20,7 @@ class SelectInformationViewModel: BaseViewModel {
     /**
      This is the action for getting the information which will be machine read.
     */
-    lazy var getInformationSettingAction = Action<(), [SaidInfo: Bool], Error>{
+    lazy var getInformationSetting = Action<(), [SaidInfo: Bool], Error>{
         return self.dependencies.voiceSettingsRepository.getActualInformationSetting()
     }
     

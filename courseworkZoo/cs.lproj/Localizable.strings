@@ -129,3 +129,13 @@
 "inNorthAmerica" = "žijících v Severní Americe";
 "inSouthAmerica" = "žijících v Jižní Americe";
 "notAnywhere" = "která se v přírodě nevyskytují";
+"listOfAnimalsEating" = "Seznam zvířat, která se živí";
+"byPartsOfPlants" = "částmi rostlin";
+"byLivePrey" = "živou kořist";
+"byCorpses" = "zdechlinami";
+"byPlankton" = "planktonem";
+"byPlantsAndAnimals" = "rostlinami i živočichy";
+"byInvertebrates" = "bezobratlými";
+"byFish" = "rybami";
+"bySeeds" = "semeny";
+"byFruits" = "plody";

@@ -129,3 +129,13 @@
 "inNorthAmerica" = "living in North America";
 "inSouthAmerica" = "living in South America";
 "notAnywhere" = "which don't live anywhere in nature";
+"listOfAnimalsEating" = "List of animals eating";
+"byPartsOfPlants" = "parts of plants";
+"byLivePrey" = "live prey";
+"byCorpses" = "corpses";
+"byPlankton" = "plankton";
+"byPlantsAndAnimals" = "plants and animals";
+"byInvertebrates" = "invertebrates";
+"byFish" = "fish";
+"bySeeds" = "seeds";
+"byFruits" = "fruits";

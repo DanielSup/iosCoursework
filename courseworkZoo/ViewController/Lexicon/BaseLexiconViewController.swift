@@ -28,6 +28,8 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
     var searchResultsPopover: SearchResultsPopoverViewController! = nil
     /// The text for the subtitle describing the content of the actual screen.
     private var textForSubtitle: String = ""
+    /// The attributed string for subtitle which is set for the title of the screen for showing the list of animals in a pavilion
+    private var attributedStringForSubtitle: NSAttributedString?
     
     
     override init(){
@@ -46,6 +48,15 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
     */
     func setTextForSubtitle(_ textForSubtitle: String){
         self.textForSubtitle = textForSubtitle
+    }
+    
+    /**
+     This function sets the attributed string for the subtitle.
+     - Parameters:
+        - attributedStringForSubtitle: The attributed string for subtitle.
+    */
+    func setAttributedStringForSubtitle(_ attributedStringForSubtitle: NSAttributedString){
+        self.attributedStringForSubtitle = attributedStringForSubtitle
     }
 
     /**
@@ -122,6 +133,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
             verticalMenu.addItem(kindsOfFoodItem, height: 90, last: false)
         } else {
             let kindsOfFoodItem = UIVerticalMenuItem(actionString: "kindsOfFood", usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            kindsOfFoodItem.addTarget(self, action: #selector(kindsOfFoodItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(kindsOfFoodItem, height: 90, last: false)
         }
         
@@ -141,11 +153,17 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
         let titleHeader = UITitleHeader(title: "lexiconTitle", menuInTheParentView: verticalMenu, parentView: self.parentView)
         
         
-        if (self.textForSubtitle != "") {
+        if (self.textForSubtitle != "" || self.attributedStringForSubtitle != nil) {
             // creating the title of the screen
             let subtitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width - 140, height: CGFloat.greatestFiniteMagnitude))
-            subtitleLabel.text = self.textForSubtitle
-            subtitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+            
+            if (self.textForSubtitle != ""){
+                subtitleLabel.text = self.textForSubtitle
+                subtitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+            } else if (self.attributedStringForSubtitle != nil){
+                subtitleLabel.attributedText = self.attributedStringForSubtitle!
+            }
+            
             subtitleLabel.numberOfLines = 0
             subtitleLabel.lineBreakMode = .byWordWrapping
             subtitleLabel.preferredMaxLayoutWidth = self.view.bounds.width - 140
@@ -170,14 +188,14 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         var screensInResult: [Screen] = []
-        self.baseLexiconViewModel.getAllScreensAction.values.producer.startWithValues{ (screens) in
+        self.baseLexiconViewModel.getAllScreens.values.producer.startWithValues{ (screens) in
             for screen in screens {
                 if (screen.title.contains(searchText)){
                     screensInResult.append(screen)
                 }
             }
         }
-        self.baseLexiconViewModel.getAllScreensAction.apply().start()
+        self.baseLexiconViewModel.getAllScreens.apply().start()
 
         if (searchResultsPopover == nil) {
             // counting and setting the correct top offset of the window with the results of searching screens.
@@ -252,5 +270,15 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      */
     @objc func continentsItemTapped(_ sender: UIVerticalMenuItem) {
         flowDelegate?.goToContinents(in: self)
+    }
+    
+    
+    /**
+     This function ensures going to the screen with the list of kinds of food after the tapping the pavilionsItem item from the vertical menu.
+     - Parameters:
+        - sender: The item with this method as a target which was tapped.
+     */
+    @objc func kindsOfFoodItemTapped(_ sender: UIVerticalMenuItem) {
+        flowDelegate?.goToKindsOfFood(in: self)
     }
 }

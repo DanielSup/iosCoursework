@@ -27,7 +27,7 @@ class AnimalsInPavilionViewController: BaseLexiconViewController, UITableViewDel
         self.animalsInPavilionViewModel = animalsInPavilionViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.animalsInPavilionViewModel.getAnimalsInLocalityAction.apply().start()
+        self.animalsInPavilionViewModel.getAnimalsInLocality.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,18 +39,17 @@ class AnimalsInPavilionViewController: BaseLexiconViewController, UITableViewDel
      This function binds the view controller with the important action for getting the list of animals in the choosed locality from the view model.
     */
     override func setupBindingsWithViewModelActions() {
-        self.animalsInPavilionViewModel.getAnimalsInLocalityAction.values.producer.startWithValues{
+        self.animalsInPavilionViewModel.getAnimalsInLocality.values.producer.startWithValues{
             (animalsInPavilion) in
             self.animalsInPavilion = animalsInPavilion
         }
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("animalsInLocality", comment: "") + " " + self.animalsInPavilionViewModel.getLocalityTitle()
-        super.setTextForSubtitle(textForSubtitle)
         
+        self.setAttributedStringForSubtitle(self.getAttributedStringForLocality())
         super.viewDidLoad()
-
+        
         // getting sizes of display and the height of the top bar with search
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
@@ -62,6 +61,24 @@ class AnimalsInPavilionViewController: BaseLexiconViewController, UITableViewDel
         self.animalsInPavilionTableView.delegate = self
         self.animalsInPavilionTableView.dataSource = self
         self.view.addSubview(self.animalsInPavilionTableView)
+    }
+    
+    /**
+     This function returns an attributed string for the subtitle with the name of the selected locality (pavilion).
+     - Returns: Attributed strings containing the name of the selected locality.
+     */
+    func getAttributedStringForLocality() -> NSAttributedString{
+        let normalSubtitleText = NSLocalizedString("animalsInLocality", comment: "") + " "
+        let attributesOfNormalSubtitleText = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30)]
+        let attributedSubtitle = NSMutableAttributedString(string: normalSubtitleText, attributes: attributesOfNormalSubtitleText)
+        
+        
+        let titleOfLocality = "\"" + self.animalsInPavilionViewModel.getLocalityTitle() + "\""
+        let attributesOfTitleOfLocality = [NSAttributedString.Key.font : UIFont(name: "SnellRoundhand-Bold", size: 30)]
+        let attributedStringOfTitleOfLocality = NSMutableAttributedString(string: titleOfLocality, attributes: attributesOfTitleOfLocality)
+        attributedSubtitle.append(attributedStringOfTitleOfLocality)
+        
+        return attributedSubtitle
     }
     
     /**

@@ -23,7 +23,7 @@ class MainLexiconViewModel: BaseViewModel {
     /**
      This actions tries to return a list of all animals. It returns a list of all animals or an error indicating that animals could not be loaded.
      */
-    lazy var getAllAnimalsAction = Action<(), [Animal], LoadError>{
+    lazy var getAllAnimals = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {

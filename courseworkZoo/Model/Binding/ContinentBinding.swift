@@ -35,4 +35,22 @@ struct ContinentBinding: Bindable{
     func getBindedObjectId() -> Int {
         return Int(continent) ?? -1
     }
+    
+    /**
+     This function returns the czech title of the continent binded with the animal by this binding.
+     - Returns: The title of the continent binded with the animal by this binding.
+     */
+    func getCzechTitleOfBindedEntity() -> String {
+        let continent = Continent.getContinentWithId(id: self.getBindedObjectId())
+        return continent.czechOriginalTitle
+    }
+    
+    /**
+     This function returns the continent where the animal in the binding lives.
+     - Returns: The continent where the animal in the binding lives.
+     */
+    func getComparedPropertyOfAnimal(_ animal: Animal) -> String {
+        return animal.continent
+    }
+    
 }

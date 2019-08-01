@@ -28,7 +28,7 @@ class AnimalsInContinentViewController: BaseLexiconViewController, UITableViewDe
         self.animalsInContinentViewModel = animalsInContinentViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.animalsInContinentViewModel.getAnimalsInContinentAction.apply().start()
+        self.animalsInContinentViewModel.getAnimalsInContinent.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class AnimalsInContinentViewController: BaseLexiconViewController, UITableViewDe
      This function binds the view controller with the action of the view model for getting the list of animals living in the given continent (or animals which don't live anywhere in nature).
     */
     override func setupBindingsWithViewModelActions() {
-        self.animalsInContinentViewModel.getAnimalsInContinentAction.values.producer.startWithValues {
+        self.animalsInContinentViewModel.getAnimalsInContinent.values.producer.startWithValues {
             (animalsInContinent) in
             self.animalsInContinent = animalsInContinent
         }

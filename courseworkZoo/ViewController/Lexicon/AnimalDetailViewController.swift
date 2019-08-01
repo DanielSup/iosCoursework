@@ -344,7 +344,7 @@ class AnimalDetailViewController: BaseLexiconViewController {
             } else {
                 foodString += ", "+food.title
             }
-            firstElement = true
+            firstElement = false
         }
         return foodString
     }

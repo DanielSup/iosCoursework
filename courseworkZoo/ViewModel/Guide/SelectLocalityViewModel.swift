@@ -26,7 +26,7 @@ class SelectLocalityViewModel: BaseViewModel {
     /**
      This actions tries to get a list of all localities where the user can go. It returns a list of all localities with known coordinates or an error that indicates that localities could not be loaded.
     */
-    lazy var getLocalitiesAction = Action<(), [Locality], LoadError>{
+    lazy var getLocalities = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {

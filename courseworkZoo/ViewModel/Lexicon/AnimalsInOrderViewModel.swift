@@ -24,7 +24,7 @@ class AnimalsInOrderViewModel: BaseViewModel {
     /**
      This action return a signal producer with the list of animals in the given order or an error representing that animals couldn't be loaded.
     */
-    lazy var getAnimalsInOrderAction = Action<(), [Animal], LoadError>{
+    lazy var getAnimalsInOrder = Action<(), [Animal], LoadError>{
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animalList = self.dependencies.animalRepository.entities.value as? [Animal] {
             return self.dependencies.animalRepository.findAnimalsInOrder(self.order)

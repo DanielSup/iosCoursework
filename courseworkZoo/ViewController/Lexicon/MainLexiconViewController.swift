@@ -29,7 +29,7 @@ class MainLexiconViewController: BaseLexiconViewController, UITableViewDelegate,
         self.mainLexiconViewModel = mainLexiconViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.mainLexiconViewModel.getAllAnimalsAction.apply().start()
+        self.mainLexiconViewModel.getAllAnimals.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class MainLexiconViewController: BaseLexiconViewController, UITableViewDelegate,
      This function binds the view controller with the action for getting all animals from the view model.
     */
     override func setupBindingsWithViewModelActions() {
-        self.mainLexiconViewModel.getAllAnimalsAction.values.producer.startWithValues{
+        self.mainLexiconViewModel.getAllAnimals.values.producer.startWithValues{
             (animalList) in
             self.animalList = animalList
         }

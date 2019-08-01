@@ -42,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "courseworkZoo/ViewModel/Guide/AnimalDetailViewModel.swift"
-            timestampString = "586254190.550899"
+            timestampString = "586368587.358071"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "AnimalDetailViewModel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

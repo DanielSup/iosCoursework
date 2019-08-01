@@ -27,7 +27,7 @@ class ClassViewController: BaseLexiconViewController, UITableViewDelegate, UITab
         self.classViewModel = classViewModel
         super.init()
         self.setupBindingsWithViewModelActions()
-        self.classViewModel.getClassesAction.apply().start()
+        self.classViewModel.getClasses.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,7 +38,7 @@ class ClassViewController: BaseLexiconViewController, UITableViewDelegate, UITab
      This function binds the view controller with the action of the view model for getting the list of classes.
     */
     override func setupBindingsWithViewModelActions() {
-        self.classViewModel.getClassesAction.values.producer.startWithValues{ (classes) in
+        self.classViewModel.getClasses.values.producer.startWithValues{ (classes) in
             self.classes = classes
         }
     }

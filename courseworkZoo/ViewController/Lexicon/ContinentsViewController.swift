@@ -56,7 +56,7 @@ class ContinentsViewController: BaseLexiconViewController, UITableViewDelegate, 
     
 
     /**
-     This function ensures going to the screen with the list of animals living in the selected continent or animals not living in nature if the option was selected.
+     This function ensures going to the screen with the list of continents.
      - Parameters:
      - tableView: The table view with the list of continents
      - indexPath: The object representing the index of the selected row (section and number).

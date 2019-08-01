@@ -23,7 +23,7 @@ class SelectAnimalsToPathViewModel: BaseViewModel {
     /**
      This action returns a signal producer with the list of animals which can be selected in path
     */
-    lazy var getAnimalsForSelectingAction = Action<(), [Animal], Error>{
+    lazy var getAnimalsForSelecting = Action<(), [Animal], Error>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         // getting the list of animals with known coordinates
@@ -58,7 +58,7 @@ class SelectAnimalsToPathViewModel: BaseViewModel {
     /**
      This action returns a signal producer with the list of animals in the actual path.
     */
-    lazy var getAnimalsInPathAction = Action<(), [Animal], Error>{
+    lazy var getAnimalsInPath = Action<(), [Animal], Error>{
         [unowned self] in
         let animalsInPath = self.dependencies.pathRepository.getAnimalsInPath()
         return SignalProducer(value: animalsInPath)

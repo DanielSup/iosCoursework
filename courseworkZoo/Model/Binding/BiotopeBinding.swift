@@ -12,6 +12,7 @@ import UIKit
  This class represent binding of animal with the given identificator with a biotope in which the animal lives.
  */
 struct BiotopeBinding: Bindable {
+    
     static var relativeUrl: String = Constants.biotopesBindingsRelativeUrl
     
     let animal: String
@@ -37,4 +38,22 @@ struct BiotopeBinding: Bindable {
     func getBindedObjectId() -> Int {
         return Int(biotope) ?? -1
     }
+    
+    /**
+     This function returns the czech title of the biotope binded with the animal by this binding.
+     - Returns: The title of the biotope binded with the animal by this binding.
+    */
+    func getCzechTitleOfBindedEntity() -> String {
+        let biotope = Biotope.getBiotopeWithId(id: self.getBindedObjectId())
+        return biotope.czechOriginalTitle
+    }
+    
+    /**
+     This function returns the biotope where the animal in the binding lives.
+     - Returns: The biotope where the animal in the binding lives.
+    */
+    func getComparedPropertyOfAnimal(_ animal: Animal) -> String {
+        return animal.biotope
+    }
+    
 }

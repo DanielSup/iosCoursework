@@ -54,6 +54,37 @@ enum Biotope: Int {
         }
     }
     
+    
+    /// The original name of the biotope in the Czech language.
+    var czechOriginalTitle: String {
+        switch self {
+            case .sea:
+                return "moře"
+            case .freshWater:
+                return "sladké vody"
+            case .desertAndSemiDesert:
+                return "poušť a polopoušť"
+            case .grassyTerritory:
+                return "travnaté území"
+            case .mountains:
+                return "hory"
+            case .tropicalForest:
+                return "tropický les"
+            case .deciduousAndMixedForest:
+                return "listnatý a smíšený les"
+            case .coniferousForest:
+                return "jehličnatý les"
+            case .tundra:
+                return "tundra"
+            case .polarRegions:
+                return "polární oblasti"
+            case .stonyStepsAndSemiDeserts:
+                return "kamenité stepi a polopouště"
+            
+        }
+    }
+    
+    
     /// The locative with a preposition of the biotope in which animals can live. The locative with a preposition is used in the title of the screen with the list of animals living in the given biotope.
     var locativeWithPreposition: String {
         switch self {

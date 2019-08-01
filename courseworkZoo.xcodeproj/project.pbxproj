@@ -34,7 +34,6 @@
 		4E0386BD22C00A1F00250011 /* TestSettingsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */; };
 		4E0434FA22DB1CD600C5D912 /* SelectInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0434F922DB1CD600C5D912 /* SelectInformationViewModel.swift */; };
 		4E0434FC22DB5CB300C5D912 /* SelectInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0434FB22DB5CB300C5D912 /* SelectInformationViewController.swift */; };
-		4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */; };
 		4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */; };
 		4E05C92922ECA4BB00A8CA01 /* RouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */; };
 		4E05C92F22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */; };
@@ -50,10 +49,14 @@
 		4E0A66AE22BBF98B00545C00 /* courseworkZooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66AD22BBF98B00545C00 /* courseworkZooTests.swift */; };
 		4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66B522BC0FC900545C00 /* TestDependency.swift */; };
 		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
+		4E0BACD122F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BACD022F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift */; };
 		4E0CBFF722D35300008E076A /* UIVerticalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF622D35300008E076A /* UIVerticalMenu.swift */; };
 		4E0CBFF922D3531C008E076A /* UIVerticalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF822D3531C008E076A /* UIVerticalMenuItem.swift */; };
 		4E0CBFFB22D36A5F008E076A /* MainLexiconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */; };
 		4E0CBFFD22D36B01008E076A /* MainLexiconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFFC22D36B01008E076A /* MainLexiconViewModel.swift */; };
+		4E0E553D22F1ABF70014E118 /* KindsOfFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E553C22F1ABF70014E118 /* KindsOfFoodViewModel.swift */; };
+		4E0E553F22F1ACB90014E118 /* KindsOfFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E553E22F1ACB90014E118 /* KindsOfFoodViewController.swift */; };
+		4E0E554122F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E554022F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift */; };
 		4E0E9DC422D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */; };
 		4E0E9DC822D5D08F00528AC0 /* PathRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC722D5D08F00528AC0 /* PathRepository.swift */; };
 		4E0E9DCA22D5DC1100528AC0 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E9DC922D5DC1100528AC0 /* Path.swift */; };
@@ -197,7 +200,6 @@
 		4E0386BC22C00A1F00250011 /* TestSettingsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsInformation.swift; sourceTree = "<group>"; };
 		4E0434F922DB1CD600C5D912 /* SelectInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectInformationViewModel.swift; path = courseworkZoo/ViewModel/Guide/SelectInformationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E0434FB22DB5CB300C5D912 /* SelectInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInformationViewController.swift; sourceTree = "<group>"; };
-		4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalListViewController.swift; sourceTree = "<group>"; };
 		4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info_preprocess_header.h; sourceTree = "<group>"; };
 		4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWithAnimalsService.swift; sourceTree = "<group>"; };
@@ -220,10 +222,14 @@
 		4E0AA4B62288630E00398D53 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIService.swift; path = courseworkZoo/Service/Service/APIService.swift; sourceTree = SOURCE_ROOT; };
 		4E0B485322C0C1F8000BCD19 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		4E0B485522C0C1F8000BCD19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E0BACD022F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsEatingKindOfFoodViewController.swift; sourceTree = "<group>"; };
 		4E0CBFF622D35300008E076A /* UIVerticalMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVerticalMenu.swift; sourceTree = "<group>"; };
 		4E0CBFF822D3531C008E076A /* UIVerticalMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVerticalMenuItem.swift; sourceTree = "<group>"; };
 		4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLexiconViewController.swift; sourceTree = "<group>"; };
 		4E0CBFFC22D36B01008E076A /* MainLexiconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainLexiconViewModel.swift; path = courseworkZoo/ViewModel/Lexicon/MainLexiconViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0E553C22F1ABF70014E118 /* KindsOfFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindsOfFoodViewModel.swift; sourceTree = "<group>"; };
+		4E0E553E22F1ACB90014E118 /* KindsOfFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindsOfFoodViewController.swift; sourceTree = "<group>"; };
+		4E0E554022F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsEatingKindOfFoodViewModel.swift; sourceTree = "<group>"; };
 		4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAnimalsToPathViewController.swift; sourceTree = "<group>"; };
 		4E0E9DC722D5D08F00528AC0 /* PathRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathRepository.swift; sourceTree = "<group>"; };
 		4E0E9DC922D5DC1100528AC0 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
@@ -464,12 +470,12 @@
 				4E734AA322C774C3000A74B1 /* SaidInformationSettings */,
 				4E806575227CCAF6006A312A /* Animal.swift */,
 				4E86DAD2227D7F2A00F78027 /* Continent.swift */,
+				4E175CFD22BE99D500690F79 /* Biotope.swift */,
+				4E175CFB22BE99C000690F79 /* Food.swift */,
 				4E86DAD4227D99E800F78027 /* LocalityType.swift */,
 				4E86DAD6227D99FD00F78027 /* Locality.swift */,
 				4E09264922B79876001BEAED /* Actuality.swift */,
 				4E14844C22B7D19F0018A823 /* Coords.swift */,
-				4E175CFB22BE99C000690F79 /* Food.swift */,
-				4E175CFD22BE99D500690F79 /* Biotope.swift */,
 				4E734AA922C7797D000A74B1 /* LoadedEntity.swift */,
 				4E0E9DC922D5DC1100528AC0 /* Path.swift */,
 				4E1AA7B822E0B42300B9CE77 /* Class.swift */,
@@ -528,11 +534,12 @@
 				4E1AA7BE22E0BA9400B9CE77 /* ClassViewController.swift */,
 				4E1F46A522E5D82C00B9B757 /* PavilionsViewController.swift */,
 				4E1F46A922E5E78700B9B757 /* AnimalsInPavilionViewController.swift */,
-				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
-				4E04B7EC22BA239100349FA0 /* AnimalListViewController.swift */,
 				4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */,
 				4E082E3522F0318F002F0475 /* ContinentsViewController.swift */,
 				4E082E3922F0959B002F0475 /* AnimalsInContinentViewController.swift */,
+				4E0E553E22F1ACB90014E118 /* KindsOfFoodViewController.swift */,
+				4E0BACD022F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift */,
+				4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */,
 			);
 			path = Lexicon;
 			sourceTree = "<group>";
@@ -617,9 +624,9 @@
 		4E734AA822C77547000A74B1 /* Binding */ = {
 			isa = PBXGroup;
 			children = (
+				4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */,
 				4E175CF522BE7D1400690F79 /* ContinentBinding.swift */,
 				4E175CF322BE7A8200690F79 /* FoodBinding.swift */,
-				4E175CF122BE7A7000690F79 /* BiotopeBinding.swift */,
 				4E175CF722BE800700690F79 /* Bindable.swift */,
 			);
 			path = Binding;
@@ -640,6 +647,8 @@
 				4E1F46A722E5E61400B9B757 /* AnimalsInPavilionViewModel.swift */,
 				4E082E3322F03045002F0475 /* ContinentsViewModel.swift */,
 				4E082E3722F05E97002F0475 /* AnimalsInContinentViewModel.swift */,
+				4E0E553C22F1ABF70014E118 /* KindsOfFoodViewModel.swift */,
+				4E0E554022F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift */,
 			);
 			path = Lexicon;
 			sourceTree = "<group>";
@@ -1015,7 +1024,6 @@
 				4E1AF93922E9B5600064BF74 /* Screen.swift in Sources */,
 				4E1F46AA22E5E78700B9B757 /* AnimalsInPavilionViewController.swift in Sources */,
 				4E01E18B22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift in Sources */,
-				4E04B7ED22BA239100349FA0 /* AnimalListViewController.swift in Sources */,
 				4E0E9DC822D5D08F00528AC0 /* PathRepository.swift in Sources */,
 				4E1F781D22E452A600436437 /* AnimalsInBiotopeViewController.swift in Sources */,
 				4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */,
@@ -1058,6 +1066,7 @@
 				4E19737322D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift in Sources */,
 				4E175CF022BE78BF00690F79 /* AnimalDetailViewModel.swift in Sources */,
 				4E0E9DCE22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift in Sources */,
+				4E0E553F22F1ACB90014E118 /* KindsOfFoodViewController.swift in Sources */,
 				4E3F483922E21C4E00585CCB /* AnimalsInOrderViewController.swift in Sources */,
 				4E05C92922ECA4BB00A8CA01 /* RouteWithAnimalsService.swift in Sources */,
 				4E09264C22B79968001BEAED /* SpeechService.swift in Sources */,
@@ -1076,6 +1085,7 @@
 				4E0386B322BFF84100250011 /* MainViewModel.swift in Sources */,
 				4E082E3622F0318F002F0475 /* ContinentsViewController.swift in Sources */,
 				4E14844D22B7D19F0018A823 /* Coords.swift in Sources */,
+				4E0E554122F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
 				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
@@ -1085,6 +1095,7 @@
 				4E082E3422F03045002F0475 /* ContinentsViewModel.swift in Sources */,
 				4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */,
 				4E19737522D9035200BB41D1 /* HasParametersOfVisitRepository.swift in Sources */,
+				4E0E553D22F1ABF70014E118 /* KindsOfFoodViewModel.swift in Sources */,
 				4E1AA7C322E1011B00B9CE77 /* OrdersInClassViewController.swift in Sources */,
 				4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */,
 				4E08028622DCC2690085B226 /* HasProcessAnimalInformationService.swift in Sources */,
@@ -1092,6 +1103,7 @@
 				4EAE637622C4EC8400624328 /* HasBiotopeBindingsRepository.swift in Sources */,
 				4E0E9DDA22D6414300528AC0 /* ParametersOfVisitRepository.swift in Sources */,
 				4E05C92F22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift in Sources */,
+				4E0BACD122F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift in Sources */,
 				4E175CFA22BE818C00690F79 /* BindingRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

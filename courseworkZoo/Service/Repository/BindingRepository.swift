@@ -17,6 +17,7 @@ protocol BiotopeBindingRepositoring{
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [BiotopeBinding]?
     func findBindingsWithBindableObject(objectId: Int) -> [BiotopeBinding]?
+    func getBiotopesWithAnimal(animal: Animal) -> [Biotope]?
 }
 
 /**
@@ -27,6 +28,7 @@ protocol FoodBindingRepositoring{
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [FoodBinding]?
     func findBindingsWithBindableObject(objectId: Int) -> [FoodBinding]?
+    func getKindsOfFoodWithAnimal(animal: Animal) -> [Food]?
 }
 
 /**
@@ -37,7 +39,7 @@ protocol ContinentBindingRepositoring{
     func loadAndSaveDataIfNeeded()
     func findBindingsWithAnimal(animal: Int) -> [ContinentBinding]?
     func findBindingsWithBindableObject(objectId: Int) -> [ContinentBinding]?
-    
+    func getContinentsWithAnimal(animal: Animal) -> [Continent]?
 }
 
 
@@ -87,6 +89,38 @@ class BindingRepository<B: Bindable> : Repository<B>{
         }
     }
     
+    
+    /**
+     This function finds and returns the correct bindings with the given animal. Firstly, this function finds the bindings by identificator in column "id". If there is no binding with the correct title in the list of bindings with the identificator, then the function tries to get and return the list of bindings with the identificator of the animal in column "_id".
+     - Returns: The list of bindings with the given animal or nil if no bindings are found.
+    */
+    func getCorrectBindingsWithAnimal(animal: Animal) -> [B]? {
+        var correctBindingsFound = false
+        if let bindings = self.findBindingsWithAnimal(animal: animal.id) as? [B] {
+            var bindingsById: [B] = []
+            for binding in bindings {
+                let bindedObjectTitle = binding.getCzechTitleOfBindedEntity()
+                let comparedPropertyOfAnimal = binding.getComparedPropertyOfAnimal(animal)
+                bindingsById.append(binding)
+                if (comparedPropertyOfAnimal.contains(bindedObjectTitle)) {
+                    correctBindingsFound = true
+                }
+                
+            }
+            if (correctBindingsFound) {
+                return bindingsById
+            }
+        } else {
+            return nil
+        }
+        
+        if (!correctBindingsFound) {
+            if let bindingsBy_Id = self.findBindingsWithAnimal(animal: animal._id) as? [B] {
+                return bindingsBy_Id
+            }
+        }
+        return nil
+    }
 }
 
 
@@ -97,16 +131,73 @@ class BindingRepository<B: Bindable> : Repository<B>{
  This class is a child of BindingRepository class for working with bindings with a biotope and an animal.
  */
 class BiotopeBindingRepository: BindingRepository<BiotopeBinding>, BiotopeBindingRepositoring{
+    
+    /**
+     This function returns the list of biotopes in which the given animal lives.
+     - Parameters:
+        - animal: The given animal.
+     - Returns: The list of biotopes in which the given animal lives.
+    */
+    func getBiotopesWithAnimal(animal: Animal) -> [Biotope]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+            var biotopes: [Biotope] = []
+            for binding in bindings {
+                let biotopeId = binding.getBindedObjectId()
+                let biotope = Biotope.getBiotopeWithId(id: biotopeId)
+                biotopes.append(biotope)
+            }
+            return biotopes
+        }
+        return nil
+    }
 }
 
 /**
  This class is a child of BindingRepository class for working with bindings with a kind of food and an animal.
  */
 class FoodBindingRepository: BindingRepository<FoodBinding>, FoodBindingRepositoring{
+    
+    /**
+     This function returns the list of kinds of food which the animal eats.
+     - Parameters:
+        - animal: The given animal.
+     - Returns: The list of kinds of food which the given animal eats.
+     */
+    func getKindsOfFoodWithAnimal(animal: Animal) -> [Food]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+            var kindsOfFood: [Food] = []
+            for binding in bindings {
+                let kindOfFoodId = binding.getBindedObjectId()
+                let kindOfFood = Food.getFoodWithId(id: kindOfFoodId)
+                kindsOfFood.append(kindOfFood)
+            }
+            return kindsOfFood
+        }
+        return nil
+    }
 }
 
 /**
  This class is a child of BindingRepository class for working with bindings with a continent and an animal.
  */
 class ContinentBindingRepository: BindingRepository<ContinentBinding>, ContinentBindingRepositoring{
+
+    /**
+     This function returns the list of continents in which the given animal lives.
+     - Parameters:
+        - animal: The given animal.
+     - Returns: The list of continents in which the given animal lives.
+     */
+    func getContinentsWithAnimal(animal: Animal) -> [Continent]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+            var continents: [Continent] = []
+            for binding in bindings {
+                let continentId = binding.getBindedObjectId()
+                let continent = Continent.getContinentWithId(id: continentId)
+                continents.append(continent)
+            }
+            return continents
+        }
+        return nil
+    }
 }

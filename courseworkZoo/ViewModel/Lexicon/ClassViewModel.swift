@@ -23,7 +23,7 @@ class ClassViewModel: BaseViewModel {
     /**
      This action returns the list of all classes in which animals can belong.
     */
-    lazy var getClassesAction = Action<(), [Class], LoadError> {
+    lazy var getClasses = Action<(), [Class], LoadError> {
         self.dependencies.classRepository.loadAndSaveDataIfNeeded()
         if let classes = self.dependencies.classRepository.entities.value as? [Class] {
             return self.dependencies.classRepository.getClasses()

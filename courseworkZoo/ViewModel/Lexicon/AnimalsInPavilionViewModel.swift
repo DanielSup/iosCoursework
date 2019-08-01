@@ -24,7 +24,7 @@ class AnimalsInPavilionViewModel: BaseViewModel {
     /**
      This action returns a signal producer with the list of animals in the choosed locality. If animals could not be loaded, it returns a signal producer with an error representing it.
     */
-    lazy var getAnimalsInLocalityAction = Action<(), [Animal], LoadError>{
+    lazy var getAnimalsInLocality = Action<(), [Animal], LoadError>{
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         return self.dependencies.animalRepository.findAnimalsInLocality(self.locality)
     }
