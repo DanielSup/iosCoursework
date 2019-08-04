@@ -95,6 +95,7 @@ class PathRepository: PathRepositoring{
     }
     
     
+    
     /**
     This function gets an information about the number of saved paths from UserDefaults. Then it gets information about the found number saved paths from UserDefaults.
      - Returns: A signal producer with the list of all saved paths from UserDefaults.
@@ -104,6 +105,12 @@ class PathRepository: PathRepositoring{
         let numberOfPaths = UserDefaults.standard.integer(forKey: PathRepository.countKey)
         var actualPathIndex: Int = 0
         
+        let pathWithAllAnimals = self.getPathWithAllAnimalsWithCoordinate()
+        if (pathWithAllAnimals != nil) {
+            allPaths.append(pathWithAllAnimals!)
+        }
+        
+        /// adding paths from NSUserDefaults
         while actualPathIndex < numberOfPaths{
 
             let keyForTitle = PathRepository.path_prefix + String(actualPathIndex) + PathRepository.title_postfix
@@ -127,6 +134,25 @@ class PathRepository: PathRepositoring{
         return SignalProducer(value: allPaths)
     }
     
+    
+    /**
+     This function returns the paths with all animals with known coordinate. If animals couldn't be loaded, it returns nil.
+     - Returns: The path will all animals with coordinate or nil if animals couldn't be loaded.
+    */
+    private func getPathWithAllAnimalsWithCoordinate() -> Path? {
+        self.animalRepository.loadAndSaveDataIfNeeded()
+        if let allAnimals = self.animalRepository.entities.value as? [Animal] {
+            var animalsWithCoordinate: [Animal] = []
+            for animal in allAnimals {
+                if (animal.latitude >= 0) {
+                    animalsWithCoordinate.append(animal)
+                }
+            }
+            return Path(title: L10n.pathWithAllAnimals, animals: animalsWithCoordinate)
+        } else {
+            return nil
+        }
+    }
     
     /**
      This function ensures selecting the actual path by assigning the list of animals.

@@ -28,23 +28,23 @@ enum SaidInfo: CaseIterable{
     var title: String {
         switch (self){
             case .actualities:
-                return NSLocalizedString("actualitiesSetting", comment: "")
+                return L10n.actualitiesSetting
             case .description:
-                return NSLocalizedString("descriptionSetting", comment: "")
+                return L10n.descriptionSetting
             case .biotopes:
-                return NSLocalizedString("biotopesSetting", comment: "")
+                return L10n.biotopesSetting
             case .continents:
-                return NSLocalizedString("continentsSetting", comment: "")
+                return L10n.continentsSetting
             case .food:
-                return NSLocalizedString("foodSetting", comment: "")
+                return L10n.foodSetting
             case . proportions:
-                return NSLocalizedString("proportionsSetting", comment: "")
+                return L10n.proportionsSetting
             case .reproduction:
-                return NSLocalizedString("reproductionSetting", comment: "")
+                return L10n.reproductionSetting
             case .attractions:
-                return NSLocalizedString("attractionsSetting", comment: "")
+                return L10n.attractionsSetting
             case .breeding:
-                return NSLocalizedString("breedingSetting", comment: "")
+                return L10n.breedingSetting
         }
     }
     

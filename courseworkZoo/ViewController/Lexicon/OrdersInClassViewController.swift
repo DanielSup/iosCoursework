@@ -45,7 +45,7 @@ class OrdersInClassViewController: BaseLexiconViewController, UITableViewDelegat
     }
 
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("orderList", comment: "") + " " + self.ordersInClassViewModel.getParentClassTitle()
+        let textForSubtitle = L10n.orderList + " " + self.ordersInClassViewModel.getParentClassTitle()
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

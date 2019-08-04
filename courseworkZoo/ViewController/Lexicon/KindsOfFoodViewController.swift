@@ -36,7 +36,7 @@ class KindsOfFoodViewController: BaseLexiconViewController, UITableViewDelegate,
     
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("kindsOfFood", comment: "")
+        let textForSubtitle = L10n.kindsOfFood
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

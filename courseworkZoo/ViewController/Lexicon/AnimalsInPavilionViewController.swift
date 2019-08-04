@@ -68,7 +68,7 @@ class AnimalsInPavilionViewController: BaseLexiconViewController, UITableViewDel
      - Returns: Attributed strings containing the name of the selected locality.
      */
     func getAttributedStringForLocality() -> NSAttributedString{
-        let normalSubtitleText = NSLocalizedString("animalsInLocality", comment: "") + " "
+        let normalSubtitleText = L10n.animalsInLocality + " "
         let attributesOfNormalSubtitleText = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 30)]
         let attributedSubtitle = NSMutableAttributedString(string: normalSubtitleText, attributes: attributesOfNormalSubtitleText)
         

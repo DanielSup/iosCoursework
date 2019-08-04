@@ -58,7 +58,7 @@ class ProcessAnimalInformationService: ProcessAnimalInformationServicing {
      - animal: The animal which is enough close for machine-reading information about it (at other places I write that the animal is close).
     */
     func processInformationAndGetTextForMachineReading(about animal: Animal) -> String {
-        var textForMachineReading: String = NSLocalizedString("thisIs", comment: "") + animal.title
+        var textForMachineReading: String = L10n.thisIs + " " + animal.title + spaces
         for information in SaidInfo.values {
             if (self.setting[information] == true){
                 textForMachineReading += self.getTextFrom(information: information, about: animal)

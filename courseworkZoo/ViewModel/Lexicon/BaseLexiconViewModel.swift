@@ -31,7 +31,7 @@ class BaseLexiconViewModel: BaseViewModel {
         
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal] {
             for animal in animals {
-                let screenToAdd = Screen(title: animal.title, animal: animal, biotope: nil, classOrOrder: nil, pavilion: nil)
+                let screenToAdd = Screen(title: animal.title, animal: animal, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil,  pavilion: nil)
                 screens.append(screenToAdd)
             }
         } else {
@@ -41,29 +41,44 @@ class BaseLexiconViewModel: BaseViewModel {
         
         if let classes = self.dependencies.classRepository.entities.value as? [Class] {
             for classOfAnimals in classes {
-                var screenTitle = classOfAnimals.type ==  "class" ? NSLocalizedString("orderList", comment: "") : NSLocalizedString("animalsInOrderList", comment: "")
+                var screenTitle = classOfAnimals.type ==  "class" ? L10n.orderList : L10n.animalsInOrderList
                 screenTitle += " " + classOfAnimals.title
                 
-                let screenToAdd = Screen(title: screenTitle, animal: nil, biotope: nil, classOrOrder: classOfAnimals, pavilion: nil)
+                let screenToAdd = Screen(title: screenTitle, animal: nil, classOrOrder: classOfAnimals, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
                 screens.append(screenToAdd)
             }
         } else {
             return SignalProducer(error: LoadError.noClasses)
         }
         
-        
-        var allBiotopes: [Biotope] = []
+        /// adding screens with lists of animals living in a continent or list of animals which don't live anywhere in nature.
+        for i in 1...7 {
+            let continent = Continent.getContinentWithId(id: i)
+            let animalListTitle = L10n.animalList + " " + continent.locativeWithPreposition
+            let screenToAdd = Screen(title: animalListTitle, animal: nil, classOrOrder: nil, continent: continent, biotope: nil, kindOfFood: nil, pavilion: nil)
+            screens.append(screenToAdd)
+        }
+    
+        /// adding screens with list of animals living in a biotope
         for i in 1...11 {
-            let animalListTitle = NSLocalizedString("animalList", comment: "") + " " + Biotope.getBiotopeWithId(id: i).locativeWithPreposition
-            let screenToAdd = Screen(title: animalListTitle, animal: nil, biotope: Biotope.getBiotopeWithId(id: i), classOrOrder: nil, pavilion: nil)
+            let biotope = Biotope.getBiotopeWithId(id: i)
+            let animalListTitle = L10n.animalList + " " + biotope.locativeWithPreposition
+            let screenToAdd = Screen(title: animalListTitle, animal: nil, classOrOrder: nil, continent: nil, biotope: biotope, kindOfFood: nil, pavilion: nil)
             screens.append(screenToAdd)
         }
         
+        /// adding screen with list of animals eating a kind of food.
+        for i in 1...9 {
+            let kindOfFood = Food.getFoodWithId(id: i)
+            let animalListTitle = L10n.listOfAnimalsEating + " " + kindOfFood.instrumentalOfTitle
+            let screenToAdd = Screen(title: animalListTitle, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: kindOfFood, pavilion: nil)
+            screens.append(screenToAdd)
+        }
         
         if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
             for locality in localities {
-                let listOfAnimalsInLocalityTitle = NSLocalizedString("animalsInLocality", comment: "") + " " + locality.title
-                let screenToAdd = Screen(title: listOfAnimalsInLocalityTitle, animal: nil, biotope: nil, classOrOrder: nil, pavilion: locality)
+                let listOfAnimalsInLocalityTitle = L10n.animalsInLocality + " " + locality.title
+                let screenToAdd = Screen(title: listOfAnimalsInLocalityTitle, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: locality)
                 screens.append(screenToAdd)
             }
         } else {
@@ -71,13 +86,19 @@ class BaseLexiconViewModel: BaseViewModel {
         }
         
         
-        let classListScreen = Screen(title: NSLocalizedString("classList", comment: ""), animal: nil, biotope: nil, classOrOrder: nil, pavilion: nil)
+        let classListScreen = Screen(title: L10n.classList, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
         screens.append(classListScreen)
         
-        let biotopesScreen = Screen(title: NSLocalizedString("biotopes", comment: ""), animal: nil, biotope: nil, classOrOrder: nil, pavilion: nil)
+        let continentsScreen = Screen(title: L10n.continents, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
+        screens.append(continentsScreen)
+        
+        let biotopesScreen = Screen(title: L10n.biotopes, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
         screens.append(biotopesScreen)
         
-        let pavilionsScreen = Screen(title: NSLocalizedString("pavilions", comment: ""), animal: nil, biotope: nil, classOrOrder: nil, pavilion: nil)
+        let kindsOfFoodScreen = Screen(title: L10n.kindsOfFood, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
+        screens.append(kindsOfFoodScreen)
+        
+        let pavilionsScreen = Screen(title: L10n.pavilions, animal: nil, classOrOrder: nil, continent: nil, biotope: nil, kindOfFood: nil, pavilion: nil)
         screens.append(pavilionsScreen)
         
         return SignalProducer(value: screens)

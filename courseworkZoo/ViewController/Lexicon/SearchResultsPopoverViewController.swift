@@ -65,21 +65,29 @@ class SearchResultsPopoverViewController: BaseViewController, UITableViewDelegat
         let screen = self.results[indexPath.row]
         if (screen.animal != nil){
             flowDelegate?.goToAnimalDetail(in: self, to: screen.animal!)
-        } else if (screen.biotope != nil) {
-            flowDelegate?.goToAnimalsInBiotope(in: self, biotope: screen.biotope!)
         } else if (screen.classOrOrder != nil) {
             if (screen.classOrOrder!.type == "class") {
                 flowDelegate?.goToOrders(in: self, of: screen.classOrOrder!)
             } else {
                 flowDelegate?.goToAnimalsInOrder(in: self, order: screen.classOrOrder!)
             }
+        } else if (screen.continent != nil) {
+            flowDelegate?.goToAnimalsInContinent(in: self, continent: screen.continent!)
+        } else if (screen.biotope != nil) {
+            flowDelegate?.goToAnimalsInBiotope(in: self, biotope: screen.biotope!)
+        } else if (screen.kindOfFood != nil) {
+            flowDelegate?.goToAnimalsEatingKindOfFood(in: self, kindOfFood: screen.kindOfFood!)
         } else if (screen.pavilion != nil) {
             flowDelegate?.goToAnimalsInPavilion(in: self, pavilion: screen.pavilion!)
-        } else if (screen.title == NSLocalizedString("biotopes", comment: "")){
-            flowDelegate?.goToBiotopes(in: self)
-        } else if (screen.title == NSLocalizedString("classes", comment: "")){
+        }  else if (screen.title == L10n.classes){
             flowDelegate?.goToClasses(in: self)
-        } else if (screen.title == NSLocalizedString("pavilions", comment: "")){
+        } else if (screen.title == L10n.continents) {
+            flowDelegate?.goToContinents(in: self)
+        } else if (screen.title == L10n.biotopes){
+            flowDelegate?.goToBiotopes(in: self)
+        } else if (screen.title == L10n.kindsOfFood) {
+            flowDelegate?.goToKindsOfFood(in: self)
+        } else if (screen.title == L10n.pavilions){
             flowDelegate?.goToPavilions(in: self)
         }
     }

@@ -12,10 +12,10 @@ import SnapKit
 /**
  This class represents the popover for saving the actual path with the title from the text field.
  */
-class SavePathPopoverViewController: BaseLexiconViewController {
+class SavePathPopoverViewController: BaseViewController {
     /// The view model for saving the actual path
     private let savePathViewModel: SavePathViewModel
-    
+    /// The text field for filling the title which the actual path will be saved with.
     private var titleField: UITextField!
     
     /**
@@ -52,16 +52,16 @@ class SavePathPopoverViewController: BaseLexiconViewController {
         self.titleField = titleField
         
         let titleFieldLabel = UILabel()
-        titleFieldLabel.text = NSLocalizedString("pathTitle", comment: "")
+        titleFieldLabel.text = L10n.pathTitle
         titleFieldLabel.textColor = UIColor.black
         popoverView.addSubview(titleFieldLabel)
         titleFieldLabel.snp.makeConstraints{ (make) in
-            make.bottom.equalTo(titleField.snp.top).offset(20)
             make.left.equalTo(titleField.snp.left)
+            make.bottom.equalTo(titleField.snp.top).offset(20)
         }
         
         let savePathButton: UIButton = UIButton()
-        savePathButton.setTitle(NSLocalizedString("savePath", comment: ""), for: .normal)
+        savePathButton.setTitle(L10n.savePath, for: .normal)
         savePathButton.setTitleColor(UIColor(red: 0, green: 128.0 / 255.0, blue: 1.0, alpha: 1.0), for: .normal)
         savePathButton.backgroundColor = UIColor.white
         savePathButton.layer.cornerRadius = 5
@@ -76,7 +76,7 @@ class SavePathPopoverViewController: BaseLexiconViewController {
         }
         
         let cancelButton: UIButton = UIButton()
-        cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
+        cancelButton.setTitle(L10n.cancel, for: .normal)
         cancelButton.setTitleColor(UIColor(red: 1.0, green: 0.25, blue: 0, alpha: 1.0), for: .normal)
         cancelButton.backgroundColor = UIColor.white
         cancelButton.layer.cornerRadius = 5

@@ -15,6 +15,8 @@ import SnapKit
 class UIVerticalMenuItem: UIButton{
     /// The string representing the action of the item represented by a button.
     private var actionString: String
+    /// The string which is shown above the icon in the label.
+    private var actionText: String
     /// The used background color of the item represented by a button
     private var usedBackgroundColor: UIColor
     /// The used icon on the item
@@ -31,8 +33,9 @@ class UIVerticalMenuItem: UIButton{
         - actionString: The string representing the action of the item. It also sets the string in the label in this item.
         - usedBackgroundColor: The background color.
     */
-    init(actionString: String, usedBackgroundColor: UIColor){
+    init(actionString: String, actionText: String, usedBackgroundColor: UIColor){
         self.actionString = actionString
+        self.actionText = actionText
         self.usedBackgroundColor = usedBackgroundColor
         super.init(frame: .zero)
         // setting properties of this menu item (background color and border)
@@ -44,6 +47,7 @@ class UIVerticalMenuItem: UIButton{
     
     required init?(coder aDecoder: NSCoder) {
         self.actionString = ""
+        self.actionText = ""
         self.usedBackgroundColor = UIColor.black
         super.init(coder: aDecoder)
     }
@@ -60,9 +64,9 @@ class UIVerticalMenuItem: UIButton{
             self.addSubview(self.icon)
             self.icon.snp.makeConstraints{ (make) in
                 make.top.equalTo(self.actionLabel.snp.bottom).offset(2)
+                make.centerX.equalToSuperview()
                 make.width.equalTo(43)
                 make.height.equalTo(48)
-                make.centerX.equalToSuperview()
             }
         }
     }
@@ -74,7 +78,7 @@ class UIVerticalMenuItem: UIButton{
     func addActionLabel(){
         self.actionLabel = UILabel()
         self.actionLabel.textColor = .black
-        self.actionLabel.text = NSLocalizedString(self.actionString.replacingOccurrences(of: "Selected", with: ""), comment: "")
+        self.actionLabel.text = self.actionText
         self.actionLabel.textAlignment = .center
         
         if (self.usedBackgroundColor == Colors.goToGuideOrLexiconButtonBackgroundColor.color){
@@ -100,12 +104,15 @@ class UIVerticalMenuItem: UIButton{
     
     
     /**
-     This function ensures changing the action of the item.
+     This function ensures changing the action of the item (actionString for finding the icon and actionText for showing the text in label).
      - Parameters:
-        - actionString: The string representing the new action of this item.
-    */
-    func changeActionString(actionString: String){
+        - actionString: The string representing the new action of this item which is used for showing the icon.
+        - actionText: The string which is used as the text in the item.
+    
+     */
+    func changeActionStringAndActionText(actionString: String, actionText: String){
         self.actionString = actionString
+        self.actionText = actionText
         self.actionLabel.removeFromSuperview()
         self.icon.removeFromSuperview()
         self.addActionLabel()

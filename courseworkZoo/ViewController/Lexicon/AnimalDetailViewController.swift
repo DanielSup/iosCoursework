@@ -108,8 +108,8 @@ class AnimalDetailViewController: BaseLexiconViewController {
                 
                 // setting constraints of the image view
                 image.snp.makeConstraints{ (make) in
-                    make.centerX.equalToSuperview().offset(super.verticalMenuWidth / 2.0)
                     make.top.equalTo(super.subtitleLabel.snp.bottom).offset(10)
+                    make.centerX.equalToSuperview().offset(super.verticalMenuWidth / 2.0)
                     make.width.equalToSuperview().multipliedBy(2.0 / 3.0)
                     make.height.equalTo(correctHeight)
                 }
@@ -120,32 +120,32 @@ class AnimalDetailViewController: BaseLexiconViewController {
 
         
         let lastView: UIView = imageSuccessfullyLoaded ? image : super.subtitleLabel
-        let classInformation = self.getLabelsForInformation(header: NSLocalizedString("classInfo", comment: ""), content: self.animal.classOfAnimal, note: nil, previousView: lastView, last: false)
+        let classInformation = self.getLabelsForInformation(header: L10n.classInfo, content: self.animal.classOfAnimal, note: nil, previousView: lastView, last: false)
         
 
-        let orderInformation = self.getLabelsForInformation(header: NSLocalizedString("orderInfo", comment: ""), content: self.animal.order, note: nil, previousView: classInformation.last!, last: false)
+        let orderInformation = self.getLabelsForInformation(header: L10n.orderInfo, content: self.animal.order, note: nil, previousView: classInformation.last!, last: false)
         
         
-        let descriptionInformation = self.getLabelsForInformation(header: NSLocalizedString("descriptionInfo", comment: ""), content: self.animal.description, note: nil, previousView: orderInformation.last!, last: false)
+        let descriptionInformation = self.getLabelsForInformation(header: L10n.descriptionInfo, content: self.animal.description, note: nil, previousView: orderInformation.last!, last: false)
         
-        let biotopesInformation = self.getLabelsForInformation(header: NSLocalizedString("biotopesInfo", comment: ""), content: self.getTextForBiotopesContentLabel(), note: nil, previousView: descriptionInformation.last!, last: false)
+        let biotopesInformation = self.getLabelsForInformation(header: L10n.biotopesInfo, content: self.getTextForBiotopesContentLabel(), note: nil, previousView: descriptionInformation.last!, last: false)
         
-        let continentsInformation = self.getLabelsForInformation(header: NSLocalizedString("continentsAndPlacesInfo", comment: ""), content: self.getTextForContinentsContentLabel(), note: nil, previousView: biotopesInformation.last!, last: false)
+        let continentsInformation = self.getLabelsForInformation(header: L10n.continentsAndPlacesInfo, content: self.getTextForContinentsContentLabel(), note: nil, previousView: biotopesInformation.last!, last: false)
         
-        let foodInformation = self.getLabelsForInformation(header: NSLocalizedString("foodInfo", comment: ""), content: self.getTextForFoodContentLabel(), note: nil, previousView: continentsInformation.last!, last: false)
+        let foodInformation = self.getLabelsForInformation(header: L10n.foodInfo, content: self.getTextForFoodContentLabel(), note: nil, previousView: continentsInformation.last!, last: false)
      
-        let proportionsInformation = self.getLabelsForInformation(header: NSLocalizedString("proportionsInfo", comment: ""), content: self.animal.proportions, note: nil, previousView: foodInformation.last!, last: false)
+        let proportionsInformation = self.getLabelsForInformation(header: L10n.proportionsInfo, content: self.animal.proportions, note: nil, previousView: foodInformation.last!, last: false)
         
-        let reproductionInformation = self.getLabelsForInformation(header: NSLocalizedString("reproductionInfo", comment: ""), content: self.animal.reproduction, note: nil, previousView: proportionsInformation.last!, last: false)
+        let reproductionInformation = self.getLabelsForInformation(header: L10n.reproductionInfo, content: self.animal.reproduction, note: nil, previousView: proportionsInformation.last!, last: false)
         
-        let attractionsInformation = self.getLabelsForInformation(header: NSLocalizedString("attractionsInfo", comment: ""), content: self.animal.attractions, note: nil, previousView: reproductionInformation.last!, last: false)
+        let attractionsInformation = self.getLabelsForInformation(header: L10n.attractionsInfo, content: self.animal.attractions, note: nil, previousView: reproductionInformation.last!, last: false)
         
-        let breedingInformation = self.getLabelsForInformation(header: NSLocalizedString("breedingInfo", comment: ""), content: self.animal.breeding, note: nil, previousView: attractionsInformation.last!, last: self.animal.actualities.count == 0)
+        let breedingInformation = self.getLabelsForInformation(header: L10n.breedingInfo, content: self.animal.breeding, note: nil, previousView: attractionsInformation.last!, last: self.animal.actualities.count == 0)
         
         
         if (self.animal.actualities.count > 0) {
             let actualitiesTitleLabel = UILabel()
-            actualitiesTitleLabel.text = NSLocalizedString("actualitiesInfoTitle", comment: "")
+            actualitiesTitleLabel.text = L10n.actualitiesInfoTitle
             actualitiesTitleLabel.font = UIFont.boldSystemFont(ofSize: 24)
             self.contentView.addSubview(actualitiesTitleLabel)
             actualitiesTitleLabel.snp.makeConstraints { (make) in
@@ -214,17 +214,18 @@ class AnimalDetailViewController: BaseLexiconViewController {
         self.scrollView.addSubview(contentView)
         //adding constraints to scroll view
         scrollView.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
         }
+        
         //adding constraints to content view
         contentView.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
         }
         
     }

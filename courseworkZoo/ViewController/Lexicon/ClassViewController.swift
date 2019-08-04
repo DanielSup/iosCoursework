@@ -44,7 +44,7 @@ class ClassViewController: BaseLexiconViewController, UITableViewDelegate, UITab
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("classList", comment: "")
+        let textForSubtitle = L10n.classList
         super.setTextForSubtitle(textForSubtitle)
 
         super.viewDidLoad()

@@ -1,0 +1,6 @@
+strings:
+   inputs: courseworkZoo/en.lproj
+   filter: .+\.strings$
+   outputs:
+      - templateName: structured-swift4
+        output: courseworkZoo/Generated/strings.swift

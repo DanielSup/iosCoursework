@@ -47,7 +47,7 @@ class AnimalsInContinentViewController: BaseLexiconViewController, UITableViewDe
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("animalList", comment: "") + " " + self.animalsInContinentViewModel.getLocativeOfContinentWithPreposition()
+        let textForSubtitle = L10n.animalList + " " + self.animalsInContinentViewModel.getLocativeOfContinentWithPreposition()
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

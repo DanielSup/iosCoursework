@@ -26,19 +26,19 @@ enum Continent: Int {
         switch self {
 
             case .africa:
-                return NSLocalizedString("africa", comment: "")
+                return L10n.africa
             case .asia:
-                return NSLocalizedString("asia", comment: "")
+                return L10n.asia
             case .southAmerica:
-                return NSLocalizedString("southAmerica", comment: "")
+                return L10n.southAmerica
             case .northAmerica:
-                return NSLocalizedString("northAmerica", comment: "")
+                return L10n.northAmerica
             case .australia:
-                return NSLocalizedString("australia", comment: "")
+                return L10n.australia
             case .notInNature:
-                return NSLocalizedString("notInNature", comment: "")
+                return L10n.notInNature
             case .europe:
-                return NSLocalizedString("europe", comment: "")
+                return L10n.europe
             case .none:
                 return ""
         }
@@ -70,21 +70,21 @@ enum Continent: Int {
     var locativeWithPreposition: String {
         switch self {
             case .africa:
-                return NSLocalizedString("inAfrica", comment: "")
+                return L10n.inAfrica
             case .asia:
-                return NSLocalizedString("inAsia", comment: "")
+                return L10n.inAsia
             case .southAmerica:
-                return NSLocalizedString("inSouthAmerica", comment: "")
+                return L10n.inSouthAmerica
             case .northAmerica:
-                return NSLocalizedString("inNorthAmerica", comment: "")
+                return L10n.inNorthAmerica
             case .australia:
-                return NSLocalizedString("inAustralia", comment: "")
+                return L10n.inAustralia
             case .notInNature:
-                return NSLocalizedString("notAnywhere", comment: "")
+                return L10n.notAnywhere
             case .europe:
-                return NSLocalizedString("inEurope", comment: "")
+                return L10n.inEurope
             case .none:
-                return NSLocalizedString("notAnywhere", comment: "")
+                return L10n.notAnywhere
         }
     }
     

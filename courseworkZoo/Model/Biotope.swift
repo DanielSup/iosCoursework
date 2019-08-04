@@ -29,27 +29,27 @@ enum Biotope: Int {
     var title: String{
         switch self {
             case .sea:
-                return NSLocalizedString("sea", comment: "")
+                return L10n.sea
             case .freshWater:
-                return NSLocalizedString("freshWater", comment: "")
+                return L10n.freshWater
             case .desertAndSemiDesert:
-                return NSLocalizedString("desertAndSemiDesert", comment: "")
+                return L10n.desertAndSemiDesert
             case .grassyTerritory:
-                return NSLocalizedString("grassyTerritory", comment: "")
+                return L10n.grassyTerritory
             case .mountains:
-                return NSLocalizedString("mountains", comment: "")
+                return L10n.mountains
             case .tropicalForest:
-                return NSLocalizedString("tropicalForest", comment: "")
+                return L10n.tropicalForest
             case .deciduousAndMixedForest:
-                return NSLocalizedString("deciduousAndMixedForest", comment: "")
+                return L10n.deciduousAndMixedForest
             case .coniferousForest:
-                return NSLocalizedString("coniferousForest", comment: "")
+                return L10n.coniferousForest
             case .tundra:
-                return NSLocalizedString("tundra", comment: "")
+                return L10n.tundra
             case .polarRegions:
-                return NSLocalizedString("polarRegions", comment: "")
+                return L10n.polarRegions
             case .stonyStepsAndSemiDeserts:
-                return NSLocalizedString("stonyStepsAndSemiDeserts", comment: "")
+                return L10n.stonyStepsAndSemiDeserts
             
         }
     }
@@ -89,27 +89,27 @@ enum Biotope: Int {
     var locativeWithPreposition: String {
         switch self {
             case .sea:
-                return NSLocalizedString("inSea", comment: "")
+                return L10n.inSea
             case .freshWater:
-                return NSLocalizedString("inFreshWater", comment: "")
+                return L10n.inFreshWater
             case .desertAndSemiDesert:
-                return NSLocalizedString("inDesertAndSemiDesert", comment: "")
+                return L10n.inDesertAndSemiDesert
             case .grassyTerritory:
-                return NSLocalizedString("inGrassyTerritory", comment: "")
+                return L10n.inGrassyTerritory
             case .mountains:
-                return NSLocalizedString("inMountains", comment: "")
+                return L10n.inMountains
             case .tropicalForest:
-                return NSLocalizedString("inTropicalForest", comment: "")
+                return L10n.inTropicalForest
             case .deciduousAndMixedForest:
-                return NSLocalizedString("inDeciduousAndMixedForest", comment: "")
+                return L10n.inDeciduousAndMixedForest
             case .coniferousForest:
-                return NSLocalizedString("inConiferousForest", comment: "")
+                return L10n.inConiferousForest
             case .tundra:
-                return NSLocalizedString("inTundra", comment: "")
+                return L10n.inTundra
             case .polarRegions:
-                return NSLocalizedString("inPolarRegions", comment: "")
+                return L10n.inPolarRegions
             case .stonyStepsAndSemiDeserts:
-                return NSLocalizedString("inStonyStepsAndSemiDeserts", comment: "")
+                return L10n.inStonyStepsAndSemiDeserts
             
         }
     }

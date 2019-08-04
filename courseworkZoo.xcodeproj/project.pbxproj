@@ -27,7 +27,6 @@
 		4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */; };
 		4E01E18B22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01E18A22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift */; };
 		4E0386B322BFF84100250011 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B222BFF84000250011 /* MainViewModel.swift */; };
-		4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */; };
 		4E0386B722C0098700250011 /* TestAnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */; };
 		4E0386B922C009CC00250011 /* TestEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386B822C009CC00250011 /* TestEnums.swift */; };
 		4E0386BB22C009FF00250011 /* TestAnimalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */; };
@@ -37,6 +36,7 @@
 		4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04B7EE22BA23AA00349FA0 /* AnimalDetailViewController.swift */; };
 		4E05C92922ECA4BB00A8CA01 /* RouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */; };
 		4E05C92F22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */; };
+		4E069C4422F5BB57009722EA /* strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E069C4322F5BB56009722EA /* strings.swift */; };
 		4E08028422DC96620085B226 /* ProcessAnimalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08028322DC96620085B226 /* ProcessAnimalInformationService.swift */; };
 		4E08028622DCC2690085B226 /* HasProcessAnimalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08028522DCC2690085B226 /* HasProcessAnimalInformationService.swift */; };
 		4E082E3422F03045002F0475 /* ContinentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E082E3322F03045002F0475 /* ContinentsViewModel.swift */; };
@@ -92,8 +92,6 @@
 		4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E175CFD22BE99D500690F79 /* Biotope.swift */; };
 		4E18BABF22E88061003B0FEA /* BaseLexiconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18BABE22E88061003B0FEA /* BaseLexiconViewModel.swift */; };
 		4E18BAC122E88B53003B0FEA /* SearchResultsPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */; };
-		4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */; };
-		4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */; };
 		4E19306722BD4AC800716BAD /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19306622BD4AC800716BAD /* Repository.swift */; };
 		4E19737322D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19737222D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift */; };
 		4E19737522D9035200BB41D1 /* HasParametersOfVisitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19737422D9035200BB41D1 /* HasParametersOfVisitRepository.swift */; };
@@ -193,7 +191,6 @@
 		4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSettingsRepository.swift; sourceTree = "<group>"; };
 		4E01E18A22D4ACDD0016B533 /* HasVoiceSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasVoiceSettingsRepository.swift; sourceTree = "<group>"; };
 		4E0386B222BFF84000250011 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewModel.swift; path = courseworkZoo/ViewModel/Guide/MainViewModel.swift; sourceTree = SOURCE_ROOT; };
-		4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimalListViewModel.swift; path = courseworkZoo/ViewModel/Guide/AnimalListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E0386B622C0098700250011 /* TestAnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalDetailViewController.swift; sourceTree = "<group>"; };
 		4E0386B822C009CC00250011 /* TestEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnums.swift; sourceTree = "<group>"; };
 		4E0386BA22C009FF00250011 /* TestAnimalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimalListViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +201,7 @@
 		4E04B7F122BA643C00349FA0 /* info_preprocess_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info_preprocess_header.h; sourceTree = "<group>"; };
 		4E05C92822ECA4BB00A8CA01 /* RouteWithAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWithAnimalsService.swift; sourceTree = "<group>"; };
 		4E05C92E22ECEA5E00A8CA01 /* HasRouteWithAnimalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasRouteWithAnimalsService.swift; sourceTree = "<group>"; };
+		4E069C4322F5BB56009722EA /* strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = strings.swift; sourceTree = "<group>"; };
 		4E08028322DC96620085B226 /* ProcessAnimalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessAnimalInformationService.swift; sourceTree = "<group>"; };
 		4E08028522DCC2690085B226 /* HasProcessAnimalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasProcessAnimalInformationService.swift; sourceTree = "<group>"; };
 		4E082E3322F03045002F0475 /* ContinentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentsViewModel.swift; sourceTree = "<group>"; };
@@ -266,8 +264,6 @@
 		4E175CFD22BE99D500690F79 /* Biotope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biotope.swift; sourceTree = "<group>"; };
 		4E18BABE22E88061003B0FEA /* BaseLexiconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLexiconViewModel.swift; sourceTree = "<group>"; };
 		4E18BAC022E88B52003B0FEA /* SearchResultsPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsPopoverViewController.swift; sourceTree = "<group>"; };
-		4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocalityViewController.swift; sourceTree = "<group>"; };
-		4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectLocalityViewModel.swift; path = courseworkZoo/ViewModel/Guide/SelectLocalityViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E19306622BD4AC800716BAD /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = courseworkZoo/Service/Repository/Repository.swift; sourceTree = SOURCE_ROOT; };
 		4E19737222D902AE00BB41D1 /* SettingParametersOfVisitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingParametersOfVisitViewModel.swift; path = courseworkZoo/ViewModel/Guide/SettingParametersOfVisitViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4E19737422D9035200BB41D1 /* HasParametersOfVisitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasParametersOfVisitRepository.swift; sourceTree = "<group>"; };
@@ -398,6 +394,14 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		4E069C4222F5ABC0009722EA /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				4E069C4322F5BB56009722EA /* strings.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		4E0A669022BBF78800545C00 /* courseworkZooUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,7 +521,6 @@
 				4E163E7722D724200090176F /* SavePathPopoverViewController.swift */,
 				4E0E9DD722D62CA200528AC0 /* ChooseSavedPathViewController.swift */,
 				4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */,
-				4E19306222BD0FB300716BAD /* SelectLocalityViewController.swift */,
 			);
 			path = Guide;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 		4E2D80CE2274E11900B5E194 /* courseworkZoo */ = {
 			isa = PBXGroup;
 			children = (
+				4E069C4222F5ABC0009722EA /* Generated */,
 				4E05CEB522C2358C00BCBA99 /* ViewController */,
 				4E04B7F522BA9E1700349FA0 /* FlowCoordinators */,
 				4E10C6F522798ABF00CB6821 /* ViewModel */,
@@ -657,8 +661,6 @@
 			isa = PBXGroup;
 			children = (
 				4E0386B222BFF84000250011 /* MainViewModel.swift */,
-				4E19306422BD0FE100716BAD /* SelectLocalityViewModel.swift */,
-				4E0386B422BFFC4600250011 /* AnimalListViewModel.swift */,
 				4E0E9DCD22D5E50100528AC0 /* SelectAnimalsToPathViewModel.swift */,
 				4E0E9DD522D62C5500528AC0 /* ChooseSavedPathViewModel.swift */,
 				4E163E7922D73FBF0090176F /* SavePathViewModel.swift */,
@@ -912,7 +914,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vRhBukoXFtdmitg6dzE1tM-Z2gBVBRpCmSLCCqNwfzImWLev-5IY85jJrfRTXy_TdsWoqPBkITC-R_w\" \"key_ios\" '{\"EN\":\"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/courseworkZoo\" \"Localizable.strings\"\n";
+			shellScript = "\"$PROJECT_DIR/Pods/ACKLocalization/Localization\" \"1vRhBukoXFtdmitg6dzE1tM-Z2gBVBRpCmSLCCqNwfzImWLev-5IY85jJrfRTXy_TdsWoqPBkITC-R_w\" \"key_ios\" '{\"EN\":\"en\", \"CS\": \"cs\"}' \"$PROJECT_DIR/courseworkZoo\" \"Localizable.strings\"\n\"$PROJECT_DIR/Pods/Swiftgen/bin/swiftgen\"\n";
 		};
 		4E04B7F022BA50DA00349FA0 /* Generate version number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1009,6 +1011,7 @@
 				4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */,
 				4E0E9DD222D5FBC500528AC0 /* UIAnimalWithActionCell.swift in Sources */,
 				4E0E9DC422D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift in Sources */,
+				4E069C4422F5BB57009722EA /* strings.swift in Sources */,
 				4EF6ADBB22BAA097006D9648 /* AppDependency.swift in Sources */,
 				4E175CFE22BE99D500690F79 /* Biotope.swift in Sources */,
 				4E163E7822D724200090176F /* SavePathPopoverViewController.swift in Sources */,
@@ -1029,7 +1032,6 @@
 				4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
-				4E0386B522BFFC4600250011 /* AnimalListViewModel.swift in Sources */,
 				4EAE637822C4EC9800624328 /* HasFoodBindingsRepository.swift in Sources */,
 				4E19737722D906A000BB41D1 /* SettingParametersOfVisitViewController.swift in Sources */,
 				4E0CBFFD22D36B01008E076A /* MainLexiconViewModel.swift in Sources */,
@@ -1058,7 +1060,6 @@
 				4EAE637A22C4ECAF00624328 /* HasContinentBindingsRepository.swift in Sources */,
 				4E18BABF22E88061003B0FEA /* BaseLexiconViewModel.swift in Sources */,
 				4E175CF422BE7A8200690F79 /* FoodBinding.swift in Sources */,
-				4E19306322BD0FB400716BAD /* SelectLocalityViewController.swift in Sources */,
 				4E1AA7B922E0B42300B9CE77 /* Class.swift in Sources */,
 				4E175CF622BE7D1400690F79 /* ContinentBinding.swift in Sources */,
 				4E1F228B22E25A760026CCDF /* BiotopesViewController.swift in Sources */,
@@ -1072,7 +1073,6 @@
 				4E09264C22B79968001BEAED /* SpeechService.swift in Sources */,
 				4E0EB69F22B3870600831DDB /* String.swift in Sources */,
 				4E2D80D02274E11900B5E194 /* AppDelegate.swift in Sources */,
-				4E19306522BD0FE100716BAD /* SelectLocalityViewModel.swift in Sources */,
 				4E0CBFF722D35300008E076A /* UIVerticalMenu.swift in Sources */,
 				4E0E9DCA22D5DC1100528AC0 /* Path.swift in Sources */,
 				4E1F46A422E5D6E300B9B757 /* PavilionsViewModel.swift in Sources */,

@@ -36,7 +36,7 @@ class ContinentsViewController: BaseLexiconViewController, UITableViewDelegate, 
     
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("continents", comment: "")
+        let textForSubtitle = L10n.continents
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

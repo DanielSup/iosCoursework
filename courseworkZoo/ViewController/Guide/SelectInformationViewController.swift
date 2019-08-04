@@ -17,6 +17,8 @@ class SelectInformationViewController: BaseViewController {
     private var selectInformationViewModel: SelectInformationViewModel
     /// The actual setting of machine-read information.
     private var actualSetting: [SaidInfo: Bool] = [:]
+    /// The flow delegate for going to the main screen of the lexicon part of the application.
+    var flowDelegate: GoToLexiconDelegate?
     
     init(selectInformationViewModel: SelectInformationViewModel){
         self.selectInformationViewModel = selectInformationViewModel
@@ -51,11 +53,12 @@ class SelectInformationViewController: BaseViewController {
         // adding a vertical menu
         let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
-        verticalMenu.addItem(goToLexiconItem, height: 120, last: false)
+        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
+        verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: "guideTitle", menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         var index: Int = 0
         
@@ -75,8 +78,8 @@ class SelectInformationViewController: BaseViewController {
             informationSwitch.addTarget(self, action: #selector(informationSwitchStateChanged(_:)), for: .valueChanged)
             self.view.addSubview(informationSwitch)
             informationSwitch.snp.makeConstraints{ (make) in
-                make.centerY.equalTo(informationLabel.snp.centerY)
                 make.right.equalToSuperview().offset(-10)
+                make.centerY.equalTo(informationLabel.snp.centerY)
             }
             index += 1
         }
@@ -93,6 +96,16 @@ class SelectInformationViewController: BaseViewController {
         let information = SaidInfo.values[sender.tag]
         self.actualSetting[information] = sender.isOn
         self.selectInformationViewModel.setInformationSetting(self.actualSetting)
+    }
+    
+    
+    /**
+     This function ensures going to the lexicon part of the application from the actual screen after tapping the item from the vertical menu.
+     - Parameters:
+        - sender: The item from the vertical menu which is tapped.
+    */
+    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+        flowDelegate?.goToLexicon(in: self)
     }
 
 }

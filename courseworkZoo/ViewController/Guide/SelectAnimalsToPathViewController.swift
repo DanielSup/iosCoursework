@@ -65,11 +65,12 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         // adding a vertical menu
         let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
-        verticalMenu.addItem(goToLexiconItem, height: 120, last: false)
+        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
+        verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: "guideTitle", menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         // getting sizes of display and the height of the top bar with search
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -99,13 +100,13 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
             cell.animalTitleLabel.text = self.animalsInPath[indexPath.row].title
             cell.actionButton.removeTarget(self, action: #selector(actionButtonForAddingTapped(_:)), for: .touchUpInside)
             cell.actionButton.addTarget(self, action: #selector(actionButtonForRemovingTapped(_:)), for: .touchUpInside)
-            cell.actionButton.setTitle(NSLocalizedString("removeFromPath", comment: ""), for: .normal)
+            cell.actionButton.setTitle(L10n.removeFromPath, for: .normal)
         } else {
             cell.actionButton.animal = self.animalsForSelecting[indexPath.row]
             cell.animalTitleLabel.text = self.animalsForSelecting[indexPath.row].title
             cell.actionButton.removeTarget(self, action: #selector(actionButtonForRemovingTapped(_:)), for: .touchUpInside)
             cell.actionButton.addTarget(self, action: #selector(actionButtonForAddingTapped(_:)), for: .touchUpInside)
-            cell.actionButton.setTitle(NSLocalizedString("addToPath", comment: ""), for: .normal)
+            cell.actionButton.setTitle(L10n.addToPath, for: .normal)
         }
         return cell
     }
@@ -118,9 +119,9 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0){
-            return NSLocalizedString("animalsInPath", comment: "")
+            return L10n.animalsInPath
         }
-        return NSLocalizedString("animalsForSelectionToPath", comment: "")
+        return L10n.animalsForSelectionToPath
     }
     
     // MARK - Actions
@@ -148,5 +149,15 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
         self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
         self.animalTableView.reloadData()
+    }
+    
+    
+    /**
+    This function ensures going to the main screen of the lexicon part of the application after the tapping the item from the vertical menu.
+     - Parameters:
+        - sender: The item from the vertical menu which has set this method as a target and was tapped.
+    */
+    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+        flowDelegate?.goToLexicon(in: self)
     }
 }

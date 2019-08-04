@@ -38,7 +38,7 @@ class UIAnimalWithActionCell: UITableViewCell {
     
     let actionButton: UIButtonWithAnimalProperty = {
         let button = UIButtonWithAnimalProperty()
-        button.setTitle(NSLocalizedString("addToPath", comment: ""), for: .normal)
+        button.setTitle(L10n.addToPath, for: .normal)
         button.setTitleColor(UIColor(red: 0, green: 128.0 / 255.0, blue: 1, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

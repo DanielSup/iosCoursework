@@ -63,12 +63,12 @@ class UIVerticalMenu: UIView {
                 make.top.equalTo(self.menuItems.last!.snp.bottom)
             }
             make.left.equalToSuperview()
-            make.height.equalTo(height)
-            
-            make.width.equalToSuperview()
             if(last == true){
                 make.bottom.equalToSuperview()
             }
+ 
+            make.width.equalToSuperview()
+            make.height.equalTo(height)
         }
         item.addActionLabel()
         item.addIcon()

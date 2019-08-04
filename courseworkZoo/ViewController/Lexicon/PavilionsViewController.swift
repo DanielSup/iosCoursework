@@ -45,7 +45,7 @@ class PavilionsViewController: BaseLexiconViewController, UITableViewDelegate, U
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("pavilions", comment: "")
+        let textForSubtitle = L10n.pavilions
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

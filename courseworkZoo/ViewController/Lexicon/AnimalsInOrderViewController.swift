@@ -46,7 +46,7 @@ class AnimalsInOrderViewController: BaseLexiconViewController, UITableViewDelega
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("animalsInOrderList", comment: "") + " " + self.animalsInOrderViewModel.getOrderTitle()
+        let textForSubtitle = L10n.animalsInOrderList + " " + self.animalsInOrderViewModel.getOrderTitle()
         super.setTextForSubtitle(textForSubtitle)
 
         super.viewDidLoad()

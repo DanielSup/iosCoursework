@@ -46,7 +46,7 @@ class AnimalsEatingKindOfFoodViewController: BaseLexiconViewController, UITableV
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("listOfAnimalsEating", comment: "") + " " + self.animalsEatingKindOfFoodViewModel.getInstrumentalOfTitleOfKindOfFood()
+        let textForSubtitle = L10n.listOfAnimalsEating + " " + self.animalsEatingKindOfFoodViewModel.getInstrumentalOfTitleOfKindOfFood()
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

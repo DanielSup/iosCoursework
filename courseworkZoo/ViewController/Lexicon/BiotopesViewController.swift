@@ -34,7 +34,7 @@ class BiotopesViewController: BaseLexiconViewController, UITableViewDelegate, UI
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("biotopes", comment: "")
+        let textForSubtitle = L10n.biotopes
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

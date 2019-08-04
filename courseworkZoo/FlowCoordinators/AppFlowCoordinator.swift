@@ -90,6 +90,7 @@ extension AppFlowCoordinator: MainDelegate, GoToLexiconDelegate{
     func goToSelectInformation(in viewController: BaseViewController){
         let vm = SelectInformationViewModel(dependencies: AppDependency.shared)
         let vc = SelectInformationViewController(selectInformationViewModel: vm)
+        vc.flowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 }

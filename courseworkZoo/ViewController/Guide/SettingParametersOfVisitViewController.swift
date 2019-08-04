@@ -13,6 +13,7 @@ import SnapKit
  This class represents the screen for setting the parameters of the visit of the ZOO (walk speed and time spent at one animal).
  */
 class SettingParametersOfVisitViewController: BaseViewController {
+    typealias SettingParametersOfVisitDelegate = GoBackDelegate & GoToLexiconDelegate
     /// The walk speed during the visit of the ZOO.
     private var walkSpeed: Float = 3.0
     /// The time spent at any one animal during the visit of the ZOO.
@@ -23,8 +24,8 @@ class SettingParametersOfVisitViewController: BaseViewController {
     private var walkSpeedField: UITextField!
     /// The text field for setting the time spent at one animal
     private var timeSpentAtOneAnimalField: UITextField!
-    
-    var flowDelegate: GoBackDelegate?
+    /// The flow delegate for going back to the main screen of the guide after settings the parameters of the visit.
+    var flowDelegate: SettingParametersOfVisitDelegate?
     
     
     /**
@@ -76,14 +77,15 @@ class SettingParametersOfVisitViewController: BaseViewController {
         // adding a vertical menu
         let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
-        verticalMenu.addItem(goToLexiconItem, height: 120, last: false)
+        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
+        verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: "guideTitle", menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         let setParametersHelpLabel = UILabel()
-        setParametersHelpLabel.text = NSLocalizedString("setParametersByOwnJudgment", comment: "")
+        setParametersHelpLabel.text = L10n.setParametersByOwnJudgment
         setParametersHelpLabel.numberOfLines = 0
         setParametersHelpLabel.lineBreakMode = .byWordWrapping
         setParametersHelpLabel.preferredMaxLayoutWidth = self.view.bounds.width - 20
@@ -96,7 +98,7 @@ class SettingParametersOfVisitViewController: BaseViewController {
         
         
         let walkSpeedFieldLabel = UILabel()
-        walkSpeedFieldLabel.text = NSLocalizedString("walkSpeed", comment: "")
+        walkSpeedFieldLabel.text = L10n.walkSpeed
         walkSpeedFieldLabel.numberOfLines = 0
         walkSpeedFieldLabel.lineBreakMode = .byWordWrapping
         walkSpeedFieldLabel.preferredMaxLayoutWidth = self.view.bounds.width - 50
@@ -125,14 +127,14 @@ class SettingParametersOfVisitViewController: BaseViewController {
         walkSpeedFieldUnitLabel.textAlignment = .right
         self.view.addSubview(walkSpeedFieldUnitLabel)
         walkSpeedFieldUnitLabel.snp.makeConstraints{ (make) in
-            make.centerY.equalTo(walkSpeedField.snp.centerY)
             make.left.equalTo(walkSpeedField.snp.right)
+            make.centerY.equalTo(walkSpeedField.snp.centerY)
             make.width.equalTo(70)
         }
         
         
         let timeSpentAtOneAnimalFieldLabel = UILabel()
-        timeSpentAtOneAnimalFieldLabel.text = NSLocalizedString("timeSpentAtOneAnimal", comment: "")
+        timeSpentAtOneAnimalFieldLabel.text = L10n.timeSpentAtOneAnimal
         timeSpentAtOneAnimalFieldLabel.numberOfLines = 0
         timeSpentAtOneAnimalFieldLabel.lineBreakMode = .byWordWrapping
         timeSpentAtOneAnimalFieldLabel.preferredMaxLayoutWidth = self.view.bounds.width - 50
@@ -161,14 +163,14 @@ class SettingParametersOfVisitViewController: BaseViewController {
         timeSpentAtOneAnimalFieldUnitLabel.textAlignment = .right
         self.view.addSubview(timeSpentAtOneAnimalFieldUnitLabel)
         timeSpentAtOneAnimalFieldUnitLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(timeSpentAtOneAnimalField.snp.centerY)
             make.left.equalTo(timeSpentAtOneAnimalField.snp.right)
+            make.centerY.equalTo(timeSpentAtOneAnimalField.snp.centerY)
             make.width.equalTo(70)
         }
         
         
         let setParametersButton = UIButton()
-        setParametersButton.setTitle(NSLocalizedString("setParameters", comment: ""), for: .normal)
+        setParametersButton.setTitle(L10n.setParameters, for: .normal)
         setParametersButton.setTitleColor(UIColor.white, for: .normal)
         setParametersButton.backgroundColor = UIColor(red: 0.35, green: 0.35, blue: 0.35, alpha: 1)
         setParametersButton.layer.cornerRadius = 5
@@ -178,8 +180,8 @@ class SettingParametersOfVisitViewController: BaseViewController {
         self.view.addSubview(setParametersButton)
         setParametersButton.snp.makeConstraints{ (make) in
             make.top.equalTo(timeSpentAtOneAnimalField.snp.bottom).offset(25)
-            make.width.equalToSuperview().offset(-140)
             make.left.equalToSuperview().offset(100)
+            make.width.equalToSuperview().offset(-140)
         }
     }
     
@@ -193,5 +195,14 @@ class SettingParametersOfVisitViewController: BaseViewController {
         let timeSpentAtOneAnimalFieldValue: Float = (self.timeSpentAtOneAnimalField.text! as NSString).floatValue
         self.settingParametersOfVisitViewModel.setParameters(walkSpeed: walkSpeedFieldValue, timeSpentAtOneAnimal: timeSpentAtOneAnimalFieldValue)
         flowDelegate?.goBack(in: self)
+    }
+    
+    /**
+     This function ensures going to the main screen of the lexicon part of the application from the actual screen after the tapping of the item from the vertical menu.
+     - Parameters:
+        - sender: The item which has set this method as a target and was tapped.
+    */
+    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+        flowDelegate?.goToLexicon(in: self)
     }
 }

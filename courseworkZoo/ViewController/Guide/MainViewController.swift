@@ -113,9 +113,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         // action for turning on or off the voice
         self.mainViewModel.isVoiceOn.values.producer.startWithValues{ voiceOn in
             if (voiceOn){
-                self.verticalMenu.getItemAt(index: 4)?.changeActionString(actionString: "turnOffVoice")
+                self.verticalMenu.getItemAt(index: 4)?.changeActionStringAndActionText(actionString: "turnOffVoice", actionText: L10n.turnOffVoice)
             } else {
-                self.verticalMenu.getItemAt(index: 4)?.changeActionString(actionString: "turnOnVoice")
+                self.verticalMenu.getItemAt(index: 4)?.changeActionStringAndActionText(actionString: "turnOnVoice", actionText: L10n.turnOnVoice)
             }
         }
         
@@ -155,32 +155,32 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         // adding a vertical menu
         let verticalMenu = UIVerticalMenu(width: 70, topOffset: 0, parentView: self.contentView)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToLexiconItem, height: 120, last: false)
         
-        let selectAnimalsToPathItem = UIVerticalMenuItem(actionString: "selectAnimalsToPath", usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let selectAnimalsToPathItem = UIVerticalMenuItem(actionString: "selectAnimalsToPath", actionText: L10n.selectAnimalsToPath, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         selectAnimalsToPathItem.addTarget(self, action: #selector(selectAnimalsToPathItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(selectAnimalsToPathItem, height: 90, last: false)
         
-        let settingParametersOfVisitItem = UIVerticalMenuItem(actionString: "settingParametersOfVisit", usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let settingParametersOfVisitItem = UIVerticalMenuItem(actionString: "settingParametersOfVisit", actionText: L10n.settingParametersOfVisit, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         settingParametersOfVisitItem.addTarget(self, action: #selector(settingParametersOfVisitItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(settingParametersOfVisitItem, height: 90, last: false)
         
-        let selectInformationItem = UIVerticalMenuItem(actionString: "selectInformation", usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let selectInformationItem = UIVerticalMenuItem(actionString: "selectInformation", actionText: L10n.selectInformation, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         selectInformationItem.addTarget(self, action: #selector(selectInformationItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(selectInformationItem, height: 90, last: false)
         
-        let turnOnOrOffVoiceItem = UIVerticalMenuItem(actionString: "turnOffVoice", usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let turnOnOrOffVoiceItem = UIVerticalMenuItem(actionString: "turnOffVoice", actionText: L10n.turnOffVoice, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         turnOnOrOffVoiceItem.addTarget(self, action: #selector(turnOnOrOffVoiceItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(turnOnOrOffVoiceItem, height: 90, last: false)
         
-        let helpItem = UIVerticalMenuItem(actionString: "help", usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
+        let helpItem = UIVerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
         verticalMenu.addItem(helpItem, height: 90, last: true)
         self.verticalMenu = verticalMenu
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: "guideTitle", menuInTheParentView: verticalMenu, parentView: self.contentView)
+        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.contentView)
         
         // adding the horizontal menu
         let horizontalMenu = UIView()
@@ -189,16 +189,16 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         horizontalMenu.snp.makeConstraints{ (make) in
             make.top.equalTo(goToLexiconItem.snp.bottom)
             make.left.equalTo(goToLexiconItem.snp.right)
-            make.height.equalTo(90)
             make.width.equalToSuperview().offset(-198).multipliedBy(73.0 / 76.0)
+            make.height.equalTo(90)
         }
         self.horizontalMenu = horizontalMenu
         
         // add an item for saving path
-        let savePathButton = self.getItemInTheHorizontalMenu(previousItem: selectAnimalsToPathItem, actionString: "savePath")
+        let savePathButton = self.getItemInTheHorizontalMenu(previousItem: selectAnimalsToPathItem, actionString: "savePath", actionText: L10n.savePath)
         savePathButton.addTarget(self, action: #selector(savePathButtonTapped(_:)), for: .touchUpInside)
         // add in item for choosing the path
-        let chooseSavedPathButton = self.getItemInTheHorizontalMenu(previousItem: savePathButton, actionString: "chooseSavedPath")
+        let chooseSavedPathButton = self.getItemInTheHorizontalMenu(previousItem: savePathButton, actionString: "chooseSavedPath", actionText: L10n.chooseSavedPath)
         chooseSavedPathButton.addTarget(self, action: #selector(chooseSavedPathButtonTapped(_:)), for: .touchUpInside)
         
         
@@ -217,8 +217,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         } else {
             backgroundOfAnimationView.addSubview(self.speakingCharacterImageView!)
             self.speakingCharacterImageView!.snp.makeConstraints{ (make) in
-                make.left.equalTo(self.horizontalMenu.snp.right)
                 make.top.equalTo(self.horizontalMenu.snp.top)
+                make.left.equalTo(self.horizontalMenu.snp.right)
                 make.width.equalTo(128)
                 make.height.equalTo(180)
             }
@@ -236,11 +236,12 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.height.equalTo(45)
         }
         let viewForTheLengthOfThePathLabel = UILabel()
-        viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: "lengthOfThePathInZOO", value: 0, units: "km")
+        viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: 0, units: "km")
         viewForTheLengthOfThePath.addSubview(viewForTheLengthOfThePathLabel)
         viewForTheLengthOfThePathLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
         }
+        
         
         let viewForTimeOfTheVisitOfTheZOO = UIView()
         viewForTimeOfTheVisitOfTheZOO.backgroundColor = Colors.titleBackgroundColor.color
@@ -252,7 +253,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.height.equalTo(45)
         }
         let viewForTimeOfTheVisitOfTheZOOLabel = UILabel()
-        viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: "timeOfTheVisitOfTheZOO", value: 0, units: "min")
+        viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: 0, units: "min")
         viewForTimeOfTheVisitOfTheZOO.addSubview(viewForTimeOfTheVisitOfTheZOOLabel)
         viewForTimeOfTheVisitOfTheZOOLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
@@ -265,10 +266,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         zooPlanMapView.showsUserLocation = true
         zooPlanMapView.delegate = self
         zooPlanMapView.snp.makeConstraints { (make) in
-            make.left.equalTo(verticalMenu.snp.right)
-            make.right.equalToSuperview()
             make.top.equalTo(settingParametersOfVisitItem.snp.bottom)
+            make.left.equalTo(verticalMenu.snp.right)
             make.bottom.equalTo(verticalMenu.snp.bottom)
+            make.right.equalToSuperview()
         }
         // setting of the ZOO plan map view for further work
         self.zooPlanMapView = zooPlanMapView
@@ -309,17 +310,18 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.scrollView.addSubview(contentView)
         //adding constraints to scroll view
         scrollView.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
         }
+        
         //adding constraints to content view
         contentView.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
         }
     }
     
@@ -328,9 +330,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - previousItem: The item in the menu next to the item which will be added and then returned
         - actionString: The string representing the given action of the item
+        - actionText: The text which is shown above the icon in the item
      - Returns: The item of the menu as a button with a label and an image representing the given action
     */
-    func getItemInTheHorizontalMenu(previousItem: UIButton, actionString: String) -> UIButton{
+    func getItemInTheHorizontalMenu(previousItem: UIButton, actionString: String, actionText: String) -> UIButton{
         let actionButton = UIButton()
         actionButton.backgroundColor = Colors.nonSelectedItemBackgroundColor.color
         actionButton.layer.cornerRadius = 1
@@ -346,7 +349,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         // add a text label to the action button
         let actionButtonLabel = UILabel()
         actionButtonLabel.textColor = .black
-        actionButtonLabel.text = NSLocalizedString(actionString, comment: "")
+        actionButtonLabel.text = actionText
         actionButtonLabel.textAlignment = .center
         actionButtonLabel.font = actionButtonLabel.font.withSize(9)
         actionButtonLabel.numberOfLines = 0
@@ -366,9 +369,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         actionButton.addSubview(actionButtonIcon)
         actionButtonIcon.snp.makeConstraints{ (make) in
             make.top.equalTo(actionButtonLabel.snp.bottom).offset(2)
+            make.centerX.equalToSuperview()
             make.width.equalTo(43)
             make.height.equalTo(48)
-            make.centerX.equalToSuperview()
         }
         return actionButton
     }
@@ -379,7 +382,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Returns: Attributed strings containing a statistic of the visit of the ZOO with the given value and the given unit.
     */
     func getAttributedStringWithStatistic(statistic: String, value: Float, units: String) -> NSAttributedString{
-        let normalText = NSLocalizedString(statistic, comment: "") + " "
+        let normalText = statistic + " "
         let attributesOfNormalText = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9)]
         let attributedString = NSMutableAttributedString(string: normalText, attributes: attributesOfNormalText)
         

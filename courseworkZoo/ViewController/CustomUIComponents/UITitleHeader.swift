@@ -39,9 +39,9 @@ class UITitleHeader: UIView {
         /// adding this view with title to the parent view
         self.parentView.addSubview(self)
         self.snp.makeConstraints{ (make) in
+            make.top.equalTo(self.menuInTheParentView.snp.top)
             make.left.equalTo(self.menuInTheParentView.snp.right)
             make.right.equalToSuperview()
-            make.top.equalTo(self.menuInTheParentView.snp.top)
             make.height.equalTo(self.menuInTheParentView.getItemAt(index: 0)?.snp.height ?? 0)
         }
         self.addTitle()
@@ -56,7 +56,7 @@ class UITitleHeader: UIView {
     */
     private func addTitle(){
         self.titleLabel = UILabel()
-        self.titleLabel.text = NSLocalizedString(title, comment: "")
+        self.titleLabel.text = self.title
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
         self.titleLabel.numberOfLines = 0
         self.titleLabel.lineBreakMode = .byWordWrapping

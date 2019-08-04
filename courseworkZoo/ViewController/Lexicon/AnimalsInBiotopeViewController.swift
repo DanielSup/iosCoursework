@@ -45,7 +45,7 @@ class AnimalsInBiotopeViewController: BaseLexiconViewController, UITableViewDele
     }
     
     override func viewDidLoad() {
-        let textForSubtitle = NSLocalizedString("animalList", comment: "") + " " + self.animalsInBiotopeViewModel.getLocativeOfBiotopeTitleWithPreposition()
+        let textForSubtitle = L10n.animalList + " " + self.animalsInBiotopeViewModel.getLocativeOfBiotopeTitleWithPreposition()
         super.setTextForSubtitle(textForSubtitle)
         
         super.viewDidLoad()

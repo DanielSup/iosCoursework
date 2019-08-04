@@ -23,9 +23,9 @@ class MainViewModel: BaseViewModel{
     private var latitude = MutableProperty<Double>(-1)
     /// The mutable object with the actual longitude
     private var longitude = MutableProperty<Double>(-1)
-    
+    /// The mutable property with the list of visited animals during the visit with selected saved pathk.
     private var animalsVisited = MutableProperty<[Animal]>([])
-    
+    /// The array of placemarks to visit.
     private var path = MutableProperty<[MKPlacemark]>([])
     
     // Mark - Actions

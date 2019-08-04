@@ -26,23 +26,23 @@ enum Food: Int{
     var title: String {
         switch self {
             case .partsOfPlants:
-                return NSLocalizedString("partsOfPlants", comment: "")
+                return L10n.partsOfPlants
             case .livePrey:
-                return NSLocalizedString("livePrey", comment: "")
+                return L10n.livePrey
             case .corpses:
-                return NSLocalizedString("corpses", comment: "")
+                return L10n.corpses
             case .plankton:
-                return NSLocalizedString("plankton", comment: "")
+                return L10n.plankton
             case .plantsAndAnimals:
-                return NSLocalizedString("plantsAndAnimals", comment: "")
+                return L10n.plantsAndAnimals
             case .invertebrates:
-                return NSLocalizedString("invertebrates", comment: "")
+                return L10n.invertebrates
             case .fish:
-                return NSLocalizedString("fish", comment: "")
+                return L10n.fish
             case .seeds:
-                return NSLocalizedString("seeds", comment: "")
+                return L10n.seeds
             case .fruits:
-                return NSLocalizedString("fruits", comment: "")
+                return L10n.fruits
         }
     }
     
@@ -77,23 +77,23 @@ enum Food: Int{
     var instrumentalOfTitle: String {
         switch self {
             case .partsOfPlants:
-                return NSLocalizedString("byPartsOfPlants", comment: "")
+                return L10n.byPartsOfPlants
             case .livePrey:
-                return NSLocalizedString("byLivePrey", comment: "")
+                return L10n.byLivePrey
             case .corpses:
-                return NSLocalizedString("byCorpses", comment: "")
+                return L10n.byCorpses
             case .plankton:
-                return NSLocalizedString("byPlankton", comment: "")
+                return L10n.byPlankton
             case .plantsAndAnimals:
-                return NSLocalizedString("byPlantsAndAnimals", comment: "")
+                return L10n.byPlantsAndAnimals
             case .invertebrates:
-                return NSLocalizedString("byInvertebrates", comment: "")
+                return L10n.byInvertebrates
             case .fish:
-                return NSLocalizedString("byFish", comment: "")
+                return L10n.byFish
             case .seeds:
-                return NSLocalizedString("bySeeds", comment: "")
+                return L10n.bySeeds
             case .fruits:
-                return NSLocalizedString("byFruits", comment: "")
+                return L10n.byFruits
         }
     }
     
