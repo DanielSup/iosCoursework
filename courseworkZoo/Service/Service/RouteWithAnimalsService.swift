@@ -15,9 +15,13 @@ import ReactiveSwift
 */
 protocol RouteWithAnimalsServicing {
     func setSourceLocality(_ sourceLocality: CLLocationCoordinate2D)
-    func setAnimalsInPath(_ animalsInPath: [Animal])
+    func setAnimalsInPath(_ animalsInPath: [Animal]) -> Bool
     func getPlacemarksForTheActualPath(countPath: Bool) -> SignalProducer<[MKPlacemark], Error>
     func visitAnimal(_ animal: Animal)
+    func goThroughExit()
+    func getCloseAnimalInPath(latitude: Double, longitude: Double) -> SignalProducer<Animal?, Error>
+    func getCountOfUnvisitedAnimals() -> SignalProducer<Int, Error>
+    func getNextAnimalInThePath() -> SignalProducer<Animal?, Error>
 }
 
 
@@ -25,10 +29,10 @@ protocol RouteWithAnimalsServicing {
  This class is used for finding the shortest combination of routes with all animals in the actual path. It also finds shortest path between two placemarks
 */
 class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServicing {
-    
-    private var mapView: MKMapView = MKMapView()
     /// The array of animals in the path.
     private var animalsInPath: [Animal] = []
+    /// The array of non visited animals in path
+    private var nonVisitedAnimalsInPath: [Animal] = []
     /// The array of placemarks of animals and the placemark for the actual location
     private var placemarks: [MKPlacemark] = []
     /// The actual coordinate.
@@ -37,12 +41,35 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     
     
     /**
-     This function sets the list of animals in the actual path.
+     This function sets the list of animals in the actual path. It also sets the array of non visited animals to the array of all animals in the actual path.
      - Parameters:
         - animalsInRoute: The list of animals in the actual path.
+     - Returns: A boolean representing whether the new list of animals differs or not.
     */
-    func setAnimalsInPath(_ animalsInPath: [Animal]){
-        self.animalsInPath = animalsInPath
+    func setAnimalsInPath(_ animalsInPath: [Animal]) -> Bool{
+        
+        var differ = animalsInPath.count != self.animalsInPath.count
+        if (!differ) {
+            for animalInPath in self.animalsInPath {
+                var found = false
+                for animal in animalsInPath {
+                    if (animal.id == animalInPath.id) {
+                        found = true
+                        break
+                    }
+                }
+                if(!found) {
+                    differ = true
+                    break
+                }
+            }
+        }
+        
+        if (differ) {
+            self.animalsInPath = animalsInPath
+            self.nonVisitedAnimalsInPath = animalsInPath
+        }
+        return differ
     }
     
     /**
@@ -63,11 +90,19 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
             for placemarkForAnimal in placemarksForAnimals {
                 placemarks.append(placemarkForAnimal)
             }
+            if (placemarks.count > 1){
+                let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
+                let exitPlacemark = MKPlacemark(coordinate: exitCoordinate)
+                placemarks.append(exitPlacemark)
+            }
             self.placemarks = placemarks
         } else {
+            if (self.placemarks.count == 0) {
+                return SignalProducer(value: [placemarkForActualPosition])
+            }
             self.placemarks[0] = placemarkForActualPosition
         }
-    
+        
         return SignalProducer(value: self.placemarks)
     }
     
@@ -81,6 +116,10 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
             let coordinateOfAnimal = CLLocationCoordinate2D(latitude: animalInPath.latitude, longitude: animalInPath.longitude)
             let placemark = MKPlacemark(coordinate: coordinateOfAnimal)
             placemarksForAnimals.append(placemark)
+        }
+        
+        if (placemarksForAnimals.count > 6) {
+            return self.getPlacemarksForLargerCountOfAnimals(from: placemarksForAnimals)
         }
         
         var permutationsOfPlacemarks: [[MKPlacemark]] = []
@@ -100,6 +139,11 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
                 totalDistance += distance
             }
             
+            let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
+            let exitPlacemark = MKPlacemark(coordinate: exitCoordinate)
+            let distanceFromExit = sourcePlacemark.location!.distance(from: exitPlacemark.location!)
+            totalDistance += distanceFromExit
+            
             if (totalDistance < shortestDistance) {
                 shortestDistance = totalDistance
                 permutationWithShortestTotalDistance = permutationOfPlacemarks
@@ -107,6 +151,74 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
         }
         
         return permutationWithShortestTotalDistance
+    }
+    
+    /**
+     This function counts the shortest possible path if there is many selected animals (6 or more).
+     - Parameters:
+        - unorderedPlacemarks: The array of placemarks for animals which are not ordered by the distance from the entrance or the distance from the exit.
+     - Returns: The array of placemarks representing the shortest path.
+    */
+    private func getPlacemarksForLargerCountOfAnimals(from unorderedPlacemarks: [MKPlacemark]) -> [MKPlacemark] {
+        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
+        var entrancePlacemark = MKPlacemark(coordinate: entranceCoordinate)
+        
+        let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
+        var exitPlacemark = MKPlacemark(coordinate: exitCoordinate)
+        
+        var unprocessedPlacemarks = unorderedPlacemarks
+        var placemarksForPath: [MKPlacemark] = []
+        
+        var index = 0
+        while (unprocessedPlacemarks.count > 0) {
+            
+            if let closestPlacemarkFromEntrance = self.getClosestPlacemark(from: entrancePlacemark, in: unprocessedPlacemarks) as? MKPlacemark {
+                if let indexToRemove = unprocessedPlacemarks.index(of: closestPlacemarkFromEntrance) {
+                    placemarksForPath.insert(closestPlacemarkFromEntrance, at: index)
+                    unprocessedPlacemarks.remove(at: indexToRemove)
+                    entrancePlacemark = closestPlacemarkFromEntrance
+                }
+            }
+            
+            if let closestPlacemarkFromExit = self.getClosestPlacemark(from: exitPlacemark, in: unprocessedPlacemarks) as? MKPlacemark {
+                if let indexToRemove = unprocessedPlacemarks.index(of: closestPlacemarkFromExit) {
+                    placemarksForPath.insert(closestPlacemarkFromExit, at: index + 1)
+                    unprocessedPlacemarks.remove(at: indexToRemove)
+                    exitPlacemark = closestPlacemarkFromExit
+                }
+            }
+            
+            index += 1
+        }
+        
+        return placemarksForPath
+    }
+    
+    /**
+     This function finds the closest placemark from the given placemark in the array of placemarks representing animals.
+     - Parameters:
+        - source: The source placemark
+        - placemarks: The array of placemarks representing the selected animals in the actual path.
+     - Returns: The closest placemark from the given placemark representing an animal.
+    */
+    private func getClosestPlacemark(from source: MKPlacemark, in placemarks: [MKPlacemark]) -> MKPlacemark? {
+        var closestPlacemark: MKPlacemark? = nil
+        var shortestDistance = 0.0
+        
+        /// loop through all unprocessed placemarks (unselected as the shortest from any other placemark)
+        for placemark in placemarks {
+            let distanceFromTheActualPlacemark = placemark.location!.distance(from: source.location!)
+            
+            if (closestPlacemark == nil) {
+                closestPlacemark = placemark
+                shortestDistance = distanceFromTheActualPlacemark
+            } else if (distanceFromTheActualPlacemark < shortestDistance) {
+                closestPlacemark = placemark
+                shortestDistance = distanceFromTheActualPlacemark
+            }
+        }
+        
+        return closestPlacemark
     }
     
     /**
@@ -120,6 +232,30 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
         for placemark in self.placemarks[1...] {
             if (placemark.coordinate.latitude == animalCoordinate.latitude &&
                 placemark.coordinate.longitude == animalCoordinate.longitude) {
+                self.placemarks.remove(at: index)
+            }
+            index += 1
+        }
+        
+        var indexInArray: Int = 0
+        for nonVisitedAnimalInPath in self.nonVisitedAnimalsInPath {
+            if (animal.id == nonVisitedAnimalInPath.id) {
+                self.nonVisitedAnimalsInPath.remove(at: indexInArray)
+                break
+            }
+            indexInArray += 1
+        }
+    }
+    
+    
+    /**
+     This function ensures that there are not shown the path to the exit after the user gone through the exit from the ZOO.
+    */
+    func goThroughExit() {
+        var index: Int = 0
+        for placemark in self.placemarks {
+            if (abs(placemark.coordinate.latitude - Constants.exitLatitude) < 1e-7 &&
+                abs(placemark.coordinate.longitude - Constants.exitLongitude) < 1e-7) {
                 self.placemarks.remove(at: index)
             }
             index += 1
@@ -147,4 +283,40 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     }
 
     
+    /**
+     This function finds and returns an animal which is enough close (both coordinates of the animal can differ from the given ones not more than about 0,000045).
+     - Parameters:
+        - latitude: The first coordinate (latitude) of the actual location
+        - longiture: The second coordinate (longitude) of the actual location
+     - Returns: A signal producer with animals which is enough close or nil if there is no any enough close animal.
+    */
+    func getCloseAnimalInPath(latitude: Double, longitude: Double) -> SignalProducer<Animal?, Error> {
+        for animalInPath in self.nonVisitedAnimalsInPath {
+            if (abs(animalInPath.latitude - latitude) < Constants.closeDistance && abs(animalInPath.longitude - longitude) < Constants.closeDistance) {
+                return SignalProducer(value: animalInPath)
+            }
+        }
+        return SignalProducer(value: nil)
+    }
+    
+    
+    /**
+    This function returns the number of unvisited animals in the actual path.
+     - Returns: A signal producer with the number of unvisited animals in the path.
+     */
+    func getCountOfUnvisitedAnimals() -> SignalProducer<Int, Error> {
+        return SignalProducer(value: self.nonVisitedAnimalsInPath.count)
+    }
+    
+    
+    /**
+     This function returns a signal producer with the animal which should be visited by the user. If user visited all selected animals, it returns a signal producer with nil value.
+     - Returns: A signal producer with the animal which should be visited by the user (or nil if user visited all selected animals).
+    */
+    func getNextAnimalInThePath() -> SignalProducer<Animal?, Error> {
+        if (self.nonVisitedAnimalsInPath.count == 0) {
+            return SignalProducer(value: nil)
+        }
+        return SignalProducer(value: self.nonVisitedAnimalsInPath[0])
+    }
 }

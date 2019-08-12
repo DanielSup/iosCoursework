@@ -15,6 +15,7 @@ import ReactiveSwift
 protocol LocalityRepositoring{
     var entities: MutableProperty<[Locality]?> { get }
     func loadAndSaveDataIfNeeded()
+    func visitLocality(_ locality: Locality)
     func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError>
 }
 
@@ -23,6 +24,9 @@ protocol LocalityRepositoring{
  This class is a child of Repository class which stores the mutable object with list of loaded entities or nil (if entities can't be loaded). This class also ensures finding enough close localities.
  */
 class LocalityRepository: Repository<Locality>, LocalityRepositoring{
+    
+    /// The array of visited localities.
+    var visitedLocalities: [Locality] = []
     
     
     /**
@@ -35,7 +39,7 @@ class LocalityRepository: Repository<Locality>, LocalityRepositoring{
     func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError> {
         if let localities = self.entities.value as? [Locality]{
             for locality in localities{
-                if(abs(locality.latitude - latitude) < BaseViewModel.closeDistance && abs(locality.longitude - longitude) < BaseViewModel.closeDistance){
+                if(abs(locality.latitude - latitude) < Constants.closeDistance && abs(locality.longitude - longitude) < Constants.closeDistance && !self.isTheLocalityVisited(locality: locality)){
                     return SignalProducer(value: locality)
                 }
             }
@@ -47,4 +51,29 @@ class LocalityRepository: Repository<Locality>, LocalityRepositoring{
     }
     
     
+    /**
+     This function ensures marking the given locality as visited.
+     - Parameters:
+        - locality: The locality which is visited at the moment.
+    */
+    func visitLocality(_ locality: Locality) {
+        self.visitedLocalities.append(locality)
+    }
+    
+    
+    /**
+    This function returns whether the locality is visited or not.
+     - Parameters:
+        - locality: The locality which is checked.
+     - Returns: A boolean representing whether the given locality is visited or not.
+     */
+    private func isTheLocalityVisited(locality: Locality) -> Bool {
+        for visitedLocality in self.visitedLocalities {
+            if (abs(locality.latitude - visitedLocality.latitude) < 1e-7 &&
+                abs(locality.longitude - visitedLocality.longitude) < 1e-7) {
+                return true
+            }
+        }
+        return false
+    }
 }

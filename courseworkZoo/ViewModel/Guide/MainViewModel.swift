@@ -15,7 +15,7 @@ import ReactiveSwift
 This class is a view model for the main screen. This class ensures getting a list of animals and list of localities with known coordinates and machine-reading information about animals and localities.
  */
 class MainViewModel: BaseViewModel{
-    typealias Dependencies = HasLocalityRepository & HasAnimalRepository & HasVoiceSettingsRepository & HasSpeechService & HasProcessAnimalInformationService & HasPathRepository & HasRouteWithAnimalsService
+    typealias Dependencies = HasLocalityRepository & HasAnimalRepository & HasVoiceSettingsRepository & HasSpeechService & HasProcessAnimalInformationService & HasPathRepository & HasRouteWithAnimalsService & HasParametersOfVisitRepository
     
     /// The object with target dependencies
     private var dependencies: Dependencies
@@ -27,21 +27,21 @@ class MainViewModel: BaseViewModel{
     private var animalsVisited = MutableProperty<[Animal]>([])
     /// The array of placemarks to visit.
     private var path = MutableProperty<[MKPlacemark]>([])
+    /// The array of saved pieces of a path in the ZOO (path from one animal to any other animal).
+    private var savedPiecesOfPath: [PieceOfPath] = []
+    /// The boolean representing whether the exit was visited or not.
+    private var exitVisited = false
     
-    // Mark - Actions
+    
+    // MARK - Actions
     
     
     /**
-     This action tries to find and return an animal which is enough close (animal whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns an animal in closeness or nil if there is no enough close animal or an error indicating animals could not be loaded.
+     This action returns an animal in the actual path which is enough close (animal whose coordinates differ not more than 0,000045 from the actual coordinates). This action returns an animal in closeness or nil.
     */
-    lazy var getAnimalInCloseness = Action<(), Animal?, LoadError> { [unowned self] in
-        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        if let animals = self.dependencies.animalRepository.entities.value as? [Animal]
-        {
-            return self.dependencies.animalRepository.findAnimalInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
-        } else {
-            return SignalProducer<Animal?, LoadError>(error: .noAnimals)
-        }
+    lazy var getAnimalInCloseness = Action<(), Animal?, Error> { [unowned self] in
+    
+        return self.dependencies.routeWithAnimalsService.getCloseAnimalInPath(latitude: self.latitude.value, longitude: self.longitude.value)
     }
     
     
@@ -50,11 +50,7 @@ class MainViewModel: BaseViewModel{
      */
     lazy var getLocalityInCloseness = Action<(), Locality?, LoadError> { [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
-            return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
-        } else {
-            return SignalProducer<Locality?, LoadError>(error: .noLocalities)
-        }
+        return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
     }
 
     
@@ -119,9 +115,76 @@ class MainViewModel: BaseViewModel{
     }
     
 
-
+    /**
+     This action returns a signal producer with the list of placemarks for showing the actual path with animals in the map view in the main screen.
+    */
     lazy var getPlacemarksForTheActualPath = Action<Bool, [MKPlacemark], Error> {
+        [unowned self] in
         return self.dependencies.routeWithAnimalsService.getPlacemarksForTheActualPath(countPath: $0)
+    }
+    
+    
+    /**
+     This action returns a signal producer with the list of visited animals.
+    */
+    lazy var getVisitedAnimals = Action<(), [Animal], Error> { [unowned self] in
+        return SignalProducer(value: self.animalsVisited.value)
+    }
+    
+    
+    /**
+     This action returns a signal producer with the piece of path between the two given placemarks. If there is no saved piece of path with the two given placemarks, it returns a signal producer with nil value.
+    */
+    lazy var getSavedPieceOfPathBetweenPlacemarks = Action<(MKPlacemark, MKPlacemark), PieceOfPath?, Error> {
+        for savedPieceOfPath in self.savedPiecesOfPath {
+            let sourceCoordinate = savedPieceOfPath.sourcePlacemark.location!.coordinate
+            let sourceCoordinateLatitude = sourceCoordinate.latitude
+            let sourceCoordinateLongiture = sourceCoordinate.longitude
+            
+            let destinationCoordinate = savedPieceOfPath.destinationPlacemark.location!.coordinate
+            let destinationCoordinateLatitude = destinationCoordinate.latitude
+            let destinationCoordinateLongitude = destinationCoordinate.longitude
+            
+            let sourcePlacemarkCoordinate = $0.location!.coordinate
+            let sourcePlacemarkCoordinateLatitude = sourcePlacemarkCoordinate.latitude
+            let sourcePlacemarkCoordinateLongitude = sourcePlacemarkCoordinate.longitude
+            
+            let destinationPlacemarkCoordinate = $1.location!.coordinate
+            let destinationPlacemarkCoordinateLatitude = destinationPlacemarkCoordinate.latitude
+            let destinationPlacemarkCoordinateLongitude = destinationPlacemarkCoordinate.longitude
+            
+            if (abs(sourcePlacemarkCoordinateLatitude - sourceCoordinateLatitude) < 1e-7 &&
+                abs(sourcePlacemarkCoordinateLongitude - sourcePlacemarkCoordinateLongitude) < 1e-7 &&
+                abs(destinationPlacemarkCoordinateLatitude - destinationCoordinateLatitude) < 1e-7 &&
+                abs(destinationPlacemarkCoordinateLongitude - destinationPlacemarkCoordinateLongitude) < 1e-7) {
+                return SignalProducer(value: savedPieceOfPath)
+            }
+        }
+        return SignalProducer(value: nil)
+    }
+    
+    
+    /**
+     This action returns a signal producer with the number of unvisited animals in the actual path.
+    */
+    lazy var getCountOfUnvisitedAnimals = Action<(), Int, Error> {
+        return self.dependencies.routeWithAnimalsService.getCountOfUnvisitedAnimals()
+    }
+    
+    
+    /**
+     This action returns a signal producer with the actual set walk speed during the visit of the ZOO.
+    */
+    lazy var getWalkSpeed = Action<(), Float, Error> {
+        return self.dependencies.parametersOfVisitRepository.getWalkSpeed()
+    }
+    
+    
+    /**
+     This action returns a signal producer with the time spent at one animal during the visit of the ZOO.
+    */
+    lazy var getTimeSpentAtOneAnimal = Action<(), Float, Error> {
+        return self.dependencies.parametersOfVisitRepository.getTimeSpentAtOneAnimal()
     }
     
     
@@ -170,16 +233,9 @@ class MainViewModel: BaseViewModel{
         }
         
         if let animalForSaying = animal as? Animal{
-            let latitude = animalForSaying.latitude
-            let longitude = animalForSaying.longitude
-            let coords = Coords(latitude: latitude, longitude: longitude)
-            let existsPosition = BaseViewModel.existsPosition(latitude: latitude, longitude: longitude)
-            if(!existsPosition){
-                BaseViewModel.visited.append(coords)
-                self.dependencies.processAnimalInformationService.updateSetting(actualSetting)
-                let text: String = self.dependencies.processAnimalInformationService.processInformationAndGetTextForMachineReading(about: animalForSaying)
-                self.dependencies.speechService.sayText(text: text)
-            }
+            self.dependencies.processAnimalInformationService.updateSetting(actualSetting)
+            let text: String = self.dependencies.processAnimalInformationService.processInformationAndGetTextForMachineReading(about: animalForSaying)
+            self.dependencies.speechService.sayText(text: text)
         }
     }
     
@@ -218,16 +274,9 @@ class MainViewModel: BaseViewModel{
         }
 
         if let localityForSaying = locality as? Locality {
-            let latitude = localityForSaying.latitude
-            let longitude = localityForSaying.longitude
-            let coords = Coords(latitude: latitude, longitude: longitude)
-            let existsPosition = BaseViewModel.existsPosition(latitude: latitude, longitude: longitude)
-            if(!existsPosition){
-                BaseViewModel.visited.append(coords)
-                let title = localityForSaying.title.replacingOccurrences(of: "Pavilon", with: "Pavilonu")
-                let textForReading = "Vítejte v " + title
-                self.dependencies.speechService.sayText(text: textForReading)
-            }
+            let title = localityForSaying.title.replacingOccurrences(of: "Pavilon", with: "Pavilonu")
+            let textForReading = "Vítejte v " + title
+            self.dependencies.speechService.sayText(text: textForReading)
         }
     }
 
@@ -255,6 +304,7 @@ class MainViewModel: BaseViewModel{
         self.dependencies.voiceSettingsRepository.turnVoiceOnOrOff()
     }
     
+    
     /**
      This function adds the animal to the actual unsaved path (if the animal isn't in the actual path) or removes the animal from the actual path (if the animal is in the actual path).
      - Parameters:
@@ -277,6 +327,7 @@ class MainViewModel: BaseViewModel{
         }
     }
     
+    
     /**
      This function set callback for the speech service. The first callback is called after starting the machine-reading and the second callback is called after the end of the machine-reading.
      - Parameters:
@@ -287,6 +338,7 @@ class MainViewModel: BaseViewModel{
         self.dependencies.speechService.setStartCallback(callback: startCallback)
         self.dependencies.speechService.setFinishCallback(callback: finishCallback)
     }
+    
     
     /**
      This function ensures informing the user about the visiting of the animal.
@@ -299,12 +351,117 @@ class MainViewModel: BaseViewModel{
     }
     
     
+    /**
+     This function sets the array of animals in the path.
+     - Parameters:
+        - animalsInPath: The array of animals which the user wants to visit.
+    */
     func set(animalsInPath: [Animal]) {
-        self.dependencies.routeWithAnimalsService.setAnimalsInPath(animalsInPath)
+        if (self.dependencies.routeWithAnimalsService.setAnimalsInPath(animalsInPath)) {
+            self.animalsVisited.value = []
+        }
         
     }
     
+    
+    /**
+     This function sets the source location where the path in the ZOO starts.
+     - Parameters:
+        - sourceLocation: The actual location where the path in the ZOO with animals starts.
+    */
     func set(sourceLocation: CLLocationCoordinate2D){
         self.dependencies.routeWithAnimalsService.setSourceLocality(sourceLocation)
+    }
+    
+    
+    /**
+    This function saved the path from one animal to any second animal in the path in the ZOO.
+     - Parameters:
+        - pieceOfPath: The path from one animal to second.
+     */
+    func savePieceOfPath(_ pieceOfPath: PieceOfPath) {
+        self.savedPiecesOfPath.append(pieceOfPath)
+    }
+    
+    
+    /**
+     This function marks the locality which is visited now as visited.
+     - Parameters:
+        - locality: The locality which is visited now and has to be marked as visited.
+    */
+    func visitLocality(_ locality: Locality) {
+        self.dependencies.localityRepository.visitLocality(locality)
+    }
+    
+    
+    /**
+     This function finds out and returns whether the entrance to ZOO is at the route.
+     - Parameters:
+        - route: The found shortest route from the actual location to the first animal in the path in the ZOO.
+     - Returns: A boolean value representing whether the entrance is at the given route.
+    */
+    func isEntranceAtTheRoute(_ route: MKRoute) -> Bool{
+        for step in route.steps as [MKRoute.Step] {
+            let pointCount = step.polyline.pointCount
+            if (pointCount < 2) {
+                continue
+            }
+            var pointArray = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: pointCount)
+            step.polyline.getCoordinates(pointArray, range: NSMakeRange(0, pointCount))
+            
+            
+            for c in 0..<(pointCount - 1) {
+                let start = pointArray[c]
+                let finish = pointArray[c + 1]
+                if (CountService.isEntranceAtTheLine(a: start, b: finish)) {
+                    return true
+                }
+            }
+            pointArray.deallocate()
+        }
+        return false
+    }
+    
+    /**
+     This function ensures welcoming user in the application.
+    */
+    func welcomeUserInTheGuide() {
+        let text = L10n.welcome
+        self.dependencies.speechService.sayText(text: text)
+    }
+    
+    
+    /**
+     This function checks whether the user is at the exit from the ZOO. If the user gone through the exit, then the path to the exit isn't shown anymore. This method is called only if there are no unvisited animals in the path in the ZOO and user should go to the exit.
+     - Returns: A boolean whether the user is at the exit or not.
+    */
+    func checkExitAndGoThroughIt() -> Bool {
+        if abs(self.latitude.value - Constants.exitLatitude) < Constants.closeDistance &&
+            abs(self.longitude.value - Constants.exitLongitude) < Constants.closeDistance {
+            self.dependencies.routeWithAnimalsService.goThroughExit()
+            self.exitVisited = true
+            return true
+        }
+        return self.exitVisited
+    }
+    
+    
+    /**
+     This function ensures that the user is informed by the voice that he/she is at the exit from the ZOO. This function is called only if there are no unvisited animals.
+    */
+    func speechAtExit() {
+        if abs(self.latitude.value - Constants.exitLatitude) < Constants.closeDistance &&
+            abs(self.longitude.value - Constants.exitLongitude) < Constants.closeDistance {        self.dependencies.speechService.sayText(text: L10n.speechAtExit)
+        }
+    }
+    
+    /**
+     This function ensures informing the user that he/she is at the entrance to the ZOO. This function is called only if no animal is visited.
+    */
+    func speechAtEntrance() {
+        if abs(self.latitude.value - Constants.entranceLatitude) < Constants.closeDistance &&
+            abs(self.longitude.value - Constants.entranceLongitude) < Constants.closeDistance {
+            self.dependencies.speechService.sayText(text: L10n.speechAtEntrance)
+        }
     }
 }

@@ -26,4 +26,15 @@ class Constants: NSObject {
     static let continentsBindingsRelativeUrl: String = "continents/bindings"
     /// The relative URL for getting the list of classes and orders.
     static let classes = "classes"
+    /// The maximal distance in degrees at which must be an animal or a locality for machine-reading the information about the locality or the animal.
+    static let closeDistance = 0.000045 + 1
+    /// The latitude of the entrance to the ZOO
+    static let entranceLatitude = 49.9726294
+    /// The longitude of the entrance to the ZOO.
+    static let entranceLongitude = 14.1649192
+    /// The latitude of the exit from the ZOO.
+    static let exitLatitude = 49.9726644
+    /// The longitude of the exit from the ZOO.
+    static let exitLongitude = 14.1651967
+    
 }

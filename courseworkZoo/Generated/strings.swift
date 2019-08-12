@@ -31,8 +31,12 @@ internal enum L10n {
   internal static let allInformation = L10n.tr("Localizable", "allInformation")
   /// Amphibia
   internal static let amphibia = L10n.tr("Localizable", "amphibia")
+  /// Animal to select to the actual path
+  internal static let animalLegend = L10n.tr("Localizable", "animalLegend")
   /// List of animals
   internal static let animalList = L10n.tr("Localizable", "animalList")
+  /// Animal which is in the actual path
+  internal static let animalSelectedLegend = L10n.tr("Localizable", "animalSelectedLegend")
   /// Animals for selection to the path
   internal static let animalsForSelectionToPath = L10n.tr("Localizable", "animalsForSelectionToPath")
   /// List of animals in
@@ -95,6 +99,8 @@ internal enum L10n {
   internal static let classInfo = L10n.tr("Localizable", "classInfo")
   /// Class list
   internal static let classList = L10n.tr("Localizable", "classList")
+  /// Animal at which you are
+  internal static let closeAnimalLegend = L10n.tr("Localizable", "closeAnimalLegend")
   /// Coniferous forest
   internal static let coniferousForest = L10n.tr("Localizable", "coniferousForest")
   /// Continents
@@ -117,8 +123,12 @@ internal enum L10n {
   internal static let diplopda = L10n.tr("Localizable", "diplopda")
   /// Elementary information
   internal static let elementary = L10n.tr("Localizable", "elementary")
+  /// Entrance
+  internal static let entranceLegend = L10n.tr("Localizable", "entranceLegend")
   /// Europe
   internal static let europe = L10n.tr("Localizable", "europe")
+  /// Exit
+  internal static let exitLegend = L10n.tr("Localizable", "exitLegend")
   /// Fish
   internal static let fish = L10n.tr("Localizable", "fish")
   /// Food
@@ -197,12 +207,16 @@ internal enum L10n {
   internal static let listOfAnimalsEating = L10n.tr("Localizable", "listOfAnimalsEating")
   /// Live prey
   internal static let livePrey = L10n.tr("Localizable", "livePrey")
+  /// Pavilion (locality)
+  internal static let localityLegend = L10n.tr("Localizable", "localityLegend")
   /// Mammalia
   internal static let mammalia = L10n.tr("Localizable", "mammalia")
   /// Mollusca
   internal static let mollusca = L10n.tr("Localizable", "mollusca")
   /// Mountains
   internal static let mountains = L10n.tr("Localizable", "mountains")
+  /// Animal which should be visited now
+  internal static let nextAnimalToVisitLegend = L10n.tr("Localizable", "nextAnimalToVisitLegend")
   /// No said information
   internal static let `none` = L10n.tr("Localizable", "none")
   /// North America
@@ -265,6 +279,10 @@ internal enum L10n {
   internal static let settingParametersOfVisit = L10n.tr("Localizable", "settingParametersOfVisit")
   /// South America
   internal static let southAmerica = L10n.tr("Localizable", "southAmerica")
+  /// Welcome in the ZOO. You are at the entrance.
+  internal static let speechAtEntrance = L10n.tr("Localizable", "speechAtEntrance")
+  /// You are just going from the ZOO now.
+  internal static let speechAtExit = L10n.tr("Localizable", "speechAtExit")
   /// Stony steps and semi-deserts
   internal static let stonyStepsAndSemiDeserts = L10n.tr("Localizable", "stonyStepsAndSemiDeserts")
   /// This is
@@ -283,6 +301,8 @@ internal enum L10n {
   internal static let turnOffVoice = L10n.tr("Localizable", "turnOffVoice")
   /// Turn on the voice
   internal static let turnOnVoice = L10n.tr("Localizable", "turnOnVoice")
+  /// Visited animal
+  internal static let visitedAnimalLegend = L10n.tr("Localizable", "visitedAnimalLegend")
   /// Walk speed through ZOO
   internal static let walkSpeed = L10n.tr("Localizable", "walkSpeed")
   /// Welcome in the application

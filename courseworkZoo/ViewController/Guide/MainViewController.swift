@@ -24,8 +24,26 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     weak var flowDelegate: MainDelegate?
     /// The boolean representing whether the shortest path will be counted or not (only actualized)
     private var countShortestPath: Bool = true
+    /// The animal which is enough close to machine-read information about it.
+    private var closeAnimal: Animal? = nil
+    /// The array of visited animals in the visit of the ZOO.
+    private var visitedAnimals: [Animal] = []
+    /// The length of the path with animals
+    private var lengthOfTheTripInZoo: Double = 0.0
+    /// The number of unvisited animals in the actual path.
+    private var countOfUnvisitedAnimals: Int = 0
+    /// The walk speed during the visit of the ZOO.
+    private var walkSpeed: Float = 0.0
+    /// The time spent at one animal during the visit of the ZOO.
+    private var timeSpentAtOneAnimal: Float = 0.0
+    /// The boolean representing whether the user gone at the input to the ZOO.
+    private var entranceVisited = false
+    /// The boolean representing whether the user gone throught the exit from the ZOO.
+    private var exitVisited = false
+    
     /// The location manager which ensures listening to changes of the actual location
     let locationManager = CLLocationManager()
+    
     /// The scroll view for scrolling the main screen with map and information about any enough close animal
     private let scrollView: UIScrollView = UIScrollView()
     /// The view inside the scroll view with map and information about any enough close animal
@@ -40,6 +58,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private weak var zooPlanMapView: MKMapView!
     /// The multiline label for reading the actually machine-read text about a close locality or a close animal.
     private var textForReadingLabel: UILabel!
+    /// The label for showing the length of the path in the ZOO.
+    private var viewForTheLengthOfThePathLabel: UILabel!
+    /// The label for showing the total time of the visit in the ZOO
+    private var viewForTimeOfTheVisitOfTheZOOLabel: UILabel!
     
     
     /**
@@ -77,6 +99,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         // registration of the action which ensures adding annotations of animals with known coordinates to the map after getting the list of animals with given coordinates
         self.mainViewModel.getAnimals.values.producer.startWithValues { (animalList) in
+            
             for animal in animalList{
                 // making and adding an annotation of the actual animal to the map
                 let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
@@ -88,25 +111,37 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         // registration of the actions for saying information about localities and animals in the closeness of the actual location
         self.mainViewModel.getAnimalInCloseness.values.producer.startWithValues{ (animal) in
-            self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-                self.speakingCharacterImageView?.startAnimatingGif()
+            if (animal != nil && self.textForReadingLabel.text == "") {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(animal: animal)
-            }, finishCallback: {
-                self.speakingCharacterImageView?.stopAnimatingGif()
-                self.textForReadingLabel.text = ""
-            })
-            self.mainViewModel.sayInformationAbout(animal: animal)
+                
+                self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+                    self.speakingCharacterImageView?.startAnimatingGif()
+                    self.closeAnimal = animal
+                    self.mainViewModel.visitAnimal(animal: animal!)
+                    self.refreshMapView()
+                }, finishCallback: {
+                    self.speakingCharacterImageView?.stopAnimatingGif()
+                    self.closeAnimal = nil
+                    self.refreshMapView()
+                    self.textForReadingLabel.text = ""
+                })
+                self.mainViewModel.sayInformationAbout(animal: animal)
+            }
         }
         
         self.mainViewModel.getLocalityInCloseness.values.producer.startWithValues{ locality in
-            self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-                self.speakingCharacterImageView?.startAnimatingGif()
+            if (locality != nil && self.textForReadingLabel.text == "") {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(locality: locality)
-            }, finishCallback: {
-                self.speakingCharacterImageView?.stopAnimatingGif()
-                self.textForReadingLabel.text = ""
-            })
-            self.mainViewModel.sayInformationAbout(locality: locality)
+                
+                self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+                    self.mainViewModel.visitLocality(locality!)
+                    self.speakingCharacterImageView?.startAnimatingGif()
+                }, finishCallback: {
+                    self.speakingCharacterImageView?.stopAnimatingGif()
+                    self.textForReadingLabel.text = ""
+                })
+                self.mainViewModel.sayInformationAbout(locality: locality)
+            }
         }
         
         
@@ -120,20 +155,103 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         self.mainViewModel.getPlacemarksForTheActualPath.values.producer.startWithValues { placemarks in
+            self.lengthOfTheTripInZoo = 0.0
             self.zooPlanMapView.removeOverlays(self.zooPlanMapView.overlays)
             self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
             var lastPlacemark = placemarks[0]
+            var first: Bool = true
             for placemark in placemarks[1...] {
-                self.drawShortestRouteBetweenTwoPlacemarks(sourcePlacemark: lastPlacemark, destinationPlacemark: placemark)
+                self.drawShortestRouteBetweenTwoPlacemarks(sourcePlacemark: lastPlacemark, destinationPlacemark: placemark, fromActual: first)
                 lastPlacemark = placemark
+                first = false
             }
+        }
+        
+        self.mainViewModel.getVisitedAnimals.values.producer.startWithValues { visitedAnimals in
+            self.visitedAnimals = visitedAnimals
+        }
+        
+        self.mainViewModel.getCountOfUnvisitedAnimals.values.producer.startWithValues { countOfUnvisitedAnimals in
+            self.countOfUnvisitedAnimals = countOfUnvisitedAnimals
+            if (countOfUnvisitedAnimals > 0) {
+                self.exitVisited = false
+            }
+        }
+        
+        self.mainViewModel.getWalkSpeed.values.producer.startWithValues {
+            walkSpeed in
+            self.walkSpeed = walkSpeed
+        }
+        
+        self.mainViewModel.getTimeSpentAtOneAnimal.values.producer.startWithValues {
+            timeSpentAtOneAnimal in
+            self.timeSpentAtOneAnimal = timeSpentAtOneAnimal
         }
     }
     
+    /**
+     This function ensures refreshing the pins in the map view with markers for animals and localities.
+    */
+    func refreshMapView(){
+        self.zooPlanMapView.removeAnnotations(self.zooPlanMapView!.annotations)
+        self.mainViewModel.getLocalities.apply().start()
+        self.mainViewModel.getAnimals.apply().start()
+        
+        let entranceAnnotation = MKPointAnnotation()
+        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
+        entranceAnnotation.coordinate = entranceCoordinate
+        entranceAnnotation.title = L10n.entranceLegend
+        self.zooPlanMapView.addAnnotation(entranceAnnotation)
+        
+        let exitAnnotation = MKPointAnnotation()
+        let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
+        exitAnnotation.coordinate = exitCoordinate
+        exitAnnotation.title = L10n.exitLegend
+        self.zooPlanMapView.addAnnotation(exitAnnotation)
+    }
+    
+    
+    /**
+     This function refresh annotations of animals in the map view apart from the selected annotation. This method is called after change the actual path.
+     - Parameters:
+        - annotation: The selected annotation of animal.
+    */
+    func refreshAnimalAnnotationsWithoutSelected(annotation: MKAnnotation) {
+        var annotations: [MKAnnotation] = []
+        for annotationInMapView in self.zooPlanMapView!.annotations {
+            if let animalAnnotation = annotationInMapView as? AnimalAnnotation {
+                if (abs(animalAnnotation.coordinate.latitude - annotation.coordinate.latitude) >= 1e-7 || abs(animalAnnotation.coordinate.longitude - annotation.coordinate.longitude) >= 1e-7) {
+                    annotations.append(animalAnnotation)
+                }
+            }
+        }
+        
+        self.zooPlanMapView.removeAnnotations(annotations)
+        self.mainViewModel.getAnimals.values.producer.startWithValues { (animalList) in
+            for animal in animalList{
+                if (abs(animal.latitude - annotation.coordinate.latitude) >= 1e-7 || abs(animal.longitude - annotation.coordinate.longitude) >= 1e-7) {
+                    continue
+                }
+                // making and adding an annotation of the actual animal to the map
+                let coordinate = CLLocationCoordinate2D(latitude: animal.latitude, longitude: animal.longitude)
+                let annotation: AnimalAnnotation = AnimalAnnotation(coordinate: coordinate, animal: animal)
+                self.zooPlanMapView.addAnnotation(annotation)
+            }
+            
+        }
+        self.mainViewModel.getAnimals.apply().start()
+    }
+    
+    
+    
+    /**
+     In this function there is refreshed the map view with markers and there are reloaded parameters of the visit of the ZOO.
+     - Parameters:
+        - animated: The boolean representing whether the view was added to the window using an animation.
+    */
     override func viewDidAppear(_ animated: Bool) {
         self.zooPlanMapView.removeAnnotations(self.zooPlanMapView.annotations)
-        self.mainViewModel.getAnimals.apply().start()
-        self.mainViewModel.getLocalities.apply().start()
+        self.refreshMapView()
         
         self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
         self.mainViewModel.getAnimalsInPath.values.producer.startWithValues {
@@ -142,7 +260,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         self.mainViewModel.getAnimalsInPath.apply().start()
         self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+        self.mainViewModel.getWalkSpeed.apply().start()
+        self.mainViewModel.getTimeSpentAtOneAnimal.apply().start()
     }
+    
     
     /**
      This function ensures setting the location manager to watch the location with the best possibel accuracy. This function also ensures adding the map view and the navigation bar to the screen.
@@ -179,8 +300,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         verticalMenu.addItem(helpItem, height: 90, last: true)
         self.verticalMenu = verticalMenu
         
+        
         // adding a view for the title on the screen
         let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.contentView)
+        
         
         // adding the horizontal menu
         let horizontalMenu = UIView()
@@ -212,9 +335,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.height.equalTo(180)
         }
         
-        if(self.speakingCharacterImageView == nil){
-            print("Speaking character can't be loaded.")
-        } else {
+        if(self.speakingCharacterImageView != nil) {
             backgroundOfAnimationView.addSubview(self.speakingCharacterImageView!)
             self.speakingCharacterImageView!.snp.makeConstraints{ (make) in
                 make.top.equalTo(self.horizontalMenu.snp.top)
@@ -224,6 +345,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             }
             self.speakingCharacterImageView?.stopAnimatingGif()
         }
+        
         
         // Views for showing statistics of the visit of the ZOO
         let viewForTheLengthOfThePath = UIView()
@@ -235,12 +357,15 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.width.equalTo(self.horizontalMenu.snp.width)
             make.height.equalTo(45)
         }
+        
         let viewForTheLengthOfThePathLabel = UILabel()
-        viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: 0, units: "km")
+        viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: Float(self.lengthOfTheTripInZoo / 1000.0), units: "km")
         viewForTheLengthOfThePath.addSubview(viewForTheLengthOfThePathLabel)
         viewForTheLengthOfThePathLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
         }
+        self.viewForTheLengthOfThePathLabel = viewForTheLengthOfThePathLabel
+        
         
         
         let viewForTimeOfTheVisitOfTheZOO = UIView()
@@ -252,12 +377,14 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.width.equalTo(self.horizontalMenu.snp.width)
             make.height.equalTo(45)
         }
+        
         let viewForTimeOfTheVisitOfTheZOOLabel = UILabel()
         viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: 0, units: "min")
         viewForTimeOfTheVisitOfTheZOO.addSubview(viewForTimeOfTheVisitOfTheZOOLabel)
         viewForTimeOfTheVisitOfTheZOOLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
         }
+        self.viewForTimeOfTheVisitOfTheZOOLabel = viewForTimeOfTheVisitOfTheZOOLabel
         
         
         //adding the main map view
@@ -274,6 +401,38 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         // setting of the ZOO plan map view for further work
         self.zooPlanMapView = zooPlanMapView
         
+        let userLocation = self.zooPlanMapView.userLocation.coordinate
+        self.mainViewModel.set(sourceLocation: userLocation)
+        
+        
+        let legendView = LegendView(parentView: self.contentView, zooPlanMapView: self.zooPlanMapView)
+        
+        
+        let animalSelectedItem = LegendViewItem(imageName: "animalSelected", textOfTheLegend: L10n.animalSelectedLegend)
+        legendView.addItem(animalSelectedItem, last: false)
+        
+        let nextAnimalToVisitItem = LegendViewItem(imageName: "nextAnimalToVisit", textOfTheLegend: L10n.nextAnimalToVisitLegend)
+        legendView.addItem(nextAnimalToVisitItem, last: false)
+        
+        let animalLegendItem = LegendViewItem(imageName: "animal", textOfTheLegend: L10n.animalLegend)
+        legendView.addItem(animalLegendItem, last: false)
+        
+        let closeAnimalItem = LegendViewItem(imageName: "closeAnimal", textOfTheLegend: L10n.closeAnimalLegend)
+        legendView.addItem(closeAnimalItem, last: false)
+        
+        let visitedAnimalItem = LegendViewItem(imageName: "visitedAnimal", textOfTheLegend: L10n.visitedAnimalLegend)
+        legendView.addItem(visitedAnimalItem, last: false)
+        
+        let localityItem = LegendViewItem(imageName: "locality", textOfTheLegend: L10n.localityLegend)
+        legendView.addItem(localityItem, last: false)
+        
+        let entranceItem = LegendViewItem(imageName: "entrance", textOfTheLegend: L10n.entranceLegend)
+        legendView.addItem(entranceItem, last: false)
+        
+        let exitItem = LegendViewItem(imageName: "exit", textOfTheLegend: L10n.exitLegend)
+        legendView.addItem(exitItem, last: true)
+        
+        
         self.textForReadingLabel = UILabel()
         self.textForReadingLabel.text = ""
         self.textForReadingLabel.numberOfLines = 0
@@ -282,7 +441,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.textForReadingLabel.sizeToFit()
         self.contentView.addSubview(self.textForReadingLabel)
         self.textForReadingLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.zooPlanMapView.snp.bottom)
+            make.top.equalTo(legendView.snp.bottom)
             make.left.equalToSuperview().offset(10)
             make.bottom.equalToSuperview()
         }
@@ -297,6 +456,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
 
         // adding loaded localities to map
         self.addLoadedLocalitiesToMap()
+        
+        self.welcomeUserInTheGuide()
     }
     
     /**
@@ -324,6 +485,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             make.width.equalToSuperview()
         }
     }
+    
     
     /**
      This function ensures adding and then returning an item in the horizontal menu. It adds a button with a label and an image to the horizontal menu and then it returns the created menu item.
@@ -402,15 +564,60 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         //running actions - getting localities and animals from the view model
         self.mainViewModel.getLocalities.apply().start()
         self.mainViewModel.getAnimals.apply().start()
+        
+        let entranceAnnotation = MKPointAnnotation()
+        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
+        entranceAnnotation.coordinate = entranceCoordinate
+        entranceAnnotation.title = L10n.entranceLegend
+        self.zooPlanMapView.addAnnotation(entranceAnnotation)
+        
+        let exitAnnotation = MKPointAnnotation()
+        let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
+        exitAnnotation.coordinate = exitCoordinate
+        exitAnnotation.title = L10n.exitLegend
+        self.zooPlanMapView.addAnnotation(exitAnnotation)
     }
     
     
-    private func drawShortestRouteBetweenTwoPlacemarks(sourcePlacemark: MKPlacemark, destinationPlacemark: MKPlacemark){
+    /**
+     This function ensures welcoming the user in the guide at the start of the application.
+    */
+    func welcomeUserInTheGuide() {
+        self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+            self.textForReadingLabel.text = L10n.welcome
+            self.speakingCharacterImageView?.startAnimatingGif()
+        }, finishCallback: {
+            self.speakingCharacterImageView?.stopAnimatingGif()
+            self.textForReadingLabel.text = ""
+        })
+        self.mainViewModel.welcomeUserInTheGuide()
+    }
+    
+    /**
+     This function finds the shortest route betweeen the two given placemarks and ensures showing the found route to the map view. It is used for showing the route with the selected animals in the ZOO.
+     - Parameters:
+        - sourcePlacemark: The source placemark representing the start.
+        - destinationPlacemark: The placemark representing the destination.
+    */
+    private func drawShortestRouteBetweenTwoPlacemarks(sourcePlacemark: MKPlacemark, destinationPlacemark: MKPlacemark, fromActual: Bool){
         
         let directionRequest = MKDirections.Request()
         directionRequest.source = MKMapItem(placemark: sourcePlacemark)
         directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
         directionRequest.transportType = .walking
+        
+        var pieceOfPathBetweenPlacemarks: PieceOfPath? = nil
+        
+        self.mainViewModel.getSavedPieceOfPathBetweenPlacemarks.values.producer.startWithValues {
+            (pieceOfPath) in
+            pieceOfPathBetweenPlacemarks = pieceOfPath
+        }
+        self.mainViewModel.getSavedPieceOfPathBetweenPlacemarks.apply((sourcePlacemark, destinationPlacemark)).start()
+        
+        if (pieceOfPathBetweenPlacemarks != nil) {
+            self.actualizeInformationAboutRoute(pieceOfPathBetweenPlacemarks!.route)
+            return
+        }
         
         // calculating the shortest path to the target selected location
         let directions = MKDirections(request: directionRequest)
@@ -418,19 +625,93 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             guard let directionResponse = response else {
                 return
             }
-            let routes = directionResponse.routes
             
-            // finding the shortest route from the array of routes
-            var shortestRoute = routes[0]
-            for route in routes{
+            var shortestRoute = directionResponse.routes[0]
+            for route in directionResponse.routes{
                 if(route.distance < shortestRoute.distance){
                     shortestRoute = route
                 }
             }
             
-            self.zooPlanMapView.addOverlay(shortestRoute.polyline, level: .aboveRoads)
+           
+            if (fromActual && self.visitedAnimals.count == 0 && self.mainViewModel.isEntranceAtTheRoute(shortestRoute)) {
+                self.drawRouteFromEntranceToFirstAnimal(destinationPlacemark: destinationPlacemark)
+                return
+            }
+            
+            if (!fromActual) {
+                let pieceOfPath = PieceOfPath(sourcePlacemark: sourcePlacemark, destinationPlacemark: destinationPlacemark, route: shortestRoute)
+                self.mainViewModel.savePieceOfPath(pieceOfPath)
+            }
+            self.actualizeInformationAboutRoute(shortestRoute)
         }
     }
+    
+    
+    /**
+     This function draws the shortest route from the entrance to the ZOO to the first animal in the path.
+     - Parameters:
+        - destinationPlacemark: The destination placemark (the placemark of the first animal in the actual path).
+    */
+    func drawRouteFromEntranceToFirstAnimal(destinationPlacemark: MKPlacemark){
+        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
+        let entrancePlacemark = MKPlacemark(coordinate: entranceCoordinate)
+        
+        let directionFromEntranceToDestinationRequest = MKDirections.Request()
+        directionFromEntranceToDestinationRequest.source = MKMapItem(placemark: entrancePlacemark)
+        directionFromEntranceToDestinationRequest.destination = MKMapItem(placemark: destinationPlacemark)
+        directionFromEntranceToDestinationRequest.transportType = .walking
+        
+        var pieceOfPathBetweenPlacemarks: PieceOfPath? = nil
+        
+        self.mainViewModel.getSavedPieceOfPathBetweenPlacemarks.values.producer.startWithValues {
+            (pieceOfPath) in
+            pieceOfPathBetweenPlacemarks = pieceOfPath
+        }
+        self.mainViewModel.getSavedPieceOfPathBetweenPlacemarks.apply((entrancePlacemark, destinationPlacemark)).start()
+        
+        if (pieceOfPathBetweenPlacemarks != nil) {
+            self.actualizeInformationAboutRoute(pieceOfPathBetweenPlacemarks!.route)
+            return
+        }
+        
+        let directionsFromEntranceToDestination = MKDirections(request: directionFromEntranceToDestinationRequest)
+        directionsFromEntranceToDestination.calculate { (response, error) in
+            guard let directionResponse = response else {
+                return
+            }
+            
+            var shortestRoute = directionResponse.routes[0]
+            for route in directionResponse.routes{
+                if(route.distance < shortestRoute.distance){
+                    shortestRoute = route
+                }
+            }
+            
+            let pieceOfPath = PieceOfPath(sourcePlacemark: entrancePlacemark, destinationPlacemark: destinationPlacemark, route: shortestRoute)
+            self.mainViewModel.savePieceOfPath(pieceOfPath)
+            self.actualizeInformationAboutRoute(shortestRoute)
+        }
+    }
+    
+    
+    /**
+     This function ensures the actualization of the information about the actual visit of the ZOO with the selected animals in the actual path. It also ensures the drawing the route on the map view.
+     - Parameters:
+        - shortestRoute: The path between two animals or between an animal in the path and exit or actual location and the first animal of from entrance to the first animal.
+    */
+    func actualizeInformationAboutRoute(_ shortestRoute: MKRoute) {
+        self.lengthOfTheTripInZoo += shortestRoute.distance
+        self.viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: Float(self.lengthOfTheTripInZoo / 1000.0), units: "km")
+        
+        self.mainViewModel.getCountOfUnvisitedAnimals.apply().start()
+        
+        let totalTimeInZOO: Float = Float(self.countOfUnvisitedAnimals) * self.timeSpentAtOneAnimal + Float(self.lengthOfTheTripInZoo) * 60 / (1000.0 * self.walkSpeed)
+        self.viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: totalTimeInZOO, units: "min")
+        
+        self.zooPlanMapView.addOverlay(shortestRoute.polyline, level: .aboveRoads)
+    }
+    
     
     /**
      This function is called each time when location was updated. In this function there are updated informations about location in the view model. There are also run actions for saying information about an animal or a locality which is close to the actual position
@@ -442,11 +723,68 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         if let location = locations.last {
             self.mainViewModel.updateLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            
+            /// This block of code ensures that it will be checked whether the user is at the exit from the ZOO if there are no unvisited animals. The user is also informed about this. If the user gone through the exit, the path from the actual location to the exit will not be shown.
+            if (self.countOfUnvisitedAnimals == 0 && self.mainViewModel.checkExitAndGoThroughIt()) {
+                self.speechAtExit()
+                
+                self.zooPlanMapView.removeOverlays(self.zooPlanMapView.overlays)
+                
+                self.viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: 0, units: "km")
+                self.viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: 0, units: "min")
+                return
+            }
+            
+            if (self.visitedAnimals.count == 0) {
+                self.speechAtEntrance()
+            }
+            
             self.mainViewModel.getLocalityInCloseness.apply().start()
             self.mainViewModel.getAnimalInCloseness.apply().start()
             self.mainViewModel.getPlacemarksForTheActualPath.apply(false).start()
         }
     }
+    
+    
+    /**
+     This function informs the user that he/she is at the exit from the ZOO. There are set callbacks which ensure showing the information.
+    */
+    func speechAtExit() {
+        if (self.exitVisited) {
+            return
+        }
+        self.exitVisited = true
+        self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+            self.textForReadingLabel.text = L10n.speechAtExit
+            self.speakingCharacterImageView?.startAnimatingGif()
+        }, finishCallback: {
+            self.speakingCharacterImageView?.stopAnimatingGif()
+            self.textForReadingLabel.text = ""
+        })
+        self.mainViewModel.speechAtExit()
+    }
+    
+    
+    /**
+     This function informs the user that he/she is at the entrance to the ZOO. There are set callbacks which ensure showing the information.
+     */
+    func speechAtEntrance() {
+        if (self.entranceVisited) {
+            return
+        }
+        self.entranceVisited = true
+        self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+            self.textForReadingLabel.text = L10n.speechAtEntrance
+            self.speakingCharacterImageView?.startAnimatingGif()
+        }, finishCallback: {
+            self.speakingCharacterImageView?.stopAnimating()
+            self.textForReadingLabel.text = ""
+        })
+        self.mainViewModel.speechAtEntrance()
+    }
+    
+    // MARK - Map view methods
     
     
     /**
@@ -465,6 +803,13 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         return renderer
     }
     
+    
+    /**
+     This function ensures showing an annotation for animal or locality. The image for the annotation is dependent on whether the animal is in the actual path or not and whether the animal was visited or not.
+     - Parameters:
+        - mapView: The map view of the ZOO with markers for animals and localities
+        - annotation: The annotation which is shown in the map view as the selected image.
+    */
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -482,7 +827,37 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             }
             self.mainViewModel.getAnimalsInPath.apply().start()
             
-            let imageName = isTheAnimalInPath ? "animalSelected" : "animal"
+            var imageName = isTheAnimalInPath ? "animalSelected" : "animal"
+            
+            if (self.closeAnimal != nil) {
+                if (self.closeAnimal!.id == animal.id) {
+                    imageName = "closeAnimal"
+                }
+            }
+            
+            
+            var firstAnimalLocation: CLLocationCoordinate2D!
+            self.mainViewModel.getPlacemarksForTheActualPath.values.producer.startWithValues { placemarks in
+                if (placemarks.count >= 2) {
+                    firstAnimalLocation = placemarks[1].location!.coordinate
+                }
+            }
+            self.mainViewModel.getPlacemarksForTheActualPath.apply(false).start()
+            
+            if (firstAnimalLocation != nil) {
+                if (abs(firstAnimalLocation.latitude - animalAnnotation.coordinate.latitude) < 1e-7 && abs(firstAnimalLocation.longitude - animalAnnotation.coordinate.longitude) < 1e-7) {
+                    imageName = "nextAnimalToVisit"
+                }
+            }
+            
+            self.mainViewModel.getVisitedAnimals.apply().start()
+
+            for visitedAnimal in self.visitedAnimals {
+                if (visitedAnimal.id == animal.id) {
+                    imageName = "visitedAnimal"
+                    break
+                }
+            }
             
             animalAnnotation.isSelected = isTheAnimalInPath
             animalAnnotation.title = animalAnnotation.animal.title
@@ -491,26 +866,79 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             annotationView.canShowCallout = true
             return annotationView
         }
+        
+        var imageName = "locality"
+        
+        let annotationCoordinate = annotation.coordinate
+        let annotationCoordinateLatitude = annotationCoordinate.latitude
+        let annotationCoordinateLongitude = annotationCoordinate.longitude
+        
+        if (abs(annotationCoordinateLatitude - Constants.entranceLatitude) < 1e-7 &&
+            abs(annotationCoordinateLongitude - Constants.entranceLongitude) < 1e-7) {
+            imageName = "entrance"
+        } else if (abs(annotationCoordinateLatitude - Constants.exitLatitude) < 1e-7 &&
+            abs(annotationCoordinateLongitude - Constants.exitLongitude) < 1e-7) {
+            imageName = "exit"
+        }
+        
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "localityAnnotation")
-        annotationView.image = UIImage(named: "animal")
+        annotationView.image = UIImage(named: imageName)
         annotationView.canShowCallout = true
         return annotationView
     
     }
     
     
+    /**
+     This function is called after selecting any annotation in map at coordinates of any animal. There is selected an image for the selected annotation. The image for the selected annotation is dependent on whether the animal was visited or not and whether the animal is in the path or not.
+     - Parameters:
+        - mapView: The map view of the ZOO with markers of animals
+        - view: The annotation view of an animal which was selected.
+    */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if var animalAnnotation = view.annotation as? AnimalAnnotation {
             self.mainViewModel.addOrRemoveAnimal(animal: animalAnnotation.animal)
             animalAnnotation.isSelected = !animalAnnotation.isSelected
-            let imageName = animalAnnotation.isSelected ? "animalSelected" : "animal"
-            view.image = UIImage(named: imageName)
+            var imageName = animalAnnotation.isSelected ? "animalSelected" : "animal"
             
+            if (self.closeAnimal != nil) {
+                if (self.closeAnimal!.id == animalAnnotation.animal.id) {
+                    imageName = "closeAnimal"
+                }
+            }
+            
+        
             self.mainViewModel.getAnimalsInPath.values.producer.startWithValues { (animalsInPath) in
                 self.mainViewModel.set(animalsInPath: animalsInPath)
             }
             self.mainViewModel.getAnimalsInPath.apply().start()
+
+            var firstAnimalLocation: CLLocationCoordinate2D!
+            self.mainViewModel.getPlacemarksForTheActualPath.values.producer.startWithValues { placemarks in
+                if (placemarks.count >= 2) {
+                    firstAnimalLocation = placemarks[1].location!.coordinate
+                }
+            }
             self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+            
+            if (firstAnimalLocation != nil) {
+                if (abs(firstAnimalLocation.latitude - animalAnnotation.coordinate.latitude) < 1e-7 && abs(firstAnimalLocation.longitude - animalAnnotation.coordinate.longitude) < 1e-7) {
+                    imageName = "nextAnimalToVisit"
+                }
+            }
+            
+            
+            self.mainViewModel.getVisitedAnimals.apply().start()
+            
+            for visitedAnimal in self.visitedAnimals {
+                if (visitedAnimal.id == animalAnnotation.animal.id) {
+                    imageName = "visitedAnimal"
+                    break
+                }
+            }
+            
+            view.image = UIImage(named: imageName)
+            self.refreshAnimalAnnotationsWithoutSelected(annotation: view.annotation!)
         }
     }
     

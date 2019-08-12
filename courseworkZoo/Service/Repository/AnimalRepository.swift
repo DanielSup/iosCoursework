@@ -18,7 +18,6 @@ protocol AnimalRepositoring{
     func loadAndSaveDataIfNeeded()
     func findAnimalById(id: Int) -> SignalProducer<Animal?, LoadError>
     func findAnimalBy_Id(id: Int) -> SignalProducer<Animal?, LoadError>
-    func findAnimalInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Animal?, LoadError>
     func findAnimalsInOrder(_ order: Class) -> SignalProducer<[Animal], LoadError>
     func findAnimalsInLocality(_ locality: Locality) -> SignalProducer<[Animal], LoadError>
 }
@@ -68,25 +67,6 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
         }
     }
     
-    /**
-     This function finds an animal whose coordinates differ not more than 0,000045 from the given coordinates.
-     - Parameters:
-     - latitude: The actual latitude
-     - longitude: The actual longitude
-     - Returns: The signal producer with a close animal or nil value (if no enough close animal found) or an error representing that animals couldn't be loaded.
-     */
-    func findAnimalInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Animal?, LoadError> {
-        if let animalList = self.entities.value as? [Animal] {
-            for animal in animalList{
-                if(abs(animal.latitude - latitude) < BaseViewModel.closeDistance + 10 && abs(animal.longitude - longitude) < BaseViewModel.closeDistance + 10){
-                    return SignalProducer(value: animal)
-                }
-            }
-            return SignalProducer(value: nil)
-        } else {
-            return SignalProducer(error: .noAnimals)
-        }
-    }
     
     /**
      This function finds and returns the list of animals in the given order. If animals could not be loaded, it returns an error
