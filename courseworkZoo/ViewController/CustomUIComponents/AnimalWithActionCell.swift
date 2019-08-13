@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class UIButtonWithAnimalProperty: UIButton{
+class ButtonWithAnimalProperty: UIButton{
     // The animal on the button.
     var animal: Animal? = nil
 }
@@ -17,7 +17,7 @@ class UIButtonWithAnimalProperty: UIButton{
 /**
  This class represents a table cell with a button for adding an animal to the actual path or removing an animal from the actual path.
 */
-class UIAnimalWithActionCell: UITableViewCell {
+class AnimalWithActionCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,8 +36,8 @@ class UIAnimalWithActionCell: UITableViewCell {
         return label
     }()
     
-    let actionButton: UIButtonWithAnimalProperty = {
-        let button = UIButtonWithAnimalProperty()
+    let actionButton: ButtonWithAnimalProperty = {
+        let button = ButtonWithAnimalProperty()
         button.setTitle(L10n.addToPath, for: .normal)
         button.setTitleColor(UIColor(red: 0, green: 128.0 / 255.0, blue: 1, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

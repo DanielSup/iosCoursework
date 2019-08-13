@@ -58,14 +58,14 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
         let totalOffset = navigationBarHeight + statusBarHeight
         
         // adding a vertical menu
-        let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
+        let verticalMenu = VerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToLexiconItem = VerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = TitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         // getting sizes of display and the height of the top bar with search
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -123,7 +123,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
      - Parameters:
         - sender: The item which has set this method as a target and was tapped.
     */
-    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+    @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToLexicon(in: self)
     }
 }

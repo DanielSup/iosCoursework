@@ -80,7 +80,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
         /// Adding the search bar for searching screens
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = UISearchBar.Style.prominent
-        searchBar.placeholder = NSLocalizedString("searchScreen", comment: "")
+        searchBar.placeholder = L10n.searchScreen
         searchBar.sizeToFit()
         searchBar.delegate = self
         navigationItem.titleView = searchBar
@@ -95,62 +95,62 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
         var totalOffset = navigationBarHeight + statusBarHeight
         let topOffset = !self.isParentViewChanged ? totalOffset : 0
         
-        let verticalMenu = UIVerticalMenu(width: Float(self.verticalMenuWidth), topOffset: topOffset, parentView: self.parentView)
+        let verticalMenu = VerticalMenu(width: Float(self.verticalMenuWidth), topOffset: topOffset, parentView: self.parentView)
         
-        let goToGuideItem = UIVerticalMenuItem(actionString: "goToGuide", actionText: L10n.goToGuide, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToGuideItem = VerticalMenuItem(actionString: "goToGuide", actionText: L10n.goToGuide, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToGuideItem.addTarget(self, action: #selector(goToGuideItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToGuideItem, height: 120, last: false)
         
         if (typeOfViewControllerString == "ClassViewController"){
-            let classesItem = UIVerticalMenuItem(actionString: "classesSelected", actionText: L10n.classes, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
+            let classesItem = VerticalMenuItem(actionString: "classesSelected", actionText: L10n.classes, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
             verticalMenu.addItem(classesItem, height: 90, last: false)
         } else {
-            let classesItem = UIVerticalMenuItem(actionString: "classes", actionText: L10n.classes, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            let classesItem = VerticalMenuItem(actionString: "classes", actionText: L10n.classes, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
             classesItem.addTarget(self, action: #selector(classesItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(classesItem, height: 90, last: false)
         }
         
         if (typeOfViewControllerString == "ContinentsViewController"){
-            let continentsItem = UIVerticalMenuItem(actionString: "continentsSelected", actionText: L10n.continents, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
+            let continentsItem = VerticalMenuItem(actionString: "continentsSelected", actionText: L10n.continents, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
             verticalMenu.addItem(continentsItem, height: 90, last: false)
         } else {
-            let continentsItem = UIVerticalMenuItem(actionString: "continents", actionText: L10n.continents, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            let continentsItem = VerticalMenuItem(actionString: "continents", actionText: L10n.continents, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
             continentsItem.addTarget(self, action: #selector(continentsItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(continentsItem, height: 90, last: false)
         }
         
         if (typeOfViewControllerString == "BiotopesViewController") {
-            let biotopesItem = UIVerticalMenuItem(actionString: "biotopesSelected", actionText: L10n.biotopes, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
+            let biotopesItem = VerticalMenuItem(actionString: "biotopesSelected", actionText: L10n.biotopes, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
             verticalMenu.addItem(biotopesItem, height: 90, last: false)
         } else {
-            let biotopesItem = UIVerticalMenuItem(actionString: "biotopes", actionText: L10n.biotopes, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            let biotopesItem = VerticalMenuItem(actionString: "biotopes", actionText: L10n.biotopes, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
             biotopesItem.addTarget(self, action: #selector(biotopesItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(biotopesItem, height: 90, last: false)
         }
         
         if (typeOfViewControllerString == "KindsOfFoodViewController") {
-            let kindsOfFoodItem = UIVerticalMenuItem(actionString: "kindsOfFoodSelected", actionText: L10n.kindsOfFood, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
+            let kindsOfFoodItem = VerticalMenuItem(actionString: "kindsOfFoodSelected", actionText: L10n.kindsOfFood, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
             verticalMenu.addItem(kindsOfFoodItem, height: 90, last: false)
         } else {
-            let kindsOfFoodItem = UIVerticalMenuItem(actionString: "kindsOfFood", actionText: L10n.kindsOfFood, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            let kindsOfFoodItem = VerticalMenuItem(actionString: "kindsOfFood", actionText: L10n.kindsOfFood, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
             kindsOfFoodItem.addTarget(self, action: #selector(kindsOfFoodItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(kindsOfFoodItem, height: 90, last: false)
         }
         
         if (typeOfViewControllerString == "PavilionsViewController") {
-            let pavilionsItem = UIVerticalMenuItem(actionString: "pavilionsSelected", actionText: L10n.pavilions, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
+            let pavilionsItem = VerticalMenuItem(actionString: "pavilionsSelected", actionText: L10n.pavilions, usedBackgroundColor: Colors.selectedItemBackgroundColor.color)
             verticalMenu.addItem(pavilionsItem, height: 90, last: false)
         } else {
-            let pavilionsItem = UIVerticalMenuItem(actionString: "pavilions", actionText: L10n.pavilions, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+            let pavilionsItem = VerticalMenuItem(actionString: "pavilions", actionText: L10n.pavilions, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
             pavilionsItem.addTarget(self, action: #selector(pavilionsItemTapped(_:)), for: .touchUpInside)
             verticalMenu.addItem(pavilionsItem, height: 90, last: false)
         }
         
-        let helpItem = UIVerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
+        let helpItem = VerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
         verticalMenu.addItem(helpItem, height: 90, last: true)
         
         
-        let titleHeader = UITitleHeader(title: L10n.lexiconTitle, menuInTheParentView: verticalMenu, parentView: self.parentView)
+        let titleHeader = TitleHeader(title: L10n.lexiconTitle, menuInTheParentView: verticalMenu, parentView: self.parentView)
         
         
         if (self.textForSubtitle != "" || self.attributedStringForSubtitle != nil) {
@@ -229,7 +229,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
      - sender: The item with this method as a target which was tapped.
      */
-    @objc func goToGuideItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func goToGuideItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToGuide(in: self)
     }
     
@@ -239,7 +239,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
      - sender: The item with this method as a target which was tapped.
      */
-    @objc func classesItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func classesItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToClasses(in: self)
     }
     
@@ -249,7 +249,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func biotopesItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func biotopesItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToBiotopes(in: self)
     }
     
@@ -258,7 +258,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
         - sender: The item with this method as a target which was tapped.
     */
-    @objc func pavilionsItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func pavilionsItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToPavilions(in: self)
     }
 
@@ -268,7 +268,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func continentsItemTapped(_ sender: UIVerticalMenuItem) {
+    @objc func continentsItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToContinents(in: self)
     }
     
@@ -278,7 +278,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func kindsOfFoodItemTapped(_ sender: UIVerticalMenuItem) {
+    @objc func kindsOfFoodItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToKindsOfFood(in: self)
     }
 }

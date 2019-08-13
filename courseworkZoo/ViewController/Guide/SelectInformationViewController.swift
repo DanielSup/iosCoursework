@@ -51,14 +51,14 @@ class SelectInformationViewController: BaseViewController {
         let totalOffset = navigationBarHeight + statusBarHeight
         
         // adding a vertical menu
-        let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
+        let verticalMenu = VerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToLexiconItem = VerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = TitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         var index: Int = 0
         
@@ -104,7 +104,7 @@ class SelectInformationViewController: BaseViewController {
      - Parameters:
         - sender: The item from the vertical menu which is tapped.
     */
-    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+    @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToLexicon(in: self)
     }
 

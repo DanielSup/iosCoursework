@@ -40,6 +40,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private var entranceVisited = false
     /// The boolean representing whether the user gone throught the exit from the ZOO.
     private var exitVisited = false
+    /// The coordinate of the entrance
+    private var coordinateOfEntrance: CLLocationCoordinate2D!
     
     /// The location manager which ensures listening to changes of the actual location
     let locationManager = CLLocationManager()
@@ -49,7 +51,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     /// The view inside the scroll view with map and information about any enough close animal
     private let contentView: UIView = UIView()
     /// The vertical menu with buttons for actions (mostly going to a different screen, one item is for turning off (turning on) the voice)
-    private var verticalMenu: UIVerticalMenu!
+    private var verticalMenu: VerticalMenu!
     /// The horizontal menu next to the second item of the vertical menu with buttons for actions (going to a different screen)
     private var horizontalMenu: UIView = UIView()
     /// The animation view with a speaking character.
@@ -194,20 +196,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     */
     func refreshMapView(){
         self.zooPlanMapView.removeAnnotations(self.zooPlanMapView!.annotations)
-        self.mainViewModel.getLocalities.apply().start()
-        self.mainViewModel.getAnimals.apply().start()
-        
-        let entranceAnnotation = MKPointAnnotation()
-        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
-        entranceAnnotation.coordinate = entranceCoordinate
-        entranceAnnotation.title = L10n.entranceLegend
-        self.zooPlanMapView.addAnnotation(entranceAnnotation)
-        
-        let exitAnnotation = MKPointAnnotation()
-        let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
-        exitAnnotation.coordinate = exitCoordinate
-        exitAnnotation.title = L10n.exitLegend
-        self.zooPlanMapView.addAnnotation(exitAnnotation)
+        self.addLoadedLocalitiesToMap()
     }
     
     
@@ -274,35 +263,35 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.view.backgroundColor = Colors.screenBodyBackgroundColor.color
         
         // adding a vertical menu
-        let verticalMenu = UIVerticalMenu(width: 70, topOffset: 0, parentView: self.contentView)
+        let verticalMenu = VerticalMenu(width: 70, topOffset: 0, parentView: self.contentView)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToLexiconItem = VerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToLexiconItem, height: 120, last: false)
         
-        let selectAnimalsToPathItem = UIVerticalMenuItem(actionString: "selectAnimalsToPath", actionText: L10n.selectAnimalsToPath, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let selectAnimalsToPathItem = VerticalMenuItem(actionString: "selectAnimalsToPath", actionText: L10n.selectAnimalsToPath, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         selectAnimalsToPathItem.addTarget(self, action: #selector(selectAnimalsToPathItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(selectAnimalsToPathItem, height: 90, last: false)
         
-        let settingParametersOfVisitItem = UIVerticalMenuItem(actionString: "settingParametersOfVisit", actionText: L10n.settingParametersOfVisit, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let settingParametersOfVisitItem = VerticalMenuItem(actionString: "settingParametersOfVisit", actionText: L10n.settingParametersOfVisit, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         settingParametersOfVisitItem.addTarget(self, action: #selector(settingParametersOfVisitItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(settingParametersOfVisitItem, height: 90, last: false)
         
-        let selectInformationItem = UIVerticalMenuItem(actionString: "selectInformation", actionText: L10n.selectInformation, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let selectInformationItem = VerticalMenuItem(actionString: "selectInformation", actionText: L10n.selectInformation, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         selectInformationItem.addTarget(self, action: #selector(selectInformationItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(selectInformationItem, height: 90, last: false)
         
-        let turnOnOrOffVoiceItem = UIVerticalMenuItem(actionString: "turnOffVoice", actionText: L10n.turnOffVoice, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
+        let turnOnOrOffVoiceItem = VerticalMenuItem(actionString: "turnOffVoice", actionText: L10n.turnOffVoice, usedBackgroundColor: Colors.nonSelectedItemBackgroundColor.color)
         turnOnOrOffVoiceItem.addTarget(self, action: #selector(turnOnOrOffVoiceItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(turnOnOrOffVoiceItem, height: 90, last: false)
         
-        let helpItem = UIVerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
+        let helpItem = VerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
         verticalMenu.addItem(helpItem, height: 90, last: true)
         self.verticalMenu = verticalMenu
         
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.contentView)
+        let titleHeader = TitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.contentView)
         
         
         // adding the horizontal menu
@@ -565,17 +554,22 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.getLocalities.apply().start()
         self.mainViewModel.getAnimals.apply().start()
         
-        let entranceAnnotation = MKPointAnnotation()
-        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
-        entranceAnnotation.coordinate = entranceCoordinate
-        entranceAnnotation.title = L10n.entranceLegend
-        self.zooPlanMapView.addAnnotation(entranceAnnotation)
+        for coordinateOfEntrance in Constants.coordinatesOfEntrances {
+            let entranceAnnotation = MKPointAnnotation()
+            let entranceCoordinate = CLLocationCoordinate2D(latitude: coordinateOfEntrance.latitude, longitude: coordinateOfEntrance.longitude)
+            entranceAnnotation.coordinate = entranceCoordinate
+            entranceAnnotation.title = L10n.entranceLegend
+            self.zooPlanMapView.addAnnotation(entranceAnnotation)
+            
+        }
         
-        let exitAnnotation = MKPointAnnotation()
-        let exitCoordinate = CLLocationCoordinate2D(latitude: Constants.exitLatitude, longitude: Constants.exitLongitude)
-        exitAnnotation.coordinate = exitCoordinate
-        exitAnnotation.title = L10n.exitLegend
-        self.zooPlanMapView.addAnnotation(exitAnnotation)
+        for coordinateOfExit in Constants.coordinatesOfExits {
+            let exitAnnotation = MKPointAnnotation()
+            let exitCoordinate = CLLocationCoordinate2D(latitude: coordinateOfExit.latitude, longitude: coordinateOfExit.longitude)
+            exitAnnotation.coordinate = exitCoordinate
+            exitAnnotation.title = L10n.exitLegend
+            self.zooPlanMapView.addAnnotation(exitAnnotation)
+        }
     }
     
     
@@ -633,9 +627,19 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }
             }
             
-           
-            if (fromActual && self.visitedAnimals.count == 0 && self.mainViewModel.isEntranceAtTheRoute(shortestRoute)) {
-                self.drawRouteFromEntranceToFirstAnimal(destinationPlacemark: destinationPlacemark)
+            let entrance = self.mainViewModel.entranceAtTheRoute(shortestRoute)
+            if (fromActual && self.visitedAnimals.count == 0 && entrance != nil) {
+                self.mainViewModel.setClosestExitCoordinateFromEntrance(entrance!)
+                if (self.coordinateOfEntrance == nil) {
+                    self.countShortestPath = true
+                } else if (abs(self.coordinateOfEntrance.latitude - entrance!.latitude) > 1e-7 ||
+                    abs(self.coordinateOfEntrance.longitude - entrance!.longitude) > 1e-7 ) {
+                    self.countShortestPath = true
+                } else {
+                    self.countShortestPath = false
+                }
+                self.coordinateOfEntrance = entrance
+                self.drawRouteFromEntranceToFirstAnimal(entranceCoordinate: entrance!, destinationPlacemark: destinationPlacemark)
                 return
             }
             
@@ -653,8 +657,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - destinationPlacemark: The destination placemark (the placemark of the first animal in the actual path).
     */
-    func drawRouteFromEntranceToFirstAnimal(destinationPlacemark: MKPlacemark){
-        let entranceCoordinate = CLLocationCoordinate2D(latitude: Constants.entranceLatitude, longitude: Constants.entranceLongitude)
+    func drawRouteFromEntranceToFirstAnimal(entranceCoordinate: CLLocationCoordinate2D, destinationPlacemark: MKPlacemark){
         let entrancePlacemark = MKPlacemark(coordinate: entranceCoordinate)
         
         let directionFromEntranceToDestinationRequest = MKDirections.Request()
@@ -742,7 +745,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             
             self.mainViewModel.getLocalityInCloseness.apply().start()
             self.mainViewModel.getAnimalInCloseness.apply().start()
-            self.mainViewModel.getPlacemarksForTheActualPath.apply(false).start()
+            self.mainViewModel.getPlacemarksForTheActualPath.apply(self.countShortestPath).start()
+            self.countShortestPath = false
         }
     }
     
@@ -778,7 +782,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.textForReadingLabel.text = L10n.speechAtEntrance
             self.speakingCharacterImageView?.startAnimatingGif()
         }, finishCallback: {
-            self.speakingCharacterImageView?.stopAnimating()
+            self.speakingCharacterImageView?.stopAnimatingGif()
             self.textForReadingLabel.text = ""
         })
         self.mainViewModel.speechAtEntrance()
@@ -873,12 +877,20 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         let annotationCoordinateLatitude = annotationCoordinate.latitude
         let annotationCoordinateLongitude = annotationCoordinate.longitude
         
-        if (abs(annotationCoordinateLatitude - Constants.entranceLatitude) < 1e-7 &&
-            abs(annotationCoordinateLongitude - Constants.entranceLongitude) < 1e-7) {
-            imageName = "entrance"
-        } else if (abs(annotationCoordinateLatitude - Constants.exitLatitude) < 1e-7 &&
-            abs(annotationCoordinateLongitude - Constants.exitLongitude) < 1e-7) {
-            imageName = "exit"
+        for coordinateOfEntrance in Constants.coordinatesOfEntrances {
+            if (abs(annotationCoordinateLatitude - coordinateOfEntrance.latitude) < 1e-7 &&
+                abs(annotationCoordinateLongitude - coordinateOfEntrance.longitude) < 1e-7) {
+                imageName = "entrance"
+                break
+            }
+        }
+        
+        for coordinateOfExit in Constants.coordinatesOfExits {
+            if (abs(annotationCoordinateLatitude - coordinateOfExit.latitude) < 1e-7 &&
+                abs(annotationCoordinateLongitude - coordinateOfExit.longitude) < 1e-7) {
+                imageName = "exit"
+                break
+            }
         }
         
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "localityAnnotation")
@@ -939,6 +951,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             
             view.image = UIImage(named: imageName)
             self.refreshAnimalAnnotationsWithoutSelected(annotation: view.annotation!)
+            self.countShortestPath = true
         }
     }
     
@@ -953,7 +966,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The item with this method as a target which was tapped.
     */
-    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToLexicon(in: self)
     }
     
@@ -963,7 +976,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func selectAnimalsToPathItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func selectAnimalsToPathItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToSelectAnimalsToPath(in: self)
     }
     
@@ -973,7 +986,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func turnOnOrOffVoiceItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func turnOnOrOffVoiceItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.turnVoiceOnOrOff()
         self.mainViewModel.isVoiceOn.apply().start()
     }
@@ -984,7 +997,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func settingParametersOfVisitItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func settingParametersOfVisitItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToSettingParametersOfVisit(in: self)
     }
     
@@ -994,7 +1007,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The item with this method as a target which was tapped.
      */
-    @objc func selectInformationItemTapped(_ sender: UIVerticalMenuItem){
+    @objc func selectInformationItemTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToSelectInformation(in: self)
     }
     
@@ -1004,7 +1017,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The button with this method as a target which was tapped.
      */
-    @objc func chooseSavedPathButtonTapped(_ sender: UIVerticalMenuItem){
+    @objc func chooseSavedPathButtonTapped(_ sender: VerticalMenuItem){
         flowDelegate?.goToChooseSavedPath(in: self)
     }
     
@@ -1014,7 +1027,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - Parameters:
         - sender: The button with this method as a target which was tapped.
      */
-    @objc func savePathButtonTapped(_ sender: UIVerticalMenu){
+    @objc func savePathButtonTapped(_ sender: VerticalMenu){
         let savePathVM = SavePathViewModel(dependencies: AppDependency.shared)
         let savePathPopoverVC = SavePathPopoverViewController(savePathViewModel: savePathVM)
         self.addChild(savePathPopoverVC)

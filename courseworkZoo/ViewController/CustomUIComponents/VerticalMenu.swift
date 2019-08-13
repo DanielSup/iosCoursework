@@ -9,9 +9,9 @@
 import UIKit
 import SnapKit
 
-class UIVerticalMenu: UIView {
+class VerticalMenu: UIView {
     /// The list of already added items in the menu
-    private var menuItems: [UIVerticalMenuItem] = []
+    private var menuItems: [VerticalMenuItem] = []
     /// The width of the menu
     private var width: Float
     /// The top offset of the menu where it is placed
@@ -53,7 +53,7 @@ class UIVerticalMenu: UIView {
         - item: The menu item which is added to this menu.
         - last: A boolean representing whether the added item will be last in the menu.
     */
-    func addItem(_ item: UIVerticalMenuItem, height: CGFloat, last: Bool){
+    func addItem(_ item: VerticalMenuItem, height: CGFloat, last: Bool){
         self.addSubview(item)
             
         item.snp.makeConstraints{ (make) in
@@ -82,7 +82,7 @@ class UIVerticalMenu: UIView {
         - index: The numeric index of the found item.
      - Returns: The item of this menu at the given numeric index.
     */
-    func getItemAt(index: Int) -> UIVerticalMenuItem?{
+    func getItemAt(index: Int) -> VerticalMenuItem?{
         var actualIndex: Int = 0
         for menuItem in self.menuItems{
             if(actualIndex == index){
@@ -97,7 +97,7 @@ class UIVerticalMenu: UIView {
     /**
      This function replaces the item of the menu at the given index with the new given item.
     */
-    func replaceItemAtIndex(with item: UIVerticalMenuItem, index: Int){
+    func replaceItemAtIndex(with item: VerticalMenuItem, index: Int){
         self.getItemAt(index: index)?.removeFromSuperview()
         
     }

@@ -12,11 +12,11 @@ import SnapKit
 /**
  This class represents a component with a title which is placed on the top of the screen.
  */
-class UITitleHeader: UIView {
+class TitleHeader: UIView {
     /// The title in the header
     private let title: String
     /// The menu in the parentView
-    private let menuInTheParentView: UIVerticalMenu
+    private let menuInTheParentView: VerticalMenu
     /// The parent view of the header
     private let parentView: UIView
     /// The label with the title inside the header
@@ -29,7 +29,7 @@ class UITitleHeader: UIView {
         - menuWidth: The width of the vertical menu.
         - parentView: The view of the screen where the header with title is added.
     */
-    init(title: String, menuInTheParentView: UIVerticalMenu, parentView: UIView){
+    init(title: String, menuInTheParentView: VerticalMenu, parentView: UIView){
         self.title = title
         self.menuInTheParentView = menuInTheParentView
         self.parentView = parentView

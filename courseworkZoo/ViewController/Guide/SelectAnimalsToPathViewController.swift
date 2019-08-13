@@ -63,14 +63,14 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
         let totalOffset = navigationBarHeight + statusBarHeight
         // adding a vertical menu
-        let verticalMenu = UIVerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
+        let verticalMenu = VerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
         
-        let goToLexiconItem = UIVerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
+        let goToLexiconItem = VerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
         goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
         
         // adding a view for the title on the screen
-        let titleHeader = UITitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
+        let titleHeader = TitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
         
         // getting sizes of display and the height of the top bar with search
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -78,7 +78,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         let displayHeight: CGFloat = self.view.frame.height
 
         self.animalTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 180, width: displayWidth, height: displayHeight - barHeight - 180))
-        self.animalTableView.register(UIAnimalWithActionCell.self, forCellReuseIdentifier: "animalCell")
+        self.animalTableView.register(AnimalWithActionCell.self, forCellReuseIdentifier: "animalCell")
         self.animalTableView.dataSource = self
         self.animalTableView.delegate = self
         self.view.addSubview(self.animalTableView)
@@ -94,7 +94,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UIAnimalWithActionCell = tableView.dequeueReusableCell(withIdentifier: "animalCell", for: indexPath) as! UIAnimalWithActionCell
+        let cell: AnimalWithActionCell = tableView.dequeueReusableCell(withIdentifier: "animalCell", for: indexPath) as! AnimalWithActionCell
         if (indexPath.section == 0){
             cell.actionButton.animal = self.animalsInPath[indexPath.row]
             cell.animalTitleLabel.text = self.animalsInPath[indexPath.row].title
@@ -131,7 +131,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
      - Parameters:
         - sender: The button with this method as a target which was tapped.
      */
-    @objc func actionButtonForAddingTapped(_ sender: UIButtonWithAnimalProperty){
+    @objc func actionButtonForAddingTapped(_ sender: ButtonWithAnimalProperty){
         self.selectAnimalsToPathViewModel.addAnimalToPath(animal: sender.animal!)
         self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
         self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
@@ -144,7 +144,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
      - Parameters:
         - sender: The button with this method as a target which was tapped.
      */
-    @objc func actionButtonForRemovingTapped(_ sender: UIButtonWithAnimalProperty){
+    @objc func actionButtonForRemovingTapped(_ sender: ButtonWithAnimalProperty){
         self.selectAnimalsToPathViewModel.removeAnimalFromPath(animal: sender.animal!)
         self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
         self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
@@ -157,7 +157,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
      - Parameters:
         - sender: The item from the vertical menu which has set this method as a target and was tapped.
     */
-    @objc func goToLexiconItemTapped(_ sender: UIVerticalMenuItem) {
+    @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToLexicon(in: self)
     }
 }

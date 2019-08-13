@@ -395,12 +395,12 @@ class MainViewModel: BaseViewModel{
     
     
     /**
-     This function finds out and returns whether the entrance to ZOO is at the route.
+     This function finds out and returns the coordinate of the entrance to ZOO is at the route. If there is no entrance at the route, it returns nil
      - Parameters:
         - route: The found shortest route from the actual location to the first animal in the path in the ZOO.
-     - Returns: A boolean value representing whether the entrance is at the given route.
+     - Returns: A coordinate of the entrance at the given route. If there is no entrance at the route, it returns nil.
     */
-    func isEntranceAtTheRoute(_ route: MKRoute) -> Bool{
+    func entranceAtTheRoute(_ route: MKRoute) -> CLLocationCoordinate2D?{
         for step in route.steps as [MKRoute.Step] {
             let pointCount = step.polyline.pointCount
             if (pointCount < 2) {
@@ -413,13 +413,15 @@ class MainViewModel: BaseViewModel{
             for c in 0..<(pointCount - 1) {
                 let start = pointArray[c]
                 let finish = pointArray[c + 1]
-                if (CountService.isEntranceAtTheLine(a: start, b: finish)) {
-                    return true
+                
+                let entranceAtTheLine = CountService.entranceAtTheLine(a: start, b: finish)
+                if (entranceAtTheLine != nil) {
+                    return entranceAtTheLine!
                 }
             }
             pointArray.deallocate()
         }
-        return false
+        return nil
     }
     
     /**
@@ -436,8 +438,12 @@ class MainViewModel: BaseViewModel{
      - Returns: A boolean whether the user is at the exit or not.
     */
     func checkExitAndGoThroughIt() -> Bool {
-        if abs(self.latitude.value - Constants.exitLatitude) < Constants.closeDistance &&
-            abs(self.longitude.value - Constants.exitLongitude) < Constants.closeDistance {
+        let exit = self.dependencies.routeWithAnimalsService.getExitCoordinate()
+        if (exit == nil) {
+            return false
+        }
+        if abs(self.latitude.value - exit!.latitude) < Constants.closeDistance &&
+            abs(self.longitude.value - exit!.longitude) < Constants.closeDistance {
             self.dependencies.routeWithAnimalsService.goThroughExit()
             self.exitVisited = true
             return true
@@ -450,8 +456,12 @@ class MainViewModel: BaseViewModel{
      This function ensures that the user is informed by the voice that he/she is at the exit from the ZOO. This function is called only if there are no unvisited animals.
     */
     func speechAtExit() {
-        if abs(self.latitude.value - Constants.exitLatitude) < Constants.closeDistance &&
-            abs(self.longitude.value - Constants.exitLongitude) < Constants.closeDistance {        self.dependencies.speechService.sayText(text: L10n.speechAtExit)
+        let exit = self.dependencies.routeWithAnimalsService.getExitCoordinate()
+        if (exit == nil) {
+            return
+        }
+        if abs(self.latitude.value - exit!.latitude) < Constants.closeDistance &&
+            abs(self.longitude.value - exit!.longitude) < Constants.closeDistance {        self.dependencies.speechService.sayText(text: L10n.speechAtExit)
         }
     }
     
@@ -459,9 +469,42 @@ class MainViewModel: BaseViewModel{
      This function ensures informing the user that he/she is at the entrance to the ZOO. This function is called only if no animal is visited.
     */
     func speechAtEntrance() {
-        if abs(self.latitude.value - Constants.entranceLatitude) < Constants.closeDistance &&
-            abs(self.longitude.value - Constants.entranceLongitude) < Constants.closeDistance {
+        let entrance = self.dependencies.routeWithAnimalsService.getEntranceCoordinate()
+        if (entrance == nil) {
+            return
+        }
+        if abs(self.latitude.value - entrance!.latitude) < Constants.closeDistance &&
+            abs(self.longitude.value - entrance!.longitude) < Constants.closeDistance {
             self.dependencies.speechService.sayText(text: L10n.speechAtEntrance)
         }
+    }
+    
+    
+    /**
+     This function ensures setting the coordinate of the exit which is used as the end of the path in the ZOO. It finds the closest exit from the given coordination of any entrance to the ZOO.
+     - Parameters:
+        - entranceCoordinate: The coordinate of the entrance to the ZOO at the start of the path to the ZOO.
+    */
+    func setClosestExitCoordinateFromEntrance(_ entranceCoordinate: CLLocationCoordinate2D) {
+        var closestExitCoordinate: CLLocationCoordinate2D!
+        for coordinateOfExit in Constants.coordinatesOfExits {
+            if (closestExitCoordinate == nil) {
+                closestExitCoordinate = coordinateOfExit
+            } else {
+                let latitudeDifference = (entranceCoordinate.latitude - coordinateOfExit.latitude)
+                let longitudeDifference = (entranceCoordinate.longitude - coordinateOfExit.longitude)
+                let distanceFromActualExit = (latitudeDifference * latitudeDifference) + (longitudeDifference * longitudeDifference)
+                
+                let smallestLatitudeDifference = (entranceCoordinate.latitude - closestExitCoordinate.latitude)
+                let smallestLongitudeDifference = (entranceCoordinate.longitude - closestExitCoordinate.longitude)
+                let smallestDistanceFromExit = (smallestLatitudeDifference * smallestLatitudeDifference) + (smallestLongitudeDifference * smallestLongitudeDifference)
+                
+                if (distanceFromActualExit < smallestDistanceFromExit) {
+                    closestExitCoordinate = coordinateOfExit
+                }
+            }
+        }
+        self.dependencies.routeWithAnimalsService.setEntranceCoordinate(entranceCoordinate)
+        self.dependencies.routeWithAnimalsService.setExitCoordinate(closestExitCoordinate)
     }
 }

@@ -12,7 +12,7 @@ import SnapKit
 /**
  This class represents an item of the vertical menu. The item is represented by a button.
  */
-class UIVerticalMenuItem: UIButton{
+class VerticalMenuItem: UIButton{
     /// The string representing the action of the item represented by a button.
     private var actionString: String
     /// The string which is shown above the icon in the label.
