@@ -40,6 +40,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private var entranceVisited = false
     /// The boolean representing whether the user gone throught the exit from the ZOO.
     private var exitVisited = false
+    /// The boolean representing whether the voice is turned on (true) or turned off (false).
+    private var isVoiceOn = true
     /// The coordinate of the entrance
     private var coordinateOfEntrance: CLLocationCoordinate2D!
     
@@ -113,7 +115,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         // registration of the actions for saying information about localities and animals in the closeness of the actual location
         self.mainViewModel.getAnimalInCloseness.values.producer.startWithValues{ (animal) in
-            if (animal != nil && self.textForReadingLabel.text == "") {
+            if (animal != nil && self.textForReadingLabel.text == "" && self.isVoiceOn) {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(animal: animal)
                 
                 self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
@@ -133,7 +135,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         self.mainViewModel.getLocalityInCloseness.values.producer.startWithValues{ locality in
-            if (locality != nil && self.textForReadingLabel.text == "") {
+            if (locality != nil && self.textForReadingLabel.text == "" && self.isVoiceOn) {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(locality: locality)
                 
                 self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
@@ -199,6 +201,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             } else if (nextAnimal != nil) {
                 self.sayText(text: L10n.nextAnimalInPath + " " + nextAnimal!.title)
             }
+        }
+        
+        self.mainViewModel.isVoiceOn.values.producer.startWithValues{ (isVoiceOn) in
+            self.isVoiceOn = isVoiceOn
         }
     }
     
@@ -590,6 +596,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - text: The text which is shown and machine-read.
     */
     func sayText(text: String) {
+        if (!self.isVoiceOn) {
+            return
+        }
         self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
             self.textForReadingLabel.text = text
             self.speakingCharacterImageView?.startAnimatingGif()
@@ -774,7 +783,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the exit from the ZOO. There are set callbacks which ensure showing the information.
     */
     func speechAtExit() {
-        if (self.exitVisited) {
+        if (self.exitVisited || !self.isVoiceOn) {
             return
         }
         self.exitVisited = true
@@ -793,7 +802,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the entrance to the ZOO. There are set callbacks which ensure showing the information.
      */
     func speechAtEntrance() {
-        if (self.entranceVisited || self.textForReadingLabel.text != "" || self.coordinateOfEntrance == nil) {
+        if (self.entranceVisited || self.textForReadingLabel.text != "" || self.coordinateOfEntrance == nil || !self.isVoiceOn) {
             return
         }
         
