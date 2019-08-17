@@ -188,6 +188,14 @@ class MainViewModel: BaseViewModel{
     }
     
     
+    /**
+     This action returns next animal in the path in the ZOO.
+    */
+    lazy var getNextAnimalInThePath = Action<(), Animal?, Error> {
+        return self.dependencies.routeWithAnimalsService.getNextAnimalInThePath()
+    }
+    
+    
     // MARK - Constructor and other functions
     
     
@@ -424,14 +432,15 @@ class MainViewModel: BaseViewModel{
         return nil
     }
     
+    
     /**
-     This function ensures welcoming user in the application.
+     This function ensures machine-reading of the given text. The text could be welcoming in the application or giving some information about the options what the user can do.
+     - Parameters:
+        - text: The text which is machine-read.
     */
-    func welcomeUserInTheGuide() {
-        let text = L10n.welcome
+    func sayText(text: String) {
         self.dependencies.speechService.sayText(text: text)
     }
-    
     
     /**
      This function checks whether the user is at the exit from the ZOO. If the user gone through the exit, then the path to the exit isn't shown anymore. This method is called only if there are no unvisited animals in the path in the ZOO and user should go to the exit.
@@ -473,8 +482,9 @@ class MainViewModel: BaseViewModel{
         if (entrance == nil) {
             return
         }
-        if abs(self.latitude.value - entrance!.latitude) < Constants.closeDistance &&
-            abs(self.longitude.value - entrance!.longitude) < Constants.closeDistance {
+        
+        if (abs(self.latitude.value - entrance!.latitude) < Constants.closeDistance &&
+            abs(self.longitude.value - entrance!.longitude) < Constants.closeDistance) {
             self.dependencies.speechService.sayText(text: L10n.speechAtEntrance)
         }
     }

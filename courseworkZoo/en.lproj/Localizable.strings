@@ -1,4 +1,4 @@
-"welcome" = "Welcome in the application";
+"welcome" = "Welcome in the application. If you want to select animals to the path, select the green markers of the animals which you want to visit in the map or go to the screen with the list with animals for selecting to the path.";
 "here" = "You are here";
 "europe" = "Europe";
 "asia" = "Asia";
@@ -150,3 +150,6 @@
 "exitLegend" = "Exit";
 "speechAtEntrance" = "Welcome in the ZOO. You are at the entrance.";
 "speechAtExit" = "You are just going from the ZOO now.";
+"pathIsCounting" = "Your path with the selected animals is counting.";
+"nextAnimalInPath" = "The next animal which you visit is";
+"goToExit" = "You can go to the exit.";

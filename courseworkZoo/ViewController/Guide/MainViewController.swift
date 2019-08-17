@@ -126,6 +126,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                     self.closeAnimal = nil
                     self.refreshMapView()
                     self.textForReadingLabel.text = ""
+                    self.mainViewModel.getNextAnimalInThePath.apply().start()
                 })
                 self.mainViewModel.sayInformationAbout(animal: animal)
             }
@@ -157,6 +158,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         self.mainViewModel.getPlacemarksForTheActualPath.values.producer.startWithValues { placemarks in
+            
             self.lengthOfTheTripInZoo = 0.0
             self.zooPlanMapView.removeOverlays(self.zooPlanMapView.overlays)
             self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
@@ -188,6 +190,15 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.getTimeSpentAtOneAnimal.values.producer.startWithValues {
             timeSpentAtOneAnimal in
             self.timeSpentAtOneAnimal = timeSpentAtOneAnimal
+        }
+        
+        self.mainViewModel.getNextAnimalInThePath.values.producer.startWithValues {
+            nextAnimal in
+            if (nextAnimal == nil && self.visitedAnimals.count > 0) {
+                self.sayText(text: L10n.goToExit)
+            } else if (nextAnimal != nil) {
+                self.sayText(text: L10n.nextAnimalInPath + " " + nextAnimal!.title)
+            }
         }
     }
     
@@ -239,7 +250,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - animated: The boolean representing whether the view was added to the window using an animation.
     */
     override func viewDidAppear(_ animated: Bool) {
-        self.zooPlanMapView.removeAnnotations(self.zooPlanMapView.annotations)
         self.refreshMapView()
         
         self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
@@ -248,7 +258,11 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.mainViewModel.set(animalsInPath: animalsInPath)
         }
         self.mainViewModel.getAnimalsInPath.apply().start()
+        self.mainViewModel.getCountOfUnvisitedAnimals.apply().start()
         self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+        if (self.countOfUnvisitedAnimals > 0) {
+            self.sayText(text: L10n.pathIsCounting)
+        }
         self.mainViewModel.getWalkSpeed.apply().start()
         self.mainViewModel.getTimeSpentAtOneAnimal.apply().start()
     }
@@ -446,7 +460,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         // adding loaded localities to map
         self.addLoadedLocalitiesToMap()
         
-        self.welcomeUserInTheGuide()
+        self.sayText(text: L10n.welcome)
     }
     
     /**
@@ -556,17 +570,14 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         for coordinateOfEntrance in Constants.coordinatesOfEntrances {
             let entranceAnnotation = MKPointAnnotation()
-            let entranceCoordinate = CLLocationCoordinate2D(latitude: coordinateOfEntrance.latitude, longitude: coordinateOfEntrance.longitude)
-            entranceAnnotation.coordinate = entranceCoordinate
+            entranceAnnotation.coordinate = coordinateOfEntrance
             entranceAnnotation.title = L10n.entranceLegend
             self.zooPlanMapView.addAnnotation(entranceAnnotation)
-            
         }
-        
+            
         for coordinateOfExit in Constants.coordinatesOfExits {
             let exitAnnotation = MKPointAnnotation()
-            let exitCoordinate = CLLocationCoordinate2D(latitude: coordinateOfExit.latitude, longitude: coordinateOfExit.longitude)
-            exitAnnotation.coordinate = exitCoordinate
+            exitAnnotation.coordinate = coordinateOfExit
             exitAnnotation.title = L10n.exitLegend
             self.zooPlanMapView.addAnnotation(exitAnnotation)
         }
@@ -574,17 +585,22 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     
     
     /**
-     This function ensures welcoming the user in the guide at the start of the application.
+     This function ensures saying the given text and showing it under the legend for the map view.
+     - Parameters:
+        - text: The text which is shown and machine-read.
     */
-    func welcomeUserInTheGuide() {
+    func sayText(text: String) {
         self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-            self.textForReadingLabel.text = L10n.welcome
+            self.textForReadingLabel.text = text
             self.speakingCharacterImageView?.startAnimatingGif()
         }, finishCallback: {
             self.speakingCharacterImageView?.stopAnimatingGif()
             self.textForReadingLabel.text = ""
+            if (text == L10n.pathIsCounting) {
+                self.mainViewModel.getNextAnimalInThePath.apply().start()
+            }
         })
-        self.mainViewModel.welcomeUserInTheGuide()
+        self.mainViewModel.sayText(text: text)
     }
     
     /**
@@ -746,6 +762,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.mainViewModel.getLocalityInCloseness.apply().start()
             self.mainViewModel.getAnimalInCloseness.apply().start()
             self.mainViewModel.getPlacemarksForTheActualPath.apply(self.countShortestPath).start()
+            if (self.countShortestPath && self.countOfUnvisitedAnimals > 0) {
+                self.sayText(text: L10n.pathIsCounting)
+            }
             self.countShortestPath = false
         }
     }
@@ -774,9 +793,17 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the entrance to the ZOO. There are set callbacks which ensure showing the information.
      */
     func speechAtEntrance() {
-        if (self.entranceVisited) {
+        if (self.entranceVisited || self.textForReadingLabel.text != "" || self.coordinateOfEntrance == nil) {
             return
         }
+        
+        
+        let actualCoordinate = self.zooPlanMapView.userLocation.coordinate
+        if (abs(actualCoordinate.latitude - self.coordinateOfEntrance.latitude) > Constants.closeDistance ||
+            abs(actualCoordinate.longitude - self.coordinateOfEntrance.longitude) > Constants.closeDistance) {
+            return
+        }
+        
         self.entranceVisited = true
         self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
             self.textForReadingLabel.text = L10n.speechAtEntrance
@@ -787,6 +814,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         })
         self.mainViewModel.speechAtEntrance()
     }
+    
     
     // MARK - Map view methods
     
@@ -818,6 +846,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         if annotation is MKUserLocation {
             return nil
         }
+        
         if var animalAnnotation = annotation as? AnimalAnnotation {
             let animal = animalAnnotation.animal
             var isTheAnimalInPath = false
@@ -932,6 +961,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }
             }
             self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+            self.sayText(text: L10n.pathIsCounting)
             
             if (firstAnimalLocation != nil) {
                 if (abs(firstAnimalLocation.latitude - animalAnnotation.coordinate.latitude) < 1e-7 && abs(firstAnimalLocation.longitude - animalAnnotation.coordinate.longitude) < 1e-7) {

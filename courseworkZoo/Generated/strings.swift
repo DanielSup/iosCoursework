@@ -145,6 +145,8 @@ internal enum L10n {
   internal static let goForSelectionOfLocality = L10n.tr("Localizable", "goForSelectionOfLocality")
   /// Animal list
   internal static let goToAnimalList = L10n.tr("Localizable", "goToAnimalList")
+  /// You can go to the exit.
+  internal static let goToExit = L10n.tr("Localizable", "goToExit")
   /// Go to the guide
   internal static let goToGuide = L10n.tr("Localizable", "goToGuide")
   /// Go to lexicon
@@ -215,6 +217,8 @@ internal enum L10n {
   internal static let mollusca = L10n.tr("Localizable", "mollusca")
   /// Mountains
   internal static let mountains = L10n.tr("Localizable", "mountains")
+  /// The next animal which you visit is
+  internal static let nextAnimalInPath = L10n.tr("Localizable", "nextAnimalInPath")
   /// Animal which should be visited now
   internal static let nextAnimalToVisitLegend = L10n.tr("Localizable", "nextAnimalToVisitLegend")
   /// No said information
@@ -235,6 +239,8 @@ internal enum L10n {
   internal static let otherInvertebrate = L10n.tr("Localizable", "otherInvertebrate")
   /// Parts of plants
   internal static let partsOfPlants = L10n.tr("Localizable", "partsOfPlants")
+  /// Your path with the selected animals is counting.
+  internal static let pathIsCounting = L10n.tr("Localizable", "pathIsCounting")
   /// Title of the path
   internal static let pathTitle = L10n.tr("Localizable", "pathTitle")
   /// Path with all animals
@@ -305,7 +311,7 @@ internal enum L10n {
   internal static let visitedAnimalLegend = L10n.tr("Localizable", "visitedAnimalLegend")
   /// Walk speed through ZOO
   internal static let walkSpeed = L10n.tr("Localizable", "walkSpeed")
-  /// Welcome in the application
+  /// Welcome in the application. If you want to select animals to the path, select the green markers of the animals which you want to visit in the map or go to the screen with the list with animals for selecting to the path.
   internal static let welcome = L10n.tr("Localizable", "welcome")
   /// All information without attractions
   internal static let withoutAttractions = L10n.tr("Localizable", "withoutAttractions")

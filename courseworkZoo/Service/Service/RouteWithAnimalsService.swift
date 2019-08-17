@@ -44,7 +44,7 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     /// The coords of the closest exit from the actual position or the entrance which the user gone through.
     private var closestExitCoordinate: CLLocationCoordinate2D! = Constants.coordinatesOfExits[1]
     /// The coords of the closest entrance to the ZOO.
-    private var entranceCoordinate: CLLocationCoordinate2D! = Constants.coordinatesOfEntrances[0]
+    private var entranceCoordinate: CLLocationCoordinate2D! = Constants.coordinatesOfEntrances[1]
     /// The boolean representing whether the coordinate of the exit from the ZOO was set.
     private var isExitSet = false
     /// The boolean representing whether the coordinate of the entrance to the ZOO was set.
@@ -99,8 +99,6 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
         - exitCoordinate: The coordinate (object with latitude and longitude) of the exit which is used as the end of the path in the ZOO.
     */
     func setExitCoordinate(_ exitCoordinate: CLLocationCoordinate2D) {
-        print("set exit")
-        print(exitCoordinate)
         self.closestExitCoordinate = exitCoordinate
         self.isExitSet = true
     }
@@ -142,7 +140,6 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     func getPlacemarksForTheActualPath(countPath: Bool) -> SignalProducer<[MKPlacemark], Error> {
         let placemarkForActualPosition = MKPlacemark(coordinate: self.sourceLocality)
         if (countPath) {
-            print("counting")
             var placemarks: [MKPlacemark] = [placemarkForActualPosition]
             var placemarksForAnimals = self.getPlacemarksForAnimals()
             for placemarkForAnimal in placemarksForAnimals {
@@ -407,9 +404,17 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
      - Returns: A signal producer with the animal which should be visited by the user (or nil if user visited all selected animals).
     */
     func getNextAnimalInThePath() -> SignalProducer<Animal?, Error> {
-        if (self.nonVisitedAnimalsInPath.count == 0) {
+        if (self.nonVisitedAnimalsInPath.count == 0 || self.placemarks.count < 2) {
             return SignalProducer(value: nil)
         }
-        return SignalProducer(value: self.nonVisitedAnimalsInPath[0])
+        
+        var nextAnimalInPath: Animal!
+        for nonVisitedAnimalInPath in self.nonVisitedAnimalsInPath {
+            if (abs(nonVisitedAnimalInPath.latitude - self.placemarks[1].coordinate.latitude) < 1e-7 &&
+                abs(nonVisitedAnimalInPath.longitude - self.placemarks[1].coordinate.longitude) < 1e-7) {
+                nextAnimalInPath = nonVisitedAnimalInPath
+            }
+        }
+        return SignalProducer(value: nextAnimalInPath)
     }
 }

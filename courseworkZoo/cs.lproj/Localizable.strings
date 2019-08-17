@@ -1,4 +1,4 @@
-"welcome" = "Vítejte v aplikaci.";
+"welcome" = "Vítejte v aplikaci. Pokud si chcete vybrat zvířata do trasy, vyberte zde v mapě zelené markery zvířat, která chcete navštívit, nebo přejděte na obrazovku se seznamem zvířat pro výběr do trasy.";
 "here" = "Jste zde";
 "europe" = "Evropa";
 "asia" = "Asie";
@@ -150,3 +150,6 @@
 "exitLegend" = "Východ";
 "speechAtEntrance" = "Vítejte v ZOO. Právě jste u vstupu.";
 "speechAtExit" = "Právě vycházíte ze ZOO.";
+"pathIsCounting" = "Právě probíhá výpočet trasy se zvířaty, které jste zvolili.";
+"nextAnimalInPath" = "Další zvíře, které navštívíte, je";
+"goToExit" = "Můžete jít k východu.";
