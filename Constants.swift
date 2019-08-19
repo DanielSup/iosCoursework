@@ -28,7 +28,7 @@ class Constants: NSObject {
     /// The relative URL for getting the list of classes and orders.
     static let classes = "classes"
     /// The maximal distance in degrees at which must be an animal or a locality for machine-reading the information about the locality or the animal.
-    static let closeDistance = 0.000055
+    static let closeDistance = 0.000055 + 0.1
     /// The array of coordinates of entrances to the ZOO.
     static let coordinatesOfEntrances = [CLLocationCoordinate2D(latitude: 49.9726294, longitude: 14.1649192), CLLocationCoordinate2D(latitude: 49.9745867, longitude: 14.1630267)]
     /// The array of coordinates of exits from the ZOO.

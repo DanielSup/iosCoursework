@@ -121,7 +121,7 @@ class PathRepository: PathRepositoring{
                 // getting the list of animals from the list of identificators
                 var pathAnimals: [Animal] = []
                 for animalIdInPath in animalIdsInPath{
-                    self.animalRepository.findAnimalById(id: animalIdInPath).startWithResult{ animal in
+                    self.animalRepository.getAnimalById(id: animalIdInPath).startWithResult{ animal in
                         pathAnimals.append(animal.value!!)
                     }
                 }

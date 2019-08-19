@@ -121,7 +121,7 @@ class ProcessAnimalInformationService: ProcessAnimalInformationServicing {
         - animal: The given animal which is close.
     */
     private func getStringFromBiotopes(of animal: Animal) -> String {
-        let biotopeBindings = self.biotopeBindingRepository.findBindingsWithAnimal(animal: animal.id)
+        let biotopeBindings = self.biotopeBindingRepository.getBindingsWithAnimal(animal: animal.id)
         var biotopeArray: [Biotope] = []
         for biotopeBinding in biotopeBindings!{
             let biotopeId = Int(biotopeBinding.biotope)
@@ -143,7 +143,7 @@ class ProcessAnimalInformationService: ProcessAnimalInformationServicing {
      - animal: The given animal which is close.
      */
     private func getStringFromFood(of animal: Animal) -> String {
-        let foodBindings = self.foodBindingRepository.findBindingsWithAnimal(animal: animal.id)
+        let foodBindings = self.foodBindingRepository.getBindingsWithAnimal(animal: animal.id)
         var foodArray: [Food] = []
         for foodBinding in foodBindings! {
             let foodId = Int(foodBinding.food)
@@ -165,7 +165,7 @@ class ProcessAnimalInformationService: ProcessAnimalInformationServicing {
      - animal: The given animal which is close.
      */
     private func getStringFromContinents(of animal: Animal) -> String {
-        let continentBindings = self.continentBindingRepository.findBindingsWithAnimal(animal: animal.id)
+        let continentBindings = self.continentBindingRepository.getBindingsWithAnimal(animal: animal.id)
         var continentArray: [Continent] = []
         for continentBinding in continentBindings! {
             let continentId = Int(continentBinding.continent)

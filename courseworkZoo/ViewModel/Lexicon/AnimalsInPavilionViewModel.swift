@@ -26,7 +26,7 @@ class AnimalsInPavilionViewModel: BaseViewModel {
     */
     lazy var getAnimalsInLocality = Action<(), [Animal], LoadError>{
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        return self.dependencies.animalRepository.findAnimalsInLocality(self.locality)
+        return self.dependencies.animalRepository.getAnimalsInLocality(self.locality)
     }
     
     // MARK - Constructor and other methods

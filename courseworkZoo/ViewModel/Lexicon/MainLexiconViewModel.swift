@@ -27,7 +27,8 @@ class MainLexiconViewModel: BaseViewModel {
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
-            return SignalProducer<[Animal], LoadError>(value: animals)
+            let czechLocale = Locale(identifier: "cs")
+            return SignalProducer<[Animal], LoadError>(value: animals.sorted(by: {$0.title.compare($1.title, locale: czechLocale) == .orderedAscending}))
         } else {
             return SignalProducer<[Animal], LoadError>(error: .noAnimals)
         }

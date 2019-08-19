@@ -133,6 +133,9 @@
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
 		4E86DAD7227D99FD00F78027 /* Locality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD6227D99FD00F78027 /* Locality.swift */; };
+		4E946FAF230A978C0000E79A /* BiotopeBindingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946FAE230A978C0000E79A /* BiotopeBindingRepository.swift */; };
+		4E946FB1230A97A50000E79A /* ContinentBindingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946FB0230A97A50000E79A /* ContinentBindingRepository.swift */; };
+		4E946FB3230A97BC0000E79A /* FoodBindingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946FB2230A97BC0000E79A /* FoodBindingRepository.swift */; };
 		4EA6015922EB7E6600B29185 /* LexiconDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA6015822EB7E6600B29185 /* LexiconDelegate.swift */; };
 		4EAE636E22C4EC2400624328 /* HasAnimalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE636D22C4EC2400624328 /* HasAnimalRepository.swift */; };
 		4EAE637022C4EC3700624328 /* HasLocalityRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE636F22C4EC3700624328 /* HasLocalityRepository.swift */; };
@@ -311,6 +314,9 @@
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD6227D99FD00F78027 /* Locality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locality.swift; sourceTree = SOURCE_ROOT; };
+		4E946FAE230A978C0000E79A /* BiotopeBindingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiotopeBindingRepository.swift; sourceTree = "<group>"; };
+		4E946FB0230A97A50000E79A /* ContinentBindingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentBindingRepository.swift; sourceTree = "<group>"; };
+		4E946FB2230A97BC0000E79A /* FoodBindingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBindingRepository.swift; sourceTree = "<group>"; };
 		4EA6015822EB7E6600B29185 /* LexiconDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiconDelegate.swift; sourceTree = "<group>"; };
 		4EAE636D22C4EC2400624328 /* HasAnimalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasAnimalRepository.swift; sourceTree = "<group>"; };
 		4EAE636F22C4EC3700624328 /* HasLocalityRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocalityRepository.swift; sourceTree = "<group>"; };
@@ -370,6 +376,9 @@
 			children = (
 				4E19306622BD4AC800716BAD /* Repository.swift */,
 				4E175CF922BE818C00690F79 /* BindingRepository.swift */,
+				4E946FAE230A978C0000E79A /* BiotopeBindingRepository.swift */,
+				4E946FB0230A97A50000E79A /* ContinentBindingRepository.swift */,
+				4E946FB2230A97BC0000E79A /* FoodBindingRepository.swift */,
 				4E2609D4227DADEB00D41EDA /* LocalityRepository.swift */,
 				4E2609D2227DADD300D41EDA /* AnimalRepository.swift */,
 				4E01E18822D4A97E0016B533 /* VoiceSettingsRepository.swift */,
@@ -1051,6 +1060,7 @@
 				4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */,
 				4E2609D5227DADEB00D41EDA /* LocalityRepository.swift in Sources */,
 				4E082E3822F05E97002F0475 /* AnimalsInContinentViewModel.swift in Sources */,
+				4E946FB3230A97BC0000E79A /* FoodBindingRepository.swift in Sources */,
 				4EAE636E22C4EC2400624328 /* HasAnimalRepository.swift in Sources */,
 				4E32BFD322FDAF4200D503FF /* CountService.swift in Sources */,
 				4E175CF822BE800700690F79 /* Bindable.swift in Sources */,
@@ -1103,6 +1113,7 @@
 				4E082E3622F0318F002F0475 /* ContinentsViewController.swift in Sources */,
 				4E0E554122F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
+				4E946FB1230A97A50000E79A /* ContinentBindingRepository.swift in Sources */,
 				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,
 				4E1F228922E2590C0026CCDF /* BiotopesViewModel.swift in Sources */,
@@ -1115,6 +1126,7 @@
 				4E1AA7C322E1011B00B9CE77 /* OrdersInClassViewController.swift in Sources */,
 				4EF6ADB922BA9F84006D9648 /* AppFlowCoordinator.swift in Sources */,
 				4E08028622DCC2690085B226 /* HasProcessAnimalInformationService.swift in Sources */,
+				4E946FAF230A978C0000E79A /* BiotopeBindingRepository.swift in Sources */,
 				4E0434FC22DB5CB300C5D912 /* SelectInformationViewController.swift in Sources */,
 				4EAE637622C4EC8400624328 /* HasBiotopeBindingsRepository.swift in Sources */,
 				4E0E9DDA22D6414300528AC0 /* ParametersOfVisitRepository.swift in Sources */,

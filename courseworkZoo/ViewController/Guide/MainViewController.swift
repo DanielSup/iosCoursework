@@ -121,16 +121,22 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
                     self.speakingCharacterImageView?.startAnimatingGif()
                     self.closeAnimal = animal
-                    self.mainViewModel.visitAnimal(animal: animal!)
                     self.refreshMapView()
                 }, finishCallback: {
                     self.speakingCharacterImageView?.stopAnimatingGif()
                     self.closeAnimal = nil
+                    self.mainViewModel.visitAnimal(animal: animal!)
                     self.refreshMapView()
                     self.textForReadingLabel.text = ""
                     self.mainViewModel.getNextAnimalInThePath.apply().start()
                 })
                 self.mainViewModel.sayInformationAbout(animal: animal)
+            } else if (animal != nil && !self.isVoiceOn) {
+                self.closeAnimal = animal
+                self.mainViewModel.visitAnimal(animal: animal!)
+                self.mainViewModel.getNextAnimalInThePath.apply().start()
+                self.refreshMapView()
+                self.closeAnimal = nil
             }
         }
         
@@ -463,9 +469,11 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             locationManager.startUpdatingLocation()
         }
 
+        self.mainViewModel.isVoiceOn.apply().start()
+        
         // adding loaded localities to map
         self.addLoadedLocalitiesToMap()
-        
+
         self.sayText(text: L10n.welcome)
     }
     
@@ -596,11 +604,13 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - text: The text which is shown and machine-read.
     */
     func sayText(text: String) {
-        if (!self.isVoiceOn) {
+        if (!self.isVoiceOn || self.textForReadingLabel.text != "") {
             return
         }
+        
+        self.textForReadingLabel.text = text
+        
         self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-            self.textForReadingLabel.text = text
             self.speakingCharacterImageView?.startAnimatingGif()
         }, finishCallback: {
             self.speakingCharacterImageView?.stopAnimatingGif()
@@ -783,7 +793,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the exit from the ZOO. There are set callbacks which ensure showing the information.
     */
     func speechAtExit() {
-        if (self.exitVisited || !self.isVoiceOn) {
+        if (self.exitVisited || self.textForReadingLabel.text != "" || !self.isVoiceOn) {
             return
         }
         self.exitVisited = true
@@ -814,8 +824,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         self.entranceVisited = true
+        self.textForReadingLabel.text = L10n.speechAtEntrance
+        
         self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-            self.textForReadingLabel.text = L10n.speechAtEntrance
             self.speakingCharacterImageView?.startAnimatingGif()
         }, finishCallback: {
             self.speakingCharacterImageView?.stopAnimatingGif()

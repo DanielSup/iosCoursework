@@ -13,7 +13,7 @@ import ReactiveSwift
  This class is a view model for the screen with the list of animals in the given biotope.
  */
 class AnimalsInBiotopeViewModel: BaseViewModel {
-    typealias Dependencies = HasBiotopeBindingsRepository & HasAnimalRepository
+    typealias Dependencies = HasBiotopeBindingsRepository
     /// The object with important dependencies for the action for getting the list of animals in the given biotope.
     private var dependencies: Dependencies
     /// The given biotope
@@ -21,27 +21,10 @@ class AnimalsInBiotopeViewModel: BaseViewModel {
     
     // MARK - Actions
     
-    /**
-     This action finds bindings with the given biotope. The action ensures getting the animals from the bindings with the animal repository for getting an animal by an identificator. This action return s the found list of animals in the given biotope. If animals couldn't be loaded, it returns a signal producer with an error representing it.
+    /** This action return s the found list of animals in the given biotope. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
     lazy var getAnimalsInBiotope = Action<(), [Animal], LoadError>{
-        self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        self.dependencies.biotopeBindingRepository.loadAndSaveDataIfNeeded()
-        if let animals = self.dependencies.animalRepository.entities.value as? [Animal] {
-            var animalsInBiotope: [Animal] = []
-            for animal in animals {
-                var isAnimalInBiotope = self.isAnimalInBiotope(animal: animal)
-                if (isAnimalInBiotope == nil) {
-                    return SignalProducer(error: .noBindings)
-                }
-                if(isAnimalInBiotope! == true) {
-                    animalsInBiotope.append(animal)
-                }
-            }
-            return SignalProducer(value: animalsInBiotope)
-        } else {
-            return SignalProducer(error: .noAnimals)
-        }
+        return self.dependencies.biotopeBindingRepository.getAnimalsInBiotope(biotope: self.biotope)
     }
     
     // MARK - Constructor and other methods
@@ -64,38 +47,6 @@ class AnimalsInBiotopeViewModel: BaseViewModel {
     */
     func getLocativeOfBiotopeTitleWithPreposition() -> String {
         return self.biotope.locativeWithPreposition
-    }
-    
-    
-    /**
-     This function returns whether the animal is in biotope or not. If bindings couldn't be loaded, it returns nil.
-     - Parameters:
-        - animal: The given animal for which we find whether the animal is in the given biotope.
-     - Returns: A boolean representing whether the given animal lives in the biotope or not. If bindings couldn't be loaded, it returns nil.
-    */
-    func isAnimalInBiotope(animal: Animal) -> Bool? {
-        if let biotopes = self.dependencies.biotopeBindingRepository.getBiotopesWithAnimal(animal: animal) as? [Biotope] {
-            var biotopeFound = false
-            for biotope in biotopes {
-                if (biotope == self.biotope) {
-                    biotopeFound = true
-                    break
-                }
-            }
-            
-            if (!biotopeFound) {
-                return false
-            }
-            
-            for biotope in biotopes {
-                if (biotope.czechOriginalTitle == animal.biotope){
-                    return true
-                }
-            }
-            return false
-        } else {
-            return nil
-        }
     }
     
 }

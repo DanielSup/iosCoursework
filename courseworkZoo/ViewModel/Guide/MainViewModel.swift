@@ -50,7 +50,7 @@ class MainViewModel: BaseViewModel{
      */
     lazy var getLocalityInCloseness = Action<(), Locality?, LoadError> { [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        return self.dependencies.localityRepository.findLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
+        return self.dependencies.localityRepository.getLocalityInCloseness(latitude: self.latitude.value, longitude: self.longitude.value)
     }
 
     
@@ -232,6 +232,7 @@ class MainViewModel: BaseViewModel{
             voiceOn = voiceOnResult.value!
         }
         if(voiceOn == false){
+            print("voice off")
             return
         }
         
@@ -278,6 +279,7 @@ class MainViewModel: BaseViewModel{
             voiceOn = isVoiceOn.value!
         }
         if(voiceOn == false){
+            print("voice off")
             return
         }
 

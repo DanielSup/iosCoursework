@@ -27,7 +27,7 @@ class AnimalsInOrderViewModel: BaseViewModel {
     lazy var getAnimalsInOrder = Action<(), [Animal], LoadError>{
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
         if let animalList = self.dependencies.animalRepository.entities.value as? [Animal] {
-            return self.dependencies.animalRepository.findAnimalsInOrder(self.order)
+            return self.dependencies.animalRepository.getAnimalsInOrder(self.order)
         } else {
             return SignalProducer(error: LoadError.noAnimals)
         }

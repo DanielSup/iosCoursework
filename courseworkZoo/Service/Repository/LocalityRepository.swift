@@ -16,7 +16,7 @@ protocol LocalityRepositoring{
     var entities: MutableProperty<[Locality]?> { get }
     func loadAndSaveDataIfNeeded()
     func visitLocality(_ locality: Locality)
-    func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError>
+    func getLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError>
 }
 
 
@@ -36,7 +36,7 @@ class LocalityRepository: Repository<Locality>, LocalityRepositoring{
         - longitude: The actual longitude
      - Returns: The signal producer with a close locality or nil value (if no enough close locality found) or an error representing that localities couldn't be loaded.
      */
-    func findLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError> {
+    func getLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError> {
         if let localities = self.entities.value as? [Locality]{
             for locality in localities{
                 if(abs(locality.latitude - latitude) < Constants.closeDistance && abs(locality.longitude - longitude) < Constants.closeDistance && !self.isTheLocalityVisited(locality: locality)){
