@@ -20,6 +20,12 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
     private var animalsForSelecting: [Animal] = []
     /// The array of animals in the actual path.
     private var animalsInPath: [Animal] = []
+    /// The callback which is called when an animal is added to the actual path.
+    var addAnimalCallback: (String) -> Void = {(animal: String) in}
+    /// The callback which is called when an animal is removed from the actual path.
+    var removeAnimalCallback: (String) -> Void = {(animal: String) in}
+    /// The callback which is called when the popover with table view is closed.
+    var closeCallback: () -> Void = {}
     /// The table view for showing non selected and selected animals
     private var animalTableView: UITableView!
     
@@ -56,32 +62,57 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = Colors.screenBodyBackgroundColor.color
-        
-        // counting and setting the correct top offset
-        let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height ?? 0
-        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let totalOffset = navigationBarHeight + statusBarHeight
-        // adding a vertical menu
-        let verticalMenu = VerticalMenu(width: 70, topOffset: totalOffset, parentView: self.view)
-        
-        let goToLexiconItem = VerticalMenuItem(actionString: "goToLexicon", actionText: L10n.goToLexicon, usedBackgroundColor: Colors.goToGuideOrLexiconButtonBackgroundColor.color)
-        goToLexiconItem.addTarget(self, action: #selector(goToLexiconItemTapped(_:)), for: .touchUpInside)
-        verticalMenu.addItem(goToLexiconItem, height: 120, last: true)
-        
-        // adding a view for the title on the screen
-        let titleHeader = TitleHeader(title: L10n.guideTitle, menuInTheParentView: verticalMenu, parentView: self.view)
-        
+        self.view.backgroundColor = Colors.backgroundOfPopoverColor.color
+
         // getting sizes of display and the height of the top bar with search
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
 
-        self.animalTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 180, width: displayWidth, height: displayHeight - barHeight - 180))
+        self.animalTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 150, width: displayWidth - 145, height: displayHeight - barHeight - 180))
         self.animalTableView.register(AnimalWithActionCell.self, forCellReuseIdentifier: "animalCell")
         self.animalTableView.dataSource = self
         self.animalTableView.delegate = self
         self.view.addSubview(self.animalTableView)
+        
+        
+        
+        let removeAllAnimalsButton = UIButton()
+        removeAllAnimalsButton.backgroundColor = UIColor(red: 0.4, green: 0.1, blue: 0.8, alpha: 1.0)
+        removeAllAnimalsButton.setTitle(L10n.removeAllAnimalsFromPath, for: .normal)
+        removeAllAnimalsButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        removeAllAnimalsButton.addTarget(self, action: #selector(removeAllAnimalsButtonTapped(_:)), for: .touchUpInside)
+        self.view.addSubview(removeAllAnimalsButton)
+        removeAllAnimalsButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.animalTableView.snp.top)
+            make.right.equalTo(self.animalTableView.snp.right)
+            make.height.equalTo(32)
+        }
+        
+        let addAllAnimalsButton = UIButton()
+        addAllAnimalsButton.backgroundColor = UIColor(red: 0.1, green: 0.55, blue: 0.2, alpha: 1.0)
+        addAllAnimalsButton.setTitle(L10n.addAllAnimalsToPath, for: .normal)
+        addAllAnimalsButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        addAllAnimalsButton.addTarget(self, action: #selector(addAllAnimalsButtonTapped(_:)), for: .touchUpInside)
+        self.view.addSubview(addAllAnimalsButton)
+        addAllAnimalsButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(removeAllAnimalsButton.snp.top)
+            make.right.equalTo(self.animalTableView.snp.right)
+            make.height.equalTo(32)
+        }
+        
+        let closeButton = UIButton()
+        closeButton.backgroundColor = UIColor(red: 0.8, green: 0.4, blue: 0.3, alpha: 1.0)
+        closeButton.setTitle(L10n.closeAnimalsToPath, for: .normal)
+        closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        closeButton.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
+        self.view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(addAllAnimalsButton.snp.top)
+            make.right.equalTo(self.animalTableView.snp.right)
+            make.width.equalTo(100)
+            make.height.equalTo(32)
+        }
     }
     
     
@@ -135,6 +166,7 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         self.selectAnimalsToPathViewModel.addAnimalToPath(animal: sender.animal!)
         self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
         self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
+        self.addAnimalCallback(sender.animal!.title)
         self.animalTableView.reloadData()
     }
     
@@ -148,16 +180,42 @@ class SelectAnimalsToPathViewController: BaseViewController, UITableViewDelegate
         self.selectAnimalsToPathViewModel.removeAnimalFromPath(animal: sender.animal!)
         self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
         self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
+        self.removeAnimalCallback(sender.animal!.title)
+        self.animalTableView.reloadData()
+    }
+    
+    /**
+     This function ensures closing the table with the list of all animals for adding to the actual path or removing from the actual path and takes the user back to the main screen after tapping the close button.
+     - Parameters:
+        - sender: The button which was tapped and has set this method as a target.
+    */
+    @objc func closeButtonTapped(_ sender: UIButton) {
+        self.view.removeFromSuperview()
+        self.closeCallback()
+    }
+    
+    /**
+     This function ensures removing all animals from the actual unsaved path after tapping the button.
+     - Parameters:
+        - sender: The button which was tapped and has set this method as a target.
+    */
+    @objc func removeAllAnimalsButtonTapped(_ sender: UIButton) {
+        self.selectAnimalsToPathViewModel.removeAllAnimalsFromPath()
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
         self.animalTableView.reloadData()
     }
     
     
     /**
-    This function ensures going to the main screen of the lexicon part of the application after the tapping the item from the vertical menu.
+     This function ensures adding all animals to the actual unsaved path after tapping the button.
      - Parameters:
-        - sender: The item from the vertical menu which has set this method as a target and was tapped.
-    */
-    @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem) {
-        flowDelegate?.goToLexicon(in: self)
+        - sender: The button which was tapped and has set this method as a target.
+     */
+    @objc func addAllAnimalsButtonTapped(_ sender: UIButton) {
+        self.selectAnimalsToPathViewModel.addAllAnimalsToPath()
+        self.selectAnimalsToPathViewModel.getAnimalsForSelecting.apply().start()
+        self.selectAnimalsToPathViewModel.getAnimalsInPath.apply().start()
+        self.animalTableView.reloadData()
     }
 }

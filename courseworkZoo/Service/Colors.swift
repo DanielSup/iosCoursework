@@ -18,6 +18,9 @@ enum Colors {
     case goToGuideOrLexiconButtonBackgroundColor
     case helpButtonBackgroundColor
     case screenBodyBackgroundColor
+    case saveButtonColor
+    case goBackButtonColor
+    case backgroundOfPopoverColor
     
     /// This property returns the UIColor object used for settings of the background color of any element on a screen. It returns the UIColor object dependent on the case
     var color: UIColor {
@@ -34,6 +37,12 @@ enum Colors {
                 return UIColor(red: 194.0 / 255.0, green: 128.0 / 255.0, blue: 1.0, alpha: 1.0)
             case .screenBodyBackgroundColor:
                 return UIColor(red: 1.0, green: 1.0, blue: 0.6, alpha: 1.0)
+            case .saveButtonColor:
+                return UIColor(red: 0.35, green: 0.35, blue: 0.35, alpha: 1.0)
+            case .goBackButtonColor:
+                return UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
+            case .backgroundOfPopoverColor:
+                return UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         }
     }
 }

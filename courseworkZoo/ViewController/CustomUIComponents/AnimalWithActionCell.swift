@@ -32,7 +32,7 @@ class AnimalWithActionCell: UITableViewCell {
         let label = UILabel()
         label.text = "Sample animal"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(14)
+        label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     
@@ -40,6 +40,7 @@ class AnimalWithActionCell: UITableViewCell {
         let button = ButtonWithAnimalProperty()
         button.setTitle(L10n.addToPath, for: .normal)
         button.setTitleColor(UIColor(red: 0, green: 128.0 / 255.0, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -48,13 +49,14 @@ class AnimalWithActionCell: UITableViewCell {
         addSubview(animalTitleLabel)
         animalTitleLabel.snp.makeConstraints{
             (make) in
+            make.top.equalToSuperview()
             make.left.equalToSuperview().offset(25)
-            make.centerY.equalToSuperview()
         }
         addSubview(actionButton)
         actionButton.snp.makeConstraints{ (make) in
-            make.right.equalToSuperview().offset(-25)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(animalTitleLabel.snp.bottom)
+            make.left.equalToSuperview().offset(25)
+            make.bottom.equalToSuperview().offset(-5)
         }
     }
 }

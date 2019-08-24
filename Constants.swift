@@ -14,7 +14,7 @@ import MapKit
  */
 class Constants: NSObject {
     /// This constant determines where data are loaded from.
-    static let serverUrl: String = "https://lexikonprozoo-3601.rostiapp.cz/"
+    static let serverUrl: String = "https://lexikonprozoo-3675.rostiapp.cz/"
     /// The relative URL for getting the list of animals with detailed information
     static let animalsRelativeUrl: String = "animals"
     /// The relative URL for getting the list of localities
@@ -28,7 +28,9 @@ class Constants: NSObject {
     /// The relative URL for getting the list of classes and orders.
     static let classes = "classes"
     /// The maximal distance in degrees at which must be an animal or a locality for machine-reading the information about the locality or the animal.
-    static let closeDistance = 0.000055 + 0.1
+    static let closeDistance = 0.000055
+    /// The maximal radius of the map view to show labels at markers.
+    static let maximumRadiusToShowLabels = 250.0
     /// The array of coordinates of entrances to the ZOO.
     static let coordinatesOfEntrances = [CLLocationCoordinate2D(latitude: 49.9726294, longitude: 14.1649192), CLLocationCoordinate2D(latitude: 49.9745867, longitude: 14.1630267)]
     /// The array of coordinates of exits from the ZOO.

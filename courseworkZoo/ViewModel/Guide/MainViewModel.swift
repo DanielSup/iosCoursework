@@ -60,18 +60,7 @@ class MainViewModel: BaseViewModel{
     lazy var getAnimals = Action<(), [Animal], LoadError>{
         [unowned self] in
         self.dependencies.animalRepository.loadAndSaveDataIfNeeded()
-        if let animals = self.dependencies.animalRepository.entities.value as? [Animal]  {
-            var newAnimals: [Animal] = []
-            for animal in animals{
-                if(animal.latitude < 0){
-                    continue
-                }
-                newAnimals.append(animal)
-            }
-            return SignalProducer<[Animal], LoadError>(value: newAnimals)
-        } else {
-            return SignalProducer<[Animal], LoadError>(error: .noAnimals)
-        }
+        return self.dependencies.animalRepository.getAnimalsWithKnownCoordinate()
     }
     
     
@@ -81,18 +70,7 @@ class MainViewModel: BaseViewModel{
     lazy var getLocalities = Action<(), [Locality], LoadError>{
         [unowned self] in
         self.dependencies.localityRepository.loadAndSaveDataIfNeeded()
-        if let localities = self.dependencies.localityRepository.entities.value as? [Locality] {
-            var newLocalities: [Locality] = []
-            for locality in localities {
-                if(locality.latitude < 0){
-                    continue
-                }
-                newLocalities.append(locality)
-            }
-            return SignalProducer<[Locality], LoadError>(value: newLocalities)
-        } else {
-            return SignalProducer<[Locality], LoadError>(error: .noLocalities)
-        }
+        return self.dependencies.localityRepository.getLocalitiesWithKnownCoordinate()
     }
     
     
@@ -195,6 +173,19 @@ class MainViewModel: BaseViewModel{
         return self.dependencies.routeWithAnimalsService.getNextAnimalInThePath()
     }
     
+    /**
+     This action returns whether any text is machine-read now.
+    */
+    lazy var isMachineReadingRunning = Action<(), Bool, Error> {
+        return SignalProducer(value: self.dependencies.speechService.isSpeaking)
+    }
+    
+    /**
+     This action returns a signal producer with the boolean representing whether other infromation and instructions from the guide are said.
+     */
+    lazy var isInformationFromGuideSaid = Action<(), Bool, Error> { [unowned self] in
+        return self.dependencies.voiceSettingsRepository.isInformationFromGuideSaid()
+    }
     
     // MARK - Constructor and other functions
     
@@ -232,7 +223,6 @@ class MainViewModel: BaseViewModel{
             voiceOn = voiceOnResult.value!
         }
         if(voiceOn == false){
-            print("voice off")
             return
         }
         
@@ -519,4 +509,28 @@ class MainViewModel: BaseViewModel{
         self.dependencies.routeWithAnimalsService.setEntranceCoordinate(entranceCoordinate)
         self.dependencies.routeWithAnimalsService.setExitCoordinate(closestExitCoordinate)
     }
+   
+    /**
+     This function ensures stopping machine-reading of the previous text.
+    */
+    func stopSpeaking() {
+        self.dependencies.speechService.stopSpeaking()
+    }
+    
+    /**
+     This function ensures removing the given animal from the actual path.
+     - Parameters:
+     - animal: The animal which will be removed from the actual path.
+     */
+    func removeAnimalFromPath(animal: Animal){
+        self.dependencies.pathRepository.removeAnimalFromPath(animal: animal)
+    }
+    
+    /**
+     This function ensures removing all animals from the actual unsaved path.
+     */
+    func removeAllAnimalsFromPath() {
+        self.dependencies.pathRepository.removeAllAnimalsFromPath()
+    }
+
 }

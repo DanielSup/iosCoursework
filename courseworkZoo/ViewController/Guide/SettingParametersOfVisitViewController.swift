@@ -18,6 +18,10 @@ class SettingParametersOfVisitViewController: BaseViewController {
     private var walkSpeed: Float = 3.0
     /// The time spent at any one animal during the visit of the ZOO.
     private var timeSpentAtOneAnimal: Float = 3.0
+    /// The boolean representing whether the voice for machine-reading is on or off.
+    private var isVoiceOn: Bool = true
+    /// The boolean representing whether other information (not information about animals) and instructions from the guide are said or not.
+    private var isInformationFromGuideSaid: Bool = true
     /// The view model with important actions for getting and setting the parameters of the visit of the ZOO.
     private var settingParametersOfVisitViewModel: SettingParametersOfVisitViewModel
     /// The text field for setting the walk speed
@@ -38,6 +42,8 @@ class SettingParametersOfVisitViewController: BaseViewController {
         self.setupBindingsWithViewModelActions()
         self.settingParametersOfVisitViewModel.getWalkSpeed.apply().start()
         self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.apply().start()
+        self.settingParametersOfVisitViewModel.isVoiceOn.apply().start()
+        self.settingParametersOfVisitViewModel.isInformationFromGuideSaid.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,6 +52,8 @@ class SettingParametersOfVisitViewController: BaseViewController {
         self.setupBindingsWithViewModelActions()
         self.settingParametersOfVisitViewModel.getWalkSpeed.apply().start()
         self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.apply().start()
+        self.settingParametersOfVisitViewModel.isVoiceOn.apply().start()
+        self.settingParametersOfVisitViewModel.isInformationFromGuideSaid.apply().start()
     }
     
     
@@ -61,6 +69,14 @@ class SettingParametersOfVisitViewController: BaseViewController {
         self.settingParametersOfVisitViewModel.getTimeSpentAtOneAnimal.values.producer.startWithValues{
             (timeSpentAtOneAnimal) in
             self.timeSpentAtOneAnimal = timeSpentAtOneAnimal
+        }
+        
+        self.settingParametersOfVisitViewModel.isVoiceOn.values.producer.startWithValues { (isVoiceOn) in
+            self.isVoiceOn = isVoiceOn
+        }
+        
+        self.settingParametersOfVisitViewModel.isInformationFromGuideSaid.values.producer.startWithValues { (isInformationFromGuideSaid) in
+            self.isInformationFromGuideSaid = isInformationFromGuideSaid
         }
     }
     
@@ -172,7 +188,7 @@ class SettingParametersOfVisitViewController: BaseViewController {
         let setParametersButton = UIButton()
         setParametersButton.setTitle(L10n.setParameters, for: .normal)
         setParametersButton.setTitleColor(UIColor.white, for: .normal)
-        setParametersButton.backgroundColor = UIColor(red: 0.35, green: 0.35, blue: 0.35, alpha: 1)
+        setParametersButton.backgroundColor = Colors.saveButtonColor.color
         setParametersButton.layer.cornerRadius = 5
         setParametersButton.layer.borderWidth = 1
         setParametersButton.layer.borderColor = UIColor.black.cgColor
@@ -181,6 +197,20 @@ class SettingParametersOfVisitViewController: BaseViewController {
         setParametersButton.snp.makeConstraints{ (make) in
             make.top.equalTo(timeSpentAtOneAnimalField.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(100)
+            make.width.equalToSuperview().offset(-140)
+        }
+        
+        let goBackButton = UIButton()
+        goBackButton.setTitle(L10n.goBackToMainScreen, for: .normal)
+        goBackButton.backgroundColor = Colors.goBackButtonColor.color
+        goBackButton.layer.cornerRadius = 5
+        goBackButton.layer.borderWidth = 1
+        goBackButton.layer.borderColor = UIColor.black.cgColor
+        goBackButton.addTarget(self, action: #selector(goBackButtonTapped(_:)), for: .touchUpInside)
+        self.view.addSubview(goBackButton)
+        goBackButton.snp.makeConstraints { (make) in
+            make.top.equalTo(setParametersButton.snp.bottom).offset(10)
+            make.right.equalTo(setParametersButton.snp.right)
             make.width.equalToSuperview().offset(-140)
         }
     }
@@ -194,7 +224,30 @@ class SettingParametersOfVisitViewController: BaseViewController {
         let walkSpeedFieldValue: Float = (self.walkSpeedField.text! as NSString).floatValue
         let timeSpentAtOneAnimalFieldValue: Float = (self.timeSpentAtOneAnimalField.text! as NSString).floatValue
         self.settingParametersOfVisitViewModel.setParameters(walkSpeed: walkSpeedFieldValue, timeSpentAtOneAnimal: timeSpentAtOneAnimalFieldValue)
-        flowDelegate?.goBack(in: self)
+        
+        
+        let displayInformationPopoverVC = DisplayInformationPopoverViewController(text: L10n.saveSettingOfParametersSpeech)
+        self.addChild(displayInformationPopoverVC)
+        displayInformationPopoverVC.view.frame = self.view.frame
+        self.view.addSubview(displayInformationPopoverVC.view)
+        displayInformationPopoverVC.didMove(toParent: self)
+        
+        if (!self.isVoiceOn || !self.isInformationFromGuideSaid) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                displayInformationPopoverVC.view.removeFromSuperview()
+                self.flowDelegate?.goBack(in: self)
+            })
+            return
+        }
+        
+        self.settingParametersOfVisitViewModel.stopSpeaking()
+        
+        self.settingParametersOfVisitViewModel.setCallbacksOfSpeechService(startCallback: {
+        }, finishCallback: {
+            self.flowDelegate?.goBack(in: self)
+        })
+        
+        self.settingParametersOfVisitViewModel.sayText(text: L10n.saveSettingOfParametersSpeech)
     }
     
     /**
@@ -204,5 +257,14 @@ class SettingParametersOfVisitViewController: BaseViewController {
     */
     @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToLexicon(in: self)
+    }
+    
+    /**
+     This function ensures going back to the main screen without saving the actual setting of machine-read information after tapping the button.
+     - Parameters:
+     - The button for going to the main screen which was tapped and has set this method as a target.
+     */
+    @objc func goBackButtonTapped(_ sender: UIButton) {
+        flowDelegate?.goBack(in: self)
     }
 }

@@ -28,7 +28,7 @@ class AppDependency {
     lazy var parametersOfVisitRepository: ParametersOfVisitRepositoring = ParametersOfVisitRepository()
     lazy var processAnimalInformationService: ProcessAnimalInformationServicing = ProcessAnimalInformationService(biotopeBindingRepository: biotopeBindingRepository, foodBindingRepository: foodBindingRepository, continentBindingRepository: continentBindingRepository)
     lazy var classRepository: ClassRepositoring = ClassRepository()
-    lazy var routeWithAnimalsService: RouteWithAnimalsServicing = RouteWithAnimalsService()
+    lazy var routeWithAnimalsService: RouteWithAnimalsServicing = RouteWithAnimalsService(animalRepository: animalRepository)
 }
 
 extension AppDependency: HasAnimalRepository{}

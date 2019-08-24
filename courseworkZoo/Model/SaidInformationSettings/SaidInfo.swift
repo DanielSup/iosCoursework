@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- This enum is used for selection of information about close animal which are machinely said. It determines what will be machinely read when we are close to an animal.
+ This enum is used for selection of information about close animal or any other information from the guide which are machinely said. It determines what will be machinely read when we are close to an animal or what will the guide say.
  */
 enum SaidInfo: CaseIterable{
     case actualities
@@ -21,6 +21,7 @@ enum SaidInfo: CaseIterable{
     case reproduction
     case attractions
     case breeding
+    case informationFromGuide
     
     /**
      This variable returns a suitable title for the given case.
@@ -45,6 +46,8 @@ enum SaidInfo: CaseIterable{
                 return L10n.attractionsSetting
             case .breeding:
                 return L10n.breedingSetting
+            case .informationFromGuide:
+                return L10n.informationFromGuideSetting
         }
     }
     
@@ -52,6 +55,6 @@ enum SaidInfo: CaseIterable{
      This variable returns a list of all cases of this enum in the writter order.
     */
     static var values: [SaidInfo]{
-        return [.actualities, .description, .biotopes, .continents, .food, .proportions, .reproduction, .attractions, .breeding]
+        return [.actualities, .description, .biotopes, .continents, .food, .proportions, .reproduction, .attractions, .breeding, .informationFromGuide]
     }
 }

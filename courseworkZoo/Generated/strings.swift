@@ -19,6 +19,10 @@ internal enum L10n {
   internal static let actualitiesInfoTitle = L10n.tr("Localizable", "actualitiesInfoTitle")
   /// Actualities about the animal
   internal static let actualitiesSetting = L10n.tr("Localizable", "actualitiesSetting")
+  /// Add all animals to the path
+  internal static let addAllAnimalsToPath = L10n.tr("Localizable", "addAllAnimalsToPath")
+  /// is added to the actual path.
+  internal static let addAnimalToPathSpeech = L10n.tr("Localizable", "addAnimalToPathSpeech")
   /// Add to path
   internal static let addToPath = L10n.tr("Localizable", "addToPath")
   /// Advanced information
@@ -93,6 +97,8 @@ internal enum L10n {
   internal static let chondrichthyes = L10n.tr("Localizable", "chondrichthyes")
   /// Choose saved path
   internal static let chooseSavedPath = L10n.tr("Localizable", "chooseSavedPath")
+  /// You have choosed the saved path with with animals the name
+  internal static let chooseSavedPathSpeech = L10n.tr("Localizable", "chooseSavedPathSpeech")
   /// Classes
   internal static let classes = L10n.tr("Localizable", "classes")
   /// Class
@@ -101,6 +107,8 @@ internal enum L10n {
   internal static let classList = L10n.tr("Localizable", "classList")
   /// Animal at which you are
   internal static let closeAnimalLegend = L10n.tr("Localizable", "closeAnimalLegend")
+  /// Close
+  internal static let closeAnimalsToPath = L10n.tr("Localizable", "closeAnimalsToPath")
   /// Coniferous forest
   internal static let coniferousForest = L10n.tr("Localizable", "coniferousForest")
   /// Continents
@@ -139,18 +147,30 @@ internal enum L10n {
   internal static let freshWater = L10n.tr("Localizable", "freshWater")
   /// Fruits
   internal static let fruits = L10n.tr("Localizable", "fruits")
-  /// Go back to map
-  internal static let goBackToMap = L10n.tr("Localizable", "goBackToMap")
+  /// Go back to main screen
+  internal static let goBackToMainScreen = L10n.tr("Localizable", "goBackToMainScreen")
   /// Select locality where you go
   internal static let goForSelectionOfLocality = L10n.tr("Localizable", "goForSelectionOfLocality")
   /// Animal list
   internal static let goToAnimalList = L10n.tr("Localizable", "goToAnimalList")
+  /// You go to the screen for choosing a saved path.
+  internal static let goToChoosePathSpeech = L10n.tr("Localizable", "goToChoosePathSpeech")
   /// You can go to the exit.
   internal static let goToExit = L10n.tr("Localizable", "goToExit")
   /// Go to the guide
   internal static let goToGuide = L10n.tr("Localizable", "goToGuide")
   /// Go to lexicon
   internal static let goToLexicon = L10n.tr("Localizable", "goToLexicon")
+  /// You go to the main screen of the lexicon of animals.
+  internal static let goToLexiconSpeech = L10n.tr("Localizable", "goToLexiconSpeech")
+  /// You have opened the dialog for saving the actual path with a name which you give by filling the text field. You save the actual path with the filled name by tapping the save button.
+  internal static let goToSavePathSpeech = L10n.tr("Localizable", "goToSavePathSpeech")
+  /// You have opened the table for selecting animals to the actual path.
+  internal static let goToSelectAnimalsSpeech = L10n.tr("Localizable", "goToSelectAnimalsSpeech")
+  /// You go to the screen for selecting information about animals which you want to hear.
+  internal static let goToSelectInformationSpeech = L10n.tr("Localizable", "goToSelectInformationSpeech")
+  /// You go to the screen for setting parameters of the visit of the ZOO. You can set the supposed walk speed and time spent at one animal and save it by tapping the button.
+  internal static let goToSettingParametersSpeech = L10n.tr("Localizable", "goToSettingParametersSpeech")
   /// Settings of said information about animals
   internal static let goToSettings = L10n.tr("Localizable", "goToSettings")
   /// Grassy territory
@@ -159,6 +179,62 @@ internal enum L10n {
   internal static let guideTitle = L10n.tr("Localizable", "guideTitle")
   /// Help
   internal static let help = L10n.tr("Localizable", "help")
+  /// 
+  internal static let helpParagraph1 = L10n.tr("Localizable", "helpParagraph1")
+  /// 
+  internal static let helpParagraph10 = L10n.tr("Localizable", "helpParagraph10")
+  /// 
+  internal static let helpParagraph11 = L10n.tr("Localizable", "helpParagraph11")
+  /// 
+  internal static let helpParagraph12 = L10n.tr("Localizable", "helpParagraph12")
+  /// 
+  internal static let helpParagraph13 = L10n.tr("Localizable", "helpParagraph13")
+  /// 
+  internal static let helpParagraph14 = L10n.tr("Localizable", "helpParagraph14")
+  /// 
+  internal static let helpParagraph15 = L10n.tr("Localizable", "helpParagraph15")
+  /// 
+  internal static let helpParagraph16 = L10n.tr("Localizable", "helpParagraph16")
+  /// 
+  internal static let helpParagraph17 = L10n.tr("Localizable", "helpParagraph17")
+  /// 
+  internal static let helpParagraph18 = L10n.tr("Localizable", "helpParagraph18")
+  /// 
+  internal static let helpParagraph19 = L10n.tr("Localizable", "helpParagraph19")
+  /// 
+  internal static let helpParagraph2 = L10n.tr("Localizable", "helpParagraph2")
+  /// 
+  internal static let helpParagraph20 = L10n.tr("Localizable", "helpParagraph20")
+  /// 
+  internal static let helpParagraph21 = L10n.tr("Localizable", "helpParagraph21")
+  /// 
+  internal static let helpParagraph22 = L10n.tr("Localizable", "helpParagraph22")
+  /// 
+  internal static let helpParagraph23 = L10n.tr("Localizable", "helpParagraph23")
+  /// 
+  internal static let helpParagraph24 = L10n.tr("Localizable", "helpParagraph24")
+  /// 
+  internal static let helpParagraph25 = L10n.tr("Localizable", "helpParagraph25")
+  /// 
+  internal static let helpParagraph26 = L10n.tr("Localizable", "helpParagraph26")
+  /// 
+  internal static let helpParagraph27 = L10n.tr("Localizable", "helpParagraph27")
+  /// 
+  internal static let helpParagraph28 = L10n.tr("Localizable", "helpParagraph28")
+  /// 
+  internal static let helpParagraph3 = L10n.tr("Localizable", "helpParagraph3")
+  /// 
+  internal static let helpParagraph4 = L10n.tr("Localizable", "helpParagraph4")
+  /// 
+  internal static let helpParagraph5 = L10n.tr("Localizable", "helpParagraph5")
+  /// 
+  internal static let helpParagraph6 = L10n.tr("Localizable", "helpParagraph6")
+  /// 
+  internal static let helpParagraph7 = L10n.tr("Localizable", "helpParagraph7")
+  /// 
+  internal static let helpParagraph8 = L10n.tr("Localizable", "helpParagraph8")
+  /// 
+  internal static let helpParagraph9 = L10n.tr("Localizable", "helpParagraph9")
   /// You are here
   internal static let here = L10n.tr("Localizable", "here")
   /// living in Africa
@@ -175,6 +251,8 @@ internal enum L10n {
   internal static let inDesertAndSemiDesert = L10n.tr("Localizable", "inDesertAndSemiDesert")
   /// living in Europe
   internal static let inEurope = L10n.tr("Localizable", "inEurope")
+  /// Next information and instructions from the guide
+  internal static let informationFromGuideSetting = L10n.tr("Localizable", "informationFromGuideSetting")
   /// In fresh water
   internal static let inFreshWater = L10n.tr("Localizable", "inFreshWater")
   /// in grassy territory
@@ -257,8 +335,14 @@ internal enum L10n {
   internal static let proportionsInfo = L10n.tr("Localizable", "proportionsInfo")
   /// Proportions
   internal static let proportionsSetting = L10n.tr("Localizable", "proportionsSetting")
+  /// Remove all animals from the path
+  internal static let removeAllAnimalsFromPath = L10n.tr("Localizable", "removeAllAnimalsFromPath")
+  /// is removed from the actual path.
+  internal static let removeAnimalFromPathSpeech = L10n.tr("Localizable", "removeAnimalFromPathSpeech")
   /// Remove from path
   internal static let removeFromPath = L10n.tr("Localizable", "removeFromPath")
+  /// Remove path
+  internal static let removePath = L10n.tr("Localizable", "removePath")
   /// Reproduction
   internal static let reproductionInfo = L10n.tr("Localizable", "reproductionInfo")
   /// Reproduction
@@ -267,6 +351,14 @@ internal enum L10n {
   internal static let reptilia = L10n.tr("Localizable", "reptilia")
   /// Save Path
   internal static let savePath = L10n.tr("Localizable", "savePath")
+  /// You saved the actual path with the name
+  internal static let savePathSpeech = L10n.tr("Localizable", "savePathSpeech")
+  /// Parameters of the visit of the ZOO are successfully set.
+  internal static let saveSettingOfParametersSpeech = L10n.tr("Localizable", "saveSettingOfParametersSpeech")
+  /// Save settings
+  internal static let saveSettings = L10n.tr("Localizable", "saveSettings")
+  /// Setting information for machine-reading is saved.
+  internal static let saveSettingsSpeech = L10n.tr("Localizable", "saveSettingsSpeech")
   /// Sea
   internal static let sea = L10n.tr("Localizable", "sea")
   /// Search the screen where you want to go.
@@ -277,6 +369,8 @@ internal enum L10n {
   internal static let selectAnimalsToPath = L10n.tr("Localizable", "selectAnimalsToPath")
   /// Select information
   internal static let selectInformation = L10n.tr("Localizable", "selectInformation")
+  /// Select path
+  internal static let selectPath = L10n.tr("Localizable", "selectPath")
   /// Set parameters
   internal static let setParameters = L10n.tr("Localizable", "setParameters")
   /// Set the parameters by your own judgement.
@@ -307,6 +401,8 @@ internal enum L10n {
   internal static let turnOffVoice = L10n.tr("Localizable", "turnOffVoice")
   /// Turn on the voice
   internal static let turnOnVoice = L10n.tr("Localizable", "turnOnVoice")
+  /// You have turned on the voice.
+  internal static let turnOnVoiceSpeech = L10n.tr("Localizable", "turnOnVoiceSpeech")
   /// Visited animal
   internal static let visitedAnimalLegend = L10n.tr("Localizable", "visitedAnimalLegend")
   /// Walk speed through ZOO

@@ -16,6 +16,7 @@ import ReactiveSwift
 protocol RouteWithAnimalsServicing {
     func setSourceLocality(_ sourceLocality: CLLocationCoordinate2D)
     func setAnimalsInPath(_ animalsInPath: [Animal]) -> Bool
+    func addAllAnimalsToPath()
     func setExitCoordinate(_ exitCoordinate: CLLocationCoordinate2D)
     func getExitCoordinate() -> CLLocationCoordinate2D?
     func setEntranceCoordinate(_ entranceCoordinate: CLLocationCoordinate2D)
@@ -33,6 +34,9 @@ protocol RouteWithAnimalsServicing {
  This class is used for finding the shortest combination of routes with all animals in the actual path. It also finds shortest path between two placemarks
 */
 class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServicing {
+    
+    /// The repository for getting all animals with known coordinate.
+    private var animalRepository: AnimalRepositoring
     /// The array of animals in the path.
     private var animalsInPath: [Animal] = []
     /// The array of non visited animals in path
@@ -50,6 +54,14 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     /// The boolean representing whether the coordinate of the entrance to the ZOO was set.
     private var isEntranceSet = false
     
+    
+    /**
+     - Parameters:
+        - animalRepository: The repository for getting all animals with known coordinate.
+    */
+    init(animalRepository: AnimalRepositoring) {
+        self.animalRepository = animalRepository
+    }
     
     /**
      This function sets the list of animals in the actual path. It also sets the array of non visited animals to the array of all animals in the actual path.
@@ -81,6 +93,17 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
             self.nonVisitedAnimalsInPath = animalsInPath
         }
         return differ
+    }
+    
+    
+    /**
+     This function ensures adding all animals with known coordinate to the actual path.
+    */
+    func addAllAnimalsToPath() {
+        self.animalRepository.loadAndSaveDataIfNeeded()
+        self.animalRepository.getAnimalsWithKnownCoordinate().producer.startWithResult { (animalsWithKnownCoordinateResult) in
+            self.setAnimalsInPath(animalsWithKnownCoordinateResult.value!)
+        }
     }
     
     /**
@@ -247,11 +270,13 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
      - Returns: The array of placemarks representing the shortest path.
     */
     private func getPlacemarksForLargerCountOfAnimals(from unorderedPlacemarks: [MKPlacemark]) -> [MKPlacemark] {
-        let entranceCoordinate = CLLocationCoordinate2D(latitude: self.entranceCoordinate.latitude, longitude: self.entranceCoordinate.latitude)
+        let entranceCoordinate = CLLocationCoordinate2D(latitude: self.entranceCoordinate.latitude, longitude: self.entranceCoordinate.longitude)
         var entrancePlacemark = MKPlacemark(coordinate: entranceCoordinate)
         
         let exitCoordinate = CLLocationCoordinate2D(latitude: self.closestExitCoordinate.latitude, longitude: self.closestExitCoordinate.longitude)
         var exitPlacemark = MKPlacemark(coordinate: exitCoordinate)
+        
+        print(self.entranceCoordinate)
         
         var unprocessedPlacemarks = unorderedPlacemarks
         var placemarksForPath: [MKPlacemark] = []
@@ -291,7 +316,6 @@ class RouteWithAnimalsService: NSObject, MKMapViewDelegate, RouteWithAnimalsServ
     private func getClosestPlacemark(from source: MKPlacemark, in placemarks: [MKPlacemark]) -> MKPlacemark? {
         var closestPlacemark: MKPlacemark? = nil
         var shortestDistance = 0.0
-        
         /// loop through all unprocessed placemarks (unselected as the shortest from any other placemark)
         for placemark in placemarks {
             let distanceFromTheActualPlacemark = placemark.location!.distance(from: source.location!)

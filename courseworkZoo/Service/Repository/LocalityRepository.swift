@@ -17,6 +17,7 @@ protocol LocalityRepositoring{
     func loadAndSaveDataIfNeeded()
     func visitLocality(_ locality: Locality)
     func getLocalityInCloseness(latitude: Double, longitude: Double) -> SignalProducer<Locality?, LoadError>
+    func getLocalitiesWithKnownCoordinate() -> SignalProducer<[Locality], LoadError>
 }
 
 
@@ -75,5 +76,25 @@ class LocalityRepository: Repository<Locality>, LocalityRepositoring{
             }
         }
         return false
+    }
+    
+    
+    /**
+    This function finds localities with known coordinate which have latitude greater or equal to zero because localities with unknown coordinate have the latitude and the longitude euqal to -1. This function returns a signal producer with the list of localities with known coordinate. If the list of all localities couldn't be loaded, it returns a signal producer with an error representing it.
+     - Returns: A signal producer with the list of localities with known coordinate. If the list of all localities couldn't be loaded, it returns a signal producer with an error representing it.
+     */
+    func getLocalitiesWithKnownCoordinate() -> SignalProducer<[Locality], LoadError> {
+        if let localities = self.entities.value as? [Locality] {
+            var localitiesWithKnownCoordinate: [Locality] = []
+            for locality in localities {
+                if (locality.latitude < 0) {
+                    continue
+                }
+                localitiesWithKnownCoordinate.append(locality)
+            }
+            return SignalProducer(value: localitiesWithKnownCoordinate)
+        } else {
+            return SignalProducer(error: .noLocalities)
+        }
     }
 }

@@ -93,6 +93,8 @@ class ProcessAnimalInformationService: ProcessAnimalInformationServicing {
                 return information.title + spaces + animal.attractions + spaces
             case .breeding:
                 return information.title + spaces + animal.breeding + spaces
+            case .informationFromGuide:
+                return ""
         }
     }
     

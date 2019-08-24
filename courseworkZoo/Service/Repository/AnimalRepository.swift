@@ -20,6 +20,7 @@ protocol AnimalRepositoring{
     func getAnimalBy_Id(id: Int) -> SignalProducer<Animal?, LoadError>
     func getAnimalsInOrder(_ order: Class) -> SignalProducer<[Animal], LoadError>
     func getAnimalsInLocality(_ locality: Locality) -> SignalProducer<[Animal], LoadError>
+    func getAnimalsWithKnownCoordinate() -> SignalProducer<[Animal], LoadError>
 }
 
 
@@ -111,4 +112,23 @@ class AnimalRepository: Repository<Animal>, AnimalRepositoring{
         }
     }
     
+    
+    /**
+     This function finds animals with known coordinate (animals with latitude greater or equalt to zero) because animals with unknown coordinate have the latitude and longitude equal to -1. It returns a signal producer with the list of all animals which has known coordinate. If the list of all animals couldn't be loaded, it returns a signal producer with an error representing it.
+     - Returns: A signal producer with the list of all animals which has known coordinate. If the list of all animals couldn't be loaded, it returns a signal producer with an error representing it.
+     */
+    func getAnimalsWithKnownCoordinate() -> SignalProducer<[Animal], LoadError> {
+        if let animalList = self.entities.value as? [Animal] {
+            var animalsWithKnownCoordinate: [Animal] = []
+            for animal in animalList {
+                if (animal.latitude < 0) {
+                    continue
+                }
+                animalsWithKnownCoordinate.append(animal)
+            }
+            return SignalProducer(value: animalsWithKnownCoordinate)
+        } else {
+            return SignalProducer(error: .noAnimals)
+        }
+    }
 }

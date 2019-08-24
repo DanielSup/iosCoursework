@@ -16,6 +16,7 @@ protocol VoiceSettingsRepositoring{
     func isVoiceOn() -> SignalProducer<Bool, Error>
     func turnVoiceOnOrOff()
     func getActualInformationSetting() -> SignalProducer<[SaidInfo: Bool], Error>
+    func isInformationFromGuideSaid() -> SignalProducer<Bool, Error>
     func setActualInformationSetting(_ informationSetting: [SaidInfo: Bool])
 }
 
@@ -65,6 +66,7 @@ class VoiceSettingsRepository: VoiceSettingsRepositoring{
             informationSetting[SaidInfo.reproduction] = informationSettingValues[6]
             informationSetting[SaidInfo.attractions] = informationSettingValues[7]
             informationSetting[SaidInfo.breeding] = informationSettingValues[8]
+            informationSetting[SaidInfo.informationFromGuide] = informationSettingValues[9]
             
             return SignalProducer(value: informationSetting)
         } else {
@@ -79,15 +81,29 @@ class VoiceSettingsRepository: VoiceSettingsRepositoring{
             informationSetting[SaidInfo.reproduction] = false
             informationSetting[SaidInfo.attractions] = false
             informationSetting[SaidInfo.breeding] = false
+            informationSetting[SaidInfo.informationFromGuide] = true
 
             return SignalProducer(value: informationSetting)
         }
     }
+
     
     /**
-     This function ensures saving the actual setting of the machine-read information about animals to UserDefaults.
+     This function returns a signal producer with the boolean representing whether other information (not information about a close animal) and instructions from the guide not only about the close animal are said or not.
+     - Returns: A signal producer with the boolean representing whether other information (not information about a close animal) and instructions from the guide a
+    */
+    func isInformationFromGuideSaid() -> SignalProducer<Bool, Error> {
+        if let informationSettingValues = UserDefaults.standard.array(forKey: VoiceSettingsRepository.informationSettingKey) as? [Bool] {
+            return SignalProducer(value: informationSettingValues[9])
+        } else {
+            return SignalProducer(value: true)
+        }
+    }
+    
+    /**
+     This function ensures saving the actual setting of the machine-read information about animals and instructions from the guide to UserDefaults.
      - Parameters:
-        - informationSetting: The dictionary representing the actual setting of the machine-read information about animals where keys are SaidInfo cases and values are booleans
+        - informationSetting: The dictionary representing the actual setting of the machine-read information about animals and information and instructions from the guide where keys are SaidInfo cases and values are booleans
     */
     func setActualInformationSetting(_ informationSetting: [SaidInfo : Bool]) {
         let informationSettingValues = informationSetting.map { $0.1 }

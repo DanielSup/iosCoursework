@@ -14,11 +14,14 @@ import ReactiveSwift
 */
 protocol PathRepositoring{
     func addAnimalToPath(animal: Animal)
+    func addAllAnimalsToPath()
     func removeAnimalFromPath(animal: Animal)
+    func removeAllAnimalsFromPath()
     func saveActualPath(with title: String)
     func getAllPaths() -> SignalProducer<[Path], Error>
     func selectPath(path: Path)
     func getAnimalsInPath() -> [Animal]
+    func removePath(path: Path)
 }
 
 
@@ -55,6 +58,17 @@ class PathRepository: PathRepositoring{
     }
     
     
+    
+    /**
+     This function adds all animals to the actual unsaved path.
+    */
+    func addAllAnimalsToPath() {
+        self.animalRepository.loadAndSaveDataIfNeeded()
+        self.animalRepository.getAnimalsWithKnownCoordinate().startWithResult { (animalsWithKnownCoordinateResult) in
+            self.animalsInActualPath = animalsWithKnownCoordinateResult.value!
+        }
+    }
+    
     /**
      This function ensures removing the given animal from the actual path.
      - Parameters:
@@ -71,6 +85,13 @@ class PathRepository: PathRepositoring{
         }
     }
     
+    
+    /**
+     This function removes all animals from the actual unsaved path.
+    */
+    func removeAllAnimalsFromPath() {
+        self.animalsInActualPath = []
+    }
     
     /**
      This function ensures saving the actual path to UserDefaults. This function also increases the count of saved paths by one. There are saved all information about the path and number of saved paths.
@@ -169,5 +190,51 @@ class PathRepository: PathRepositoring{
     */
     func getAnimalsInPath() -> [Animal] {
         return self.animalsInActualPath
+    }
+    
+    /**
+     This function removes the given path by the title and the list of animals.
+     - Parameters:
+        - path: The path which must be removed.
+    */
+    func removePath(path: Path) {
+        print("path removingß")
+        var allPaths: [Path] = []
+        let numberOfPaths = UserDefaults.standard.integer(forKey: PathRepository.countKey)
+        var actualPathIndex: Int = 0
+        
+        let pathWithAllAnimals = self.getPathWithAllAnimalsWithCoordinate()
+        if (pathWithAllAnimals != nil) {
+            allPaths.append(pathWithAllAnimals!)
+        }
+        
+        /// adding paths from NSUserDefaults
+        while actualPathIndex < numberOfPaths{
+            
+            let keyForTitle = PathRepository.path_prefix + String(actualPathIndex) + PathRepository.title_postfix
+            let keyForAnimals = PathRepository.path_prefix + String(actualPathIndex) + PathRepository.animals_postfix
+            /// getting information about the path with the actual index and saving the path to array
+            if let pathTitle = UserDefaults.standard.string(forKey: keyForTitle), let animalIdsInPath = UserDefaults.standard.value(forKey: keyForAnimals) as? [Int]{
+                
+                var isPathSame = path.animals.count == animalIdsInPath.count && path.title == pathTitle
+                if (!isPathSame) {
+                    actualPathIndex += 1
+                    continue
+                }
+                
+                for i in 0..<path.animals.count {
+                    if (path.animals[i].id != animalIdsInPath[i]) {
+                        isPathSame = false
+                        break
+                    }
+                }
+                if (isPathSame) {
+                    UserDefaults.standard.removeObject(forKey: keyForTitle)
+                    UserDefaults.standard.removeObject(forKey: keyForAnimals)
+                    UserDefaults.standard.synchronize()
+                }
+            }
+            actualPathIndex += 1
+        }
     }
 }

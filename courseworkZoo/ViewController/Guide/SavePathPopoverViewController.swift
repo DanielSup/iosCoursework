@@ -15,8 +15,12 @@ import SnapKit
 class SavePathPopoverViewController: BaseViewController {
     /// The view model for saving the actual path
     private let savePathViewModel: SavePathViewModel
+    /// The boolean representing whether the voice for machine-reading is on or off.
+    private var isVoiceOn: Bool = true
+    /// The boolean representing whether the guide says other information and instructions.
+    private var isInformationFromGuideSaid = true
     /// The text field for filling the title which the actual path will be saved with.
-    private var titleField: UITextField!
+    var titleTextField: UITextField!
     
     /**
      - Parameters:
@@ -25,6 +29,9 @@ class SavePathPopoverViewController: BaseViewController {
     init(savePathViewModel: SavePathViewModel){
         self.savePathViewModel = savePathViewModel
         super.init()
+        self.setupBindingsWithViewModelActions()
+        self.savePathViewModel.isVoiceOn.apply().start()
+        self.savePathViewModel.isInformationFromGuideSaid.apply().start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,9 +39,23 @@ class SavePathPopoverViewController: BaseViewController {
     }
     
     
+    /**
+     This function binds the view controller with the action of the view model for getting whether the voice for machine-reading is on or off and action for getting whether the guide can say other information and instructions.
+    */
+    override func setupBindingsWithViewModelActions() {
+        self.savePathViewModel.isVoiceOn.values.producer.startWithValues { (isVoiceOn) in
+            self.isVoiceOn = isVoiceOn
+        }
+        
+        self.savePathViewModel.isInformationFromGuideSaid.values.producer.startWithValues { (isInformationFromGuideSaid) in
+            self.isInformationFromGuideSaid = isInformationFromGuideSaid
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        self.view.backgroundColor = Colors.backgroundOfPopoverColor.color
         // Adding the view of the popover
         let popoverView = UIView()
         popoverView.backgroundColor = Colors.screenBodyBackgroundColor.color
@@ -46,18 +67,18 @@ class SavePathPopoverViewController: BaseViewController {
         }
         
         
-        let titleField: UITextField = UITextField(frame: CGRect(x: 20, y: 70, width: self.view.bounds.size.width / 2.0 - 40, height: 30))
-        titleField.borderStyle = .roundedRect
-        popoverView.addSubview(titleField)
-        self.titleField = titleField
+        let titleTextField: UITextField = UITextField(frame: CGRect(x: 20, y: 70, width: self.view.bounds.size.width / 2.0 - 40, height: 30))
+        titleTextField.borderStyle = .roundedRect
+        popoverView.addSubview(titleTextField)
+        self.titleTextField = titleTextField
         
-        let titleFieldLabel = UILabel()
-        titleFieldLabel.text = L10n.pathTitle
-        titleFieldLabel.textColor = UIColor.black
-        popoverView.addSubview(titleFieldLabel)
-        titleFieldLabel.snp.makeConstraints{ (make) in
-            make.left.equalTo(titleField.snp.left)
-            make.bottom.equalTo(titleField.snp.top).offset(20)
+        let titleTextFieldLabel = UILabel()
+        titleTextFieldLabel.text = L10n.pathTitle
+        titleTextFieldLabel.textColor = UIColor.black
+        popoverView.addSubview(titleTextFieldLabel)
+        titleTextFieldLabel.snp.makeConstraints{ (make) in
+            make.left.equalTo(titleTextField.snp.left)
+            make.bottom.equalTo(titleTextField.snp.top)
         }
         
         let savePathButton: UIButton = UIButton()
@@ -70,8 +91,8 @@ class SavePathPopoverViewController: BaseViewController {
         savePathButton.addTarget(self, action: #selector(savePathButtonTapped(_:)), for: .touchUpInside)
         popoverView.addSubview(savePathButton)
         savePathButton.snp.makeConstraints{ (make) in
-            make.top.equalTo(titleField.snp.bottom).offset(15)
-            make.left.equalTo(titleField.snp.left)
+            make.top.equalTo(titleTextField.snp.bottom).offset(15)
+            make.left.equalTo(titleTextField.snp.left)
             make.width.equalToSuperview().dividedBy(2).offset(-21)
         }
         
@@ -85,7 +106,7 @@ class SavePathPopoverViewController: BaseViewController {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: .touchUpInside)
         popoverView.addSubview(cancelButton)
         cancelButton.snp.makeConstraints{ (make) in
-            make.top.equalTo(titleField.snp.bottom).offset(15)
+            make.top.equalTo(titleTextField.snp.bottom).offset(15)
             make.left.equalTo(savePathButton.snp.right).offset(2)
             make.width.equalToSuperview().dividedBy(2).offset(-21)
         }
@@ -100,8 +121,35 @@ class SavePathPopoverViewController: BaseViewController {
      - sender: The button with this method as a target which was tapped.
      */
     @objc func savePathButtonTapped(_ sender: UIButton){
-        self.savePathViewModel.saveActualPath(with: self.titleField.text!)
-        self.view.removeFromSuperview()
+        
+        let titleOfThePath = self.titleTextField.text!
+        self.savePathViewModel.saveActualPath(with: titleOfThePath)
+        
+        let textForShowingAndMachineReading = L10n.savePathSpeech + " " + titleOfThePath
+
+        let displayInformationPopoverVC = DisplayInformationPopoverViewController(text: textForShowingAndMachineReading)
+        self.addChild(displayInformationPopoverVC)
+        displayInformationPopoverVC.view.frame = self.view.frame
+        self.view.addSubview(displayInformationPopoverVC.view)
+        displayInformationPopoverVC.didMove(toParent: self)
+
+        if (!self.isVoiceOn || !self.isInformationFromGuideSaid) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                displayInformationPopoverVC.view.removeFromSuperview()
+                self.view.removeFromSuperview()
+            })
+            return
+        }
+        
+        self.savePathViewModel.stopSpeaking()
+        
+        self.savePathViewModel.setCallbacksOfSpeechService(startCallback: {
+        }, finishCallback: {
+            displayInformationPopoverVC.view.removeFromSuperview()
+            self.view.removeFromSuperview()
+            
+        })
+        self.savePathViewModel.sayText(text: L10n.savePathSpeech + " " + titleOfThePath)
     }
     
     /**

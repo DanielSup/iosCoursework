@@ -70,6 +70,7 @@
 		4E0EB69D22B37EB100831DDB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69C22B37EB100831DDB /* Constants.swift */; };
 		4E0EB69F22B3870600831DDB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EB69E22B3870600831DDB /* String.swift */; };
 		4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */; };
+		4E0F6D0623118AEA00065D2B /* PathWithActionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F6D0523118AEA00065D2B /* PathWithActionsCell.swift */; };
 		4E106B9F22C3605600D236A9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106B9E22C3605600D236A9 /* MainViewController.swift */; };
 		4E106BA322C3806800D236A9 /* GoBackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106BA222C3806800D236A9 /* GoBackDelegate.swift */; };
 		4E106BA722C380A100D236A9 /* GoToAnimalDetailDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106BA622C380A100D236A9 /* GoToAnimalDetailDelegate.swift */; };
@@ -129,6 +130,7 @@
 		4E734AA222C7740D000A74B1 /* AlmostEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA122C7740D000A74B1 /* AlmostEquatable.swift */; };
 		4E734AA522C774DC000A74B1 /* SaidInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA422C774DC000A74B1 /* SaidInfo.swift */; };
 		4E734AAA22C7797D000A74B1 /* LoadedEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E734AA922C7797D000A74B1 /* LoadedEntity.swift */; };
+		4E7A70A8230C587A005831AF /* DisplayInformationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A70A7230C587A005831AF /* DisplayInformationPopoverViewController.swift */; };
 		4E806576227CCAF6006A312A /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E806575227CCAF6006A312A /* Animal.swift */; };
 		4E86DAD3227D7F2A00F78027 /* Continent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD2227D7F2A00F78027 /* Continent.swift */; };
 		4E86DAD5227D99E800F78027 /* LocalityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86DAD4227D99E800F78027 /* LocalityType.swift */; };
@@ -248,6 +250,7 @@
 		4E0EB69C22B37EB100831DDB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
 		4E0EB69E22B3870600831DDB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "courseworkZoo/Service/String extensions/String.swift"; sourceTree = SOURCE_ROOT; };
 		4E0EBAF822B4E997003D9CD1 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewModel.swift; path = courseworkZoo/Model/BaseViewModel.swift; sourceTree = SOURCE_ROOT; };
+		4E0F6D0523118AEA00065D2B /* PathWithActionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathWithActionsCell.swift; sourceTree = "<group>"; };
 		4E106B9E22C3605600D236A9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E106BA222C3806800D236A9 /* GoBackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoBackDelegate.swift; sourceTree = "<group>"; };
 		4E106BA622C380A100D236A9 /* GoToAnimalDetailDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToAnimalDetailDelegate.swift; sourceTree = "<group>"; };
@@ -310,6 +313,7 @@
 		4E734AA122C7740D000A74B1 /* AlmostEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlmostEquatable.swift; sourceTree = "<group>"; };
 		4E734AA422C774DC000A74B1 /* SaidInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaidInfo.swift; sourceTree = "<group>"; };
 		4E734AA922C7797D000A74B1 /* LoadedEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedEntity.swift; sourceTree = "<group>"; };
+		4E7A70A7230C587A005831AF /* DisplayInformationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayInformationPopoverViewController.swift; sourceTree = "<group>"; };
 		4E806575227CCAF6006A312A /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD2227D7F2A00F78027 /* Continent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Continent.swift; sourceTree = SOURCE_ROOT; };
 		4E86DAD4227D99E800F78027 /* LocalityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalityType.swift; sourceTree = SOURCE_ROOT; };
@@ -462,6 +466,7 @@
 				4E161B6822DEFF970078C372 /* AnimalAnnotation.swift */,
 				4E70200322FC144B0028C595 /* LegendViewItem.swift */,
 				4E70200522FC159A0028C595 /* LegendView.swift */,
+				4E0F6D0523118AEA00065D2B /* PathWithActionsCell.swift */,
 			);
 			path = CustomUIComponents;
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 				4E163E7722D724200090176F /* SavePathPopoverViewController.swift */,
 				4E0E9DD722D62CA200528AC0 /* ChooseSavedPathViewController.swift */,
 				4E0E9DC322D5CEC900528AC0 /* SelectAnimalsToPathViewController.swift */,
+				4E7A70A7230C587A005831AF /* DisplayInformationPopoverViewController.swift */,
 			);
 			path = Guide;
 			sourceTree = "<group>";
@@ -1052,6 +1058,7 @@
 				4E0E9DC822D5D08F00528AC0 /* PathRepository.swift in Sources */,
 				4E1F781D22E452A600436437 /* AnimalsInBiotopeViewController.swift in Sources */,
 				4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */,
+				4E7A70A8230C587A005831AF /* DisplayInformationPopoverViewController.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
 				4EAE637822C4EC9800624328 /* HasFoodBindingsRepository.swift in Sources */,
@@ -1113,6 +1120,7 @@
 				4E082E3622F0318F002F0475 /* ContinentsViewController.swift in Sources */,
 				4E0E554122F1C8740014E118 /* AnimalsEatingKindOfFoodViewModel.swift in Sources */,
 				4E0AA4B72288630E00398D53 /* APIService.swift in Sources */,
+				4E0F6D0623118AEA00065D2B /* PathWithActionsCell.swift in Sources */,
 				4E946FB1230A97A50000E79A /* ContinentBindingRepository.swift in Sources */,
 				4EF6ADBD22BAD0BC006D9648 /* BaseFlowCoordinator.swift in Sources */,
 				4E806576227CCAF6006A312A /* Animal.swift in Sources */,

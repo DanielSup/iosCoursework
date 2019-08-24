@@ -87,11 +87,25 @@ class SelectAnimalsToPathViewModel: BaseViewModel {
     
     
     /**
+     This function ensures adding all animals with known coordinate to the actual unsaved path.
+    */
+    func addAllAnimalsToPath() {
+        self.dependencies.pathRepository.addAllAnimalsToPath()
+    }
+    
+    /**
      This function ensures removing the given animal from the actual path.
      - Parameters:
         - animal: The animal which will be removed from the actual path.
     */
     func removeAnimalFromPath(animal: Animal){
         self.dependencies.pathRepository.removeAnimalFromPath(animal: animal)
+    }
+    
+    /**
+     This function ensures removing all animals from the actual unsaved path.
+    */
+    func removeAllAnimalsFromPath() {
+        self.dependencies.pathRepository.removeAllAnimalsFromPath()
     }
 }

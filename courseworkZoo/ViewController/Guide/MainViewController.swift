@@ -42,8 +42,16 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private var exitVisited = false
     /// The boolean representing whether the voice is turned on (true) or turned off (false).
     private var isVoiceOn = true
+    /// The boolean representing whether the guide says other information and instructions.
+    private var isInformationFromGuideSaid = true
+    /// The boolean representing whether there is any text machine-reading now.
+    private var isMachineReadingRunning = false
+    /// The double representing the radius of the map view.
+    private var radius: Double = 1000000.0
     /// The coordinate of the entrance
     private var coordinateOfEntrance: CLLocationCoordinate2D!
+
+    
     
     /// The location manager which ensures listening to changes of the actual location
     let locationManager = CLLocationManager()
@@ -66,7 +74,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private var viewForTheLengthOfThePathLabel: UILabel!
     /// The label for showing the total time of the visit in the ZOO
     private var viewForTimeOfTheVisitOfTheZOOLabel: UILabel!
-    
     
     /**
      - Parameters:
@@ -112,10 +119,16 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             }
         }
         
+        self.mainViewModel.isMachineReadingRunning.values.producer.startWithValues { (isMachineReadingRunning) in
+            self.isMachineReadingRunning = isMachineReadingRunning
+        }
         
         // registration of the actions for saying information about localities and animals in the closeness of the actual location
         self.mainViewModel.getAnimalInCloseness.values.producer.startWithValues{ (animal) in
-            if (animal != nil && self.textForReadingLabel.text == "" && self.isVoiceOn) {
+            
+            self.mainViewModel.isMachineReadingRunning.apply().start()
+            
+            if (animal != nil && !self.isMachineReadingRunning && self.textForReadingLabel.text == "" && self.isVoiceOn) {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(animal: animal)
                 
                 self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
@@ -141,7 +154,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
         
         self.mainViewModel.getLocalityInCloseness.values.producer.startWithValues{ locality in
-            if (locality != nil && self.textForReadingLabel.text == "" && self.isVoiceOn) {
+            
+            self.mainViewModel.isMachineReadingRunning.apply().start()
+            
+            if (locality != nil && !self.isMachineReadingRunning && self.textForReadingLabel.text == "" && self.isVoiceOn) {
                 self.textForReadingLabel.text = self.mainViewModel.textForShowingAbout(locality: locality)
                 
                 self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
@@ -203,17 +219,24 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.getNextAnimalInThePath.values.producer.startWithValues {
             nextAnimal in
             if (nextAnimal == nil && self.visitedAnimals.count > 0) {
-                self.sayText(text: L10n.goToExit)
+                self.sayText(text: L10n.goToExit, interrupt: false)
             } else if (nextAnimal != nil) {
-                self.sayText(text: L10n.nextAnimalInPath + " " + nextAnimal!.title)
+                self.sayText(text: L10n.nextAnimalInPath + " " + nextAnimal!.title, interrupt: false)
             }
         }
         
         self.mainViewModel.isVoiceOn.values.producer.startWithValues{ (isVoiceOn) in
             self.isVoiceOn = isVoiceOn
         }
+        
+        self.mainViewModel.getAnimalsInPath.values.producer.startWithValues{ (animalsInPath) in
+            self.mainViewModel.set(animalsInPath: animalsInPath)
+        }
+        
+        self.mainViewModel.isInformationFromGuideSaid.values.producer.startWithValues { (isInformationFromGuideSaid) in
+            self.isInformationFromGuideSaid = isInformationFromGuideSaid
+        }
     }
-    
     /**
      This function ensures refreshing the pins in the map view with markers for animals and localities.
     */
@@ -265,15 +288,12 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.refreshMapView()
         
         self.mainViewModel.set(sourceLocation: self.zooPlanMapView.userLocation.coordinate)
-        self.mainViewModel.getAnimalsInPath.values.producer.startWithValues {
-             animalsInPath in
-            self.mainViewModel.set(animalsInPath: animalsInPath)
-        }
         self.mainViewModel.getAnimalsInPath.apply().start()
         self.mainViewModel.getCountOfUnvisitedAnimals.apply().start()
         self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
-        if (self.countOfUnvisitedAnimals > 0) {
-            self.sayText(text: L10n.pathIsCounting)
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.countOfUnvisitedAnimals > 0 && self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.pathIsCounting, interrupt: false)
         }
         self.mainViewModel.getWalkSpeed.apply().start()
         self.mainViewModel.getTimeSpentAtOneAnimal.apply().start()
@@ -470,11 +490,14 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
 
         self.mainViewModel.isVoiceOn.apply().start()
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
         
         // adding loaded localities to map
         self.addLoadedLocalitiesToMap()
 
-        self.sayText(text: L10n.welcome)
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.welcome, interrupt: false)
+        }
     }
     
     /**
@@ -597,30 +620,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
-    
-    /**
-     This function ensures saying the given text and showing it under the legend for the map view.
-     - Parameters:
-        - text: The text which is shown and machine-read.
-    */
-    func sayText(text: String) {
-        if (!self.isVoiceOn || self.textForReadingLabel.text != "") {
-            return
-        }
-        
-        self.textForReadingLabel.text = text
-        
-        self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
-            self.speakingCharacterImageView?.startAnimatingGif()
-        }, finishCallback: {
-            self.speakingCharacterImageView?.stopAnimatingGif()
-            self.textForReadingLabel.text = ""
-            if (text == L10n.pathIsCounting) {
-                self.mainViewModel.getNextAnimalInThePath.apply().start()
-            }
-        })
-        self.mainViewModel.sayText(text: text)
-    }
     
     /**
      This function finds the shortest route betweeen the two given placemarks and ensures showing the found route to the map view. It is used for showing the route with the selected animals in the ZOO.
@@ -781,11 +780,45 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.mainViewModel.getLocalityInCloseness.apply().start()
             self.mainViewModel.getAnimalInCloseness.apply().start()
             self.mainViewModel.getPlacemarksForTheActualPath.apply(self.countShortestPath).start()
-            if (self.countShortestPath && self.countOfUnvisitedAnimals > 0) {
-                self.sayText(text: L10n.pathIsCounting)
+            self.mainViewModel.isInformationFromGuideSaid.apply().start()
+            if (self.countShortestPath && self.countOfUnvisitedAnimals > 0 && self.isInformationFromGuideSaid) {
+                self.sayText(text: L10n.pathIsCounting, interrupt: true)
             }
             self.countShortestPath = false
         }
+    }
+    
+    
+    // MARK - Methods for machine-reading of any text in any situation.
+    
+    /**
+     This function ensures saying the given text and showing it under the legend for the map view.
+     - Parameters:
+     - text: The text which is shown and machine-read.
+     - interrupt: The boolean representing whether the previous machine-reading will be interrupted or not.
+     */
+    func sayText(text: String, interrupt: Bool) {
+        self.mainViewModel.isMachineReadingRunning.apply().start()
+        if (!self.isVoiceOn || ((self.isMachineReadingRunning || self.textForReadingLabel.text != "") && !interrupt)) {
+            return
+        }
+        
+        if (interrupt) {
+            self.mainViewModel.stopSpeaking()
+        }
+        
+        self.textForReadingLabel.text = text
+        
+        self.mainViewModel.setCallbacksOfSpeechService(startCallback: {
+            self.speakingCharacterImageView?.startAnimatingGif()
+        }, finishCallback: {
+            self.speakingCharacterImageView?.stopAnimatingGif()
+            self.textForReadingLabel.text = ""
+            if (text == L10n.pathIsCounting) {
+                self.mainViewModel.getNextAnimalInThePath.apply().start()
+            }
+        })
+        self.mainViewModel.sayText(text: text)
     }
     
     
@@ -793,7 +826,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the exit from the ZOO. There are set callbacks which ensure showing the information.
     */
     func speechAtExit() {
-        if (self.exitVisited || self.textForReadingLabel.text != "" || !self.isVoiceOn) {
+        self.mainViewModel.isMachineReadingRunning.apply().start()
+        
+        if (self.exitVisited || self.isMachineReadingRunning || self.textForReadingLabel.text != "" || !self.isVoiceOn) {
             return
         }
         self.exitVisited = true
@@ -812,7 +847,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      This function informs the user that he/she is at the entrance to the ZOO. There are set callbacks which ensure showing the information.
      */
     func speechAtEntrance() {
-        if (self.entranceVisited || self.textForReadingLabel.text != "" || self.coordinateOfEntrance == nil || !self.isVoiceOn) {
+        self.mainViewModel.isMachineReadingRunning.apply().start()
+        
+        if (self.entranceVisited || self.isMachineReadingRunning || self.textForReadingLabel.text != "" || self.coordinateOfEntrance == nil || !self.isVoiceOn) {
             return
         }
         
@@ -853,6 +890,33 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         renderer.strokeColor = UIColor.blue
         renderer.lineWidth = 4.0
         return renderer
+    }
+    
+
+    
+    /**
+     This function is called every time when the region of the map view changes. There is counted a radius important for decision whether labels at markers will be shown or not.
+     - Parameters:
+        - mapView: The map view with markers of animals, localities, entrances and exits
+        - animated: The boolean representing whether the change is animated or not.
+    */
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let centralLocationCoordinate = mapView.centerCoordinate
+        let centralLocation = CLLocation(latitude: centralLocationCoordinate.latitude, longitude: centralLocationCoordinate.longitude)
+    
+        let topCentralLatitude = centralLocationCoordinate.latitude - mapView.region.span.latitudeDelta
+        let topCentralLocation = CLLocation(latitude: topCentralLatitude, longitude: centralLocationCoordinate.longitude)
+        let radius = centralLocation.distance(from: topCentralLocation)
+        let lastRadius = self.radius
+        self.radius = radius
+        
+        if (lastRadius >= Constants.maximumRadiusToShowLabels && self.radius < Constants.maximumRadiusToShowLabels) {
+            self.refreshMapView()
+        }
+        
+        if (self.radius >= Constants.maximumRadiusToShowLabels && lastRadius < Constants.maximumRadiusToShowLabels) {
+            self.refreshMapView()
+        }
     }
     
     
@@ -916,6 +980,12 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             animalAnnotation.title = animalAnnotation.animal.title
             let annotationView = MKAnnotationView(annotation: animalAnnotation, reuseIdentifier: "animalAnnotation")
             annotationView.image = UIImage(named: imageName)
+            let titleLabel = UILabel(frame: CGRect(x: -5, y: -24, width: annotation.title!!.count * 11, height: 32))
+            titleLabel.text = annotation.title!
+            titleLabel.font = UIFont.systemFont(ofSize: 10)
+            if (self.radius < Constants.maximumRadiusToShowLabels) {
+                annotationView.addSubview(titleLabel)
+            }
             annotationView.canShowCallout = true
             return annotationView
         }
@@ -942,8 +1012,15 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             }
         }
         
+        
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "localityAnnotation")
         annotationView.image = UIImage(named: imageName)
+        let titleLabel = UILabel(frame: CGRect(x: -5, y: -24, width: annotation.title!!.count * 11, height: 32))
+        titleLabel.text = annotation.title!
+        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        if (self.radius < Constants.maximumRadiusToShowLabels) {
+            annotationView.addSubview(titleLabel)
+        }
         annotationView.canShowCallout = true
         return annotationView
     
@@ -968,10 +1045,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }
             }
             
-        
-            self.mainViewModel.getAnimalsInPath.values.producer.startWithValues { (animalsInPath) in
-                self.mainViewModel.set(animalsInPath: animalsInPath)
-            }
             self.mainViewModel.getAnimalsInPath.apply().start()
 
             var firstAnimalLocation: CLLocationCoordinate2D!
@@ -981,7 +1054,11 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }
             }
             self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
-            self.sayText(text: L10n.pathIsCounting)
+            
+            self.mainViewModel.isInformationFromGuideSaid.apply().start()
+            if (self.isInformationFromGuideSaid) {
+                self.sayText(text: L10n.pathIsCounting, interrupt: true)
+            }
             
             if (firstAnimalLocation != nil) {
                 if (abs(firstAnimalLocation.latitude - animalAnnotation.coordinate.latitude) < 1e-7 && abs(firstAnimalLocation.longitude - animalAnnotation.coordinate.longitude) < 1e-7) {
@@ -1005,9 +1082,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
-    
-    
-    
     // MARK - Actions
     
     
@@ -1017,6 +1091,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The item with this method as a target which was tapped.
     */
     @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem){
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToLexiconSpeech, interrupt: true)
+        }
         flowDelegate?.goToLexicon(in: self)
     }
     
@@ -1027,7 +1105,41 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The item with this method as a target which was tapped.
      */
     @objc func selectAnimalsToPathItemTapped(_ sender: VerticalMenuItem){
-        flowDelegate?.goToSelectAnimalsToPath(in: self)
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToSelectAnimalsSpeech, interrupt: true)
+        }
+            
+        let selectAnimalsToPathVM = SelectAnimalsToPathViewModel(dependencies: AppDependency.shared)
+        let selectAnimalsToPathVC = SelectAnimalsToPathViewController(selectAnimalsToPathViewModel: selectAnimalsToPathVM)
+        
+        selectAnimalsToPathVC.addAnimalCallback = { (animal) in
+            self.sayText(text: animal + " " + L10n.addAnimalToPathSpeech, interrupt: true)
+        }
+        
+        selectAnimalsToPathVC.removeAnimalCallback = { (animal) in
+            self.sayText(text: animal + " " + L10n.removeAnimalFromPathSpeech, interrupt: true)
+        }
+        
+        
+        selectAnimalsToPathVC.closeCallback = {
+            self.refreshMapView()
+            self.mainViewModel.getAnimalsInPath.apply().start()
+            self.mainViewModel.getCountOfUnvisitedAnimals.apply().start()
+            if (self.countOfUnvisitedAnimals > 0) {
+                self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+                
+                self.mainViewModel.isInformationFromGuideSaid.apply().start()
+                if (self.isInformationFromGuideSaid) {
+                    self.sayText(text: L10n.pathIsCounting, interrupt: true)
+                }
+            }
+        }
+        
+        self.addChild(selectAnimalsToPathVC)
+        selectAnimalsToPathVC.view.frame = self.view.frame
+        self.view.addSubview(selectAnimalsToPathVC.view)
+        selectAnimalsToPathVC.didMove(toParent: self)
     }
     
     
@@ -1039,6 +1151,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func turnOnOrOffVoiceItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.turnVoiceOnOrOff()
         self.mainViewModel.isVoiceOn.apply().start()
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isVoiceOn && self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.turnOnVoiceSpeech, interrupt: true)
+        }
     }
     
     
@@ -1048,6 +1164,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The item with this method as a target which was tapped.
      */
     @objc func settingParametersOfVisitItemTapped(_ sender: VerticalMenuItem){
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToSettingParametersSpeech, interrupt: true)
+        }
         flowDelegate?.goToSettingParametersOfVisit(in: self)
     }
     
@@ -1058,6 +1178,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The item with this method as a target which was tapped.
      */
     @objc func selectInformationItemTapped(_ sender: VerticalMenuItem){
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToSelectInformationSpeech, interrupt: true)
+        }
         flowDelegate?.goToSelectInformation(in: self)
     }
     
@@ -1068,6 +1192,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The button with this method as a target which was tapped.
      */
     @objc func chooseSavedPathButtonTapped(_ sender: VerticalMenuItem){
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToChoosePathSpeech, interrupt: true)
+        }
         flowDelegate?.goToChooseSavedPath(in: self)
     }
     
@@ -1078,6 +1206,11 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         - sender: The button with this method as a target which was tapped.
      */
     @objc func savePathButtonTapped(_ sender: VerticalMenu){
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(text: L10n.goToSavePathSpeech, interrupt: true)
+        }
+        
         let savePathVM = SavePathViewModel(dependencies: AppDependency.shared)
         let savePathPopoverVC = SavePathPopoverViewController(savePathViewModel: savePathVM)
         self.addChild(savePathPopoverVC)
@@ -1085,5 +1218,4 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.view.addSubview(savePathPopoverVC.view)
         savePathPopoverVC.didMove(toParent: self)
     }
-
 }
