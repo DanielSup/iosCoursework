@@ -16,10 +16,10 @@ import ReactiveSwift
 protocol BiotopeBindingRepositoring {
     var entities: MutableProperty<[BiotopeBinding]?> { get }
     func loadAndSaveDataIfNeeded()
-    func getBindingsWithAnimal(animal: Int) -> [BiotopeBinding]?
+    func getBindingsWithAnimal(_ animal: Int) -> [BiotopeBinding]?
     func getBindingsWithBindableObject(objectId: Int) -> [BiotopeBinding]?
-    func getBiotopesWithAnimal(animal: Animal) -> [Biotope]?
-    func getAnimalsInBiotope(biotope: Biotope) -> SignalProducer<[Animal], LoadError>
+    func getBiotopesWithAnimal(_ animal: Animal) -> [Biotope]?
+    func getAnimalsInBiotope(_ biotope: Biotope) -> SignalProducer<[Animal], LoadError>
 }
 
 /**
@@ -47,8 +47,8 @@ class BiotopeBindingRepository: BindingRepository<BiotopeBinding>, BiotopeBindin
      - animal: The given animal.
      - Returns: The list of biotopes in which the given animal lives.
      */
-    func getBiotopesWithAnimal(animal: Animal) -> [Biotope]? {
-        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+    func getBiotopesWithAnimal(_ animal: Animal) -> [Biotope]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal) {
             var biotopes: [Biotope] = []
             for binding in bindings {
                 let biotopeId = binding.getBindedObjectId()
@@ -66,7 +66,7 @@ class BiotopeBindingRepository: BindingRepository<BiotopeBinding>, BiotopeBindin
         - biotope: The given biotope.
      - Returns: A signal producer with the found list of animals in the given biotope. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
-    func getAnimalsInBiotope(biotope: Biotope) -> SignalProducer<[Animal], LoadError> {
+    func getAnimalsInBiotope(_ biotope: Biotope) -> SignalProducer<[Animal], LoadError> {
         self.loadAndSaveDataIfNeeded()
         self.animalRepository.loadAndSaveDataIfNeeded()
         
@@ -94,7 +94,7 @@ class BiotopeBindingRepository: BindingRepository<BiotopeBinding>, BiotopeBindin
      - Returns: A boolean representing whether the given animal lives in the biotope or not. If bindings couldn't be loaded, it returns nil.
      */
     private func isAnimalInBiotope(animal: Animal, biotope: Biotope) -> Bool? {
-        if let biotopesWithAnimal = self.getBiotopesWithAnimal(animal: animal) as? [Biotope] {
+        if let biotopesWithAnimal = self.getBiotopesWithAnimal(animal) as? [Biotope] {
             var biotopeFound = false
             for biotopeWithAnimal in biotopesWithAnimal {
                 if (biotopeWithAnimal == biotope) {

@@ -29,7 +29,7 @@ class AnimalDetailViewModel: BaseViewModel {
     lazy var getContinentsOfAnimal = Action<(), [Continent], LoadError> {
         [unowned self] in
         self.dependencies.continentBindingRepository.loadAndSaveDataIfNeeded()
-        if let continentsWithAnimal = self.dependencies.continentBindingRepository.getContinentsWithAnimal(animal: self.animal) as? [Continent]{
+        if let continentsWithAnimal = self.dependencies.continentBindingRepository.getContinentsWithAnimal(self.animal) as? [Continent]{
             return SignalProducer(value: continentsWithAnimal)
         } else {
             return SignalProducer(error: .noBindings)
@@ -43,7 +43,7 @@ class AnimalDetailViewModel: BaseViewModel {
     lazy var getBiotopesOfAnimal = Action<(), [Biotope], LoadError> {
         [unowned self] in
         self.dependencies.biotopeBindingRepository.loadAndSaveDataIfNeeded()
-        if let biotopesWithAnimal = self.dependencies.biotopeBindingRepository.getBiotopesWithAnimal(animal: self.animal) as? [Biotope] {
+        if let biotopesWithAnimal = self.dependencies.biotopeBindingRepository.getBiotopesWithAnimal(self.animal) as? [Biotope] {
             return SignalProducer(value: biotopesWithAnimal)
         } else {
             return SignalProducer(error: .noBindings)
@@ -57,7 +57,7 @@ class AnimalDetailViewModel: BaseViewModel {
     lazy var getFoodsOfAnimal = Action<(), [Food], LoadError> {
         [unowned self] in
         self.dependencies.foodBindingRepository.loadAndSaveDataIfNeeded()
-        if let kindsOfFoodWithAnimal = self.dependencies.foodBindingRepository.getKindsOfFoodWithAnimal(animal: self.animal) as? [Food] {
+        if let kindsOfFoodWithAnimal = self.dependencies.foodBindingRepository.getKindsOfFoodWithAnimal(self.animal) as? [Food] {
             return SignalProducer(value: kindsOfFoodWithAnimal)
         } else {
             return SignalProducer(error: .noBindings)

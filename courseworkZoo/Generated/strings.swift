@@ -105,6 +105,8 @@ internal enum L10n {
   internal static let classInfo = L10n.tr("Localizable", "classInfo")
   /// Class list
   internal static let classList = L10n.tr("Localizable", "classList")
+  /// Close the window
+  internal static let close = L10n.tr("Localizable", "close")
   /// Animal at which you are
   internal static let closeAnimalLegend = L10n.tr("Localizable", "closeAnimalLegend")
   /// Close
@@ -127,6 +129,8 @@ internal enum L10n {
   internal static let descriptionSetting = L10n.tr("Localizable", "descriptionSetting")
   /// Desert and semi desert
   internal static let desertAndSemiDesert = L10n.tr("Localizable", "desertAndSemiDesert")
+  /// Detail of the animal
+  internal static let detailOfAnimal = L10n.tr("Localizable", "detailOfAnimal")
   /// Diplopoda
   internal static let diplopda = L10n.tr("Localizable", "diplopda")
   /// Elementary information

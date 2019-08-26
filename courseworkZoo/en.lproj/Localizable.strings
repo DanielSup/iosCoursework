@@ -173,6 +173,8 @@
 "removePath" = "Remove path";
 "saveSettingsSpeech" = "Setting information for machine-reading is saved.";
 "saveSettingOfParametersSpeech" = "Parameters of the visit of the ZOO are successfully set.";
+"detailOfAnimal" = "Detail of the animal";
+"close" = "Close the window";
 "helpParagraph1" = "";
 "helpParagraph2" = "";
 "helpParagraph3" = "";

@@ -16,7 +16,7 @@ protocol ClassRepositoring {
     var entities: MutableProperty<[Class]?> { get }
     func loadAndSaveDataIfNeeded()
     func getClasses() -> SignalProducer<[Class], LoadError>
-    func getOrdersIn(category: Class) -> SignalProducer<[Class], LoadError>
+    func getOrdersInCategory(_ category: Class) -> SignalProducer<[Class], LoadError>
 }
 
 /**
@@ -46,7 +46,7 @@ class ClassRepository: Repository<Class>, ClassRepositoring {
      This function gets the list of orders which are in the given class. If the classes could not be loaded, this function returns an error.
      - Returns: A signal producer with the list of orders which are in the given class or with an error meaning that categories (classes and orders) could not be loaded.
     */
-    func getOrdersIn(category: Class) -> SignalProducer<[Class], LoadError> {
+    func getOrdersInCategory(_ category: Class) -> SignalProducer<[Class], LoadError> {
         if let classEntities = self.entities.value as? [Class]{
             var ordersInCategory: [Class] = []
             for classEntity in classEntities {

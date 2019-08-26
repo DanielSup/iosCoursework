@@ -28,6 +28,9 @@ class AnimalWithActionCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     The label with the title of the animal.
+    */
     let animalTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Sample animal"
@@ -36,6 +39,9 @@ class AnimalWithActionCell: UITableViewCell {
         return label
     }()
     
+    /**
+     The button for adding the animal to the actual path or removing from the actual path.
+    */
     let actionButton: ButtonWithAnimalProperty = {
         let button = ButtonWithAnimalProperty()
         button.setTitle(L10n.addToPath, for: .normal)
@@ -45,6 +51,9 @@ class AnimalWithActionCell: UITableViewCell {
         return button
     }()
 
+    /**
+     This function ensures setting up the views (adding views to the parent view - cell and setting constraints for the views).
+    */
     func setupViews(){
         addSubview(animalTitleLabel)
         animalTitleLabel.snp.makeConstraints{

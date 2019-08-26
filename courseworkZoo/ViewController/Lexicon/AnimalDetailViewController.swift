@@ -79,7 +79,7 @@ class AnimalDetailViewController: BaseLexiconViewController {
         super.setTextForSubtitle(textForSubtitle)
         
         self.setupScrollView()
-        super.setParentView(parentView: self.contentView)
+        super.setParentView(self.contentView)
         
         super.viewDidLoad()
         self.contentView.backgroundColor = .white

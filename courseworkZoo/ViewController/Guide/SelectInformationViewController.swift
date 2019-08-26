@@ -186,7 +186,7 @@ class SelectInformationViewController: BaseViewController {
             self.flowDelegate?.goBack(in: self)
         })
         
-        self.selectInformationViewModel.sayText(text: L10n.saveSettingsSpeech)
+        self.selectInformationViewModel.sayText(L10n.saveSettingsSpeech)
     }
     
     

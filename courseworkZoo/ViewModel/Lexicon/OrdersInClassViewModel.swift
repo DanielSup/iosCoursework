@@ -27,7 +27,7 @@ class OrdersInClassViewModel: BaseViewModel {
     lazy var getOrdersInClass = Action<(), [Class], LoadError>{
         self.dependencies.classRepository.loadAndSaveDataIfNeeded()
         if let classes = self.dependencies.classRepository.entities.value as? [Class] {
-            return self.dependencies.classRepository.getOrdersIn(category: self.parentClass)
+            return self.dependencies.classRepository.getOrdersInCategory(self.parentClass)
         } else {
             return SignalProducer(error: LoadError.noClasses)
         }

@@ -234,7 +234,7 @@ class MainViewModel: BaseViewModel{
         if let animalForSaying = animal as? Animal{
             self.dependencies.processAnimalInformationService.updateSetting(actualSetting)
             let text: String = self.dependencies.processAnimalInformationService.processInformationAndGetTextForMachineReading(about: animalForSaying)
-            self.dependencies.speechService.sayText(text: text)
+            self.dependencies.speechService.sayText(text)
         }
     }
     
@@ -276,7 +276,7 @@ class MainViewModel: BaseViewModel{
         if let localityForSaying = locality as? Locality {
             let title = localityForSaying.title.replacingOccurrences(of: "Pavilon", with: "Pavilonu")
             let textForReading = "Vítejte v " + title
-            self.dependencies.speechService.sayText(text: textForReading)
+            self.dependencies.speechService.sayText(textForReading)
         }
     }
 
@@ -310,7 +310,7 @@ class MainViewModel: BaseViewModel{
      - Parameters:
         - animal: The animal which is added to the actual path or removed from the actual path.
     */
-    func addOrRemoveAnimal(animal: Animal){
+    func addOrRemoveAnimal(_ animal: Animal){
         let animalsInPath = self.dependencies.pathRepository.getAnimalsInPath()
         var isTheAnimalInPath = false
         for animalInPath in animalsInPath {
@@ -345,7 +345,7 @@ class MainViewModel: BaseViewModel{
      - Parameters:
         - animal: The animal which is currently visited
     */
-    func visitAnimal(animal: Animal) {
+    func visitAnimal(_ animal: Animal) {
         self.animalsVisited.value.append(animal)
         self.dependencies.routeWithAnimalsService.visitAnimal(animal)
     }
@@ -430,8 +430,8 @@ class MainViewModel: BaseViewModel{
      - Parameters:
         - text: The text which is machine-read.
     */
-    func sayText(text: String) {
-        self.dependencies.speechService.sayText(text: text)
+    func sayText(_ text: String) {
+        self.dependencies.speechService.sayText(text)
     }
     
     /**
@@ -462,7 +462,7 @@ class MainViewModel: BaseViewModel{
             return
         }
         if abs(self.latitude.value - exit!.latitude) < Constants.closeDistance &&
-            abs(self.longitude.value - exit!.longitude) < Constants.closeDistance {        self.dependencies.speechService.sayText(text: L10n.speechAtExit)
+            abs(self.longitude.value - exit!.longitude) < Constants.closeDistance {        self.dependencies.speechService.sayText(L10n.speechAtExit)
         }
     }
     
@@ -477,7 +477,7 @@ class MainViewModel: BaseViewModel{
         
         if (abs(self.latitude.value - entrance!.latitude) < Constants.closeDistance &&
             abs(self.longitude.value - entrance!.longitude) < Constants.closeDistance) {
-            self.dependencies.speechService.sayText(text: L10n.speechAtEntrance)
+            self.dependencies.speechService.sayText(L10n.speechAtEntrance)
         }
     }
     
@@ -515,6 +515,13 @@ class MainViewModel: BaseViewModel{
     */
     func stopSpeaking() {
         self.dependencies.speechService.stopSpeaking()
+    }
+    
+    /**
+     This function ensures adding all animals with known coordinate to the actual path.
+    */
+    func addAllAnimalsToPath() {
+        self.dependencies.pathRepository.addAllAnimalsToPath()
     }
     
     /**

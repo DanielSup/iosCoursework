@@ -21,7 +21,7 @@ class BindingRepository<B: Bindable> : Repository<B>{
         - animal: The identificator of the animal which we find bindings for.
      - Returns: Array of bindings with the given identificator of the animal or nil if array of bindings is not correctly loaded.
      */
-    func getBindingsWithAnimal(animal: Int) -> [B]?{
+    func getBindingsWithAnimal(_ animal: Int) -> [B]?{
         if let bindings = self.entities.value as? [B]{
             var bindingEntities: [B] = []
             for binding in bindings{
@@ -60,9 +60,9 @@ class BindingRepository<B: Bindable> : Repository<B>{
      This function finds and returns the correct bindings with the given animal. Firstly, this function finds the bindings by identificator in column "id". If there is no binding with the correct title in the list of bindings with the identificator, then the function tries to get and return the list of bindings with the identificator of the animal in column "_id".
      - Returns: The list of bindings with the given animal or nil if no bindings are found.
     */
-    func getCorrectBindingsWithAnimal(animal: Animal) -> [B]? {
+    func getCorrectBindingsWithAnimal(_ animal: Animal) -> [B]? {
         var correctBindingsFound = false
-        if let bindings = self.getBindingsWithAnimal(animal: animal.id) as? [B] {
+        if let bindings = self.getBindingsWithAnimal(animal.id) as? [B] {
             var bindingsById: [B] = []
             for binding in bindings {
                 let bindedObjectTitle = binding.getCzechTitleOfBindedEntity()
@@ -81,7 +81,7 @@ class BindingRepository<B: Bindable> : Repository<B>{
         }
         
         if (!correctBindingsFound) {
-            if let bindingsBy_Id = self.getBindingsWithAnimal(animal: animal._id) as? [B] {
+            if let bindingsBy_Id = self.getBindingsWithAnimal(animal._id) as? [B] {
                 return bindingsBy_Id
             }
         }

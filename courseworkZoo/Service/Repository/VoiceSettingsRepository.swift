@@ -106,7 +106,16 @@ class VoiceSettingsRepository: VoiceSettingsRepositoring{
         - informationSetting: The dictionary representing the actual setting of the machine-read information about animals and information and instructions from the guide where keys are SaidInfo cases and values are booleans
     */
     func setActualInformationSetting(_ informationSetting: [SaidInfo : Bool]) {
-        let informationSettingValues = informationSetting.map { $0.1 }
+        let informationSettingValues = [informationSetting[SaidInfo.actualities],
+        informationSetting[SaidInfo.description],
+        informationSetting[SaidInfo.biotopes],
+        informationSetting[SaidInfo.continents],
+        informationSetting[SaidInfo.food],
+        informationSetting[SaidInfo.proportions],
+        informationSetting[SaidInfo.reproduction],
+        informationSetting[SaidInfo.attractions],
+        informationSetting[SaidInfo.breeding],
+        informationSetting[SaidInfo.informationFromGuide]]
         UserDefaults.standard.set(informationSettingValues, forKey: VoiceSettingsRepository.informationSettingKey)
         UserDefaults.standard.synchronize()
     }

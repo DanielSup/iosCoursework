@@ -74,8 +74,8 @@ class SelectInformationViewModel: BaseViewModel {
      - Parameters:
      - text: The text which is machine-read.
      */
-    func sayText(text: String) {
-        self.dependencies.speechService.sayText(text: text)
+    func sayText(_ text: String) {
+        self.dependencies.speechService.sayText(text)
     }
     
     

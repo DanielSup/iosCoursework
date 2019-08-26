@@ -17,10 +17,10 @@ import ReactiveSwift
 protocol ContinentBindingRepositoring{
     var entities: MutableProperty<[ContinentBinding]?> { get }
     func loadAndSaveDataIfNeeded()
-    func getBindingsWithAnimal(animal: Int) -> [ContinentBinding]?
+    func getBindingsWithAnimal(_ animal: Int) -> [ContinentBinding]?
     func getBindingsWithBindableObject(objectId: Int) -> [ContinentBinding]?
-    func getContinentsWithAnimal(animal: Animal) -> [Continent]?
-    func getAnimalsInContinent(continent: Continent) -> SignalProducer<[Animal], LoadError>
+    func getContinentsWithAnimal(_ animal: Animal) -> [Continent]?
+    func getAnimalsInContinent(_ continent: Continent) -> SignalProducer<[Animal], LoadError>
 }
 
 /**
@@ -49,8 +49,8 @@ class ContinentBindingRepository: BindingRepository<ContinentBinding>, Continent
      - animal: The given animal.
      - Returns: The list of continents in which the given animal lives.
      */
-    func getContinentsWithAnimal(animal: Animal) -> [Continent]? {
-        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+    func getContinentsWithAnimal(_ animal: Animal) -> [Continent]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal) {
             var continents: [Continent] = []
             for binding in bindings {
                 let continentId = binding.getBindedObjectId()
@@ -69,7 +69,7 @@ class ContinentBindingRepository: BindingRepository<ContinentBinding>, Continent
         - continent: The given continent.
      - Returns: A signal producer with the found list of animals living in the given continent. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
-    func getAnimalsInContinent(continent: Continent) -> SignalProducer<[Animal], LoadError> {
+    func getAnimalsInContinent(_ continent: Continent) -> SignalProducer<[Animal], LoadError> {
         self.loadAndSaveDataIfNeeded()
         self.animalRepository.loadAndSaveDataIfNeeded()
         
@@ -98,7 +98,7 @@ class ContinentBindingRepository: BindingRepository<ContinentBinding>, Continent
      - Returns: A boolean representing whether the given animal lives in the biotope or not. If bindings couldn't be loaded, it returns nil.
      */
     private func isAnimalInContinent(animal: Animal, continent: Continent) -> Bool? {
-        if let continentsWithAnimal = self.getContinentsWithAnimal(animal: animal) as? [Continent] {
+        if let continentsWithAnimal = self.getContinentsWithAnimal(animal) as? [Continent] {
             var continentFound = false
             for continentWithAnimal in continentsWithAnimal {
                 if (continentWithAnimal == continent) {

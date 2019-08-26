@@ -27,7 +27,7 @@ class AnimalsInContinentViewModel: BaseViewModel {
      This action returns a signal producer the list of animals living in the given continent (or animals not living in nature if the option was choosed). If bindings can't be loaded, it returns a signal producer with this error. If animals couldn't be loaded, it returns a signal producer with an error representing it.
     */
     lazy var getAnimalsInContinent = Action<(), [Animal], LoadError>  {
-        return self.dependencies.continentBindingRepository.getAnimalsInContinent(continent: self.continent)
+        return self.dependencies.continentBindingRepository.getAnimalsInContinent(self.continent)
     }
     
     

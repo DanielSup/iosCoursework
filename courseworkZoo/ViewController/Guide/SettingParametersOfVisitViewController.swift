@@ -247,7 +247,7 @@ class SettingParametersOfVisitViewController: BaseViewController {
             self.flowDelegate?.goBack(in: self)
         })
         
-        self.settingParametersOfVisitViewModel.sayText(text: L10n.saveSettingOfParametersSpeech)
+        self.settingParametersOfVisitViewModel.sayText(L10n.saveSettingOfParametersSpeech)
     }
     
     /**

@@ -17,4 +17,5 @@ protocol MainDelegate: class {
     func goToChooseSavedPath(in viewController: BaseViewController)
     func goToSettingParametersOfVisit(in viewController: BaseViewController)
     func goToSelectInformation(in viewController: BaseViewController)
+    func goToAnimalDetail(in viewConotroller: BaseViewController, to animal: Animal)
 }

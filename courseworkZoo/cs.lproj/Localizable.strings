@@ -173,6 +173,8 @@
 "removePath" = "Odstranit trasu";
 "saveSettingsSpeech" = "Nastavení informací pro strojové čtení je uloženo.";
 "saveSettingOfParametersSpeech" = "Parametry návštěvy ZOO jsou úspěšně nastaveny.";
+"detailOfAnimal" = "Detail zvířete";
+"close" = "Zavřít okno";
 "helpParagraph1" = "Na hlavní obrazovce se nachází odkaz do lexikonu zvířat, vertikální i horizontální menu, animace mluvící postavy i mapa, ve které si můžete vybrat zvířata do trasy. Pod mapou se nachází legenda s jednotlivými ikonami a vlevo od ní se nachází tlačítka pro přidání zvířat do trasy, odebrání všech zvířat z trasy, či zavření aplikace.";
 "helpParagraph2" = "Mapa obsahuje značky pro vchody, východy, pavilony a zvířata. V mapě se vyskytují zelené značky pro zvířata, která ještě nebyla navštívena a je možné je vložit do aktuální trasy, červená značka pro zvíře, ke kterému právě máte jít, oranžové značka pro zvířata, která jsou v aktuální trase a mohou být z ní odebrána, hnědá značka pro zvíře, u kterého právě jsme a šedé značky pro zvířata, která jsme již navštívili.";
 "helpParagraph3" = "Vertikální menu obsahuje položky pro zobrazení tabulky pro výběr zvířat do aktuální trasy po ZOO, pro přejití na obrazovku pro nastavení parametrů návštěvy ZOO (předpokládaná rychlost chůze i doba strávená u jednoho zvířete), přejití na obrazovku pro výběr informací, které mají být strojově přečteny a vypnutí, či zapnutí hlasu pro strojové čtení informací a pro přechod sem do nápovědy.";

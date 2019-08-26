@@ -64,7 +64,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      - Parameters:
         - parentView: The view where all elements apart from the search bar are added.
     */
-    func setParentView(parentView: UIView){
+    func setParentView(_ parentView: UIView){
         self.parentView = parentView
         self.isParentViewChanged = true
     }

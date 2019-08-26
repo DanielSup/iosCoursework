@@ -15,7 +15,7 @@ import AVFoundation
  */
 protocol SpeechServicing{
     var isSpeaking: Bool { get }
-    func sayText(text: String)
+    func sayText(_ text: String)
     func setStartCallback(callback: @escaping(() -> Void))
     func setFinishCallback(callback: @escaping(() -> Void))
     func stopSpeaking()
@@ -78,7 +78,7 @@ class SpeechService: NSObject, SpeechServicing {
      - Parameters:
         - text: The text which will be read by machine
      */
-    func sayText(text: String){
+    func sayText(_ text: String){
         if (self.isSpeaking) {
             return
         }

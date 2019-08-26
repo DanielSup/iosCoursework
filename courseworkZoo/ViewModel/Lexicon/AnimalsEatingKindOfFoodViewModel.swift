@@ -26,7 +26,7 @@ class AnimalsEatingKindOfFoodViewModel: BaseViewModel {
      This action returns a signal producer the list of animals eating the kind of food. If bindings can't be loaded, it returns a signal producer with this error. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
     lazy var getAnimalsEatingKindOfFood = Action<(), [Animal], LoadError> {
-        return self.dependencies.foodBindingRepository.getAnimalsEatingKindOfFood(kindOfFood: self.kindOfFood)
+        return self.dependencies.foodBindingRepository.getAnimalsEatingKindOfFood(self.kindOfFood)
         
     }
     

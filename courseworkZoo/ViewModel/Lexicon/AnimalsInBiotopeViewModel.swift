@@ -24,7 +24,7 @@ class AnimalsInBiotopeViewModel: BaseViewModel {
     /** This action return s the found list of animals in the given biotope. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
     lazy var getAnimalsInBiotope = Action<(), [Animal], LoadError>{
-        return self.dependencies.biotopeBindingRepository.getAnimalsInBiotope(biotope: self.biotope)
+        return self.dependencies.biotopeBindingRepository.getAnimalsInBiotope(self.biotope)
     }
     
     // MARK - Constructor and other methods

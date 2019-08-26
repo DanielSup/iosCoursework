@@ -149,7 +149,7 @@ class SavePathPopoverViewController: BaseViewController {
             self.view.removeFromSuperview()
             
         })
-        self.savePathViewModel.sayText(text: L10n.savePathSpeech + " " + titleOfThePath)
+        self.savePathViewModel.sayText(L10n.savePathSpeech + " " + titleOfThePath)
     }
     
     /**

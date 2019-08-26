@@ -74,6 +74,8 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     private var viewForTheLengthOfThePathLabel: UILabel!
     /// The label for showing the total time of the visit in the ZOO
     private var viewForTimeOfTheVisitOfTheZOOLabel: UILabel!
+    /// The instance of the last dialog shown in the map view.
+    private var lastDialogAtMarker: UIView!
     
     /**
      - Parameters:
@@ -138,7 +140,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }, finishCallback: {
                     self.speakingCharacterImageView?.stopAnimatingGif()
                     self.closeAnimal = nil
-                    self.mainViewModel.visitAnimal(animal: animal!)
+                    self.mainViewModel.visitAnimal(animal!)
                     self.refreshMapView()
                     self.textForReadingLabel.text = ""
                     self.mainViewModel.getNextAnimalInThePath.apply().start()
@@ -146,7 +148,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 self.mainViewModel.sayInformationAbout(animal: animal)
             } else if (animal != nil && !self.isVoiceOn) {
                 self.closeAnimal = animal
-                self.mainViewModel.visitAnimal(animal: animal!)
+                self.mainViewModel.visitAnimal(animal!)
                 self.mainViewModel.getNextAnimalInThePath.apply().start()
                 self.refreshMapView()
                 self.closeAnimal = nil
@@ -219,9 +221,9 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.getNextAnimalInThePath.values.producer.startWithValues {
             nextAnimal in
             if (nextAnimal == nil && self.visitedAnimals.count > 0) {
-                self.sayText(text: L10n.goToExit, interrupt: false)
+                self.sayText(L10n.goToExit, interrupt: false)
             } else if (nextAnimal != nil) {
-                self.sayText(text: L10n.nextAnimalInPath + " " + nextAnimal!.title, interrupt: false)
+                self.sayText(L10n.nextAnimalInPath + " " + nextAnimal!.title, interrupt: false)
             }
         }
         
@@ -293,7 +295,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.countOfUnvisitedAnimals > 0 && self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.pathIsCounting, interrupt: false)
+            self.sayText(L10n.pathIsCounting, interrupt: false)
         }
         self.mainViewModel.getWalkSpeed.apply().start()
         self.mainViewModel.getTimeSpentAtOneAnimal.apply().start()
@@ -468,6 +470,41 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         legendView.addItem(exitItem, last: true)
         
         
+        let addAllAnimalsButton = UIButton()
+        addAllAnimalsButton.backgroundColor = UIColor(red: 0.1, green: 0.55, blue: 0.2, alpha: 1.0)
+        addAllAnimalsButton.setTitle(L10n.addAllAnimalsToPath, for: .normal)
+        addAllAnimalsButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        addAllAnimalsButton.titleLabel?.numberOfLines = 0
+        addAllAnimalsButton.titleLabel?.lineBreakMode = .byWordWrapping
+        addAllAnimalsButton.titleLabel?.preferredMaxLayoutWidth = 60
+        addAllAnimalsButton.titleLabel?.sizeToFit()
+        addAllAnimalsButton.addTarget(self, action: #selector(addAllAnimalsButtonTapped(_:)), for: .touchUpInside)
+        self.contentView.addSubview(addAllAnimalsButton)
+        addAllAnimalsButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.verticalMenu.snp.bottom)
+            make.left.equalToSuperview()
+            make.width.equalTo(verticalMenu.snp.width)
+            make.height.equalTo(legendView.snp.height).multipliedBy(0.5)
+        }
+        
+        
+        let removeAllAnimalsButton = UIButton()
+        removeAllAnimalsButton.backgroundColor = UIColor(red: 0.8, green: 0.4, blue: 0.3, alpha: 1.0)
+        removeAllAnimalsButton.setTitle(L10n.removeAllAnimalsFromPath, for: .normal)
+        removeAllAnimalsButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        removeAllAnimalsButton.titleLabel?.numberOfLines = 0
+        removeAllAnimalsButton.titleLabel?.lineBreakMode = .byWordWrapping
+        removeAllAnimalsButton.titleLabel?.preferredMaxLayoutWidth = 60
+        removeAllAnimalsButton.titleLabel?.sizeToFit()
+        removeAllAnimalsButton.addTarget(self, action: #selector(removeAllAnimalsButtonTapped(_:)), for: .touchUpInside)
+        self.contentView.addSubview(removeAllAnimalsButton)
+        removeAllAnimalsButton.snp.makeConstraints { (make) in
+            make.top.equalTo(addAllAnimalsButton.snp.bottom)
+            make.left.equalToSuperview()
+            make.width.equalTo(verticalMenu.snp.width)
+            make.height.equalTo(addAllAnimalsButton.snp.height)
+        }
+        
         self.textForReadingLabel = UILabel()
         self.textForReadingLabel.text = ""
         self.textForReadingLabel.numberOfLines = 0
@@ -496,7 +533,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.addLoadedLocalitiesToMap()
 
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.welcome, interrupt: false)
+            self.sayText(L10n.welcome, interrupt: false)
         }
     }
     
@@ -782,7 +819,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.mainViewModel.getPlacemarksForTheActualPath.apply(self.countShortestPath).start()
             self.mainViewModel.isInformationFromGuideSaid.apply().start()
             if (self.countShortestPath && self.countOfUnvisitedAnimals > 0 && self.isInformationFromGuideSaid) {
-                self.sayText(text: L10n.pathIsCounting, interrupt: true)
+                self.sayText(L10n.pathIsCounting, interrupt: true)
             }
             self.countShortestPath = false
         }
@@ -797,7 +834,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
      - text: The text which is shown and machine-read.
      - interrupt: The boolean representing whether the previous machine-reading will be interrupted or not.
      */
-    func sayText(text: String, interrupt: Bool) {
+    func sayText(_ text: String, interrupt: Bool) {
         self.mainViewModel.isMachineReadingRunning.apply().start()
         if (!self.isVoiceOn || ((self.isMachineReadingRunning || self.textForReadingLabel.text != "") && !interrupt)) {
             return
@@ -818,7 +855,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 self.mainViewModel.getNextAnimalInThePath.apply().start()
             }
         })
-        self.mainViewModel.sayText(text: text)
+        self.mainViewModel.sayText(text)
     }
     
     
@@ -976,7 +1013,6 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 }
             }
             
-            animalAnnotation.isSelected = isTheAnimalInPath
             animalAnnotation.title = animalAnnotation.animal.title
             let annotationView = MKAnnotationView(annotation: animalAnnotation, reuseIdentifier: "animalAnnotation")
             annotationView.image = UIImage(named: imageName)
@@ -1035,48 +1071,67 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if var animalAnnotation = view.annotation as? AnimalAnnotation {
-            self.mainViewModel.addOrRemoveAnimal(animal: animalAnnotation.animal)
-            animalAnnotation.isSelected = !animalAnnotation.isSelected
-            var imageName = animalAnnotation.isSelected ? "animalSelected" : "animal"
+            view.isEnabled = true
+            view.canShowCallout = true
             
-            if (self.closeAnimal != nil) {
-                if (self.closeAnimal!.id == animalAnnotation.animal.id) {
-                    imageName = "closeAnimal"
+            var isAnimalInPath = false
+            self.mainViewModel.getAnimalsInPath.values.producer.startWithValues { (animalsInPath) in
+                for animalInPath in animalsInPath {
+                    if (animalInPath.id == animalAnnotation.animal.id) {
+                        isAnimalInPath = true
+                        break
+                    }
                 }
             }
-            
             self.mainViewModel.getAnimalsInPath.apply().start()
+            
+            
+            let viewWithButtons = UIView(frame: CGRect(x: 0, y: 0, width: 240, height: 50))
+            
+            let selectAnimalButton = ButtonWithAnimalProperty(frame: CGRect(x: 0, y: 0, width: 80, height: 50))
+            selectAnimalButton.animal = animalAnnotation.animal
+            if (isAnimalInPath) {
+                selectAnimalButton.setTitle(L10n.removeFromPath, for: .normal)
+                selectAnimalButton.backgroundColor = UIColor(red: 0.7, green: 0.18, blue: 0.18, alpha: 1)
+            } else {
+                selectAnimalButton.setTitle(L10n.addToPath, for: .normal)
+                selectAnimalButton.backgroundColor = UIColor(red: 0, green: 0.7, blue: 0.35, alpha: 1)
+            }
+            selectAnimalButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+            selectAnimalButton.titleLabel?.numberOfLines = 0
+            selectAnimalButton.titleLabel?.lineBreakMode = .byWordWrapping
+            selectAnimalButton.titleLabel?.preferredMaxLayoutWidth = 74
+            selectAnimalButton.titleLabel?.sizeToFit()
+            selectAnimalButton.addTarget(self, action: #selector(selectAnimalButtonTapped(_:)), for: .touchUpInside)
+            viewWithButtons.addSubview(selectAnimalButton)
+            
+            let detailButton = ButtonWithAnimalProperty(frame: CGRect(x: 80, y: 0, width: 80, height: 50))
+            detailButton.animal = animalAnnotation.animal
+            detailButton.setTitle(L10n.detailOfAnimal, for: .normal)
+            detailButton.backgroundColor = UIColor(red: 0.4, green: 0.4, blue: 0.7, alpha: 1)
+            detailButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+            detailButton.titleLabel?.numberOfLines = 0
+            detailButton.titleLabel?.preferredMaxLayoutWidth = 74
+            detailButton.titleLabel?.sizeToFit()
+            detailButton.addTarget(self, action: #selector(detailButtonTapped(_:)), for: .touchUpInside)
+            viewWithButtons.addSubview(detailButton)
+            
+            let closeButton = ButtonWithAnimalProperty(frame: CGRect(x: 160, y: 0, width: 80, height: 50))
+            closeButton.animal = animalAnnotation.animal
+            closeButton.setTitle(L10n.close, for: .normal)
+            closeButton.backgroundColor = UIColor(red: 0.8, green: 0.6, blue: 0.6, alpha: 1)
+            closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+            closeButton.titleLabel?.numberOfLines = 0
+            closeButton.titleLabel?.lineBreakMode = .byWordWrapping
+            closeButton.titleLabel?.preferredMaxLayoutWidth = 74
+            closeButton.titleLabel?.sizeToFit()
+            closeButton.addTarget(self, action: #selector(closeButtonTapped(_:)), for: .touchUpInside)
+            viewWithButtons.addSubview(closeButton)
 
-            var firstAnimalLocation: CLLocationCoordinate2D!
-            self.mainViewModel.getPlacemarksForTheActualPath.values.producer.startWithValues { placemarks in
-                if (placemarks.count >= 2) {
-                    firstAnimalLocation = placemarks[1].location!.coordinate
-                }
-            }
-            self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
-            
-            self.mainViewModel.isInformationFromGuideSaid.apply().start()
-            if (self.isInformationFromGuideSaid) {
-                self.sayText(text: L10n.pathIsCounting, interrupt: true)
-            }
-            
-            if (firstAnimalLocation != nil) {
-                if (abs(firstAnimalLocation.latitude - animalAnnotation.coordinate.latitude) < 1e-7 && abs(firstAnimalLocation.longitude - animalAnnotation.coordinate.longitude) < 1e-7) {
-                    imageName = "nextAnimalToVisit"
-                }
-            }
             
             
-            self.mainViewModel.getVisitedAnimals.apply().start()
+            view.rightCalloutAccessoryView = viewWithButtons
             
-            for visitedAnimal in self.visitedAnimals {
-                if (visitedAnimal.id == animalAnnotation.animal.id) {
-                    imageName = "visitedAnimal"
-                    break
-                }
-            }
-            
-            view.image = UIImage(named: imageName)
             self.refreshAnimalAnnotationsWithoutSelected(annotation: view.annotation!)
             self.countShortestPath = true
         }
@@ -1093,7 +1148,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func goToLexiconItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToLexiconSpeech, interrupt: true)
+            self.sayText(L10n.goToLexiconSpeech, interrupt: true)
         }
         flowDelegate?.goToLexicon(in: self)
     }
@@ -1107,18 +1162,18 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func selectAnimalsToPathItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToSelectAnimalsSpeech, interrupt: true)
+            self.sayText(L10n.goToSelectAnimalsSpeech, interrupt: true)
         }
             
         let selectAnimalsToPathVM = SelectAnimalsToPathViewModel(dependencies: AppDependency.shared)
         let selectAnimalsToPathVC = SelectAnimalsToPathViewController(selectAnimalsToPathViewModel: selectAnimalsToPathVM)
         
         selectAnimalsToPathVC.addAnimalCallback = { (animal) in
-            self.sayText(text: animal + " " + L10n.addAnimalToPathSpeech, interrupt: true)
+            self.sayText(animal + " " + L10n.addAnimalToPathSpeech, interrupt: true)
         }
         
         selectAnimalsToPathVC.removeAnimalCallback = { (animal) in
-            self.sayText(text: animal + " " + L10n.removeAnimalFromPathSpeech, interrupt: true)
+            self.sayText(animal + " " + L10n.removeAnimalFromPathSpeech, interrupt: true)
         }
         
         
@@ -1131,7 +1186,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
                 
                 self.mainViewModel.isInformationFromGuideSaid.apply().start()
                 if (self.isInformationFromGuideSaid) {
-                    self.sayText(text: L10n.pathIsCounting, interrupt: true)
+                    self.sayText(L10n.pathIsCounting, interrupt: true)
                 }
             }
         }
@@ -1153,7 +1208,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.mainViewModel.isVoiceOn.apply().start()
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isVoiceOn && self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.turnOnVoiceSpeech, interrupt: true)
+            self.sayText(L10n.turnOnVoiceSpeech, interrupt: true)
         }
     }
     
@@ -1166,7 +1221,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func settingParametersOfVisitItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToSettingParametersSpeech, interrupt: true)
+            self.sayText(L10n.goToSettingParametersSpeech, interrupt: true)
         }
         flowDelegate?.goToSettingParametersOfVisit(in: self)
     }
@@ -1180,7 +1235,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func selectInformationItemTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToSelectInformationSpeech, interrupt: true)
+            self.sayText(L10n.goToSelectInformationSpeech, interrupt: true)
         }
         flowDelegate?.goToSelectInformation(in: self)
     }
@@ -1194,7 +1249,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func chooseSavedPathButtonTapped(_ sender: VerticalMenuItem){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToChoosePathSpeech, interrupt: true)
+            self.sayText(L10n.goToChoosePathSpeech, interrupt: true)
         }
         flowDelegate?.goToChooseSavedPath(in: self)
     }
@@ -1208,7 +1263,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
     @objc func savePathButtonTapped(_ sender: VerticalMenu){
         self.mainViewModel.isInformationFromGuideSaid.apply().start()
         if (self.isInformationFromGuideSaid) {
-            self.sayText(text: L10n.goToSavePathSpeech, interrupt: true)
+            self.sayText(L10n.goToSavePathSpeech, interrupt: true)
         }
         
         let savePathVM = SavePathViewModel(dependencies: AppDependency.shared)
@@ -1218,4 +1273,80 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         self.view.addSubview(savePathPopoverVC.view)
         savePathPopoverVC.didMove(toParent: self)
     }
+    
+    
+    /**
+     This function ensures adding all animals to the actual path after tapping the button.
+     - Parameters:
+        - sender: The button for adding all animals to the actual path which was tapped. It has set this method as a target.
+    */
+    @objc func addAllAnimalsButtonTapped(_ sender: UIButton) {
+        self.mainViewModel.addAllAnimalsToPath()
+        self.mainViewModel.getAnimalsInPath.apply().start()
+        self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(L10n.pathIsCounting, interrupt: true)
+        }
+        self.refreshMapView()
+    }
+    
+    /**
+     This function ensures removing all animals from the actual path after tapping the button.
+     - Parameters:
+        - sender: The button for removing all animals from the actual path which was tapped and has set this method as a target.
+    */
+    @objc func removeAllAnimalsButtonTapped(_ sender: UIButton) {
+        self.mainViewModel.removeAllAnimalsFromPath()
+        self.mainViewModel.getAnimalsInPath.apply().start()
+        self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+        self.refreshMapView()
+        
+        self.lengthOfTheTripInZoo = 0
+        self.viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: 0, units: "km")
+        self.viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: 0, units: "min")
+    }
+    
+    
+    /**
+        This function ensures adding an animal to the actual path or removing the animal from the actual path if it is selected after tapping the button.
+     - Parameters:
+        - sender: The button for adding the animal to the actual path or removing the animal from the actual path if it is selected. The button has set this method as a target and was tapped.
+    */
+    @objc func selectAnimalButtonTapped(_ sender: ButtonWithAnimalProperty) {
+        self.mainViewModel.addOrRemoveAnimal(sender.animal!)
+        self.mainViewModel.getAnimalsInPath.apply().start()
+        self.mainViewModel.getPlacemarksForTheActualPath.apply(true).start()
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(L10n.pathIsCounting, interrupt: true)
+        }
+        self.refreshMapView()
+    }
+    
+    /**
+     This function ensures going to the screen with the detailed information about the animal after tapping the button.
+     - Parameters:
+        - sender: The button for going to the screen with detailed information about the animals which was tapped and has set this method as a target.
+    */
+    @objc func detailButtonTapped(_ sender: ButtonWithAnimalProperty) {
+        flowDelegate?.goToAnimalDetail(in: self, to: sender.animal!)
+    }
+    
+    /**
+     This function ensures deselecting the actual annotation of the animal after tapping the close button.
+     - Parameters:
+        - sender: The button which was tapped and has set this method as a target.
+    */
+    @objc func closeButtonTapped(_ sender: ButtonWithAnimalProperty) {
+        for annotation in self.zooPlanMapView.annotations {
+            if let animalAnnotation = annotation as? AnimalAnnotation {
+                if (animalAnnotation.animal.id == sender.animal!.id) {
+                    self.zooPlanMapView.deselectAnnotation(annotation, animated: false)
+                    break
+                }
+            }
+        }
+    }
+    
 }

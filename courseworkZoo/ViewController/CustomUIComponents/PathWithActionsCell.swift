@@ -29,6 +29,9 @@ class PathWithActionsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     The label with the title of the saved path.
+    */
     let pathTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Sample path"
@@ -36,6 +39,9 @@ class PathWithActionsCell: UITableViewCell {
         return label
     }()
     
+    /**
+     The button for selecting the path for setting up the animals.
+    */
     let selectButton: ButtonWithPathProperty = {
         let button = ButtonWithPathProperty()
         button.setTitle(L10n.selectPath, for: .normal)
@@ -44,6 +50,10 @@ class PathWithActionsCell: UITableViewCell {
         return button
     }()
     
+    
+    /**
+     The button for removing the saved path.
+    */
     let removeButton: ButtonWithPathProperty = {
         let button = ButtonWithPathProperty()
         button.setTitle(L10n.removePath, for: .normal)
@@ -52,6 +62,9 @@ class PathWithActionsCell: UITableViewCell {
         return button
     }()
     
+    /**
+     This function adds the views to the parent view - cell in the table and adds constraints to the views.
+    */
     func setupViews() {
         addSubview(pathTitleLabel)
         pathTitleLabel.snp.makeConstraints { (make) in

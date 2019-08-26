@@ -19,9 +19,9 @@ protocol PathRepositoring{
     func removeAllAnimalsFromPath()
     func saveActualPath(with title: String)
     func getAllPaths() -> SignalProducer<[Path], Error>
-    func selectPath(path: Path)
+    func selectPath(_ path: Path)
     func getAnimalsInPath() -> [Animal]
-    func removePath(path: Path)
+    func removePath(_ path: Path)
 }
 
 
@@ -180,7 +180,7 @@ class PathRepository: PathRepositoring{
      - Parameters:
         - path: The path from the list of saved paths.
     */
-    func selectPath(path: Path){
+    func selectPath(_ path: Path){
         self.animalsInActualPath = path.animals
     }
     
@@ -197,7 +197,7 @@ class PathRepository: PathRepositoring{
      - Parameters:
         - path: The path which must be removed.
     */
-    func removePath(path: Path) {
+    func removePath(_ path: Path) {
         print("path removingß")
         var allPaths: [Path] = []
         let numberOfPaths = UserDefaults.standard.integer(forKey: PathRepository.countKey)

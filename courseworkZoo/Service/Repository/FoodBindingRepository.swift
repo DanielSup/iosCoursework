@@ -15,10 +15,10 @@ import ReactiveSwift
 protocol FoodBindingRepositoring{
     var entities: MutableProperty<[FoodBinding]?> { get }
     func loadAndSaveDataIfNeeded()
-    func getBindingsWithAnimal(animal: Int) -> [FoodBinding]?
+    func getBindingsWithAnimal(_ animal: Int) -> [FoodBinding]?
     func getBindingsWithBindableObject(objectId: Int) -> [FoodBinding]?
-    func getKindsOfFoodWithAnimal(animal: Animal) -> [Food]?
-    func getAnimalsEatingKindOfFood(kindOfFood: Food) -> SignalProducer<[Animal], LoadError>
+    func getKindsOfFoodWithAnimal(_ animal: Animal) -> [Food]?
+    func getAnimalsEatingKindOfFood(_ kindOfFood: Food) -> SignalProducer<[Animal], LoadError>
 }
 
 
@@ -47,8 +47,8 @@ class FoodBindingRepository: BindingRepository<FoodBinding>, FoodBindingReposito
      - animal: The given animal.
      - Returns: The list of kinds of food which the given animal eats.
      */
-    func getKindsOfFoodWithAnimal(animal: Animal) -> [Food]? {
-        if let bindings = self.getCorrectBindingsWithAnimal(animal: animal) {
+    func getKindsOfFoodWithAnimal(_ animal: Animal) -> [Food]? {
+        if let bindings = self.getCorrectBindingsWithAnimal(animal) {
             var kindsOfFood: [Food] = []
             for binding in bindings {
                 let kindOfFoodId = binding.getBindedObjectId()
@@ -66,7 +66,7 @@ class FoodBindingRepository: BindingRepository<FoodBinding>, FoodBindingReposito
      - continent: The given continent.
      - Returns: A signal producer with the found list of animals living in the given continent. If animals couldn't be loaded, it returns a signal producer with an error representing it.
      */
-    func getAnimalsEatingKindOfFood(kindOfFood: Food) -> SignalProducer<[Animal], LoadError> {
+    func getAnimalsEatingKindOfFood(_ kindOfFood: Food) -> SignalProducer<[Animal], LoadError> {
         self.loadAndSaveDataIfNeeded()
         self.animalRepository.loadAndSaveDataIfNeeded()
         
@@ -94,7 +94,7 @@ class FoodBindingRepository: BindingRepository<FoodBinding>, FoodBindingReposito
      - Returns: A boolean representing whether the given animal eats the kind of food.
      */
     private func isAnimalEatingTheKindOfFood(animal: Animal, kindOfFood: Food) -> Bool? {
-        if let kindsOfFoodWithAnimal = self.getKindsOfFoodWithAnimal(animal: animal) as? [Food] {
+        if let kindsOfFoodWithAnimal = self.getKindsOfFoodWithAnimal(animal) as? [Food] {
             var isEatingKindOfFood = false
             for kindOfFoodWithAnimal in kindsOfFoodWithAnimal {
                 if (kindOfFoodWithAnimal == kindOfFood) {

@@ -60,8 +60,8 @@ class ChooseSavedPathViewModel: BaseViewModel {
      - Parameters:
         - path: The path with the list of animals for visit which is choosed.
     */
-    func chooseSavedPath(path: Path){
-        self.dependencies.pathRepository.selectPath(path: path)
+    func chooseSavedPath(_ path: Path){
+        self.dependencies.pathRepository.selectPath(path)
     }
     
     /**
@@ -69,8 +69,8 @@ class ChooseSavedPathViewModel: BaseViewModel {
      - Parameters:
      - text: The text which is machine-read.
      */
-    func sayText(text: String) {
-        self.dependencies.speechService.sayText(text: text)
+    func sayText(_ text: String) {
+        self.dependencies.speechService.sayText(text)
     }
     
     
@@ -98,7 +98,7 @@ class ChooseSavedPathViewModel: BaseViewModel {
      - Parameters:
         - path: The path which must be removed.
     */
-    func removePath(path: Path) {
-        self.dependencies.pathRepository.removePath(path: path)
+    func removePath(_ path: Path) {
+        self.dependencies.pathRepository.removePath(path)
     }
 }

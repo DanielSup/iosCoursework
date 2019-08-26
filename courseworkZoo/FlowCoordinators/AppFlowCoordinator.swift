@@ -93,6 +93,7 @@ extension AppFlowCoordinator: MainDelegate, GoToLexiconDelegate{
         vc.flowDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 

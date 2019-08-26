@@ -172,7 +172,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
     
     @objc func selectButtonTapped(_ sender: ButtonWithPathProperty) {
         let path = sender.path as! Path
-        self.chooseSavedPathViewModel.chooseSavedPath(path: path)
+        self.chooseSavedPathViewModel.chooseSavedPath(path)
         
         let textForShowingAndMachineReading = L10n.chooseSavedPathSpeech + " " + path.title
         
@@ -198,7 +198,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
             self.flowDelegate?.goBack(in: self)
         })
         
-        self.chooseSavedPathViewModel.sayText(text: textForShowingAndMachineReading)
+        self.chooseSavedPathViewModel.sayText(textForShowingAndMachineReading)
     }
     
     
@@ -209,7 +209,7 @@ class ChooseSavedPathViewController: BaseViewController, UITableViewDelegate, UI
     */
     @objc func removeButtonTapped(_ sender: ButtonWithPathProperty) {
         let path = sender.path as! Path
-        self.chooseSavedPathViewModel.removePath(path: path)
+        self.chooseSavedPathViewModel.removePath(path)
         self.chooseSavedPathViewModel.getAllPaths.apply().start()
         self.pathTableView.reloadData()
     }
