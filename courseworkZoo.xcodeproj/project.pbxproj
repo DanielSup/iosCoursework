@@ -50,6 +50,7 @@
 		4E0A66B622BC0FC900545C00 /* TestDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A66B522BC0FC900545C00 /* TestDependency.swift */; };
 		4E0AA4B72288630E00398D53 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0AA4B62288630E00398D53 /* APIService.swift */; };
 		4E0BACD122F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BACD022F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift */; };
+		4E0BFBF123152FD800AF3C4D /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BFBF023152FD700AF3C4D /* HelpViewController.swift */; };
 		4E0CBFF722D35300008E076A /* VerticalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF622D35300008E076A /* VerticalMenu.swift */; };
 		4E0CBFF922D3531C008E076A /* VerticalMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFF822D3531C008E076A /* VerticalMenuItem.swift */; };
 		4E0CBFFB22D36A5F008E076A /* MainLexiconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */; };
@@ -230,6 +231,7 @@
 		4E0B485322C0C1F8000BCD19 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		4E0B485522C0C1F8000BCD19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0BACD022F3382D00D908A9 /* AnimalsEatingKindOfFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsEatingKindOfFoodViewController.swift; sourceTree = "<group>"; };
+		4E0BFBF023152FD700AF3C4D /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		4E0CBFF622D35300008E076A /* VerticalMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMenu.swift; sourceTree = "<group>"; };
 		4E0CBFF822D3531C008E076A /* VerticalMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMenuItem.swift; sourceTree = "<group>"; };
 		4E0CBFFA22D36A5F008E076A /* MainLexiconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLexiconViewController.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				4E1F782322E4957600436437 /* Lexicon */,
 				4E1F782222E4956800436437 /* Guide */,
 				4E0CBFF522D35283008E076A /* CustomUIComponents */,
+				4E0BFBF023152FD700AF3C4D /* HelpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1059,6 +1062,7 @@
 				4E1F781D22E452A600436437 /* AnimalsInBiotopeViewController.swift in Sources */,
 				4E01E18922D4A97E0016B533 /* VoiceSettingsRepository.swift in Sources */,
 				4E7A70A8230C587A005831AF /* DisplayInformationPopoverViewController.swift in Sources */,
+				4E0BFBF123152FD800AF3C4D /* HelpViewController.swift in Sources */,
 				4E0EBAF922B4E997003D9CD1 /* BaseViewModel.swift in Sources */,
 				4E04B7EF22BA23AA00349FA0 /* AnimalDetailViewController.swift in Sources */,
 				4EAE637822C4EC9800624328 /* HasFoodBindingsRepository.swift in Sources */,

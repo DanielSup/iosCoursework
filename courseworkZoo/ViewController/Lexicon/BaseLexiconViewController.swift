@@ -147,6 +147,7 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
         }
         
         let helpItem = VerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
+        helpItem.addTarget(self, action: #selector(helpItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(helpItem, height: 90, last: true)
         
         
@@ -280,5 +281,14 @@ class BaseLexiconViewController: BaseViewController, UISearchBarDelegate{
      */
     @objc func kindsOfFoodItemTapped(_ sender: VerticalMenuItem) {
         flowDelegate?.goToKindsOfFood(in: self)
+    }
+    
+    /**
+     This function ensures going to the screen with the help for the application after tapping the last item in the vertical menu.
+     - Parameters:
+     - sender: The last item in the vertical menu which was tapped and has set this function as a target.
+     */
+    @objc func helpItemTapped(_ sender: VerticalMenuItem) {
+        flowDelegate?.goToHelp(in: self)
     }
 }

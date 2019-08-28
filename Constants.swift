@@ -32,7 +32,7 @@ class Constants: NSObject {
     /// The maximal radius of the map view to show labels at markers.
     static let maximumRadiusToShowLabels = 250.0
     /// The array of coordinates of entrances to the ZOO.
-    static let coordinatesOfEntrances = [CLLocationCoordinate2D(latitude: 49.9726294, longitude: 14.1649192), CLLocationCoordinate2D(latitude: 49.9745867, longitude: 14.1630267)]
+    static let coordinatesOfEntrances = [CLLocationCoordinate2D(latitude: 50.1168117, longitude: 14.4108614), CLLocationCoordinate2D(latitude: 50.1150014, longitude: 14.4083322), CLLocationCoordinate2D(latitude: 50.1186719, longitude: 14.4088675)]
     /// The array of coordinates of exits from the ZOO.
-    static let coordinatesOfExits = [CLLocationCoordinate2D(latitude: 49.9726644, longitude: 14.1651967), CLLocationCoordinate2D(latitude: 49.9745744, longitude: 14.1626581)]
+    static let coordinatesOfExits = [CLLocationCoordinate2D(latitude: 50.1161419, longitude: 14.4114261), CLLocationCoordinate2D(latitude: 50.1150886, longitude: 14.4083256), CLLocationCoordinate2D(latitude: 50.1187519, longitude: 14.4088475)]
 }

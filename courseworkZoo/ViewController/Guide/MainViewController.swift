@@ -334,6 +334,7 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         verticalMenu.addItem(turnOnOrOffVoiceItem, height: 90, last: false)
         
         let helpItem = VerticalMenuItem(actionString: "help", actionText: L10n.help, usedBackgroundColor: Colors.helpButtonBackgroundColor.color)
+        helpItem.addTarget(self, action: #selector(helpItemTapped(_:)), for: .touchUpInside)
         verticalMenu.addItem(helpItem, height: 90, last: true)
         self.verticalMenu = verticalMenu
         
@@ -397,6 +398,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         let viewForTheLengthOfThePathLabel = UILabel()
         viewForTheLengthOfThePathLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.lengthOfThePathInZOO, value: Float(self.lengthOfTheTripInZoo / 1000.0), units: "km")
+        viewForTheLengthOfThePathLabel.numberOfLines = 0
+        viewForTheLengthOfThePathLabel.lineBreakMode = .byWordWrapping
+        viewForTheLengthOfThePathLabel.preferredMaxLayoutWidth = 140
+        viewForTheLengthOfThePathLabel.sizeToFit()
         viewForTheLengthOfThePath.addSubview(viewForTheLengthOfThePathLabel)
         viewForTheLengthOfThePathLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
@@ -417,6 +422,10 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
         
         let viewForTimeOfTheVisitOfTheZOOLabel = UILabel()
         viewForTimeOfTheVisitOfTheZOOLabel.attributedText = self.getAttributedStringWithStatistic(statistic: L10n.timeOfTheVisitOfTheZOO, value: 0, units: "min")
+        viewForTimeOfTheVisitOfTheZOOLabel.numberOfLines = 0
+        viewForTimeOfTheVisitOfTheZOOLabel.lineBreakMode = .byWordWrapping
+        viewForTimeOfTheVisitOfTheZOOLabel.preferredMaxLayoutWidth = 140
+        viewForTimeOfTheVisitOfTheZOOLabel.sizeToFit()
         viewForTimeOfTheVisitOfTheZOO.addSubview(viewForTimeOfTheVisitOfTheZOOLabel)
         viewForTimeOfTheVisitOfTheZOOLabel.snp.makeConstraints{ (make) in
             make.center.equalToSuperview()
@@ -1238,6 +1247,21 @@ class MainViewController: BaseViewController, MKMapViewDelegate, CLLocationManag
             self.sayText(L10n.goToSelectInformationSpeech, interrupt: true)
         }
         flowDelegate?.goToSelectInformation(in: self)
+    }
+    
+    
+    
+    /**
+     This function ensures going to the screen with the help for the application after tapping the last item in the vertical menu.
+     - Parameters:
+        - sender: The last item in the vertical menu which was tapped and has set this function as a target.
+    */
+    @objc func helpItemTapped(_ sender: VerticalMenuItem) {
+        self.mainViewModel.isInformationFromGuideSaid.apply().start()
+        if (self.isInformationFromGuideSaid) {
+            self.sayText(L10n.goToSelectInformationSpeech, interrupt: true)
+        }
+        flowDelegate?.goToHelp(in: self)
     }
     
     

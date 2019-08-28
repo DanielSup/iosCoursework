@@ -94,6 +94,18 @@ extension AppFlowCoordinator: MainDelegate, GoToLexiconDelegate{
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    
+    /**
+     This function ensures going to the help screen.
+     - Parameters:
+        - viewController: The ViewController which created the actual screen.
+    */
+    func goToHelp(in viewController: BaseViewController) {
+        let vc = HelpViewController()
+        vc.flowDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 

@@ -21,4 +21,5 @@ protocol LexiconDelegate: GoToAnimalDetailDelegate {
     func goToAnimalsInContinent(in: BaseViewController, continent: Continent)
     func goToKindsOfFood(in viewController: BaseViewController)
     func goToAnimalsEatingKindOfFood(in viewController: BaseViewController, kindOfFood: Food)
+    func goToHelp(in viewController: BaseViewController)
 }
