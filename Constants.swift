@@ -14,7 +14,7 @@ import MapKit
  */
 class Constants: NSObject {
     /// This constant determines where data are loaded from.
-    static let serverUrl: String = "https://lexikonprozoo-3722.rostiapp.cz/"
+    static let serverUrl: String = "https://lexikonprozoo-3601.rostiapp.cz/"
     /// The relative URL for getting the list of animals with detailed information
     static let animalsRelativeUrl: String = "animals"
     /// The relative URL for getting the list of localities
